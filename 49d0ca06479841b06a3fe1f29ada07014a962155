@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAADn///xY\u003d",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1001545
+      },
+      "writtenOn": "2009-02-10T13:53:46Z",
+      "side": 1,
+      "message": "\"sim\" will be added again for not breaking old applications.",
+      "revId": "49d0ca06479841b06a3fe1f29ada07014a962155",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
