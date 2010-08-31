@@ -135,7 +135,8 @@ public class TelephonyProvider extends ContentProvider
                     "mmsc TEXT," +
                     "authtype INTEGER," +
                     "type TEXT," +
-                    "current INTEGER);");
+                    "current INTEGER," +
+                    "lock INTEGER);");
 
             initDatabase(db);
         }
@@ -204,6 +205,18 @@ public class TelephonyProvider extends ContentProvider
 
                 oldVersion = 5 << 16 | 6;
             }
+
+            if (oldVersion < (5 << 16 | 7)) {
+
+                // This change adds a new lock column to the database.
+                // The lock column can have 3 valuse: 0 (unlock/normal), 1(locked), 2(hidden).
+                // The default value for this parameter is 0 (unlock/normal).
+
+                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
+                        " ADD COLUMN lock INTEGER DEFAULT 0;");
+
+                oldVersion = 5 << 16 | 7;
+            }
         }
 
         /**
@@ -258,6 +271,11 @@ public class TelephonyProvider extends ContentProvider
             String auth = parser.getAttributeValue(null, "authtype");
             if (auth != null) {
                 map.put(Telephony.Carriers.AUTH_TYPE, Integer.parseInt(auth));
+            }
+
+            String lock = parser.getAttributeValue(null, "lock");
+            if (lock != null) {
+                map.put(Telephony.Carriers.LOCK, Integer.parseInt(lock));
             }
 
             return map;
@@ -430,7 +448,9 @@ public class TelephonyProvider extends ContentProvider
                 if (values.containsKey(Telephony.Carriers.AUTH_TYPE) == false) {
                     values.put(Telephony.Carriers.AUTH_TYPE, -1);
                 }
-
+                if (values.containsKey(Telephony.Carriers.LOCK) == false) {
+                    values.put(Telephony.Carriers.LOCK, 0);
+                }
 
                 long rowID = db.insert(CARRIERS_TABLE, null, values);
                 if (rowID > 0)
