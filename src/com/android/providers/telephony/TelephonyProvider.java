@@ -135,6 +135,7 @@ public class TelephonyProvider extends ContentProvider
                     "mmsc TEXT," +
                     "authtype INTEGER," +
                     "type TEXT," +
+                    "networktype TEXT," +
                     "current INTEGER);");
 
             initDatabase(db);
@@ -201,6 +202,8 @@ public class TelephonyProvider extends ContentProvider
 
                 db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
                         " ADD COLUMN authtype INTEGER DEFAULT -1;");
+                db.execSQL("ALTER TABLE " + CARRIERS_TABLE + " ADD COLUMN networktype TEXT DEFAULT 'IP';");
+
 
                 oldVersion = 5 << 16 | 6;
             }
@@ -253,6 +256,11 @@ public class TelephonyProvider extends ContentProvider
             String type = parser.getAttributeValue(null, "type");
             if (type != null) {
                 map.put(Telephony.Carriers.TYPE, type);
+            }
+
+            String networktype = parser.getAttributeValue(null, "networktype");
+            if (networktype != null) {
+                map.put(Telephony.Carriers.NETWORK_TYPE, networktype);
             }
 
             String auth = parser.getAttributeValue(null, "authtype");
@@ -430,7 +438,9 @@ public class TelephonyProvider extends ContentProvider
                 if (values.containsKey(Telephony.Carriers.AUTH_TYPE) == false) {
                     values.put(Telephony.Carriers.AUTH_TYPE, -1);
                 }
-
+                if (values.containsKey(Telephony.Carriers.NETWORK_TYPE) == false) {
+                    values.put(Telephony.Carriers.NETWORK_TYPE, "IP");
+                }
 
                 long rowID = db.insert(CARRIERS_TABLE, null, values);
                 if (rowID > 0)
