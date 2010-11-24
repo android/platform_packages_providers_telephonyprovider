@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import android.app.SearchManager;
@@ -363,13 +364,13 @@ public class MmsSmsProvider extends ContentProvider {
                 		"body,pdu.date,index_text,words._id";
 
                 // search on the words table but return the rows from the corresponding sms table
-                String smsQuery = String.format(
+                String smsQuery = String.format(Locale.US,
                         "SELECT %s FROM sms,words WHERE (words MATCH ? " +
                         " AND sms._id=words.source_id AND words.table_to_use=1) ",
                         smsProjection);
 
                 // search on the words table but return the rows from the corresponding parts table
-                String mmsQuery = String.format(
+                String mmsQuery = String.format(Locale.US,
                         "SELECT %s FROM pdu,part,addr,words WHERE ((part.mid=pdu._id) AND " +
                         "(addr.msg_id=pdu._id) AND " +
                         "(addr.type=%d) AND " +
@@ -381,7 +382,7 @@ public class MmsSmsProvider extends ContentProvider {
                         PduHeaders.TO);
 
                 // join the results from sms and part (mms)
-                String rawQuery = String.format(
+                String rawQuery = String.format(Locale.US,
                         "%s UNION %s GROUP BY %s ORDER BY %s",
                         smsQuery,
                         mmsQuery,
@@ -461,7 +462,7 @@ public class MmsSmsProvider extends ContentProvider {
         if (isEmail) {
             selectionArgs = new String[] { refinedAddress };
         } else {
-            selection += " OR " + String.format("PHONE_NUMBERS_EQUAL(address, ?, %d)",
+            selection += " OR " + String.format(Locale.US, "PHONE_NUMBERS_EQUAL(address, ?, %d)",
                         (mUseStrictPhoneNumberComparation ? 1 : 0));
             selectionArgs = new String[] { refinedAddress, refinedAddress };
         }
