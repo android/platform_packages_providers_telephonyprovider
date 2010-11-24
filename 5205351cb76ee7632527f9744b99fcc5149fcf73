@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAA9n//+80\u003d",
+        "filename": "src/com/android/providers/telephony/MmsSmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1002951
+      },
+      "writtenOn": "2010-11-24T13:25:47Z",
+      "side": 1,
+      "message": "I wonder what the original motivation for using String.format was in this case.",
+      "revId": "5205351cb76ee7632527f9744b99fcc5149fcf73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
