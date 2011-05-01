@@ -135,6 +135,8 @@ public class TelephonyProvider extends ContentProvider
                     "mmsc TEXT," +
                     "authtype INTEGER," +
                     "type TEXT," +
+                    "protocol TEXT," +
+                    "roaming_protocol TEXT," +
                     "current INTEGER);");
 
             initDatabase(db);
