@@ -1,0 +1,10 @@
+Change-Id: I49d0ca06479841b06a3fe1f29ada07014a962155
+Code-Review+2: John Huang <jsh@android.com>
+Verified+1: John Huang <jsh@android.com>
+Code-Review+1: Team Android CDMA <oss.android_cdma@teleca.com>
+Code-Review-1: Sigmar Lingner <Sigmar.Lingner@teleca.com>
+Submitted-by: John Huang <jsh@android.com>
+Submitted-at: Wed, 18 Feb 2009 18:24:58 -0700
+Reviewed-on: https://review.source.android.com/8664
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/cdma-import

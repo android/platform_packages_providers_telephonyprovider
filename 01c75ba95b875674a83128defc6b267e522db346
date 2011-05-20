@@ -1,0 +1,7 @@
+Code-Review+2: Jean-Baptiste Queru <jbq@google.com>
+Verified+1: Jean-Baptiste Queru <jbq@google.com>
+Submitted-by: Jean-Baptiste Queru <jbq@google.com>
+Submitted-at: Tue, 28 Dec 2010 12:05:40 -0700
+Reviewed-on: https://review.source.android.com/19088
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
