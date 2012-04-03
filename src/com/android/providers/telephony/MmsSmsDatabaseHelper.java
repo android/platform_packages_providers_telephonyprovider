@@ -251,8 +251,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                   new String[] { String.valueOf(thread_id) });
         if (rows > 0) {
             // If this deleted a row, let's remove orphaned canonical_addresses and get outta here
-            db.delete("canonical_addresses",
-                    "_id NOT IN (SELECT DISTINCT recipient_ids FROM threads)", null);
+		    db.delete("canonical_addresses",
+                    "' ' || (SELECT group_concat(recipient_ids, ' ') FROM threads) || ' ' NOT LIKE '% ' || _id || ' %'", null);
             return;
         }
         // Update the message count in the threads table as the sum
@@ -354,8 +354,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 "UNION SELECT DISTINCT thread_id FROM pdu)", null);
 
         // remove orphaned canonical_addresses
-        db.delete("canonical_addresses",
-                "_id NOT IN (SELECT DISTINCT recipient_ids FROM threads)", null);
+		db.delete("canonical_addresses",
+				  "' ' || (SELECT group_concat(recipient_ids, ' ') FROM threads) || ' ' NOT LIKE '% ' || _id || ' %'", null);
     }
 
     public static int deleteOneSms(SQLiteDatabase db, int message_id) {
