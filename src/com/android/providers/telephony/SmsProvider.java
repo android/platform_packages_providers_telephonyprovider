@@ -249,6 +249,16 @@ public class SmsProvider extends ContentProvider {
         return row;
     }
 
+    private SmsMessage getMessageWithIccIndex(ArrayList<SmsMessage> messages, int messageIndex) {
+        for (SmsMessage message : messages) {
+            if (message != null && message.getIndexOnIcc() == messageIndex) {
+                return message;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Return a Cursor containing just one message from the ICC.
      */
@@ -258,7 +268,7 @@ public class SmsProvider extends ContentProvider {
             SmsManager smsManager = SmsManager.getDefault();
             ArrayList<SmsMessage> messages = smsManager.getAllMessagesFromIcc();
 
-            SmsMessage message = messages.get(messageIndex);
+            SmsMessage message = getMessageWithIccIndex(messages, messageIndex);
             if (message == null) {
                 throw new IllegalArgumentException(
                         "Message not retrieved. ID: " + messageIndexString);
