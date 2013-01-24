@@ -1,0 +1,8 @@
+Code-Review+2: Wink Saville <wink@google.com>
+Verified+1: Wink Saville <wink@google.com>
+Verified+1: Deckard Autoverifier <deckard@android.com>
+Submitted-by: Wink Saville <wink@google.com>
+Submitted-at: Thu, 24 Jan 2013 01:04:54 +0000
+Reviewed-on: https://android-review.googlesource.com/50002
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
