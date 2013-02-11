@@ -322,21 +322,25 @@ public class TelephonyProvider extends ContentProvider
             if (parser != null) {
                 try {
                     db.beginTransaction();
-                    while (true) {
-                        XmlUtils.nextElement(parser);
-                        ContentValues row = getRow(parser);
-                        if (row != null) {
-                            insertAddingDefaults(db, CARRIERS_TABLE, row);
-                        } else {
-                            break;  // do we really want to skip the rest of the file?
+                    while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
+                        try {
+                            XmlUtils.nextElement(parser);
+                        } catch (XmlPullParserException e) {
+                            Log.e(TAG, "Got parser execption while getting next element", e);
+                            continue;
                         }
+                        ContentValues row = getRow(parser);
+                        if (row == null) {
+                            continue;
+                        }
+                        insertAddingDefaults(db, CARRIERS_TABLE, row);
                     }
                     db.setTransactionSuccessful();
-                } catch (XmlPullParserException e)  {
-                    Log.e(TAG, "Got execption while loading apns.", e);
+                } catch (XmlPullParserException e) {
+                    Log.e(TAG, "Got XmlPullParserException while loading apns.", e);
                 } catch (IOException e) {
-                    Log.e(TAG, "Got IOExecption while loading apns.", e);
-                } catch (SQLException e){
+                    Log.e(TAG, "Got IOException while loading apns.", e);
+                } catch (SQLException e) {
                     Log.e(TAG, "Got SQLException while loading apns.", e);
                 } finally {
                     db.endTransaction();
