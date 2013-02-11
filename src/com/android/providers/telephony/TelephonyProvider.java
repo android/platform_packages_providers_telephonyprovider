@@ -323,7 +323,15 @@ public class TelephonyProvider extends ContentProvider
                 try {
                     db.beginTransaction();
                     while (true) {
-                        XmlUtils.nextElement(parser);
+                        try {
+                            XmlUtils.nextElement(parser);
+                        } catch (XmlPullParserException e) {
+                            Log.e(TAG, "Got parser execption while getting next element", e);
+                            continue;
+                        } catch (Exception e) {
+                            Log.e(TAG, "Got execption while getting next element", e);
+                            continue;
+                        }
                         ContentValues row = getRow(parser);
                         if (row != null) {
                             insertAddingDefaults(db, CARRIERS_TABLE, row);
@@ -332,10 +340,6 @@ public class TelephonyProvider extends ContentProvider
                         }
                     }
                     db.setTransactionSuccessful();
-                } catch (XmlPullParserException e)  {
-                    Log.e(TAG, "Got execption while loading apns.", e);
-                } catch (IOException e) {
-                    Log.e(TAG, "Got IOExecption while loading apns.", e);
                 } catch (SQLException e){
                     Log.e(TAG, "Got SQLException while loading apns.", e);
                 } finally {
