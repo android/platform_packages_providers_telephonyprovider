@@ -34,6 +34,24 @@
       "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzZiB.V4",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-12T06:44:37Z",
+      "side": 1,
+      "message": "First of all, it occurs exception for \u003c/apns\u003e because of returning null in getRow(). If use continue, instead of \"throw...\", it\u0027ll be solved.\n\nAnyway, previous code was already \"fail fast\" mode. I wanted \"fault-tolerant\" for this. If it occurs exception due to malformed XML elements during making DB, user can not use proper APN or can not use DB. As using transaction, we get the fast time to make DB, but in exception situation, all data is rolled back. It means telephony.db is created, but there is no data in DB, just empty DB. To making up it\u0027s fault, I\u0027ve uploaded this patch.",
+      "parentUuid": "PzTXacHM",
+      "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
