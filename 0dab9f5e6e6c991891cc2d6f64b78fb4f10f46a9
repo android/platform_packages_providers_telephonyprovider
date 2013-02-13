@@ -52,6 +52,24 @@
       "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Py-SZESs",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001401
+      },
+      "writtenOn": "2013-02-13T16:44:44Z",
+      "side": 1,
+      "message": "Our thinking is that we want it to fail on any error and not to be tolerant at all as this could mask the problem because it works most/some of the time.\n\nWhy do you want it to be tolerant?",
+      "parentUuid": "PzZiB.V4",
+      "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
