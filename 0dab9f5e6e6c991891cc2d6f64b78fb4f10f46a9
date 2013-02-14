@@ -70,6 +70,24 @@
       "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "P5D7tCec",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-14T07:13:44Z",
+      "side": 1,
+      "message": "Generally, there is no problme and currently, built apns-conf.xml is not malformed.\n\nHowerver, if user makes malformed apns-conf.xml and changes that of /system/etc \"CACLULATEDLY\", telephony.db is made as empty.\n\n1. wipe userdata and change apns-conf.xml on /system/etc/\n\n2. reboot\n\n3. Settings -\u003e Mobile Networks -\u003e Access Point Names \n\n4. maybe show \"Unfortunately, Settings has stopped\" message and stop Setting app.\n\nTo fix it, I think two approaches. One is this patch, the other is changing Settings Apps \nThis patch is,  in case of malform xml elements, just skip it, not stop.\n\nIf you don\u0027t want to be tolerant, what do you think of trying to change Setting Apps for exception situation. \n\nI\u0027ve uploaded related patch: https://android-review.googlesource.com/51710",
+      "parentUuid": "Py-SZESs",
+      "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
