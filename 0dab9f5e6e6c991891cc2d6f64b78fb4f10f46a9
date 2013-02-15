@@ -88,6 +88,24 @@
       "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "P5FK0hIE",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-15T16:14:47Z",
+      "side": 1,
+      "message": "To fix stopping Setting app, I\u0027ve uploaded one more patch.\nSo, here they are.\n\nhttps://android-review.googlesource.com/51710 and https://android-review.googlesource.com/51800\n\nTo summary, this patch (https://android-review.googlesource.com/51530) is more tolerant for making DB.\n\nThe others (https://android-review.googlesource.com/51710 and https://android-review.googlesource.com/51800) are another approach for avoiding exceptions.",
+      "parentUuid": "P5D7tCec",
+      "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
