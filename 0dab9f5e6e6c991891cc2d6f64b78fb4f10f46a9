@@ -124,6 +124,24 @@
       "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "P5gEV8-s",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-21T12:06:58Z",
+      "side": 1,
+      "message": "Yes, I want.",
+      "parentUuid": "P39ifpmc",
+      "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
