@@ -142,6 +142,24 @@
       "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "P-2bmMNQ",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001401
+      },
+      "writtenOn": "2013-02-21T14:18:03Z",
+      "side": 1,
+      "message": "We prefer this method to fail fast, please implement something like:\n\n  while(parser.getEventType !\u003d XmlPullParser.END_DOCUMENT) {\n    XmuUtils.nextElement(parser);\n    ContentValues row \u003d getRow(parser);\n    if (row \u003d\u003d null) {\n      throw new XmlPullParserException(\"Expected \u0027apn\u0027 tag\", parser, null);\n    }\n    insertAddingDefaults(db, CARRIERS_TABLE, row);\n  }",
+      "parentUuid": "P5gEV8-s",
+      "revId": "0dab9f5e6e6c991891cc2d6f64b78fb4f10f46a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
