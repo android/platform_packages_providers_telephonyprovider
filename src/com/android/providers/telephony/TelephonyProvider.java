@@ -37,6 +37,8 @@ import android.provider.Telephony;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Xml;
+import android.os.Handler;
+import android.os.Message;
 
 import com.android.internal.telephony.BaseCommands;
 import com.android.internal.telephony.Phone;
@@ -98,6 +100,10 @@ public class TelephonyProvider extends ContentProvider
         // Context to access resources with
         private Context mContext;
 
+		// message id for time out
+        private static final int INIT_TIMEOUT = 1000;
+        private static final int MSG_ID_TIMEOUT = 1;
+
         /**
          * DatabaseHelper helper class for loading apns into a database.
          *
@@ -150,7 +156,11 @@ public class TelephonyProvider extends ContentProvider
                     "carrier_enabled BOOLEAN," +
                     "bearer INTEGER);");
 
-            initDatabase(db);
+
+            Message msg = Message.obtain();
+            msg.what = MSG_ID_TIMEOUT;
+            msg.obj = db;
+            mTimeoutHandler.sendMessageDelayed(msg, INIT_TIMEOUT);
         }
 
         private void initDatabase(SQLiteDatabase db) {
@@ -363,6 +373,17 @@ public class TelephonyProvider extends ContentProvider
             }
             db.insert(CARRIERS_TABLE, null, row);
         }
+
+        Handler mTimeoutHandler = new Handler() {
+            @Override
+                public void handleMessage(Message msg) {
+                    switch(msg.what) {
+                        case MSG_ID_TIMEOUT:
+                            initDatabase((SQLiteDatabase) msg.obj);
+                            break;
+                    }
+                }
+        };
     }
 
     @Override
