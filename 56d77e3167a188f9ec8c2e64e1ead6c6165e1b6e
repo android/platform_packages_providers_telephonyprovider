@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "QPgdFuMc",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-27T01:36:31Z",
+      "side": 1,
+      "message": "ok i got it",
+      "parentUuid": "QVVPLXPQ",
+      "revId": "56d77e3167a188f9ec8c2e64e1ead6c6165e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "QVbO-IE0",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-02-27T01:06:39Z",
       "side": 1,
       "message": "this should go away - just a single apn file please.  If there are special needs/requirements, please let us know.",
+      "revId": "56d77e3167a188f9ec8c2e64e1ead6c6165e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QPidKNNk",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-27T01:36:31Z",
+      "side": 1,
+      "message": "just management for apn. I\u0027ll remove it",
+      "parentUuid": "QVbO-IE0",
       "revId": "56d77e3167a188f9ec8c2e64e1ead6c6165e1b6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
