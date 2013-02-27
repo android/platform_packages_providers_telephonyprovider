@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QVVPLXPQ",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2013-02-27T01:06:39Z",
+      "side": 1,
+      "message": "Please don\u0027t use a separate file.  This should be part of the normal apns-conf file.  They are just apns with optional fields.",
+      "revId": "56d77e3167a188f9ec8c2e64e1ead6c6165e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QVbO-IE0",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2013-02-27T01:06:39Z",
+      "side": 1,
+      "message": "this should go away - just a single apn file please.  If there are special needs/requirements, please let us know.",
+      "revId": "56d77e3167a188f9ec8c2e64e1ead6c6165e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
