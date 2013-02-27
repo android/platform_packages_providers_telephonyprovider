@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QVSFT1vA",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1001401
+      },
+      "writtenOn": "2013-02-27T16:49:22Z",
+      "side": 1,
+      "message": "Sorry, but as I said we still don\u0027t understand why its better to hide the error. As far as I know only a rooted device or an OTA which contained a bad apns-conf.xml could contain a malformed file. And adding this code will only make it more likely that the problem will be undetected.\n\nI could see a solution where a dialog or notification was added to this code, but that seems like more effort than its worth. Can you present a case where this would help a normal user?",
+      "revId": "ff20773596fb0b0ff4a4eac682d4e3d5c4e00b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
