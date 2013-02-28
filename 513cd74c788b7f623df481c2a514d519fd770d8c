@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QXo2CyTs",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001401
+      },
+      "writtenOn": "2013-02-28T16:02:52Z",
+      "side": 1,
+      "message": "I\u0027m glad we\u0027ve reached agreement on this. One last request, here row will only equal null if the next elements is not an \"apn\" element which means the apn-file is malformed and I\u0027d like to throw an error here. Please replace \"continue\" with:\n\n  throw new XmlPullParserException(\"Expected \u0027apn\u0027 tag\", parser, null);",
+      "revId": "513cd74c788b7f623df481c2a514d519fd770d8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
