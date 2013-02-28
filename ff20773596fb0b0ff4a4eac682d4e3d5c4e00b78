@@ -16,6 +16,24 @@
       "revId": "ff20773596fb0b0ff4a4eac682d4e3d5c4e00b78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QY9-WW0I",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-02-28T05:23:20Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. As you say, I think only a rooted device or an OTA which contained a bad apns-conf.xml could contain a malformed file.\n\nFor normal user, maybe they couldn\u0027t meet this issue.\n\nSo I\u0027ll upload only changing \"fast-fail\" case.\n\nI think we need to focus \"nested transaction\". Currently, if occur exception during loading apn, all data is rolled back. So \"create table\" is rolled back.\n\nMy concern was started from this situation. Of course, now, as you  and i know, it is very rare to occur exception during loading apns. so I made malformed case. That\u0027s all.",
+      "parentUuid": "QVSFT1vA",
+      "revId": "ff20773596fb0b0ff4a4eac682d4e3d5c4e00b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
