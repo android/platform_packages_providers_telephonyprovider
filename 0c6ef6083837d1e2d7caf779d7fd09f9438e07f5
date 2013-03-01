@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Qf6PJeqM",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-03-01T02:49:05Z",
+      "side": 1,
+      "message": "When reaching \u003c/apns\u003e in apns-conf.xml, parser.getName() is null.\nAnd to get apn version, we use com.android.internal.R.xml.apns, but \u003capn\u003e element doesn\u0027t exist in there.\n\nSo to fix it. I put this code.",
+      "revId": "0c6ef6083837d1e2d7caf779d7fd09f9438e07f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
