@@ -16,6 +16,24 @@
       "revId": "0c6ef6083837d1e2d7caf779d7fd09f9438e07f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QvEnpBeY",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001401
+      },
+      "writtenOn": "2013-03-05T16:26:53Z",
+      "side": 1,
+      "message": "That is strange, do you know which apns-conf.xml was used?\n\nI think we need to fix the \"source\" file, I\u0027ll try to duplicate it here.",
+      "parentUuid": "Qf6PJeqM",
+      "revId": "0c6ef6083837d1e2d7caf779d7fd09f9438e07f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
