@@ -34,6 +34,24 @@
       "revId": "0c6ef6083837d1e2d7caf779d7fd09f9438e07f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Q8JI8PNY",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-03-06T01:19:19Z",
+      "side": 1,
+      "message": "Yes, I know.\nI used default apns-conf.xml. (device/sample/etc/apns-full-conf.xml and frameworks/base/core/res/res/xml/apns.xml)",
+      "parentUuid": "QvEnpBeY",
+      "revId": "0c6ef6083837d1e2d7caf779d7fd09f9438e07f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
