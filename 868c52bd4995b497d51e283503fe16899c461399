@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RChvRnx0",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1016953
+      },
+      "writtenOn": "2013-03-07T06:05:50Z",
+      "side": 1,
+      "message": "I moved this statement after nextElement(parser). please, check it.",
+      "revId": "868c52bd4995b497d51e283503fe16899c461399",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
