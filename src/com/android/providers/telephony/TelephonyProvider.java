@@ -150,7 +150,8 @@ public class TelephonyProvider extends ContentProvider
                     "carrier_enabled BOOLEAN," +
                     "bearer INTEGER," +
                     "mvno_type TEXT," +
-                    "mvno_match_data TEXT);");
+                    "mvno_match_data TEXT," +
+                    "read_only BOOLEAN);");
 
             initDatabase(db);
         }
@@ -328,6 +329,12 @@ public class TelephonyProvider extends ContentProvider
                     map.put(Telephony.Carriers.MVNO_MATCH_DATA, mvno_match_data);
                 }
             }
+
+            String readOnly = parser.getAttributeValue(null, "read_only");
+            if (readOnly != null) {
+                map.put(Telephony.Carriers.READ_ONLY, Boolean.parseBoolean(readOnly));
+            }
+
             return map;
         }
 
@@ -387,6 +394,10 @@ public class TelephonyProvider extends ContentProvider
             if (row.containsKey(Telephony.Carriers.MVNO_MATCH_DATA) == false) {
                 row.put(Telephony.Carriers.MVNO_MATCH_DATA, "");
             }
+            if (row.containsKey(Telephony.Carriers.READ_ONLY) == false) {
+                row.put(Telephony.Carriers.READ_ONLY, false);
+            }
+
             db.insert(CARRIERS_TABLE, null, row);
         }
     }
@@ -596,6 +607,9 @@ public class TelephonyProvider extends ContentProvider
                 }
                 if (!values.containsKey(Telephony.Carriers.MVNO_MATCH_DATA)) {
                     values.put(Telephony.Carriers.MVNO_MATCH_DATA, "");
+                }
+                if (!values.containsKey(Telephony.Carriers.READ_ONLY)) {
+                    values.put(Telephony.Carriers.READ_ONLY, false);
                 }
 
                 long rowID = db.insert(CARRIERS_TABLE, null, values);
