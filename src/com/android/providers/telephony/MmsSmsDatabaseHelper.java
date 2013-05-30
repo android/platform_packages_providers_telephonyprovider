@@ -215,7 +215,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static boolean sFakeLowStorageTest = false;     // for testing only
 
     static final String DATABASE_NAME = "mmssms.db";
-    static final int DATABASE_VERSION = 57;
+    static final int DATABASE_VERSION = 58;
     private final Context mContext;
     private LowStorageMonitor mLowStorageMonitor;
 
@@ -532,7 +532,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             // side effect:  the value returned for the last row ends up being the
             // id of one of the trigger insert not the original row insert.
             // Handle inserts manually in the provider.
-            db.execSQL("CREATE TRIGGER sms_words_update AFTER UPDATE ON sms BEGIN UPDATE words " +
+            db.execSQL("CREATE TRIGGER sms_words_update AFTER UPDATE OF body ON sms BEGIN UPDATE words " +
                     " SET index_text = NEW.body WHERE (source_id=NEW._id AND table_to_use=1); " +
                     " END;");
             db.execSQL("CREATE TRIGGER sms_words_delete AFTER DELETE ON sms BEGIN DELETE FROM " +
@@ -741,7 +741,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
         // monitor the mms table
         db.execSQL("DROP TRIGGER IF EXISTS mms_words_update");
-        db.execSQL("CREATE TRIGGER mms_words_update AFTER UPDATE ON part BEGIN UPDATE words " +
+        db.execSQL("CREATE TRIGGER mms_words_update AFTER UPDATE OF text ON part BEGIN UPDATE words " +
                 " SET index_text = NEW.text WHERE (source_id=NEW._id AND table_to_use=2); " +
                 " END;");
 
@@ -1273,6 +1273,17 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             } finally {
                 db.endTransaction();
             }
+      case 57:
+            if (currentVersion <= 57) {
+                return;
+            }
+
+            try {
+                upgradeDatabaseToVersion58(db);
+            } catch (Throwable ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+                break;
+            }
             return;
         }
 
@@ -1472,6 +1483,18 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private void upgradeDatabaseToVersion57(SQLiteDatabase db) {
         // Clear out bad rows, those with empty threadIds, from the pdu table.
         db.execSQL("DELETE FROM " + MmsProvider.TABLE_PDU + " WHERE " + Mms.THREAD_ID + " IS NULL");
+    }
+
+    private void upgradeDatabaseToVersion58(SQLiteDatabase db) {
+        // Change triggers schema to skip needless update of words table
+        db.execSQL("DROP TRIGGER IF EXISTS sms_words_update;");
+        db.execSQL("CREATE TRIGGER sms_words_update AFTER UPDATE OF body ON sms BEGIN UPDATE words " +
+          " SET index_text = NEW.body WHERE (source_id=NEW._id AND table_to_use=1); " +
+          " END;");
+        db.execSQL("DROP TRIGGER IF EXISTS mms_words_update;");
+        db.execSQL("CREATE TRIGGER mms_words_update AFTER UPDATE OF text ON part BEGIN UPDATE words " +
+          " SET index_text = NEW.text WHERE (source_id=NEW._id AND table_to_use=2); " +
+          " END;");
     }
 
     @Override
