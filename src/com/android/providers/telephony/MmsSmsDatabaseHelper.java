@@ -593,7 +593,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    Mms.DELIVERY_REPORT + " INTEGER," +
                    Mms.LOCKED + " INTEGER DEFAULT 0," +
                    Mms.SEEN + " INTEGER DEFAULT 0," +
-                   Mms.TEXT_ONLY + " INTEGER DEFAULT 0" +
+                   Mms.TEXT_ONLY + " INTEGER DEFAULT 0," +
+                   Mms.SUB_ID + " INTEGER DEFAULT 0" +
                    ");");
 
         db.execSQL("CREATE TABLE " + MmsProvider.TABLE_ADDR + " (" +
@@ -835,6 +836,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    "body TEXT," +
                    "service_center TEXT," +
                    "locked INTEGER DEFAULT 0," +
+                   "sub_id INTEGER DEFAULT 0," +   // sub_id : 0 for subscription 1
+                                                   // sub_id : 1 for subscription 2
                    "error_code INTEGER DEFAULT 0," +
                    "seen INTEGER DEFAULT 0" +
                    ");");
@@ -1753,6 +1756,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 Mms.LOCKED + " INTEGER DEFAULT 0," +
                 Mms.SEEN + " INTEGER DEFAULT 0," +
                 Mms.TEXT_ONLY + " INTEGER DEFAULT 0" +
+                Mms.SUB_ID + " INTEGER DEFAULT 0" +
                 ");");
 
         db.execSQL("INSERT INTO pdu_temp SELECT * from pdu;");
