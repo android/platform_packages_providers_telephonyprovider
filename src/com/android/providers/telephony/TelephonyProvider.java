@@ -50,7 +50,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.util.Arrays;
 
 public class TelephonyProvider extends ContentProvider
 {
@@ -459,7 +459,12 @@ public class TelephonyProvider extends ContentProvider
     public Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
 
-        checkPermission();
+        try {        
+	    checkWritePermission();
+        } catch (SecurityException e) {
+            checkReadPermission();
+            checkReadProjection(projectionIn);
+        }
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables("carriers");
@@ -531,7 +536,7 @@ public class TelephonyProvider extends ContentProvider
     {
         Uri result = null;
 
-        checkPermission();
+        checkWritePermission();
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int match = s_urlMatcher.match(url);
@@ -655,7 +660,7 @@ public class TelephonyProvider extends ContentProvider
     {
         int count = 0;
 
-        checkPermission();
+        checkWritePermission();
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int match = s_urlMatcher.match(url);
@@ -711,7 +716,7 @@ public class TelephonyProvider extends ContentProvider
     {
         int count = 0;
 
-        checkPermission();
+        checkWritePermission();
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int match = s_urlMatcher.match(url);
@@ -764,9 +769,24 @@ public class TelephonyProvider extends ContentProvider
         return count;
     }
 
-    private void checkPermission() {
+    private void checkWritePermission() {
         getContext().enforceCallingOrSelfPermission("android.permission.WRITE_APN_SETTINGS",
                 "No permission to write APN settings");
+    }
+
+    private void checkReadProjection(String[] projectionIn) {
+        if (projectionIn == null
+                || Arrays.asList(projectionIn).contains(
+                        Telephony.Carriers.PASSWORD)) {
+            throw new SecurityException(
+                    "projection can't null and projection can't contains password");
+        }
+
+    }
+
+    private void checkReadPermission(){
+        getContext().enforceCallingOrSelfPermission("android.permission.READ_APN_SETTINGS",
+                "No permission to read APN settings");
     }
 
     private DatabaseHelper mOpenHelper;
