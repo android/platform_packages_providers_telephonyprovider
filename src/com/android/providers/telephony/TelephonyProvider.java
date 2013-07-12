@@ -50,7 +50,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.util.Arrays;
 
 public class TelephonyProvider extends ContentProvider
 {
@@ -459,7 +459,9 @@ public class TelephonyProvider extends ContentProvider
     public Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
 
-        checkPermission();
+//        checkPermission();
+        checkReadPermission();
+        checkProjection(projectionIn);
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables("carriers");
@@ -767,6 +769,21 @@ public class TelephonyProvider extends ContentProvider
     private void checkPermission() {
         getContext().enforceCallingOrSelfPermission("android.permission.WRITE_APN_SETTINGS",
                 "No permission to write APN settings");
+    }
+
+    private void checkProjection(String[] projectionIn) {
+        if (projectionIn == null
+                || Arrays.asList(projectionIn).contains(
+                        Telephony.Carriers.PASSWORD)) {
+            throw new SecurityException(
+                    "projection can't null and projection can't contains password");
+        }
+
+    }
+
+    private void checkReadPermission(){
+        getContext().enforceCallingOrSelfPermission("android.permission.READ_APN_SETTINGS",
+                "No permission to read APN settings");
     }
 
     private DatabaseHelper mOpenHelper;
