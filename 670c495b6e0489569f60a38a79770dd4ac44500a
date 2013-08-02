@@ -1,0 +1,7 @@
+Code-Review+2: Tom Taylor <tomtaylor@google.com>
+Verified+1: Tom Taylor <tomtaylor@google.com>
+Submitted-by: Tom Taylor <tomtaylor@google.com>
+Submitted-at: Fri, 02 Aug 2013 23:28:30 +0000
+Reviewed-on: https://android-review.googlesource.com/45923
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
