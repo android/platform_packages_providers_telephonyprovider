@@ -215,7 +215,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static boolean sFakeLowStorageTest = false;     // for testing only
 
     static final String DATABASE_NAME = "mmssms.db";
-    static final int DATABASE_VERSION = 57;
+    static final int DATABASE_VERSION = 58;
     private final Context mContext;
     private LowStorageMonitor mLowStorageMonitor;
 
@@ -618,7 +618,9 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    Part.CT_START + " INTEGER," +
                    Part.CT_TYPE + " TEXT," +
                    Part._DATA + " TEXT," +
-                   Part.TEXT + " TEXT);");
+                   Part.TEXT + " TEXT," +
+                   Part.DISPLAY_NAME + " TEXT," +
+                   Part.SIZE + " INTEGER);");
 
         db.execSQL("CREATE TABLE " + MmsProvider.TABLE_RATE + " (" +
                    Rate.SENT_TIME + " INTEGER);");
@@ -1273,6 +1275,22 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             } finally {
                 db.endTransaction();
             }
+            // fall through
+        case 57:
+            if (currentVersion <= 57) {
+                return;
+            }
+
+            db.beginTransaction();
+            try {
+                upgradeDatabaseToVersion58(db);
+                db.setTransactionSuccessful();
+            } catch (Throwable ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+                break;
+            } finally {
+                db.endTransaction();
+            }
             return;
         }
 
@@ -1472,6 +1490,26 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private void upgradeDatabaseToVersion57(SQLiteDatabase db) {
         // Clear out bad rows, those with empty threadIds, from the pdu table.
         db.execSQL("DELETE FROM " + MmsProvider.TABLE_PDU + " WHERE " + Mms.THREAD_ID + " IS NULL");
+    }
+
+    //Importing and Saving vCards from Message are being saved with wrong names
+    private void upgradeDatabaseToVersion58(SQLiteDatabase db) {
+        // Add '_display_name' and "_size" columns to part table.
+        Cursor cursor57 =
+                db.rawQuery("select sql from sqlite_master where sql like '%_display_name " +
+                        "TEXT%'", null);
+        try{
+            if ((cursor57 == null) || (cursor57.getCount() == 0)) {
+                db.execSQL("ALTER TABLE part ADD COLUMN " + Part.DISPLAY_NAME + " TEXT");
+                db.execSQL("ALTER TABLE part ADD COLUMN " + Part.SIZE + " INTEGER");
+            }
+        } catch(Throwable t) {
+            Log.e(TAG, "exception happened: ", t);
+        } finally {
+            if (cursor57 != null) {
+                cursor57.close();
+            }
+        }
     }
 
     @Override
