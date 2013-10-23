@@ -41,6 +41,8 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
+import com.android.internal.telephony.RILConstants;
+import com.android.internal.telephony.RILConstants.SimCardID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +56,9 @@ public class SmsProvider extends ContentProvider {
     private static final String TABLE_WORDS = "words";
 
     private static final Integer ONE = Integer.valueOf(1);
+    private static final String STR_SIM2 = "icc2";
+    private static final Uri ICC2_URI = Uri.parse("content://sms/icc2");
+    private int mActivePhoneId = SimCardID.ID_ZERO.toInt();
 
     private static final String[] CONTACT_QUERY_PROJECTION =
             new String[] { Contacts.Phones.PERSON_ID };
@@ -93,6 +98,8 @@ public class SmsProvider extends ContentProvider {
     public Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        Log.d(TAG, "--------query and url=" + url+ "-------");
+        setPhoneName(url);
 
         // Generate the body of the query.
         int match = sURLMatcher.match(url);
@@ -237,11 +244,16 @@ public class SmsProvider extends ContentProvider {
         // columns appear in ICC_COLUMNS.
         Object[] row = new Object[13];
         row[0] = message.getServiceCenterAddress();
+        int statusOnIcc = message.getStatusOnIcc();
+        if ((SmsManager.STATUS_ON_ICC_UNREAD == statusOnIcc) || (SmsManager.STATUS_ON_ICC_READ == statusOnIcc)) {
         row[1] = message.getDisplayOriginatingAddress();
+        } else {
+            row[1] = message.getDestinationAddress();
+        }
         row[2] = String.valueOf(message.getMessageClass());
         row[3] = message.getDisplayMessageBody();
         row[4] = message.getTimestampMillis();
-        row[5] = Sms.STATUS_NONE;
+        row[5] = statusOnIcc;
         row[6] = message.getIndexOnIcc();
         row[7] = message.isStatusReportMessage();
         row[8] = "sms";
@@ -258,7 +270,13 @@ public class SmsProvider extends ContentProvider {
     private Cursor getSingleMessageFromIcc(String messageIndexString) {
         try {
             int messageIndex = Integer.parseInt(messageIndexString);
-            SmsManager smsManager = SmsManager.getDefault();
+
+            SmsManager smsManager;
+            if (SimCardID.ID_ONE.toInt() == getPhoneId())
+                smsManager = SmsManager.getDefault(SimCardID.ID_ONE);
+            else
+                smsManager = SmsManager.getDefault(SimCardID.ID_ZERO);
+
             ArrayList<SmsMessage> messages = smsManager.getAllMessagesFromIcc();
 
             SmsMessage message = messages.get(messageIndex);
@@ -279,7 +297,13 @@ public class SmsProvider extends ContentProvider {
      * Return a Cursor listing all the messages stored on the ICC.
      */
     private Cursor getAllMessagesFromIcc() {
-        SmsManager smsManager = SmsManager.getDefault();
+
+        SmsManager smsManager;
+        if (SimCardID.ID_ONE.toInt() == getPhoneId())
+             smsManager = SmsManager.getDefault(SimCardID.ID_ONE);
+        else
+             smsManager = SmsManager.getDefault(SimCardID.ID_ZERO);
+
         ArrayList<SmsMessage> messages;
 
         // use phone app permissions to avoid UID mismatch in AppOpsManager.noteOp() call
@@ -302,7 +326,12 @@ public class SmsProvider extends ContentProvider {
     }
 
     private Cursor withIccNotificationUri(Cursor cursor) {
+
+        if (SimCardID.ID_ONE.toInt() == getPhoneId())
+            cursor.setNotificationUri(getContext().getContentResolver(), ICC2_URI);
+        else
         cursor.setNotificationUri(getContext().getContentResolver(), ICC_URI);
+
         return cursor;
     }
 
@@ -362,6 +391,8 @@ public class SmsProvider extends ContentProvider {
 
         int match = sURLMatcher.match(url);
         String table = TABLE_SMS;
+
+        setPhoneName(url);
 
         switch (match) {
             case SMS_ALL:
@@ -454,7 +485,14 @@ public class SmsProvider extends ContentProvider {
             Long threadId = values.getAsLong(Sms.THREAD_ID);
             String address = values.getAsString(Sms.ADDRESS);
 
-            if (((threadId == null) || (threadId == 0)) && (!TextUtils.isEmpty(address))) {
+            /* dual sim with phone name, get thread id according to pn */
+            Integer objSimId = values.getAsInteger(Sms.SIM_ID);
+
+            if (((threadId == null) || (threadId == 0)) && (address != null)) {
+                if (objSimId != null)
+                    values.put(Sms.THREAD_ID, Threads.getOrCreateThreadId(
+                                   getContext(), address, objSimId.intValue()));
+                else
                 values.put(Sms.THREAD_ID, Threads.getOrCreateThreadId(
                                    getContext(), address));
             }
@@ -542,6 +580,9 @@ public class SmsProvider extends ContentProvider {
         int count;
         int match = sURLMatcher.match(url);
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
+        setPhoneName(url);
+
         switch (match) {
             case SMS_ALL:
                 count = db.delete(TABLE_SMS, where, whereArgs);
@@ -606,7 +647,11 @@ public class SmsProvider extends ContentProvider {
      * successful.
      */
     private int deleteMessageFromIcc(String messageIndexString) {
-        SmsManager smsManager = SmsManager.getDefault();
+        SmsManager smsManager;
+        if (SimCardID.ID_ONE.toInt() == getPhoneId())
+             smsManager = SmsManager.getDefault(SimCardID.ID_ONE);
+        else
+             smsManager = SmsManager.getDefault(SimCardID.ID_ZERO);
 
         try {
             return smsManager.deleteMessageFromIcc(
@@ -618,6 +663,9 @@ public class SmsProvider extends ContentProvider {
         } finally {
             ContentResolver cr = getContext().getContentResolver();
 
+            if (SimCardID.ID_ONE.toInt() == getPhoneId())
+                cr.notifyChange(ICC2_URI, null);
+            else
             cr.notifyChange(ICC_URI, null);
         }
     }
@@ -628,6 +676,7 @@ public class SmsProvider extends ContentProvider {
         String table = TABLE_SMS;
         String extraWhere = null;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        setPhoneName(url);
 
         switch (sURLMatcher.match(url)) {
             case SMS_RAW_MESSAGE:
@@ -702,6 +751,23 @@ public class SmsProvider extends ContentProvider {
         cr.notifyChange(Uri.parse("content://mms-sms/conversations/"), null);
     }
 
+    private void setPhoneName(Uri url)
+    {
+        int activePhone = SimCardID.ID_ZERO.toInt();
+        if ((url.getPathSegments().size() > 0) && (STR_SIM2.equals(url.getPathSegments().get(0))))
+            activePhone = SimCardID.ID_ONE.toInt();
+
+        mActivePhoneId = activePhone;
+
+    }
+
+    private int getPhoneId()
+    {
+        Log.d(TAG, "--------mActivePhoneId =" + mActivePhoneId+ "-------");
+
+        return mActivePhoneId;
+    }
+
     private SQLiteOpenHelper mOpenHelper;
 
     private final static String TAG = "SmsProvider";
@@ -773,6 +839,9 @@ public class SmsProvider extends ContentProvider {
         //we keep these for not breaking old applications
         sURLMatcher.addURI("sms", "sim", SMS_ALL_ICC);
         sURLMatcher.addURI("sms", "sim/#", SMS_ICC);
+        sURLMatcher.addURI("sms", "icc2", SMS_ALL_ICC);
+        sURLMatcher.addURI("sms", "icc2/#", SMS_ICC);
+
 
         sConversationProjectionMap.put(Sms.Conversations.SNIPPET,
             "sms.body AS snippet");

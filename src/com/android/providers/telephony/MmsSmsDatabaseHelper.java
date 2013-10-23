@@ -569,6 +569,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    Mms.READ + " INTEGER DEFAULT 0," +
                    Mms.MESSAGE_ID + " TEXT," +
                    Mms.SUBJECT + " TEXT," +
+                   Mms.SIM_ID + " INTEGER DEFAULT -1," +
+                   Mms.SIM_IMSI + " TEXT," +
                    Mms.SUBJECT_CHARSET + " INTEGER," +
                    Mms.CONTENT_TYPE + " TEXT," +
                    Mms.CONTENT_LOCATION + " TEXT," +
@@ -833,6 +835,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    "reply_path_present INTEGER," +
                    "subject TEXT," +
                    "body TEXT," +
+                   "sim_id INTEGER DEFAULT -1," +
+                   "sim_imsi TEXT," +
                    "service_center TEXT," +
                    "locked INTEGER DEFAULT 0," +
                    "error_code INTEGER DEFAULT 0," +
@@ -895,6 +899,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
          */
         db.execSQL("CREATE TABLE threads (" +
                    Threads._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                   Threads.SIM_ID + " INTEGER DEFAULT -1," +
                    Threads.DATE + " INTEGER DEFAULT 0," +
                    Threads.MESSAGE_COUNT + " INTEGER DEFAULT 0," +
                    Threads.RECIPIENT_IDS + " TEXT," +
@@ -913,6 +918,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    PendingMessages.PROTO_TYPE + " INTEGER," +
                    PendingMessages.MSG_ID + " INTEGER," +
                    PendingMessages.MSG_TYPE + " INTEGER," +
+                   PendingMessages.SIM_ID + " INTEGER DEFAULT -1," +
+                   PendingMessages.SIM_IMSI + " TEXT," +
                    PendingMessages.ERROR_TYPE + " INTEGER," +
                    PendingMessages.ERROR_CODE + " INTEGER," +
                    PendingMessages.RETRY_INDEX + " INTEGER NOT NULL DEFAULT 0," +

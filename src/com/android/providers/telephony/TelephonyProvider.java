@@ -48,7 +48,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import com.android.internal.telephony.RILConstants.SimCardID;
 
 public class TelephonyProvider extends ContentProvider
 {
@@ -62,12 +62,16 @@ public class TelephonyProvider extends ContentProvider
     private static final int URL_RESTOREAPN = 4;
     private static final int URL_PREFERAPN = 5;
     private static final int URL_PREFERAPN_NO_UPDATE = 6;
+    private static final int URL_CURRENT2 = 7;
+    private static final int URL_PREFERAPN2 = 8;
+    private static final int URL_PREFERAPN_NO_UPDATE2 = 9;
 
     private static final String TAG = "TelephonyProvider";
     private static final String CARRIERS_TABLE = "carriers";
 
     private static final String PREF_FILE = "preferred-apn";
     private static final String COLUMN_APN_ID = "apn_id";
+    private static final String COLUMN_APN_ID_2 = "apn_id_2";
 
     private static final String PARTNER_APNS_PATH = "etc/apns-conf.xml";
 
@@ -75,6 +79,8 @@ public class TelephonyProvider extends ContentProvider
 
     private static final ContentValues s_currentNullMap;
     private static final ContentValues s_currentSetMap;
+    private static final ContentValues s_currentNullMap_1;
+    private static final ContentValues s_currentSetMap_1;
 
     static {
         s_urlMatcher.addURI("telephony", "carriers", URL_TELEPHONY);
@@ -83,12 +89,18 @@ public class TelephonyProvider extends ContentProvider
         s_urlMatcher.addURI("telephony", "carriers/restore", URL_RESTOREAPN);
         s_urlMatcher.addURI("telephony", "carriers/preferapn", URL_PREFERAPN);
         s_urlMatcher.addURI("telephony", "carriers/preferapn_no_update", URL_PREFERAPN_NO_UPDATE);
-
+        s_urlMatcher.addURI("telephony", "carriers/current_1", URL_CURRENT2);
+        s_urlMatcher.addURI("telephony", "carriers/preferapn2", URL_PREFERAPN2);
+        s_urlMatcher.addURI("telephony", "carriers/preferapn_no_update2", URL_PREFERAPN_NO_UPDATE2);
         s_currentNullMap = new ContentValues(1);
         s_currentNullMap.put("current", (Long) null);
 
         s_currentSetMap = new ContentValues(1);
         s_currentSetMap.put("current", "1");
+        s_currentNullMap_1 = new ContentValues(1);
+        s_currentNullMap_1.put("current_1", (Long) null);
+        s_currentSetMap_1 = new ContentValues(1);
+        s_currentSetMap_1.put("current_1", "1");
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -147,7 +159,9 @@ public class TelephonyProvider extends ContentProvider
                     "carrier_enabled BOOLEAN," +
                     "bearer INTEGER," +
                     "mvno_type TEXT," +
-                    "mvno_match_data TEXT);");
+                    "mvno_match_data TEXT," +
+                    "current_1 INTEGER," +
+                    "sim_id INTEGER DEFAULT -1);");
 
             initDatabase(db);
         }
@@ -401,9 +415,29 @@ public class TelephonyProvider extends ContentProvider
         editor.apply();
     }
 
+    private void setPreferredApnId(Long id, int simId) {
+    SharedPreferences sp = getContext().getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sp.edit();
+        if(simId == SimCardID.ID_ONE.toInt()){
+             editor.putLong(COLUMN_APN_ID_2, id != null ? id.longValue() : -1);
+    }else{
+        editor.putLong(COLUMN_APN_ID, id != null ? id.longValue() : -1);
+    }
+
+        editor.commit();
+    }
     private long getPreferredApnId() {
         SharedPreferences sp = getContext().getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
         return sp.getLong(COLUMN_APN_ID, -1);
+    }
+
+    private long getPreferredApnId(int simId) {
+    SharedPreferences sp = getContext().getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        if(simId == SimCardID.ID_ONE.toInt()){
+         return sp.getLong(COLUMN_APN_ID_2, -1);
+    }else{
+         return sp.getLong(COLUMN_APN_ID, -1);
+    }
     }
 
     @Override
@@ -419,15 +453,18 @@ public class TelephonyProvider extends ContentProvider
             case URL_TELEPHONY: {
                 break;
             }
-
-
             case URL_CURRENT: {
                 qb.appendWhere("current IS NOT NULL");
                 // do not ignore the selection since MMS may use it.
                 //selection = null;
                 break;
             }
-
+            case URL_CURRENT2: {
+                qb.appendWhere("current_1 IS NOT NULL");
+                // ignore the selection
+                selection = null;
+                break;
+            }
             case URL_ID: {
                 qb.appendWhere("_id = " + url.getPathSegments().get(1));
                 break;
@@ -437,6 +474,11 @@ public class TelephonyProvider extends ContentProvider
             case URL_PREFERAPN_NO_UPDATE: {
                 qb.appendWhere("_id = " + getPreferredApnId());
                 break;
+            }
+            case URL_PREFERAPN2:
+            case URL_PREFERAPN_NO_UPDATE2:  {
+               qb.appendWhere("_id = " + getPreferredApnId(SimCardID.ID_ONE.toInt()));
+               break;
             }
 
             default: {
@@ -488,6 +530,9 @@ public class TelephonyProvider extends ContentProvider
         case URL_PREFERAPN_NO_UPDATE:
             return "vnd.android.cursor.item/telephony-carrier";
 
+        case URL_PREFERAPN2:
+        case URL_PREFERAPN_NO_UPDATE2:
+            return "vnd.android.cursor.item/telephony-carrier";
         default:
             throw new IllegalArgumentException("Unknown URL " + url);
         }
@@ -597,7 +642,24 @@ public class TelephonyProvider extends ContentProvider
                 }
                 break;
             }
+            case URL_CURRENT2:
+            {
+                // null out the previous operator
+                db.update("carriers", s_currentNullMap_1, "current_1 IS NOT NULL", null);
 
+                String numeric = initialValues.getAsString("numeric");
+                int updated = db.update("carriers", s_currentSetMap_1,
+                        "numeric = '" + numeric + "'", null);
+
+                if (updated > 0)
+                {
+                    if (DBG)
+                        Log.d(TAG, "Setting numeric '" + numeric + "' to be the current operator");
+                }
+                else
+                    Log.e(TAG, "Failed setting numeric '" + numeric + "' to the current operator");
+                break;
+            }
             case URL_PREFERAPN:
             case URL_PREFERAPN_NO_UPDATE:
             {
@@ -605,6 +667,16 @@ public class TelephonyProvider extends ContentProvider
                     if(initialValues.containsKey(COLUMN_APN_ID)) {
                         setPreferredApnId(initialValues.getAsLong(COLUMN_APN_ID));
                     }
+                }
+                break;
+            }
+            case URL_PREFERAPN2:
+            case URL_PREFERAPN_NO_UPDATE2:
+            {
+                if (initialValues != null)
+                {
+                    if(initialValues.containsKey(COLUMN_APN_ID_2))
+                        setPreferredApnId(initialValues.getAsLong(COLUMN_APN_ID_2), SimCardID.ID_ONE.toInt());
                 }
                 break;
             }
@@ -661,6 +733,13 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_PREFERAPN2:
+            case URL_PREFERAPN_NO_UPDATE2:
+            {
+                setPreferredApnId((long)-1, SimCardID.ID_ONE.toInt());
+                if (match == URL_PREFERAPN2) count = 1;
+                break;
+            }
             default: {
                 throw new UnsupportedOperationException("Cannot delete that URL: " + url);
             }
@@ -718,7 +797,17 @@ public class TelephonyProvider extends ContentProvider
                 }
                 break;
             }
-
+            case URL_PREFERAPN2:
+            case URL_PREFERAPN_NO_UPDATE2:
+            {
+                if (values != null) {
+                    if(values.containsKey(COLUMN_APN_ID_2)){
+                        setPreferredApnId(values.getAsLong(COLUMN_APN_ID_2), SimCardID.ID_ONE.toInt());
+                        if (match == URL_PREFERAPN2) count = 1;
+                    }
+                }
+                break;
+            }
             default: {
                 throw new UnsupportedOperationException("Cannot update that URL: " + url);
             }
@@ -747,6 +836,7 @@ public class TelephonyProvider extends ContentProvider
             Log.e(TAG, "got exception when deleting to restore: " + e);
         }
         setPreferredApnId((long)-1);
+    setPreferredApnId((long)-1, SimCardID.ID_ONE.toInt());
         mOpenHelper.initDatabase(db);
     }
 }

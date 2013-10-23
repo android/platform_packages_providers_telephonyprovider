@@ -128,13 +128,13 @@ public class MmsSmsProvider extends ContentProvider {
         Mms.READ_STATUS, Mms.RESPONSE_STATUS, Mms.RESPONSE_TEXT,
         Mms.RETRIEVE_STATUS, Mms.RETRIEVE_TEXT_CHARSET, Mms.REPORT_ALLOWED,
         Mms.READ_REPORT, Mms.STATUS, Mms.SUBJECT, Mms.SUBJECT_CHARSET,
-        Mms.TRANSACTION_ID, Mms.MMS_VERSION, Mms.TEXT_ONLY };
+        Mms.TRANSACTION_ID, Mms.MMS_VERSION, Mms.SIM_ID, Mms.SIM_IMSI };
 
     // These are the columns that appear only in the SMS message
     // table.
     private static final String[] SMS_ONLY_COLUMNS =
             { "address", "body", "person", "reply_path_present",
-              "service_center", "status", "subject", "type", "error_code" };
+              "service_center", "status", "subject", "type", "error_code", "sim_id", "sim_imsi" };
 
     // These are all the columns that appear in the "threads" table.
     private static final String[] THREADS_COLUMNS = {
@@ -335,7 +335,6 @@ public class MmsSmsProvider extends ContentProvider {
                 break;
             case URI_THREAD_ID:
                 List<String> recipients = uri.getQueryParameters("recipient");
-
                 cursor = getThreadId(recipients);
                 break;
             case URI_CANONICAL_ADDRESS: {
@@ -612,6 +611,25 @@ public class MmsSmsProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(MmsSms.CONTENT_URI, null);
     }
 
+    /* Different sim use different threads */
+    private void insertThread(String recipientIds, int numberOfRecipients, int simId) {
+        ContentValues values = new ContentValues(5);
+
+        long date = System.currentTimeMillis();
+        values.put(ThreadsColumns.DATE, date - date % 1000);
+        values.put(ThreadsColumns.RECIPIENT_IDS, recipientIds);
+        if (numberOfRecipients > 1) {
+            values.put(Threads.TYPE, Threads.BROADCAST_THREAD);
+        }
+        values.put(ThreadsColumns.MESSAGE_COUNT, 0);
+        if (simId != -1) {
+            values.put(ThreadsColumns.SIM_ID, simId);
+        }
+
+        mOpenHelper.getWritableDatabase().insert("threads", null, values);
+        getContext().getContentResolver().notifyChange(MmsSms.CONTENT_URI, null);
+    }
+
     private static final String THREAD_QUERY =
             "SELECT _id FROM threads " + "WHERE recipient_ids=?";
 
@@ -673,6 +691,47 @@ public class MmsSmsProvider extends ContentProvider {
         if (cursor != null && cursor.getCount() > 1) {
             Log.w(LOG_TAG, "getThreadId: why is cursorCount=" + cursor.getCount());
         }
+        return cursor;
+    }
+
+    /* Different sim use different threads */
+    private static final String THREAD_QUERY_DUAL_SIM =
+            "SELECT _id FROM threads " + "WHERE (sim_id = ?) AND (+recipient_ids = ?)";
+    private synchronized Cursor getThreadId(List<String> recipients, int simId) {
+        Set<Long> addressIds = getAddressIds(recipients);
+        String recipientIds = "";
+
+        // optimize for size==1, which should be most of the cases
+        if (addressIds.size() == 1) {
+            for (Long addressId : addressIds) {
+                recipientIds = Long.toString(addressId);
+            }
+        } else {
+            recipientIds = getSpaceSeparatedNumbers(getSortedSet(addressIds));
+        }
+
+        if (Log.isLoggable(LOG_TAG, Log.VERBOSE)) {
+            Log.d(LOG_TAG, "getThreadId: recipientIds (selectionArgs) =" + recipientIds);
+        }
+
+        String[] selectionArgs = new String[] {String.valueOf(simId), recipientIds };
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(THREAD_QUERY_DUAL_SIM, selectionArgs);
+
+        if (cursor.getCount() == 0) {
+            cursor.close();
+
+            Log.d(LOG_TAG, "getThreadId: create new thread_id for recipients " + recipients);
+            insertThread(recipientIds, recipients.size(), simId);
+
+            db = mOpenHelper.getReadableDatabase();  // In case insertThread closed it
+            cursor = db.rawQuery(THREAD_QUERY_DUAL_SIM, selectionArgs);
+        }
+
+        if (cursor.getCount() > 1) {
+            Log.w(LOG_TAG, "getThreadId: why is cursorCount=" + cursor.getCount());
+        }
+
         return cursor;
     }
 
