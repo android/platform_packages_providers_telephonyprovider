@@ -608,6 +608,8 @@ public class SmsProvider extends ContentProvider {
     private int deleteMessageFromIcc(String messageIndexString) {
         SmsManager smsManager = SmsManager.getDefault();
 
+        // use phone app permissions to avoid UID mismatch in AppOpsManager.noteOp() call
+        long token = Binder.clearCallingIdentity();
         try {
             return smsManager.deleteMessageFromIcc(
                     Integer.parseInt(messageIndexString))
@@ -616,6 +618,7 @@ public class SmsProvider extends ContentProvider {
             throw new IllegalArgumentException(
                     "Bad SMS ICC ID: " + messageIndexString);
         } finally {
+            Binder.restoreCallingIdentity(token);
             ContentResolver cr = getContext().getContentResolver();
 
             cr.notifyChange(ICC_URI, null);
