@@ -39,8 +39,12 @@ import android.provider.Telephony.TextBasedSmsColumns;
 import android.provider.Telephony.Threads;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.telephony.SubscriptionController;
+import android.telephony.SubscriptionController.SubInfoRecord;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.android.internal.telephony.PhoneConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +53,7 @@ public class SmsProvider extends ContentProvider {
     private static final Uri NOTIFICATION_URI = Uri.parse("content://sms");
     private static final Uri ICC_URI = Uri.parse("content://sms/icc");
     static final String TABLE_SMS = "sms";
-    private static final String TABLE_RAW = "raw";
+    static final String TABLE_RAW = "raw";
     private static final String TABLE_SR_PENDING = "sr_pending";
     private static final String TABLE_WORDS = "words";
 
@@ -79,7 +83,8 @@ public class SmsProvider extends ContentProvider {
         "type",                         // Always MESSAGE_TYPE_ALL.
         "locked",                       // Always 0 (false).
         "error_code",                   // Always 0
-        "_id"
+        "_id",
+        Sms.SUB_ID                      // MSim sub id
     };
 
     @Override
@@ -202,12 +207,12 @@ public class SmsProvider extends ContentProvider {
                 break;
 
             case SMS_ALL_ICC:
-                return getAllMessagesFromIcc();
+                return getAllMessagesFromIcc(getSubIdFromUri(url));
 
             case SMS_ICC:
                 String messageIndexString = url.getPathSegments().get(1);
 
-                return getSingleMessageFromIcc(messageIndexString);
+                return getSingleMessageFromIcc(messageIndexString, getSubIdFromUri(url));
 
             default:
                 Log.e(TAG, "Invalid request: " + url);
@@ -232,10 +237,10 @@ public class SmsProvider extends ContentProvider {
         return ret;
     }
 
-    private Object[] convertIccToSms(SmsMessage message, int id) {
+    private Object[] convertIccToSms(SmsMessage message, int id, long subId) {
         // N.B.: These calls must appear in the same order as the
         // columns appear in ICC_COLUMNS.
-        Object[] row = new Object[13];
+        Object[] row = new Object[14];
         row[0] = message.getServiceCenterAddress();
         row[1] = message.getDisplayOriginatingAddress();
         row[2] = String.valueOf(message.getMessageClass());
@@ -249,17 +254,20 @@ public class SmsProvider extends ContentProvider {
         row[10] = 0;      // locked
         row[11] = 0;      // error_code
         row[12] = id;
+        // add for MSim
+        row[13] = subId;
         return row;
     }
 
     /**
      * Return a Cursor containing just one message from the ICC.
      */
-    private Cursor getSingleMessageFromIcc(String messageIndexString) {
+    private Cursor getSingleMessageFromIcc(String messageIndexString, long subId) {
         try {
             int messageIndex = Integer.parseInt(messageIndexString);
             SmsManager smsManager = SmsManager.getDefault();
-            ArrayList<SmsMessage> messages = smsManager.getAllMessagesFromIcc();
+
+            ArrayList<SmsMessage> messages = smsManager.getAllMessagesFromIcc(subId);
 
             SmsMessage message = messages.get(messageIndex);
             if (message == null) {
@@ -267,7 +275,7 @@ public class SmsProvider extends ContentProvider {
                         "Message not retrieved. ID: " + messageIndexString);
             }
             MatrixCursor cursor = new MatrixCursor(ICC_COLUMNS, 1);
-            cursor.addRow(convertIccToSms(message, 0));
+            cursor.addRow(convertIccToSms(message, 0, subId));
             return withIccNotificationUri(cursor);
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException(
@@ -278,14 +286,14 @@ public class SmsProvider extends ContentProvider {
     /**
      * Return a Cursor listing all the messages stored on the ICC.
      */
-    private Cursor getAllMessagesFromIcc() {
+    private Cursor getAllMessagesFromIcc(long subId) {
         SmsManager smsManager = SmsManager.getDefault();
         ArrayList<SmsMessage> messages;
 
         // use phone app permissions to avoid UID mismatch in AppOpsManager.noteOp() call
         long token = Binder.clearCallingIdentity();
         try {
-            messages = smsManager.getAllMessagesFromIcc();
+            messages = smsManager.getAllMessagesFromIcc(subId);
         } finally {
             Binder.restoreCallingIdentity(token);
         }
@@ -295,7 +303,7 @@ public class SmsProvider extends ContentProvider {
         for (int i = 0; i < count; i++) {
             SmsMessage message = messages.get(i);
             if (message != null) {
-                cursor.addRow(convertIccToSms(message, i));
+                cursor.addRow(convertIccToSms(message, i, subId));
             }
         }
         return withIccNotificationUri(cursor);
@@ -589,7 +597,7 @@ public class SmsProvider extends ContentProvider {
             case SMS_ICC:
                 String messageIndexString = url.getPathSegments().get(1);
 
-                return deleteMessageFromIcc(messageIndexString);
+                return deleteMessageFromIcc(messageIndexString, getSubIdFromUri(url));
 
             default:
                 throw new IllegalArgumentException("Unknown URL");
@@ -605,17 +613,20 @@ public class SmsProvider extends ContentProvider {
      * Delete the message at index from ICC.  Return true iff
      * successful.
      */
-    private int deleteMessageFromIcc(String messageIndexString) {
+    private int deleteMessageFromIcc(String messageIndexString, long subId) {
         SmsManager smsManager = SmsManager.getDefault();
 
+        long token = Binder.clearCallingIdentity();
         try {
             return smsManager.deleteMessageFromIcc(
-                    Integer.parseInt(messageIndexString))
+                    Integer.parseInt(messageIndexString), subId)
                     ? 1 : 0;
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException(
                     "Bad SMS ICC ID: " + messageIndexString);
         } finally {
+            Binder.restoreCallingIdentity(token);
+
             ContentResolver cr = getContext().getContentResolver();
 
             cr.notifyChange(ICC_URI, null);
@@ -700,6 +711,18 @@ public class SmsProvider extends ContentProvider {
         cr.notifyChange(uri, null);
         cr.notifyChange(MmsSms.CONTENT_URI, null);
         cr.notifyChange(Uri.parse("content://mms-sms/conversations/"), null);
+    }
+
+    // add for MSim
+    private long getSubIdFromUri(Uri uri) {
+        String subIdStr = uri.getQueryParameter(PhoneConstants.SUB_ID_KEY);
+        long subId = 0;
+        try {
+            subId = Long.valueOf(subIdStr);
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "getSubIdFromUri : " + e);
+        }
+        return subId;
     }
 
     private SQLiteOpenHelper mOpenHelper;
