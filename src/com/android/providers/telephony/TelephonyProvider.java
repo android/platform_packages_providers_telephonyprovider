@@ -32,6 +32,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.SystemProperties;
 import android.provider.Telephony;
 import android.util.Log;
 import android.util.Xml;
@@ -39,6 +40,7 @@ import android.util.Xml;
 import com.android.internal.telephony.BaseCommands;
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.PhoneConstants;
+import com.android.internal.telephony.TelephonyProperties;
 import com.android.internal.util.XmlUtils;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -71,24 +73,44 @@ public class TelephonyProvider extends ContentProvider
 
     private static final String PARTNER_APNS_PATH = "etc/apns-conf.xml";
 
-    private static final UriMatcher s_urlMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    private static final UriMatcher[] s_urlMatcher;
 
     private static final ContentValues s_currentNullMap;
     private static final ContentValues s_currentSetMap;
 
+    private static int mSimCount = SystemProperties.getInt(TelephonyProperties.PROPERTY_SIM_COUNT, 1);
     static {
-        s_urlMatcher.addURI("telephony", "carriers", URL_TELEPHONY);
-        s_urlMatcher.addURI("telephony", "carriers/current", URL_CURRENT);
-        s_urlMatcher.addURI("telephony", "carriers/#", URL_ID);
-        s_urlMatcher.addURI("telephony", "carriers/restore", URL_RESTOREAPN);
-        s_urlMatcher.addURI("telephony", "carriers/preferapn", URL_PREFERAPN);
-        s_urlMatcher.addURI("telephony", "carriers/preferapn_no_update", URL_PREFERAPN_NO_UPDATE);
+        s_urlMatcher = new UriMatcher[mSimCount];
+        for (int i=0; i<mSimCount; i++) {
+            String tableName = getCarrierTableName(i);
+            s_urlMatcher[i] = new UriMatcher(UriMatcher.NO_MATCH);
+            s_urlMatcher[i].addURI("telephony", tableName, URL_TELEPHONY);
+            s_urlMatcher[i].addURI("telephony", tableName + "/current", URL_CURRENT);
+            s_urlMatcher[i].addURI("telephony", tableName + "/#", URL_ID);
+            s_urlMatcher[i].addURI("telephony", tableName + "/restore", URL_RESTOREAPN);
+            s_urlMatcher[i].addURI("telephony", tableName + "/preferapn", URL_PREFERAPN);
+            s_urlMatcher[i].addURI("telephony", tableName + "/preferapn_no_update", URL_PREFERAPN_NO_UPDATE);
+        }
 
         s_currentNullMap = new ContentValues(1);
         s_currentNullMap.put("current", (Long) null);
 
         s_currentSetMap = new ContentValues(1);
         s_currentSetMap.put("current", "1");
+    }
+
+    static private String getCarrierTableName(int simId) {
+        if (simId == PhoneConstants.SIM_ID_1)
+            return CARRIERS_TABLE;
+        else
+            return CARRIERS_TABLE + "_" + (simId+1);
+    }
+
+    static private String getPreferFileName(int simId) {
+        if (simId == PhoneConstants.SIM_ID_1)
+            return PREF_FILE;
+        else
+            return PREF_FILE + "-" + (simId+1);
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -124,8 +146,7 @@ public class TelephonyProvider extends ContentProvider
         @Override
         public void onCreate(SQLiteDatabase db) {
             // Set up the database schema
-            db.execSQL("CREATE TABLE " + CARRIERS_TABLE +
-                "(_id INTEGER PRIMARY KEY," +
+            String columns = "(_id INTEGER PRIMARY KEY," +
                     "name TEXT," +
                     "numeric TEXT," +
                     "mcc TEXT," +
@@ -147,12 +168,15 @@ public class TelephonyProvider extends ContentProvider
                     "carrier_enabled BOOLEAN," +
                     "bearer INTEGER," +
                     "mvno_type TEXT," +
-                    "mvno_match_data TEXT);");
+                    "mvno_match_data TEXT);";
 
-            initDatabase(db);
+            for (int i=0; i<mSimCount; i++) {
+                db.execSQL("CREATE TABLE " + getCarrierTableName(i) + columns);
+                initDatabase(db, i);
+            }
         }
 
-        private void initDatabase(SQLiteDatabase db) {
+        private void initDatabase(SQLiteDatabase db, int simId) {
             // Read internal APNS data
             Resources r = mContext.getResources();
             XmlResourceParser parser = r.getXml(com.android.internal.R.xml.apns);
@@ -160,7 +184,7 @@ public class TelephonyProvider extends ContentProvider
             try {
                 XmlUtils.beginDocument(parser, "apns");
                 publicversion = Integer.parseInt(parser.getAttributeValue(null, "version"));
-                loadApns(db, parser);
+                loadApns(simId, db, parser);
             } catch (Exception e) {
                 Log.e(TAG, "Got exception while loading APN database.", e);
             } finally {
@@ -185,7 +209,7 @@ public class TelephonyProvider extends ContentProvider
                             + confFile.getAbsolutePath());
                 }
 
-                loadApns(db, confparser);
+                loadApns(simId, db, confparser);
             } catch (FileNotFoundException e) {
                 // It's ok if the file isn't found. It means there isn't a confidential file
                 // Log.e(TAG, "File not found: '" + confFile.getAbsolutePath() + "'");
@@ -198,48 +222,51 @@ public class TelephonyProvider extends ContentProvider
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (oldVersion < (5 << 16 | 6)) {
-                // 5 << 16 is the Database version and 6 in the xml version.
+            for (int i=0; i<mSimCount; i++) {
+                String tableName = getCarrierTableName(i);
+                if (oldVersion < (5 << 16 | 6)) {
+                    // 5 << 16 is the Database version and 6 in the xml version.
 
-                // This change adds a new authtype column to the database.
-                // The auth type column can have 4 values: 0 (None), 1 (PAP), 2 (CHAP)
-                // 3 (PAP or CHAP). To avoid breaking compatibility, with already working
-                // APNs, the unset value (-1) will be used. If the value is -1.
-                // the authentication will default to 0 (if no user / password) is specified
-                // or to 3. Currently, there have been no reported problems with
-                // pre-configured APNs and hence it is set to -1 for them. Similarly,
-                // if the user, has added a new APN, we set the authentication type
-                // to -1.
+                    // This change adds a new authtype column to the database.
+                    // The auth type column can have 4 values: 0 (None), 1 (PAP), 2 (CHAP)
+                    // 3 (PAP or CHAP). To avoid breaking compatibility, with already working
+                    // APNs, the unset value (-1) will be used. If the value is -1.
+                    // the authentication will default to 0 (if no user / password) is specified
+                    // or to 3. Currently, there have been no reported problems with
+                    // pre-configured APNs and hence it is set to -1 for them. Similarly,
+                    // if the user, has added a new APN, we set the authentication type
+                    // to -1.
 
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN authtype INTEGER DEFAULT -1;");
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN authtype INTEGER DEFAULT -1;");
 
-                oldVersion = 5 << 16 | 6;
-            }
-            if (oldVersion < (6 << 16 | 6)) {
-                // Add protcol fields to the APN. The XML file does not change.
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN protocol TEXT DEFAULT IP;");
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN roaming_protocol TEXT DEFAULT IP;");
-                oldVersion = 6 << 16 | 6;
-            }
-            if (oldVersion < (7 << 16 | 6)) {
-                // Add carrier_enabled, bearer fields to the APN. The XML file does not change.
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN carrier_enabled BOOLEAN DEFAULT 1;");
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN bearer INTEGER DEFAULT 0;");
-                oldVersion = 7 << 16 | 6;
-            }
-            if (oldVersion < (8 << 16 | 6)) {
-                // Add mvno_type, mvno_match_data fields to the APN.
-                // The XML file does not change.
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN mvno_type TEXT DEFAULT '';");
-                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
-                        " ADD COLUMN mvno_match_data TEXT DEFAULT '';");
-                oldVersion = 8 << 16 | 6;
+                    oldVersion = 5 << 16 | 6;
+                }
+                if (oldVersion < (6 << 16 | 6)) {
+                    // Add protcol fields to the APN. The XML file does not change.
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN protocol TEXT DEFAULT IP;");
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN roaming_protocol TEXT DEFAULT IP;");
+                    oldVersion = 6 << 16 | 6;
+                }
+                if (oldVersion < (7 << 16 | 6)) {
+                    // Add carrier_enabled, bearer fields to the APN. The XML file does not change.
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN carrier_enabled BOOLEAN DEFAULT 1;");
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN bearer INTEGER DEFAULT 0;");
+                    oldVersion = 7 << 16 | 6;
+                }
+                if (oldVersion < (8 << 16 | 6)) {
+                    // Add mvno_type, mvno_match_data fields to the APN.
+                    // The XML file does not change.
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN mvno_type TEXT DEFAULT '';");
+                    db.execSQL("ALTER TABLE " + tableName +
+                            " ADD COLUMN mvno_match_data TEXT DEFAULT '';");
+                    oldVersion = 8 << 16 | 6;
+                }
             }
         }
 
@@ -335,7 +362,7 @@ public class TelephonyProvider extends ContentProvider
          * @param parser the xml parser
          *
          */
-        private void loadApns(SQLiteDatabase db, XmlPullParser parser) {
+        private void loadApns(int simId, SQLiteDatabase db, XmlPullParser parser) {
             if (parser != null) {
                 try {
                     db.beginTransaction();
@@ -345,7 +372,7 @@ public class TelephonyProvider extends ContentProvider
                         if (row == null) {
                             throw new XmlPullParserException("Expected 'apn' tag", parser, null);
                         }
-                        insertAddingDefaults(db, CARRIERS_TABLE, row);
+                        insertAddingDefaults(db, getCarrierTableName(simId), row);
                         XmlUtils.nextElement(parser);
                     }
                     db.setTransactionSuccessful();
@@ -384,7 +411,10 @@ public class TelephonyProvider extends ContentProvider
             if (row.containsKey(Telephony.Carriers.MVNO_MATCH_DATA) == false) {
                 row.put(Telephony.Carriers.MVNO_MATCH_DATA, "");
             }
-            db.insert(CARRIERS_TABLE, null, row);
+
+            for (int i=0; i<mSimCount; i++) {
+                db.insert(getCarrierTableName(i), null, row);
+            }
         }
     }
 
@@ -394,26 +424,37 @@ public class TelephonyProvider extends ContentProvider
         return true;
     }
 
-    private void setPreferredApnId(Long id) {
-        SharedPreferences sp = getContext().getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    private void setPreferredApnId(Long id, int simId) {
+        SharedPreferences sp = getContext().getSharedPreferences(getPreferFileName(simId), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putLong(COLUMN_APN_ID, id != null ? id.longValue() : -1);
         editor.apply();
     }
 
-    private long getPreferredApnId() {
-        SharedPreferences sp = getContext().getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    private long getPreferredApnId(int simId) {
+        SharedPreferences sp = getContext().getSharedPreferences(getPreferFileName(simId), Context.MODE_PRIVATE);
         return sp.getLong(COLUMN_APN_ID, -1);
     }
 
     @Override
     public Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
+
+        int simId = PhoneConstants.SIM_ID_1;
+        int match = UriMatcher.NO_MATCH;
+        for (int i=0; i<mSimCount; i++) {
+            match = s_urlMatcher[i].match(url);
+            if (match != UriMatcher.NO_MATCH) {
+                simId = i;
+                break;
+            }
+        }
+        if (DBG) Log.d(TAG, "query(): match=" + match + ", simId=" + simId);
+
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setStrict(true); // a little protection from injection attacks
-        qb.setTables("carriers");
+        qb.setTables(getCarrierTableName(simId));
 
-        int match = s_urlMatcher.match(url);
         switch (match) {
             // do nothing
             case URL_TELEPHONY: {
@@ -435,7 +476,7 @@ public class TelephonyProvider extends ContentProvider
 
             case URL_PREFERAPN:
             case URL_PREFERAPN_NO_UPDATE: {
-                qb.appendWhere("_id = " + getPreferredApnId());
+                qb.appendWhere("_id = " + getPreferredApnId(simId));
                 break;
             }
 
@@ -477,7 +518,12 @@ public class TelephonyProvider extends ContentProvider
     @Override
     public String getType(Uri url)
     {
-        switch (s_urlMatcher.match(url)) {
+        int match = UriMatcher.NO_MATCH;
+        for (int i=0; i<mSimCount; i++) {
+            match = s_urlMatcher[i].match(url);
+            break;
+        }
+        switch (match) {
         case URL_TELEPHONY:
             return "vnd.android.cursor.dir/telephony-carrier";
 
@@ -501,8 +547,19 @@ public class TelephonyProvider extends ContentProvider
         checkPermission();
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        int match = s_urlMatcher.match(url);
+        int match = UriMatcher.NO_MATCH;
         boolean notify = false;
+
+        int simId = PhoneConstants.SIM_ID_1;
+        for (int i=0; i<mSimCount; i++) {
+            match = s_urlMatcher[i].match(url);
+            if (match != UriMatcher.NO_MATCH) {
+                simId = i;
+                break;
+            }
+        }
+        if (DBG) Log.d(TAG, "insert(): match=" + match + ", simId=" + simId);
+
         switch (match)
         {
             case URL_TELEPHONY:
@@ -565,7 +622,7 @@ public class TelephonyProvider extends ContentProvider
                     values.put(Telephony.Carriers.MVNO_MATCH_DATA, "");
                 }
 
-                long rowID = db.insert(CARRIERS_TABLE, null, values);
+                long rowID = db.insert(getCarrierTableName(simId), null, values);
                 if (rowID > 0)
                 {
                     result = ContentUris.withAppendedId(Telephony.Carriers.CONTENT_URI, rowID);
@@ -579,10 +636,10 @@ public class TelephonyProvider extends ContentProvider
             case URL_CURRENT:
             {
                 // null out the previous operator
-                db.update("carriers", s_currentNullMap, "current IS NOT NULL", null);
+                db.update(getCarrierTableName(simId), s_currentNullMap, "current IS NOT NULL", null);
 
                 String numeric = initialValues.getAsString("numeric");
-                int updated = db.update("carriers", s_currentSetMap,
+                int updated = db.update(getCarrierTableName(simId), s_currentSetMap,
                         "numeric = '" + numeric + "'", null);
 
                 if (updated > 0)
@@ -603,7 +660,7 @@ public class TelephonyProvider extends ContentProvider
             {
                 if (initialValues != null) {
                     if(initialValues.containsKey(COLUMN_APN_ID)) {
-                        setPreferredApnId(initialValues.getAsLong(COLUMN_APN_ID));
+                        setPreferredApnId(initialValues.getAsLong(COLUMN_APN_ID), simId);
                     }
                 }
                 break;
@@ -625,38 +682,49 @@ public class TelephonyProvider extends ContentProvider
         checkPermission();
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        int match = s_urlMatcher.match(url);
+        int match = UriMatcher.NO_MATCH;
+
+        int simId = PhoneConstants.SIM_ID_1;
+        for (int i=0; i<mSimCount; i++) {
+            match = s_urlMatcher[i].match(url);
+            if (match != UriMatcher.NO_MATCH) {
+                simId = i;
+                break;
+            }
+        }
+        if (DBG) Log.d(TAG, "delete(): match=" + match + ", simId=" + simId);
+
         switch (match)
         {
             case URL_TELEPHONY:
             {
-                count = db.delete(CARRIERS_TABLE, where, whereArgs);
+                count = db.delete(getCarrierTableName(simId), where, whereArgs);
                 break;
             }
 
             case URL_CURRENT:
             {
-                count = db.delete(CARRIERS_TABLE, where, whereArgs);
+                count = db.delete(getCarrierTableName(simId), where, whereArgs);
                 break;
             }
 
             case URL_ID:
             {
-                count = db.delete(CARRIERS_TABLE, Telephony.Carriers._ID + "=?",
+                count = db.delete(getCarrierTableName(simId), Telephony.Carriers._ID + "=?",
                         new String[] { url.getLastPathSegment() });
                 break;
             }
 
             case URL_RESTOREAPN: {
                 count = 1;
-                restoreDefaultAPN();
+                restoreDefaultAPN(simId);
                 break;
             }
 
             case URL_PREFERAPN:
             case URL_PREFERAPN_NO_UPDATE:
             {
-                setPreferredApnId((long)-1);
+                setPreferredApnId((long)-1, simId);
                 if (match == URL_PREFERAPN) count = 1;
                 break;
             }
@@ -681,18 +749,29 @@ public class TelephonyProvider extends ContentProvider
         checkPermission();
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        int match = s_urlMatcher.match(url);
+        int match = UriMatcher.NO_MATCH;
+
+        int simId = PhoneConstants.SIM_ID_1;
+        for (int i=0; i<mSimCount; i++) {
+            match = s_urlMatcher[i].match(url);
+            if (match != UriMatcher.NO_MATCH) {
+                simId = i;
+                break;
+            }
+        }
+        if (DBG) Log.d(TAG, "update(): match=" + match + ", simId=" + simId);
+
         switch (match)
         {
             case URL_TELEPHONY:
             {
-                count = db.update(CARRIERS_TABLE, values, where, whereArgs);
+                count = db.update(getCarrierTableName(simId), values, where, whereArgs);
                 break;
             }
 
             case URL_CURRENT:
             {
-                count = db.update(CARRIERS_TABLE, values, where, whereArgs);
+                count = db.update(getCarrierTableName(simId), values, where, whereArgs);
                 break;
             }
 
@@ -702,7 +781,7 @@ public class TelephonyProvider extends ContentProvider
                     throw new UnsupportedOperationException(
                             "Cannot update URL " + url + " with a where clause");
                 }
-                count = db.update(CARRIERS_TABLE, values, Telephony.Carriers._ID + "=?",
+                count = db.update(getCarrierTableName(simId), values, Telephony.Carriers._ID + "=?",
                         new String[] { url.getLastPathSegment() });
                 break;
             }
@@ -712,7 +791,7 @@ public class TelephonyProvider extends ContentProvider
             {
                 if (values != null) {
                     if (values.containsKey(COLUMN_APN_ID)) {
-                        setPreferredApnId(values.getAsLong(COLUMN_APN_ID));
+                        setPreferredApnId(values.getAsLong(COLUMN_APN_ID), simId);
                         if (match == URL_PREFERAPN) count = 1;
                     }
                 }
@@ -738,15 +817,15 @@ public class TelephonyProvider extends ContentProvider
 
     private DatabaseHelper mOpenHelper;
 
-    private void restoreDefaultAPN() {
+    private void restoreDefaultAPN(int simId) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         try {
-            db.delete(CARRIERS_TABLE, null, null);
+            db.delete(getCarrierTableName(simId), null, null);
         } catch (SQLException e) {
             Log.e(TAG, "got exception when deleting to restore: " + e);
         }
-        setPreferredApnId((long)-1);
-        mOpenHelper.initDatabase(db);
+        setPreferredApnId((long)-1, simId);
+        mOpenHelper.initDatabase(db, simId);
     }
 }
