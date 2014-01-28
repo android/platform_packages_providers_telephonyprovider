@@ -835,6 +835,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    "body TEXT," +
                    "service_center TEXT," +
                    "locked INTEGER DEFAULT 0," +
+                   "sim_id INTEGER DEFAULT -1," +
                    "error_code INTEGER DEFAULT 0," +
                    "seen INTEGER DEFAULT 0" +
                    ");");
@@ -851,6 +852,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    "sequence INTEGER," + // the part number of this message
                    "destination_port INTEGER," +
                    "address TEXT," +
+                   "sim_id INTEGER DEFAULT 0," +
                    "pdu TEXT);"); // the raw PDU for this part
 
         db.execSQL("CREATE TABLE attachments (" +
