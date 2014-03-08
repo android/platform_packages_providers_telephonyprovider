@@ -33,6 +33,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Telephony;
+import android.telephony.SubscriptionManager;
 import android.util.Log;
 import android.util.Xml;
 
@@ -56,15 +57,18 @@ public class TelephonyProvider extends ContentProvider
     private static final boolean DBG = true;
 
     private static final int DATABASE_VERSION = 8 << 16;
+    private static final int URL_UNKNOWN = 0;
     private static final int URL_TELEPHONY = 1;
     private static final int URL_CURRENT = 2;
     private static final int URL_ID = 3;
     private static final int URL_RESTOREAPN = 4;
     private static final int URL_PREFERAPN = 5;
     private static final int URL_PREFERAPN_NO_UPDATE = 6;
+    private static final int URL_SIMINFO = 7;
 
     private static final String TAG = "TelephonyProvider";
     private static final String CARRIERS_TABLE = "carriers";
+    private static final String SIMINFO_TABLE = "siminfo";
 
     private static final String PREF_FILE = "preferred-apn";
     private static final String COLUMN_APN_ID = "apn_id";
@@ -83,6 +87,8 @@ public class TelephonyProvider extends ContentProvider
         s_urlMatcher.addURI("telephony", "carriers/restore", URL_RESTOREAPN);
         s_urlMatcher.addURI("telephony", "carriers/preferapn", URL_PREFERAPN);
         s_urlMatcher.addURI("telephony", "carriers/preferapn_no_update", URL_PREFERAPN_NO_UPDATE);
+
+        s_urlMatcher.addURI("telephony", "siminfo", URL_SIMINFO);
 
         s_currentNullMap = new ContentValues(1);
         s_currentNullMap.put("current", (Long) null);
@@ -123,6 +129,17 @@ public class TelephonyProvider extends ContentProvider
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE " + SIMINFO_TABLE + "("
+                    + "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + SubscriptionManager.ICC_ID + " TEXT NOT NULL,"
+                    + SubscriptionManager.SIM_ID + " INTEGER DEFAULT " + SubscriptionManager.SIM_NOT_INSERTED + ","
+                    + SubscriptionManager.DISPLAY_NAME + " TEXT,"
+                    + SubscriptionManager.NAME_SOURCE + " INTEGER DEFAULT " + SubscriptionManager.DEFAULT_SOURCE + ","
+                    + SubscriptionManager.COLOR + " INTEGER DEFAULT " + SubscriptionManager.COLOR_DEFAULT + ","
+                    + SubscriptionManager.NUMBER + " TEXT,"
+                    + SubscriptionManager.DISPLAY_NUMBER_FORMAT + " INTEGER NOT NULL DEFAULT " + SubscriptionManager.DISLPAY_NUMBER_DEFAULT + ","
+                    + SubscriptionManager.DATA_ROAMING + " INTEGER DEFAULT " + SubscriptionManager.DATA_ROAMING_DEFAULT
+                    + ");");
             // Set up the database schema
             db.execSQL("CREATE TABLE " + CARRIERS_TABLE +
                 "(_id INTEGER PRIMARY KEY," +
@@ -439,6 +456,11 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_SIMINFO: {
+                qb.setTables(SIMINFO_TABLE);
+                break;
+            }
+
             default: {
                 return null;
             }
@@ -608,6 +630,12 @@ public class TelephonyProvider extends ContentProvider
                 }
                 break;
             }
+
+            case URL_SIMINFO: {
+               long id = db.insert(SIMINFO_TABLE, null, initialValues);
+               result = ContentUris.withAppendedId(SubscriptionManager.CONTENT_URI, id);
+               break;
+            }
         }
 
         if (notify) {
@@ -661,6 +689,11 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_SIMINFO: {
+                count = db.delete(SIMINFO_TABLE, where, whereArgs);
+                break;
+            }
+
             default: {
                 throw new UnsupportedOperationException("Cannot delete that URL: " + url);
             }
@@ -677,6 +710,7 @@ public class TelephonyProvider extends ContentProvider
     public int update(Uri url, ContentValues values, String where, String[] whereArgs)
     {
         int count = 0;
+        int uriType = URL_UNKNOWN;
 
         checkPermission();
 
@@ -719,13 +753,25 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_SIMINFO: {
+                count = db.update(SIMINFO_TABLE, values, where, whereArgs);
+                uriType = URL_SIMINFO;
+                break;
+            }
+
             default: {
                 throw new UnsupportedOperationException("Cannot update that URL: " + url);
             }
         }
 
         if (count > 0) {
-            getContext().getContentResolver().notifyChange(Telephony.Carriers.CONTENT_URI, null);
+            switch (uriType) {
+                case URL_SIMINFO:
+                    getContext().getContentResolver().notifyChange(SubscriptionManager.CONTENT_URI, null);
+                    break;
+                default:
+                    getContext().getContentResolver().notifyChange(Telephony.Carriers.CONTENT_URI, null);
+            }
         }
 
         return count;
