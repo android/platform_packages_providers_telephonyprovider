@@ -836,7 +836,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    "service_center TEXT," +
                    "locked INTEGER DEFAULT 0," +
                    "error_code INTEGER DEFAULT 0," +
-                   "seen INTEGER DEFAULT 0" +
+                   "seen INTEGER DEFAULT 0," +
+                   "pri INTEGER DEFAULT -1" +
                    ");");
 
         /**
