@@ -666,6 +666,31 @@ public class TelephonyProvider extends ContentProvider
         return sp.getLong(COLUMN_APN_ID, -1);
     }
 
+    /**
+     * Updates the preferred APN id to -1 in the shared preferences
+     * if the preferred APN has been deleted.
+     */
+    private void updateStoredPreferredApn() {
+        int subId = SubscriptionManager.getDefaultSubId();
+        long preferredApnId = getPreferredApnId(subId);
+        if (preferredApnId < 0) return;
+
+        Cursor cursor = null;
+        try {
+            cursor = query(ContentUris.withAppendedId(Telephony.Carriers.CONTENT_URI,
+                    preferredApnId), null, null, null, null);
+            if (cursor == null || cursor.getCount() < 1) {
+                setPreferredApnId((long)-1, subId);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Got exception while updating stored preferred APN.");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
     @Override
     public Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
@@ -1034,6 +1059,7 @@ public class TelephonyProvider extends ContentProvider
         }
 
         if (count > 0) {
+            updateStoredPreferredApn();
             getContext().getContentResolver().notifyChange(Telephony.Carriers.CONTENT_URI, null,
                     true, UserHandle.USER_ALL);
         }
