@@ -1035,6 +1035,16 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+
+        // up-to-date statistics means better use of indices.
+        if (!db.isReadOnly()) {
+            db.execSQL("ANALYZE");
+        }
+    }
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int currentVersion) {
         Log.w(TAG, "Upgrading database from version " + oldVersion
                 + " to " + currentVersion + ".");
