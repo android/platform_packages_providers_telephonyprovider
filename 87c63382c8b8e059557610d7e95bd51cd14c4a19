@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6afbb286_8c50073f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041495
+      },
+      "writtenOn": "2015-10-09T09:58:24Z",
+      "side": 1,
+      "message": "...which you can find here: https://android-review.googlesource.com/#/c/169561/",
+      "revId": "87c63382c8b8e059557610d7e95bd51cd14c4a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa1a0ab2_26f656c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1041495
+      },
+      "writtenOn": "2015-10-09T09:58:24Z",
+      "side": 1,
+      "message": "...which also means an \"unhandleable\" number of canonical addresses, fixed in https://android-review.googlesource.com/#/c/169126/",
+      "revId": "87c63382c8b8e059557610d7e95bd51cd14c4a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
