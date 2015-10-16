@@ -51,6 +51,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.android.providers.telephony.MmsProvider.TABLE_PDU;
+import static com.android.providers.telephony.SmsProvider.TABLE_SMS;
+
 /**
  * This class provides the ability to query the MMS and SMS databases
  * at the same time, mixing messages from both in a single thread
@@ -1228,8 +1231,11 @@ public class MmsSmsProvider extends ContentProvider {
                 MmsSmsDatabaseHelper.updateThread(db, threadId);
                 break;
             case URI_CONVERSATIONS:
+                // delete threads that will be emptied;
+                // reduces work for thread update triggers
+                deleteEmptiedThreads(db, selection, selectionArgs);
                 affectedRows = MmsProvider.deleteMessages(context, db,
-                                        selection, selectionArgs, uri)
+                                       selection, selectionArgs, uri)
                         + db.delete("sms", selection, selectionArgs);
                 // Intentionally don't pass the selection variable to updateAllThreads.
                 // When we pass in "locked=0" there, the thread will get excluded from
@@ -1253,6 +1259,31 @@ public class MmsSmsProvider extends ContentProvider {
     }
 
     /**
+     * Delete threads that will be empty after deleting all messages with the given selection.
+     */
+    protected void deleteEmptiedThreads(SQLiteDatabase db, String selection, String[] args) {
+        String innerSelection = "thread_id = " + TABLE_THREADS + "._id";
+        String[] newArgs = null;
+        if (selection != null) {
+            innerSelection += " AND NOT (" + selection + ")";
+            if (args != null) {
+                // need to double the args, because we're going to double the selection...
+                final int N = args.length;
+                newArgs = new String[2 * N];
+                for (int i = 0; i < N; ++i) {
+                    newArgs[i] = newArgs[N+i] = args[i];
+                }
+            }
+        }
+
+        String newSelection =
+            "NOT EXISTS (SELECT 1 FROM " + TABLE_SMS + " WHERE " + innerSelection + " LIMIT 1) " +
+        "AND NOT EXISTS (SELECT 1 FROM " + TABLE_PDU + " WHERE " + innerSelection + " LIMIT 1)";
+
+        db.delete(TABLE_THREADS, newSelection, newArgs);
+    }
+
+    /**
      * Delete the conversation with the given thread ID.
      */
     private int deleteConversation(Uri uri, String selection, String[] selectionArgs) {
@@ -1260,6 +1291,10 @@ public class MmsSmsProvider extends ContentProvider {
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         String finalSelection = concatSelections(selection, "thread_id = " + threadId);
+
+        // delete threads that will be emptied; reduces work for thread update triggers
+        deleteEmptiedThreads(db, finalSelection, selectionArgs);
+
         return MmsProvider.deleteMessages(getContext(), db, finalSelection,
                                           selectionArgs, uri)
                 + db.delete("sms", finalSelection, selectionArgs);
