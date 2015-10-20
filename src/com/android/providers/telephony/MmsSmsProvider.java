@@ -1238,8 +1238,9 @@ public class MmsSmsProvider extends ContentProvider {
                 break;
             case URI_OBSOLETE_THREADS:
                 affectedRows = db.delete(TABLE_THREADS,
-                        "_id NOT IN (SELECT DISTINCT thread_id FROM sms where thread_id NOT NULL " +
-                        "UNION SELECT DISTINCT thread_id FROM pdu where thread_id NOT NULL)", null);
+                    "    NOT EXISTS (SELECT 1 FROM sms WHERE thread_id=" + TABLE_THREADS + "._id) " +
+                    "AND NOT EXISTS (SELECT 1 FROM pdu WHERE thread_id=" + TABLE_THREADS + "._id)",
+                    null);
                 break;
             default:
                 throw new UnsupportedOperationException(NO_DELETES_INSERTS_OR_UPDATES + uri);
