@@ -64,12 +64,10 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String UPDATE_THREAD_COUNT_ON_NEW =
                         "  UPDATE threads SET message_count = " +
-                        "     (SELECT COUNT(sms._id) FROM sms LEFT JOIN threads " +
-                        "      ON threads._id = " + Sms.THREAD_ID +
+                        "     (SELECT COUNT(sms._id) FROM sms " +
                         "      WHERE " + Sms.THREAD_ID + " = new.thread_id" +
                         "        AND sms." + Sms.TYPE + " != 3) + " +
-                        "     (SELECT COUNT(pdu._id) FROM pdu LEFT JOIN threads " +
-                        "      ON threads._id = " + Mms.THREAD_ID +
+                        "     (SELECT COUNT(pdu._id) FROM pdu " +
                         "      WHERE " + Mms.THREAD_ID + " = new.thread_id" +
                         "        AND (m_type=132 OR m_type=130 OR m_type=128)" +
                         "        AND " + Mms.MESSAGE_BOX + " != 3) " +
@@ -77,12 +75,10 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String UPDATE_THREAD_COUNT_ON_OLD =
                         "  UPDATE threads SET message_count = " +
-                        "     (SELECT COUNT(sms._id) FROM sms LEFT JOIN threads " +
-                        "      ON threads._id = " + Sms.THREAD_ID +
+                        "     (SELECT COUNT(sms._id) FROM sms " +
                         "      WHERE " + Sms.THREAD_ID + " = old.thread_id" +
                         "        AND sms." + Sms.TYPE + " != 3) + " +
-                        "     (SELECT COUNT(pdu._id) FROM pdu LEFT JOIN threads " +
-                        "      ON threads._id = " + Mms.THREAD_ID +
+                        "     (SELECT COUNT(pdu._id) FROM pdu " +
                         "      WHERE " + Mms.THREAD_ID + " = old.thread_id" +
                         "        AND (m_type=132 OR m_type=130 OR m_type=128)" +
                         "        AND " + Mms.MESSAGE_BOX + " != 3) " +
@@ -138,18 +134,33 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                         "END;";
 
     private static final String UPDATE_THREAD_SNIPPET_SNIPPET_CS_ON_DELETE =
-                        "  UPDATE threads SET snippet = " +
-                        "   (SELECT snippet FROM" +
-                        "     (SELECT date * 1000 AS date, sub AS snippet, thread_id FROM pdu" +
-                        "      UNION SELECT date, body AS snippet, thread_id FROM sms)" +
-                        "    WHERE thread_id = OLD.thread_id ORDER BY date DESC LIMIT 1) " +
-                        "  WHERE threads._id = OLD.thread_id; " +
-                        "  UPDATE threads SET snippet_cs = " +
-                        "   (SELECT snippet_cs FROM" +
-                        "     (SELECT date * 1000 AS date, sub_cs AS snippet_cs, thread_id FROM pdu" +
-                        "      UNION SELECT date, 0 AS snippet_cs, thread_id FROM sms)" +
-                        "    WHERE thread_id = OLD.thread_id ORDER BY date DESC LIMIT 1) " +
-                        "  WHERE threads._id = OLD.thread_id; ";
+                        " UPDATE threads SET snippet = (" +
+                            " SELECT snippet FROM (" +
+                                " SELECT date * 1000 AS date, sub AS snippet, thread_id" +
+                                " FROM pdu" +
+                                " WHERE thread_id = OLD.thread_id" +
+                                " UNION ALL" +
+                                " SELECT date, body AS snippet, thread_id" +
+                                " FROM sms" +
+                                " WHERE thread_id = OLD.thread_id" +
+                                " ORDER BY date DESC LIMIT 1" +
+                            " )" +
+                        " )" +
+                        " WHERE threads._id = OLD.thread_id;" +
+
+                        " UPDATE threads SET snippet_cs = (" +
+                            " SELECT snippet_cs FROM (" +
+                                " SELECT date * 1000 AS date, sub_cs AS snippet_cs, thread_id" +
+                                " FROM pdu" +
+                                " WHERE thread_id = OLD.thread_id" +
+                                " UNION ALL" +
+                                " SELECT date, 0 AS snippet_cs, thread_id" +
+                                " FROM sms" +
+                                " WHERE thread_id = OLD.thread_id" +
+                                " ORDER BY date DESC LIMIT 1" +
+                            " )" +
+                        " )" +
+                        " WHERE threads._id = OLD.thread_id;";
 
 
     // When a part is inserted, if it is not text/plain or application/smil
@@ -216,7 +227,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static boolean sFakeLowStorageTest = false;     // for testing only
 
     static final String DATABASE_NAME = "mmssms.db";
-    static final int DATABASE_VERSION = 61;
+    static final int DATABASE_VERSION = 62;
     private final Context mContext;
     private LowStorageMonitor mLowStorageMonitor;
 
@@ -547,12 +558,29 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
     private void createIndices(SQLiteDatabase db) {
         createThreadIdIndex(db);
+        createPduThreadIdDateIndex(db);
+        createPartMessageIdIndex(db);
     }
 
     private void createThreadIdIndex(SQLiteDatabase db) {
         try {
             db.execSQL("CREATE INDEX IF NOT EXISTS typeThreadIdIndex ON sms" +
             " (type, thread_id);");
+        } catch (Exception ex) {
+            Log.e(TAG, "got exception creating indices: " + ex.toString());
+        }
+    }
+
+    private void createPduThreadIdDateIndex(SQLiteDatabase db) {
+        try {
+            db.execSQL("CREATE INDEX IF NOT EXISTS pdu_threadIdDateIndex ON pdu (thread_id, date)");
+        } catch (Exception ex) {
+            Log.e(TAG, "got exception creating indices: " + ex.toString());
+        }
+    }
+    private void createPartMessageIdIndex(SQLiteDatabase db) {
+        try {
+           db.execSQL("CREATE INDEX IF NOT EXISTS part_messageIdIndex ON part (mid)");
         } catch (Exception ex) {
             Log.e(TAG, "got exception creating indices: " + ex.toString());
         }
@@ -950,17 +978,17 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     // TODO Check the query plans for these triggers.
     private void createCommonTriggers(SQLiteDatabase db) {
         // Updates threads table whenever a message is added to sms.
-        db.execSQL("CREATE TRIGGER sms_update_thread_on_insert AFTER INSERT ON sms " +
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS sms_update_thread_on_insert AFTER INSERT ON sms " +
                    SMS_UPDATE_THREAD_DATE_SNIPPET_COUNT_ON_UPDATE);
 
         // Updates threads table whenever a message in sms is updated.
-        db.execSQL("CREATE TRIGGER sms_update_thread_date_subject_on_update AFTER" +
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS sms_update_thread_date_subject_on_update AFTER" +
                    "  UPDATE OF " + Sms.DATE + ", " + Sms.BODY + ", " + Sms.TYPE +
                    "  ON sms " +
                    SMS_UPDATE_THREAD_DATE_SNIPPET_COUNT_ON_UPDATE);
 
         // Updates threads table whenever a message in sms is updated.
-        db.execSQL("CREATE TRIGGER sms_update_thread_read_on_update AFTER" +
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS sms_update_thread_read_on_update AFTER" +
                    "  UPDATE OF " + Sms.READ +
                    "  ON sms " +
                    "BEGIN " +
@@ -1002,7 +1030,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
         // Update the error flag of threads when the error type of
         // a pending MM is updated.
-        db.execSQL("CREATE TRIGGER update_threads_error_on_update_mms " +
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS update_threads_error_on_update_mms " +
                    "  AFTER UPDATE OF err_type ON pending_msgs " +
                    "  WHEN (OLD.err_type < 10 AND NEW.err_type >= 10)" +
                    "    OR (OLD.err_type >= 10 AND NEW.err_type < 10) " +
@@ -1020,7 +1048,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
         // Update the error flag of threads after a text message was
         // failed to send/receive.
-        db.execSQL("CREATE TRIGGER update_threads_error_on_update_sms " +
+        db.execSQL("CREATE TRIGGER IF NOT EXISTS update_threads_error_on_update_sms " +
                    "  AFTER UPDATE OF type ON sms" +
                    "  WHEN (OLD.type != 5 AND NEW.type = 5)" +
                    "    OR (OLD.type = 5 AND NEW.type != 5) " +
@@ -1356,6 +1384,30 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             db.beginTransaction();
             try {
                 upgradeDatabaseToVersion61(db);
+                db.setTransactionSuccessful();
+            } catch (Throwable ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+                break;
+            } finally {
+                db.endTransaction();
+            }
+            // fall through
+        case 61:
+            if (currentVersion <= 61) {
+                return;
+            }
+
+            db.beginTransaction();
+            try {
+                createPduThreadIdDateIndex(db);
+                createPartMessageIdIndex(db);
+
+                // drop and recreate the triggers we've updated
+                db.execSQL("DROP TRIGGER IF EXISTS sms_update_thread_date_subject_on_update");
+                db.execSQL("DROP TRIGGER IF EXISTS sms_update_thread_on_insert");
+                createCommonTriggers(db);
+                createMmsTriggers(db); // this one drops by itself
+
                 db.setTransactionSuccessful();
             } catch (Throwable ex) {
                 Log.e(TAG, ex.getMessage(), ex);
