@@ -565,8 +565,6 @@ public class SmsProvider extends ContentProvider {
             ContentValues cv = new ContentValues();
             cv.put(Telephony.MmsSms.WordsTable.ID, rowID);
             cv.put(Telephony.MmsSms.WordsTable.INDEXED_TEXT, values.getAsString("body"));
-            cv.put(Telephony.MmsSms.WordsTable.SOURCE_ROW_ID, rowID);
-            cv.put(Telephony.MmsSms.WordsTable.TABLE_ID, 1);
             db.insert(TABLE_WORDS, Telephony.MmsSms.WordsTable.INDEXED_TEXT, cv);
         }
         if (rowID > 0) {
