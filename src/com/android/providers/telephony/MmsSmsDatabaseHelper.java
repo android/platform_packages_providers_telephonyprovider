@@ -227,7 +227,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static boolean sFakeLowStorageTest = false;     // for testing only
 
     static final String DATABASE_NAME = "mmssms.db";
-    static final int DATABASE_VERSION = 62;
+    static final int DATABASE_VERSION = 63;
     private final Context mContext;
     private LowStorageMonitor mLowStorageMonitor;
 
@@ -489,8 +489,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
                         cv.put(Telephony.MmsSms.WordsTable.ID, id);
                         cv.put(Telephony.MmsSms.WordsTable.INDEXED_TEXT, body);
-                        cv.put(Telephony.MmsSms.WordsTable.SOURCE_ROW_ID, id);
-                        cv.put(Telephony.MmsSms.WordsTable.TABLE_ID, 1);
                         db.insert(TABLE_WORDS, Telephony.MmsSms.WordsTable.INDEXED_TEXT, cv);
                     }
                 }
@@ -520,10 +518,9 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                         long id = mmsRows.getLong(0);         // 0 for Part._ID
                         String body = mmsRows.getString(1);   // 1 for Part.TEXT
 
-                        cv.put(Telephony.MmsSms.WordsTable.ID, id);
+                        // mms ID:s are offset at 2^33.
+                        cv.put(Telephony.MmsSms.WordsTable.ID, (1L << 33) + id);
                         cv.put(Telephony.MmsSms.WordsTable.INDEXED_TEXT, body);
-                        cv.put(Telephony.MmsSms.WordsTable.SOURCE_ROW_ID, id);
-                        cv.put(Telephony.MmsSms.WordsTable.TABLE_ID, 1);
                         db.insert(TABLE_WORDS, Telephony.MmsSms.WordsTable.INDEXED_TEXT, cv);
                     }
                 }
@@ -537,18 +534,19 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
 
     private void createWordsTables(SQLiteDatabase db) {
         try {
-            db.execSQL("CREATE VIRTUAL TABLE words USING FTS3 (_id INTEGER PRIMARY KEY, index_text TEXT, source_id INTEGER, table_to_use INTEGER);");
+            db.execSQL("CREATE VIRTUAL TABLE words USING FTS3 (index_text TEXT);");
 
             // monitor the sms table
             // NOTE don't handle inserts using a trigger because it has an unwanted
             // side effect:  the value returned for the last row ends up being the
             // id of one of the trigger insert not the original row insert.
             // Handle inserts manually in the provider.
+            db.execSQL("DROP TRIGGER IF EXISTS sms_words_update");
             db.execSQL("CREATE TRIGGER sms_words_update AFTER UPDATE ON sms BEGIN UPDATE words " +
-                    " SET index_text = NEW.body WHERE (source_id=NEW._id AND table_to_use=1); " +
-                    " END;");
+                    " SET index_text = NEW.body WHERE words.rowid=NEW._id; END;");
+            db.execSQL("DROP TRIGGER IF EXISTS sms_words_delete");
             db.execSQL("CREATE TRIGGER sms_words_delete AFTER DELETE ON sms BEGIN DELETE FROM " +
-                    "  words WHERE source_id = OLD._id AND table_to_use = 1; END;");
+                    "  words WHERE words.rowid = OLD._id; END;");
 
             populateWordsTable(db);
         } catch (Exception ex) {
@@ -783,12 +781,12 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         // monitor the mms table
         db.execSQL("DROP TRIGGER IF EXISTS mms_words_update");
         db.execSQL("CREATE TRIGGER mms_words_update AFTER UPDATE ON part BEGIN UPDATE words " +
-                " SET index_text = NEW.text WHERE (source_id=NEW._id AND table_to_use=2); " +
+                " SET index_text = NEW.text WHERE words.rowid = (1 << 33) + NEW._id; " +
                 " END;");
 
         db.execSQL("DROP TRIGGER IF EXISTS mms_words_delete");
         db.execSQL("CREATE TRIGGER mms_words_delete AFTER DELETE ON part BEGIN DELETE FROM " +
-                " words WHERE source_id = OLD._id AND table_to_use = 2; END;");
+                " words WHERE words.rowid = (1 << 33) + OLD._id; END;");
 
         // Updates threads table whenever a message in pdu is updated.
         db.execSQL("DROP TRIGGER IF EXISTS pdu_update_thread_date_subject_on_update");
@@ -1408,6 +1406,25 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 createCommonTriggers(db);
                 createMmsTriggers(db); // this one drops by itself
 
+                db.setTransactionSuccessful();
+            } catch (Throwable ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+                break;
+            } finally {
+                db.endTransaction();
+            }
+            // fall through
+        case 62:
+            if (currentVersion <= 62) {
+                return;
+            }
+
+            db.beginTransaction();
+            try {
+                // the words table contains no unique data -- we can just drop and recrate it.
+                db.execSQL("DROP TABLE IF EXISTS words");
+                createWordsTables(db);
+                createMmsTriggers(db); // drops and recreates the words triggers (among others)
                 db.setTransactionSuccessful();
             } catch (Throwable ex) {
                 Log.e(TAG, ex.getMessage(), ex);

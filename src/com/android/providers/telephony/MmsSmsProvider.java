@@ -200,11 +200,10 @@ public class MmsSmsProvider extends ContentProvider {
                 + "date,"
                 + "date_sent,"
                 + "index_text,"
-                + "words._id "
+                + "words.rowid "
                 + "FROM " + smsTable + ",words "
                 + "WHERE (index_text MATCH ? "
-                + "AND " + smsTable + "._id=words.source_id "
-                + "AND words.table_to_use=1)";
+                + "AND " + smsTable + "._id=words.rowid)";
 
         // Search on the words table but return the rows from the corresponding parts table
         final String mmsQuery = "SELECT "
@@ -215,15 +214,14 @@ public class MmsSmsProvider extends ContentProvider {
                 + pduTable + ".date,"
                 + pduTable + ".date_sent,"
                 + "index_text,"
-                + "words._id "
+                + "words.rowid "
                 + "FROM " + pduTable + ",part,addr,words "
                 + "WHERE ((part.mid=" + pduTable + "._id) "
                 + "AND (addr.msg_id=" + pduTable + "._id) "
                 + "AND (addr.type=" + PduHeaders.TO + ") "
                 + "AND (part.ct='text/plain') "
                 + "AND (index_text MATCH ?) "
-                + "AND (part._id = words.source_id) "
-                + "AND (words.table_to_use=2))";
+                + "AND (part._id = words.rowid - (1<<33) ))";
 
         // This code queries the sms and mms tables and returns a unified result set
         // of text matches.  We query the sms table which is pretty simple.  We also
