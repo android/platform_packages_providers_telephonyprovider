@@ -1,0 +1,7 @@
+Code-Review+2: Ye Wen <ywen@google.com>
+Verified+1: Ye Wen <ywen@google.com>
+Submitted-by: Atsushi Mito <amito@google.com>
+Submitted-at: Fri, 13 Nov 2015 06:20:44 +0000
+Reviewed-on: https://android-review.googlesource.com/169126
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
