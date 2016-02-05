@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "f16b2868_4aded32f",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1024998
+      },
+      "writtenOn": "2016-02-05T17:59:01Z",
+      "side": 1,
+      "message": "Maybe should be called \"updateThreads\" since you may not update all threads.",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f127a8f2_aad16427",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1024998
+      },
+      "writtenOn": "2016-02-05T17:59:01Z",
+      "side": 1,
+      "message": "Is this necessary?",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "515a34de_a523fee5",
         "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
         "patchSetId": 5
@@ -19,6 +53,23 @@
         "endLine": 338,
         "endChar": 34
       },
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31fce07c_3d25b054",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1024998
+      },
+      "writtenOn": "2016-02-05T17:59:01Z",
+      "side": 1,
+      "message": "Please follow the same convention by adding a method \"upgradeDatabaseToVersion62\"",
       "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
