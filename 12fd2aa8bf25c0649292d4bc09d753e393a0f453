@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5122348b_85c0825a",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1041495
+      },
+      "writtenOn": "2016-02-06T07:30:16Z",
+      "side": 1,
+      "message": "Sure, I can change the name. \"updateSomeThreads\"? I\u0027ll try to think of something better.",
+      "parentUuid": "f16b2868_4aded32f",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f127a8f2_aad16427",
         "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2016-02-05T17:59:01Z",
       "side": 1,
       "message": "Is this necessary?",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd19d873_93c8fc6c",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1041495
+      },
+      "writtenOn": "2016-02-06T07:30:16Z",
+      "side": 1,
+      "message": "It\u0027s been a while since I wrote this, but I don\u0027t believe I would\u0027ve added it if I hadn\u0027t gotten some exception here -- because it *does* feel like it could be easily handled by SQLiteDatabase.execSql(). Or, you know, if the condition String has no placeholders, it doesn\u0027t even have to look at the bindArgs.\n\nBut alas, there is a null check that makes it throw IllegalArgumentException: https://android.googlesource.com/platform/frameworks/base/+/android-6.0.1_r16/core/java/android/database/sqlite/SQLiteDatabase.java#1651\n\nOf course, 0-length arrays are constants, so we *could* put it in a static variable and reuse it. I can do that, if you want.",
+      "parentUuid": "f127a8f2_aad16427",
       "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5df5e83b_bfb4d7fe",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1041495
+      },
+      "writtenOn": "2016-02-06T07:30:16Z",
+      "side": 1,
+      "message": "Yes, it only looks at the sms table to decide which rows to update (but should look at both sms and pdu when calculating the values).\n\nAFAICT, that\u0027s the same behavior as the old code (\"FROM sms\" on line 395). This patch only aims to speed things up, so I was trying to preserve the current behavior.\n\nThere may actually be a reason for that behavior: since the pdu and sms tables have some exclusive fields, it may be that some desirable WHERE strings could not be used when including the pdu table...",
+      "parentUuid": "515a34de_a523fee5",
+      "range": {
+        "startLine": 338,
+        "startChar": 26,
+        "endLine": 338,
+        "endChar": 34
+      },
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31fce07c_3d25b054",
         "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2016-02-05T17:59:01Z",
       "side": 1,
       "message": "Please follow the same convention by adding a method \"upgradeDatabaseToVersion62\"",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d3920d3_31a130c0",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1041495
+      },
+      "writtenOn": "2016-02-06T07:30:16Z",
+      "side": 1,
+      "message": "Versions 49 and 50 don\u0027t have upgrade functions, just functions to add tables/indices -- so I did the same here.\n\nWhile it seems unnecessarily verbose to me, I could still add an upgradeDatabaseTo..() method if it\u0027s important to you. :)",
+      "parentUuid": "31fce07c_3d25b054",
       "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
