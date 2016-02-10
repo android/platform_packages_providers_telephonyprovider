@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "7da46cba_19246f49",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1024998
+      },
+      "writtenOn": "2016-02-10T00:08:48Z",
+      "side": 1,
+      "message": "You are right. Yeah. Use a constant will be better.",
+      "parentUuid": "dd19d873_93c8fc6c",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "515a34de_a523fee5",
         "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
         "patchSetId": 5
@@ -119,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "1d89b03a_2133b64d",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1024998
+      },
+      "writtenOn": "2016-02-10T00:08:48Z",
+      "side": 1,
+      "message": "Right. The original code does not seem right. Let\u0027s keep the same behavior to reduce risks.",
+      "parentUuid": "5df5e83b_bfb4d7fe",
+      "range": {
+        "startLine": 338,
+        "startChar": 26,
+        "endLine": 338,
+        "endChar": 34
+      },
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31fce07c_3d25b054",
         "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
         "patchSetId": 5
@@ -148,6 +190,24 @@
       "side": 1,
       "message": "Versions 49 and 50 don\u0027t have upgrade functions, just functions to add tables/indices -- so I did the same here.\n\nWhile it seems unnecessarily verbose to me, I could still add an upgradeDatabaseTo..() method if it\u0027s important to you. :)",
       "parentUuid": "31fce07c_3d25b054",
+      "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdc21c56_28247349",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1024998
+      },
+      "writtenOn": "2016-02-10T00:08:48Z",
+      "side": 1,
+      "message": "OK. If there are precedence, this is ok.",
+      "parentUuid": "9d3920d3_31a130c0",
       "revId": "12fd2aa8bf25c0649292d4bc09d753e393a0f453",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
