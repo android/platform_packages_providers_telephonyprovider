@@ -140,8 +140,8 @@ public class TelephonyProvider extends ContentProvider
 
     static {
         // Columns not included in UNIQUE constraint: name, current, edited, user, server, password,
-        // authtype, type, protocol, roaming_protocol, sub_id, modem_cognitive, max_conns,
-        // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible
+        // authtype, sub_id, modem_cognitive, max_conns, wait_time, max_conns_time, mtu,
+        // bearer_bitmask, user_visible
         CARRIERS_UNIQUE_FIELDS.add(NUMERIC);
         CARRIERS_UNIQUE_FIELDS.add(MCC);
         CARRIERS_UNIQUE_FIELDS.add(MNC);
@@ -158,6 +158,7 @@ public class TelephonyProvider extends ContentProvider
         CARRIERS_UNIQUE_FIELDS.add(PROFILE_ID);
         CARRIERS_UNIQUE_FIELDS.add(PROTOCOL);
         CARRIERS_UNIQUE_FIELDS.add(ROAMING_PROTOCOL);
+        CARRIERS_UNIQUE_FIELDS.add(TYPE);
     }
 
     @VisibleForTesting
