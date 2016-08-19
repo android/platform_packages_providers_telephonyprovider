@@ -151,6 +151,7 @@ public class TelephonyProvider extends ContentProvider
         CARRIERS_UNIQUE_FIELDS.add(MVNO_TYPE);
         CARRIERS_UNIQUE_FIELDS.add(MVNO_MATCH_DATA);
         CARRIERS_UNIQUE_FIELDS.add(PROFILE_ID);
+        CARRIERS_UNIQUE_FIELDS.add(TYPE);
     }
 
     @VisibleForTesting
