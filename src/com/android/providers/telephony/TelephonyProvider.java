@@ -1453,13 +1453,31 @@ public class TelephonyProvider extends ContentProvider
         }
     }
 
+    /**
+     * These methods can be overridden in a subclass for testing TelephonyProvider using an
+     * in-memory database.
+     */
+    SQLiteDatabase getReadableDatabase() {
+        return mOpenHelper.getReadableDatabase();
+    }
+    SQLiteDatabase getWritableDatabase() {
+        return mOpenHelper.getWritableDatabase();
+    }
+    void initDatabaseWithDatabaseHelper(SQLiteDatabase db) {
+        mOpenHelper.initDatabase(db);
+    }
+    boolean needApnDbUpdate() {
+        return mOpenHelper.apnDbUpdateNeeded();
+    }
+
+
     @Override
     public boolean onCreate() {
         mOpenHelper = new DatabaseHelper(getContext());
 
         // Call getReadableDatabase() to make sure onUpgrade is called
         if (VDBG) log("onCreate: calling getReadableDatabase to trigger onUpgrade");
-        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
 
         // Update APN db on build update
         String newBuildId = SystemProperties.get("ro.build.id", null);
@@ -1551,7 +1569,7 @@ public class TelephonyProvider extends ContentProvider
 
     private void setPreferredApn(Long id, int subId) {
         log("setPreferredApn: _id " + id + " subId " + subId);
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         // query all unique fields from id
         String[] proj = CARRIERS_UNIQUE_FIELDS.toArray(new String[CARRIERS_UNIQUE_FIELDS.size()]);
         Cursor c = db.query(CARRIERS_TABLE, proj, "_id=" + id, null, null, null, null);
@@ -1579,7 +1597,7 @@ public class TelephonyProvider extends ContentProvider
 
     private long getPreferredApnIdFromApn(int subId) {
         log("getPreferredApnIdFromApn: for subId " + subId);
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         String where = TextUtils.join("=? and ", CARRIERS_UNIQUE_FIELDS) + "=?";
         String[] whereArgs = new String[CARRIERS_UNIQUE_FIELDS.size()];
         SharedPreferences sp = getContext().getSharedPreferences(PREF_FILE_FULL_APN,
@@ -1733,7 +1751,7 @@ public class TelephonyProvider extends ContentProvider
             }
         }
 
-        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         Cursor ret = null;
         try {
             // Exclude entries marked deleted
@@ -1788,7 +1806,7 @@ public class TelephonyProvider extends ContentProvider
 
         checkPermission();
 
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         int match = s_urlMatcher.match(url);
         boolean notify = false;
         switch (match)
@@ -1938,7 +1956,7 @@ public class TelephonyProvider extends ContentProvider
 
         checkPermission();
 
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         int match = s_urlMatcher.match(url);
         switch (match)
         {
@@ -2073,7 +2091,7 @@ public class TelephonyProvider extends ContentProvider
 
         checkPermission();
 
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         int match = s_urlMatcher.match(url);
         switch (match)
         {
@@ -2228,7 +2246,7 @@ public class TelephonyProvider extends ContentProvider
     private DatabaseHelper mOpenHelper;
 
     private void restoreDefaultAPN(int subId) {
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
 
         try {
             db.delete(CARRIERS_TABLE, null, null);
@@ -2236,16 +2254,16 @@ public class TelephonyProvider extends ContentProvider
             loge("got exception when deleting to restore: " + e);
         }
         setPreferredApnId((long) INVALID_APN_ID, subId);
-        mOpenHelper.initDatabase(db);
+        initDatabaseWithDatabaseHelper(db);
     }
 
     private synchronized void updateApnDb() {
-        if (!mOpenHelper.apnDbUpdateNeeded()) {
+        if (!needApnDbUpdate()) {
             log("Skipping apn db update since apn-conf has not changed.");
             return;
         }
 
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
 
         // Delete preferred APN for all subIds
         deletePreferredApnId();
@@ -2258,7 +2276,7 @@ public class TelephonyProvider extends ContentProvider
             loge("got exception when deleting to update: " + e);
         }
 
-        mOpenHelper.initDatabase(db);
+        initDatabaseWithDatabaseHelper(db);
 
         // Notify listereners of DB change since DB has been updated
         getContext().getContentResolver().notifyChange(
