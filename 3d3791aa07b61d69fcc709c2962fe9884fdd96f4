@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "85dd6ba2_a60c7f9d",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2016-09-28T18:30:43Z",
+      "side": 1,
+      "message": "your contentProvider support both tables but the name for the context is misleading :)\nand you can also consider move testcase to TelephonyTest apk so that you dont need to create your own mockContext",
+      "parentUuid": "85ec8b0b_6e806630",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 135,
+        "endChar": 79
+      },
+      "revId": "3d3791aa07b61d69fcc709c2962fe9884fdd96f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25c75f2e_cead8388",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 1
