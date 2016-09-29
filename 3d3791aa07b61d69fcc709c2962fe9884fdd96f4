@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "85dd6ba2_26cb664b",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2016-09-29T04:32:01Z",
+      "side": 1,
+      "message": "Moving the testcase is probably not a good idea, but we can consider creating a test lib with all utility mocks that can be included in all our test apks.",
+      "parentUuid": "85dd6ba2_a60c7f9d",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 135,
+        "endChar": 79
+      },
+      "revId": "3d3791aa07b61d69fcc709c2962fe9884fdd96f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25c75f2e_cead8388",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 1
