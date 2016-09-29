@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85dd6ba2_a6a8f675",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2016-09-29T04:32:01Z",
+      "side": 1,
+      "message": "TelephonyProviderTest",
+      "range": {
+        "startLine": 60,
+        "startChar": 68,
+        "endLine": 60,
+        "endChar": 85
+      },
+      "revId": "35d6dfe18117132c56861162818694dc30de05ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85dd6ba2_ab927f58",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTestable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2016-09-29T04:32:01Z",
+      "side": 1,
+      "message": "I wonder if @spy would work instead of extending TelephonyProvider. Although effectively they should both be the same, we\u0027re trying to use mockito for mocking where possible.",
+      "revId": "35d6dfe18117132c56861162818694dc30de05ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
