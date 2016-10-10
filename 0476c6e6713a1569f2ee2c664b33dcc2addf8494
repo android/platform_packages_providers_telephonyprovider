@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dff9f4d6_dcdee3cf",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTestable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2016-10-10T05:49:40Z",
+      "side": 1,
+      "message": "Make it public in the provider and mark it @VisibleForTesting",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "0476c6e6713a1569f2ee2c664b33dcc2addf8494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dff9f4d6_bcf4474a",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTestable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2016-10-10T05:49:40Z",
+      "side": 1,
+      "message": "One way that I can think of is add the String passed in to execSQL() as a public static member variable in TelephonyProvider and mark it @VisibleForTesting",
+      "range": {
+        "startLine": 116,
+        "startChar": 15,
+        "endLine": 116,
+        "endChar": 19
+      },
+      "revId": "0476c6e6713a1569f2ee2c664b33dcc2addf8494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
