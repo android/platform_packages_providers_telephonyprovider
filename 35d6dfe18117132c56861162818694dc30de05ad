@@ -63,6 +63,24 @@
       "revId": "35d6dfe18117132c56861162818694dc30de05ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2254b50d_f49eda05",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTestable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2016-10-11T18:09:41Z",
+      "side": 1,
+      "message": "initmocks with mockito doesn\u0027t seem to be working",
+      "parentUuid": "85dd6ba2_ab927f58",
+      "revId": "35d6dfe18117132c56861162818694dc30de05ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
