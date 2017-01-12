@@ -29,6 +29,8 @@
 
     <!-- This permission is only used to send the ACTION_EXTERNAL_PROVIDER_CHANGE intent. -->
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <!-- READ_PHONE_STATE is used to answer queries to ServiceStateProvider. -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application android:process="com.android.phone"
                  android:allowClearUserData="false"
@@ -44,6 +46,12 @@
 
         <provider android:name="TelephonyProvider"
                   android:authorities="telephony"
+                  android:exported="true"
+                  android:singleUser="true"
+                  android:multiprocess="false" />
+
+        <provider android:name="ServiceStateProvider"
+                  android:authorities="service-state"
                   android:exported="true"
                   android:singleUser="true"
                   android:multiprocess="false" />
