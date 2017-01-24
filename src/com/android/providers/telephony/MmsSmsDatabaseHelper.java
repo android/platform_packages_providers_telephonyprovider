@@ -239,7 +239,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static boolean sFakeLowStorageTest = false;     // for testing only
 
     static final String DATABASE_NAME = "mmssms.db";
-    static final int DATABASE_VERSION = 65;
+    static final int DATABASE_VERSION = 66;
     private final Context mContext;
     private LowStorageMonitor mLowStorageMonitor;
 
@@ -1455,6 +1455,22 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             } finally {
                 db.endTransaction();
             }
+            // fall through
+        case 65:
+            if (currentVersion <= 65) {
+                return;
+            }
+
+            db.beginTransaction();
+            try {
+                upgradeDatabaseToVersion66(db);
+                db.setTransactionSuccessful();
+            } catch (Throwable ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+                break;
+            } finally {
+                db.endTransaction();
+            }
 
             return;
         }
@@ -1744,6 +1760,18 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         } catch (SQLiteException e) {
             Log.w(TAG, "[upgradeDatabaseToVersion65] Exception adding column message_body; " +
                     "trying createThreadIdDateIndex() instead: " + e);
+            createThreadIdDateIndex(db);
+        }
+    }
+
+    private void upgradeDatabaseToVersion66(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE " + SmsProvider.TABLE_RAW
+                    + " ADD COLUMN display_originating_addr TEXT");
+        } catch (SQLiteException e) {
+            Log.w(TAG, "[upgradeDatabaseToVersion65] Exception adding column "
+                    + "display_originating_addr; "
+                    + "trying createThreadIdDateIndex() instead: " + e);
             createThreadIdDateIndex(db);
         }
     }
