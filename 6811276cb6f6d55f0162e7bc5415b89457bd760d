@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f919762d_67727153",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1776,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-01-26T23:11:26Z",
+      "side": 1,
+      "message": "nit: change to \u0027:\u0027 followed by space",
+      "range": {
+        "startLine": 1776,
+        "startChar": 47,
+        "endLine": 1776,
+        "endChar": 48
+      },
+      "revId": "6811276cb6f6d55f0162e7bc5415b89457bd760d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
