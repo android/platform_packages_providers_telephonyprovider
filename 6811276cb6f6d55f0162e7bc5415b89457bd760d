@@ -22,6 +22,29 @@
       "revId": "6811276cb6f6d55f0162e7bc5415b89457bd760d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a662454a_9365a58b",
+        "filename": "src/com/android/providers/telephony/MmsSmsDatabaseHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1776,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2017-01-27T01:28:51Z",
+      "side": 1,
+      "message": "Done",
+      "range": {
+        "startLine": 1776,
+        "startChar": 47,
+        "endLine": 1776,
+        "endChar": 48
+      },
+      "revId": "6811276cb6f6d55f0162e7bc5415b89457bd760d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
