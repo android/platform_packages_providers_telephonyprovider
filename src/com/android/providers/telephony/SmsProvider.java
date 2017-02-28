@@ -426,7 +426,7 @@ public class SmsProvider extends ContentProvider {
             // sending out a notification that an sms has arrived. We don't want to notify
             // the default sms app of changes to this table.
             final boolean notifyIfNotDefault = sURLMatcher.match(url) != SMS_RAW_MESSAGE;
-            notifyChange(notifyIfNotDefault, url, callerPkg);
+            notifyChange(notifyIfNotDefault, insertUri, callerPkg);
             return messagesInserted;
         } finally {
             Binder.restoreCallingIdentity(token);
@@ -445,7 +445,7 @@ public class SmsProvider extends ContentProvider {
             // sending out a notification that an sms has arrived. We don't want to notify
             // the default sms app of changes to this table.
             final boolean notifyIfNotDefault = sURLMatcher.match(url) != SMS_RAW_MESSAGE;
-            notifyChange(notifyIfNotDefault, insertUri, callerPkg);
+            notifyChange(notifyIfNotDefault, url, callerPkg);
             return insertUri;
         } finally {
             Binder.restoreCallingIdentity(token);
@@ -632,8 +632,7 @@ public class SmsProvider extends ContentProvider {
             db.insert(TABLE_WORDS, Telephony.MmsSms.WordsTable.INDEXED_TEXT, cv);
         }
         if (rowID > 0) {
-            Uri uri = Uri.parse("content://" + table + "/" + rowID);
-
+            Uri uri = Uri.withAppendedPath(url, "/" + table + "/" + rowID );
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.d(TAG, "insert " + uri + " succeeded");
             }
