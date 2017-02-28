@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d9be242_4830b3fe",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2017-02-28T16:54:54Z",
+      "side": 1,
+      "message": "@Jeff generated  cotent://raw is only used internally to get row_id, never meant  for matching telephony provider.\nif that\u0027s still an concern we could also look into redefining insertUri with appropriate authorities",
+      "range": {
+        "startLine": 442,
+        "startChar": 16,
+        "endLine": 442,
+        "endChar": 25
+      },
+      "revId": "686350f88b5760e3de45e3a3068960f0d309e5e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
