@@ -445,7 +445,7 @@ public class SmsProvider extends ContentProvider {
             // sending out a notification that an sms has arrived. We don't want to notify
             // the default sms app of changes to this table.
             final boolean notifyIfNotDefault = sURLMatcher.match(url) != SMS_RAW_MESSAGE;
-            notifyChange(notifyIfNotDefault, insertUri, callerPkg);
+            notifyChange(notifyIfNotDefault, url, callerPkg);
             return insertUri;
         } finally {
             Binder.restoreCallingIdentity(token);
