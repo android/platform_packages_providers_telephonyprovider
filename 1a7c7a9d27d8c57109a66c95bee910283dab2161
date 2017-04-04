@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b36f2be7_d4de4f3e",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-04T00:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "582bf2c1_65eea157",
+      "revId": "1a7c7a9d27d8c57109a66c95bee910283dab2161",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f46dda0_b051152a",
         "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2017-03-21T03:24:22Z",
       "side": 1,
       "message": "negate the check above and throw this exception first.",
+      "revId": "1a7c7a9d27d8c57109a66c95bee910283dab2161",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c4bfbc1_bdc8117f",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-04T00:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f46dda0_b051152a",
       "revId": "1a7c7a9d27d8c57109a66c95bee910283dab2161",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
