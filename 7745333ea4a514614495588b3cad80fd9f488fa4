@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd4decf8_77018be4",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-04-07T04:43:21Z",
+      "side": 1,
+      "message": "it\u0027s not clear to me why this is needed.",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb6513e1_b4df3d3b",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-04-07T04:43:21Z",
+      "side": 1,
+      "message": "this should never happen, right? insert should happen only from telephony and subId should always be specified.\n\nAlso, we need to make sure that only system can do an insert. We can use MODIFY_PHONE_STATE or some such permission for it. Can you check how to specify that insert requires a certain permission?",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 42
+      },
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d1e50ad_04224402",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-04-07T04:43:21Z",
+      "side": 1,
+      "message": "Do we really need a query function? What\u0027s the equivalent of it today?",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2ece27a_cdab6b5f",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-04-07T04:43:21Z",
+      "side": 1,
+      "message": "listeners may register for the DEFAULT subId (without knowing/caring what the actual subId is). We need to support that as well. Check TelephonyRegistry for that; idMatch() takes care of it.",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
