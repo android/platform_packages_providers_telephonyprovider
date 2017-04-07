@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2a5d20e1_2e08c671",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-07T21:00:22Z",
+      "side": 1,
+      "message": "this was used back before I had ServiceStateTracker call insert() to pass the servicestate. Will remove",
+      "parentUuid": "fd4decf8_77018be4",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb6513e1_b4df3d3b",
         "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
         "patchSetId": 13
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5ca3e399_7f2f06f4",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-07T21:00:22Z",
+      "side": 1,
+      "message": "That\u0027s right, it shouldn\u0027t happen. We can throw an exception if subId isn\u0027t specified.\n\nAlso we can require writePermissions in the manifest.",
+      "parentUuid": "cb6513e1_b4df3d3b",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 42
+      },
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d1e50ad_04224402",
         "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
         "patchSetId": 13
@@ -53,6 +95,24 @@
       "writtenOn": "2017-04-07T04:43:21Z",
       "side": 1,
       "message": "Do we really need a query function? What\u0027s the equivalent of it today?",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82f16059_9c7af88f",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-07T21:00:22Z",
+      "side": 1,
+      "message": "today listeners either implement PhoneStateListener#onServiceStateChanged which is passed the service state or use the service state bundle added to the broadcast intent as an extra.\n\nI think we should provide query even though there are other ways to get the service state because if an app is notified by a CONTENT_URI trigger that values have changed, they should be able to query that CONTENT_URI for the values.",
+      "parentUuid": "8d1e50ad_04224402",
       "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
