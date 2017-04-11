@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "cb33c377_5226805c",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-11T00:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a5d20e1_2e08c671",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb6513e1_b4df3d3b",
         "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
         "patchSetId": 13
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "That\u0027s right, it shouldn\u0027t happen. We can throw an exception if subId isn\u0027t specified.\n\nAlso we can require writePermissions in the manifest.",
       "parentUuid": "cb6513e1_b4df3d3b",
+      "range": {
+        "startLine": 116,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 42
+      },
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e0d7867_e1fd29d5",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-11T00:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ca3e399_7f2f06f4",
       "range": {
         "startLine": 116,
         "startChar": 16,
@@ -148,6 +190,24 @@
       "side": 1,
       "message": "not sure I understand how idMatch works... what are rSubId and subId? Can I just do an equality check myself without involving phoneId?",
       "parentUuid": "a2ece27a_cdab6b5f",
+      "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05844f50_2b931a0f",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-04-11T00:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31000a39_5a578e36",
       "revId": "7745333ea4a514614495588b3cad80fd9f488fa4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
