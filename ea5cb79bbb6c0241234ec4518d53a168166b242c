@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d4921a3_5dccc4b4",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-04-16T23:39:14Z",
+      "side": 1,
+      "message": "For query we should use default subId in this case.",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 204,
+        "endChar": 24
+      },
+      "revId": "ea5cb79bbb6c0241234ec4518d53a168166b242c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
