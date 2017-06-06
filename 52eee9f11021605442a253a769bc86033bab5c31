@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58ed025b_2a83aedc",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-06-06T18:22:21Z",
+      "side": 1,
+      "message": "I believe wink@ retired",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "52eee9f11021605442a253a769bc86033bab5c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9898b801_990851f0",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-06-06T18:22:21Z",
+      "side": 1,
+      "message": "Don\u0027t think ywen@ works on Telephony anymore",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "52eee9f11021605442a253a769bc86033bab5c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
