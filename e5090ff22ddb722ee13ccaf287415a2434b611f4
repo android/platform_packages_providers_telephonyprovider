@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05d75775_e849d60e",
+        "filename": "OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1003618
+      },
+      "writtenOn": "2017-06-06T18:43:42Z",
+      "side": 1,
+      "message": "Add:\ntomtaylor@google.com\nschwerdtner@google.com",
+      "revId": "e5090ff22ddb722ee13ccaf287415a2434b611f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
