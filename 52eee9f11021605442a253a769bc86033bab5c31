@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4dc8161c_2a111ac8",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1052399
+      },
+      "writtenOn": "2017-06-06T18:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58ed025b_2a83aedc",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "52eee9f11021605442a253a769bc86033bab5c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9898b801_990851f0",
         "filename": "OWNERS",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-06-06T18:22:21Z",
       "side": 1,
       "message": "Don\u0027t think ywen@ works on Telephony anymore",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "52eee9f11021605442a253a769bc86033bab5c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0cd13a6_2f88a98c",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1052399
+      },
+      "writtenOn": "2017-06-06T18:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9898b801_990851f0",
       "range": {
         "startLine": 5,
         "startChar": 0,
