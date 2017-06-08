@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10373233_64613ac3",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1562,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-06-08T23:10:48Z",
+      "side": 1,
+      "message": "O api not available on AOSP yet.\n\nAside from this the CL is a clean cp",
+      "range": {
+        "startLine": 1562,
+        "startChar": 23,
+        "endLine": 1562,
+        "endChar": 45
+      },
+      "revId": "d4dd8991ca8a2e0fc5a4d364ecb287290ee272fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
