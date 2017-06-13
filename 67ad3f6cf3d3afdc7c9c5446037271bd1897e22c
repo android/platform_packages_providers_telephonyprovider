@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40f4ffb2_95b87840",
+        "filename": "OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2017-06-13T16:57:53Z",
+      "side": 1,
+      "message": "Tim is not on Android",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "67ad3f6cf3d3afdc7c9c5446037271bd1897e22c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
