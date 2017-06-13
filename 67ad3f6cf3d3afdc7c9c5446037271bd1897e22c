@@ -22,6 +22,30 @@
       "revId": "67ad3f6cf3d3afdc7c9c5446037271bd1897e22c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b791139_6fcfcc38",
+        "filename": "OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1052399
+      },
+      "writtenOn": "2017-06-13T17:06:14Z",
+      "side": 1,
+      "message": "Done. Removed.",
+      "parentUuid": "40f4ffb2_95b87840",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "67ad3f6cf3d3afdc7c9c5446037271bd1897e22c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
