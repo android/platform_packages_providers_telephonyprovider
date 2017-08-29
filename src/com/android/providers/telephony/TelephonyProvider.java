@@ -2406,9 +2406,38 @@ public class TelephonyProvider extends ContentProvider
 
     private void restoreDefaultAPN(int subId) {
         SQLiteDatabase db = getWritableDatabase();
+        TelephonyManager telephonyManager =
+               (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        SubscriptionManager subscriptionManager = SubscriptionManager.from(getContext());
+        String selectedOperatorNumeric = telephonyManager.getSimOperator(subId);
+        String where = null;
+        List<SubscriptionInfo> subInfoList = subscriptionManager.getActiveSubscriptionInfoList();
+        List<String> otherOperatorNumerics = new ArrayList<String>();
+        if (subInfoList != null && subInfoList.size() > 1) {
+            for (SubscriptionInfo subInfo : subInfoList) {
+                if (subId != subInfo.getSubscriptionId()) {
+                    String operatorNumeric = telephonyManager.getSimOperator(
+                            subInfo.getSubscriptionId());
+                    if (!operatorNumeric.equalsIgnoreCase(selectedOperatorNumeric)) {
+                        otherOperatorNumerics.add(operatorNumeric);
+                    }
+                }
+            }
+        }
+        if (otherOperatorNumerics.size() > 0) {
+            where = "not ((";
+            for (int i = 0; i < otherOperatorNumerics.size(); i++) {
+                if (i > 0) {
+                    where = where + " or ";
+                }
+                where = where + "numeric='" + otherOperatorNumerics.get(i) + "'";
+            }
+            where = where + ") and edited=" + USER_EDITED + ")";
+        }
+        log("restoreDefaultAPN: where: " + where);
 
         try {
-            db.delete(CARRIERS_TABLE, null, null);
+            db.delete(CARRIERS_TABLE, where, null);
         } catch (SQLException e) {
             loge("got exception when deleting to restore: " + e);
         }
