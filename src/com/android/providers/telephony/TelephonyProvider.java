@@ -2391,9 +2391,38 @@ public class TelephonyProvider extends ContentProvider
 
     private void restoreDefaultAPN(int subId) {
         SQLiteDatabase db = getWritableDatabase();
+        TelephonyManager telephonyManager =
+               (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        SubscriptionManager subscriptionManager = SubscriptionManager.from(getContext());
+        String selSubOperatorNumeric = telephonyManager.getSimOperator(subId);
+        String otherSubOperatorNumeric = null;
+        String where = null;
+        List<SubscriptionInfo> subInfoList = subscriptionManager.getActiveSubscriptionInfoList();
+        int simCountWithSameNumeric = 0;
+        if (subInfoList != null && subInfoList.size() > 1) {
+            where = "not (";
+            for (SubscriptionInfo subInfo : subInfoList) {
+               if (subId != subInfo.getSubscriptionId()) {
+                  otherSubOperatorNumeric = telephonyManager.getSimOperator(
+                          subInfo.getSubscriptionId());
+                  if (!otherSubOperatorNumeric.equalsIgnoreCase(selSubOperatorNumeric)) {
+                      where = where + "numeric='" + otherSubOperatorNumeric + "' and ";
+                  } else {
+                      simCountWithSameNumeric++;
+                  }
+               }
+            }
+            where = where + "edited=" + USER_EDITED + ")";
+        }
+
+        if (subInfoList != null && simCountWithSameNumeric == subInfoList.size() - 1) {
+            //Reset where as all slots have the same sims
+            where = null;
+        }
+        log("restoreDefaultAPN: where: " + where);
 
         try {
-            db.delete(CARRIERS_TABLE, null, null);
+            db.delete(CARRIERS_TABLE, where, null);
         } catch (SQLException e) {
             loge("got exception when deleting to restore: " + e);
         }
