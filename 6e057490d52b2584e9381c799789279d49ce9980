@@ -22,6 +22,30 @@
       "revId": "6e057490d52b2584e9381c799789279d49ce9980",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8c2ae8_e314d6a7",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2425,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2017-10-17T12:27:19Z",
+      "side": 1,
+      "message": "Yes, we have done the manual test in the test case I attached in b/65188023.\n\n\nTestCase:\n[Puropose]\nCheck whether other SIM\u0027s APNs are not lostn after executing \"Restore to Default\"\n\nPrecondition:\n(1) Insert two SIMs to Multi-SIM device.\n\nStep-by-Step\n(1) Go to setting -\u003e Network \u0026 Internet -\u003e Mobile network\n(2) Open the \"Access Point Names\" Of SIM1 and create a New APN.\n(3) Back to Mobile network setting page and open the \"Access Point Names\" SIM2.\n(4) Click on option icon and tap on \"Reset to default\".\n\nExpectations:\nAfter (4), SIM1\u0027s APNs are not lost.",
+      "parentUuid": "1ec394c9_b7fbd87d",
+      "range": {
+        "startLine": 2425,
+        "startChar": 11,
+        "endLine": 2425,
+        "endChar": 51
+      },
+      "revId": "6e057490d52b2584e9381c799789279d49ce9980",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
