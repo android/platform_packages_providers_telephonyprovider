@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e90bb1a_49a84e11",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-10-18T01:04:53Z",
+      "side": 1,
+      "message": "This code does not handle MVNOs.\n\nAlso, the query should be \"not (numeric \u003d operator1 OR numeric \u003d operator2) AND edited \u003d USER_EDITED)\"\nThere is no OR in this code.",
+      "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
