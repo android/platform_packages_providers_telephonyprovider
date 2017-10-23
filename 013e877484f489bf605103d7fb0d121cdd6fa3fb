@@ -16,6 +16,24 @@
       "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce21601f_c0d7aae2",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2017-10-23T09:31:27Z",
+      "side": 1,
+      "message": "1.This code does not handle MVNOs.\n\nSince APN list is extracted based on MCC/MNC, the APN list display is not distinguished between MNO and MVNO in ApnSettings screen.\nTherefore, I don\u0027t think that it is necessary to handle MVNO in \"Reset to default\" operation.\n\npackages/apps/Settings/src/com/android/settings/ApnSettings.java#fillList():\n----------\n    private void fillList() {\n.....\n        StringBuilder where \u003d new StringBuilder(\"numeric\u003d\\\"\" + mccmnc +\n                \"\\\" AND NOT (type\u003d\u0027ia\u0027 AND (apn\u003d\\\"\\\" OR apn IS NULL)) AND user_visible!\u003d0\");\n\n2. Also, the query should be ...\n\nThank you for your suggestion. I agree with you. I updated it.",
+      "parentUuid": "3e90bb1a_49a84e11",
+      "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
