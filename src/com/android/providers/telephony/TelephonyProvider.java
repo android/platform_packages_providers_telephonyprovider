@@ -135,6 +135,13 @@ public class TelephonyProvider extends ContentProvider
     private static final String IS_NOT_CARRIER_DELETED_BUT_PRESENT_IN_XML =
             EDITED + "!=" + CARRIER_DELETED_BUT_PRESENT_IN_XML;
 
+    // Indicate whether the preset APN can be deleted
+    // The default value is false means user can delete it
+    private static final String PERSISTENT = "persistent";
+    // Indicate whether the preset APN can be modified
+    // The default value is false means user can modify it
+    private static final String READ_ONLY = "read_only";
+
     private static final int INVALID_APN_ID = -1;
     private static final List<String> CARRIERS_UNIQUE_FIELDS = new ArrayList<String>();
 
@@ -197,6 +204,8 @@ public class TelephonyProvider extends ContentProvider
                 MTU + " INTEGER DEFAULT 0," +
                 EDITED + " INTEGER DEFAULT " + UNEDITED + "," +
                 USER_VISIBLE + " BOOLEAN DEFAULT 1," +
+                PERSISTENT + " BOOLEAN DEFAULT 0," +
+                READ_ONLY + " BOOLEAN DEFAULT 0," +
                 // Uniqueness collisions are used to trigger merge code so if a field is listed
                 // here it means we will accept both (user edited + new apn_conf definition)
                 // Columns not included in UNIQUE constraint: name, current, edited,
@@ -1209,6 +1218,8 @@ public class TelephonyProvider extends ContentProvider
             addBoolAttribute(parser, "carrier_enabled", map, CARRIER_ENABLED);
             addBoolAttribute(parser, "modem_cognitive", map, MODEM_COGNITIVE);
             addBoolAttribute(parser, "user_visible", map, USER_VISIBLE);
+            addBoolAttribute(parser, "persistent", map, PERSISTENT);
+            addBoolAttribute(parser, "read_only", map, READ_ONLY);
 
             int bearerBitmask = 0;
             String bearerList = parser.getAttributeValue(null, "bearer_bitmask");
