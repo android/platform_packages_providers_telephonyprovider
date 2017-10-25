@@ -34,6 +34,24 @@
       "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1557e13c_0b23d394",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-10-25T22:32:10Z",
+      "side": 1,
+      "message": "For 1, I think MVNO should be checked. The SIMs may be one from MNO and one from an MVNO on that MNO.\n\nIf you look at the code in fillList(), only one of the 2 is shown. Towards the end of the function there is this check that takes care of that: if (!mvnoApnList.isEmpty())",
+      "parentUuid": "ce21601f_c0d7aae2",
+      "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
