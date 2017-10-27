@@ -2420,7 +2420,7 @@ public class TelephonyProvider extends ContentProvider
             }
             case URL_RESTOREAPN: {
                 count = 1;
-                restoreDefaultAPN(subId);
+                restoreDefaultAPN(subId, where);
                 break;
             }
 
@@ -2634,11 +2634,12 @@ public class TelephonyProvider extends ContentProvider
 
     private DatabaseHelper mOpenHelper;
 
-    private void restoreDefaultAPN(int subId) {
+    private void restoreDefaultAPN(int subId, String where) {
         SQLiteDatabase db = getWritableDatabase();
+        where = TextUtils.isEmpty(where) ? NOT_OWNED_BY_DPC : where + " AND " + NOT_OWNED_BY_DPC;
 
         try {
-            db.delete(CARRIERS_TABLE, NOT_OWNED_BY_DPC, null);
+            db.delete(CARRIERS_TABLE, where, null);
         } catch (SQLException e) {
             loge("got exception when deleting to restore: " + e);
         }
