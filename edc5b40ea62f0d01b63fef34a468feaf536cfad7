@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e476de7_874d197f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-11-08T23:51:03Z",
+      "side": 1,
+      "message": "Do you mind adding a unit test to TelephonyProviderTest for this?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "563589d0_9a4bd827",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-11-08T23:51:03Z",
+      "side": 1,
+      "message": "Did we not need these before?",
+      "range": {
+        "startLine": 1660,
+        "startChar": 12,
+        "endLine": 1664,
+        "endChar": 41
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6699ce99_393fe05b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-11-08T23:51:03Z",
+      "side": 1,
+      "message": "Seems you can also leave this value blank since you\u0027ve made the default value OWNED_BY_OTHERS already",
+      "range": {
+        "startLine": 2217,
+        "startChar": 16,
+        "endLine": 2220,
+        "endChar": 17
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
