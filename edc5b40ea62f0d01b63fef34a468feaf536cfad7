@@ -140,6 +140,30 @@
       "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "714109c6_3a4463ef",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-09T01:25:54Z",
+      "side": 1,
+      "message": "that actually sounds better, or else caller may fake OWNED_BY.",
+      "parentUuid": "35f92e00_522328fb",
+      "range": {
+        "startLine": 2217,
+        "startChar": 16,
+        "endLine": 2220,
+        "endChar": 17
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
