@@ -33,6 +33,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.FileUtils;
+import android.os.Process;
 import android.provider.Telephony.Carriers;
 import android.telephony.SubscriptionManager;
 import android.test.AndroidTestCase;
@@ -72,7 +73,6 @@ public class TelephonyProviderTest extends TestCase {
     private TelephonyProviderTestable mTelephonyProviderTestable;
 
     private int notifyChangeCount;
-
 
     /**
      * This is used to give the TelephonyProviderTest a mocked context which takes a
@@ -273,7 +273,7 @@ public class TelephonyProviderTest extends TestCase {
         final String selectionToDelete = Carriers.NUMERIC + "=?";
         String[] selectionArgsToDelete = { insertNumeric };
         Log.d(TAG, "testInsertCarriers deleting selection: " + selectionToDelete
-                + "testInsertCarriers selectionArgs: " + selectionArgs);
+                + "testInsertCarriers selectionArgs: " + selectionArgsToDelete);
         int numRowsDeleted = mContentResolver.delete(Carriers.CONTENT_URI,
                 selectionToDelete, selectionArgsToDelete);
         assertEquals(1, numRowsDeleted);
@@ -331,7 +331,7 @@ public class TelephonyProviderTest extends TestCase {
         final String selectionToDelete = SubscriptionManager.DISPLAY_NAME + "=?";
         String[] selectionArgsToDelete = { insertDisplayName };
         Log.d(TAG, "testSimTable deleting selection: " + selectionToDelete
-                + "testSimTable selectionArgs: " + selectionArgs);
+                + "testSimTable selectionArgs: " + selectionArgsToDelete);
         int numRowsDeleted = mContentResolver.delete(SubscriptionManager.CONTENT_URI,
                 selectionToDelete, selectionArgsToDelete);
         assertEquals(1, numRowsDeleted);
@@ -340,5 +340,178 @@ public class TelephonyProviderTest extends TestCase {
         cursor = mContentResolver.query(SubscriptionManager.CONTENT_URI,
                 testProjection, selection, selectionArgs, null);
         assertEquals(0, cursor.getCount());
+    }
+
+    /**
+     * Test inserting, querying, and deleting DPC records in carriers table.
+     * Verify that the inserted values match the result of the query and are deleted.
+     */
+    @Test
+    @SmallTest
+    public void testDPCRecordsAccessControl() {
+
+        final Uri URI_DPC = Uri.parse("content://telephony/carriers/dpc");
+        final Uri URI_PRIORITIZED = Uri.parse("content://telephony/carriers/prioritized");
+        final Uri URI_ALL = Uri.parse("content://telephony/carriers/all");
+
+        // Insert test DPC contentValues.
+        ContentValues contentValuesDPC = new ContentValues();
+        final String insertApnDPC = "exampleApnNameDPC";
+        final String insertNameDPC = "exampleNameDPC";
+        final int insertCurrent = 1;
+        final String insertNumeric = "123456789";
+        contentValuesDPC.put(Carriers.APN, insertApnDPC);
+        contentValuesDPC.put(Carriers.NAME, insertNameDPC);
+        contentValuesDPC.put(Carriers.CURRENT, insertCurrent);
+        contentValuesDPC.put(Carriers.NUMERIC, insertNumeric);
+        Log.d(TAG, "testDPCRecordsAccessControl Inserting DPC contentValues: " + contentValuesDPC);
+        mContentResolver.insert(URI_DPC, contentValuesDPC);
+
+        // Insert test OTHERS contentValues.
+        ContentValues contentValuesOTHERS = new ContentValues();
+        final String insertApnOTHERS = "exampleApnNameOTHERS";
+        final String insertNameOTHERS = "exampleNameDPOTHERS";
+        contentValuesOTHERS.put(Carriers.APN, insertApnOTHERS);
+        contentValuesOTHERS.put(Carriers.NAME, insertNameOTHERS);
+        contentValuesOTHERS.put(Carriers.CURRENT, insertCurrent);
+        contentValuesOTHERS.put(Carriers.NUMERIC, insertNumeric);
+        Log.d(TAG, "testDPCRecordsAccessControl Inserting OTHERS contentValues: "
+                + contentValuesOTHERS);
+        mContentResolver.insert(Carriers.CONTENT_URI, contentValuesOTHERS);
+
+        // Verify that DPC records query control is correct.
+        // The columns to get in table.
+        final String[] testProjection =
+                {
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Log.d(TAG, "testDPCRecordsAccessControl query projection: " + testProjection
+                + "\ntestDPCRecordsAccessControl selection: " + selection
+                + "\ntestDPCRecordsAccessControl selectionArgs: " + selectionArgs);
+        Cursor cursorGeneral = mContentResolver.query(Carriers.CONTENT_URI,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorDPC = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorAll = mContentResolver.query(URI_ALL,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorPrioritized = mContentResolver.query(URI_PRIORITIZED,
+                testProjection, selection, selectionArgs, null);
+        // Verify that general query returns only OTHERS records.
+        assertNotNull(cursorGeneral);
+        assertEquals(1, cursorGeneral.getCount());
+        cursorGeneral.moveToFirst();
+        assertEquals(insertApnOTHERS, cursorGeneral.getString(0));
+        assertEquals(insertNameOTHERS, cursorGeneral.getString(1));
+        assertEquals(insertCurrent, cursorGeneral.getInt(2));
+        assertEquals(Carriers.OWNED_BY_OTHERS, cursorGeneral.getInt(3));
+        // Verify that DPC query returns only DPC records.
+        assertNotNull(cursorDPC);
+        assertEquals(1, cursorDPC.getCount());
+        cursorDPC.moveToFirst();
+        assertEquals(insertApnDPC, cursorDPC.getString(0));
+        assertEquals(insertNameDPC, cursorDPC.getString(1));
+        assertEquals(insertCurrent, cursorDPC.getInt(2));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorDPC.getInt(3));
+        // Verify that ALL query returns all records.
+        assertNotNull(cursorAll);
+        assertEquals(2, cursorAll.getCount());
+        // Verify that PRIORITIZED query returns DPC records when matching DPC records exist.
+        assertNotNull(cursorPrioritized);
+        assertEquals(1, cursorPrioritized.getCount());
+        cursorPrioritized.moveToFirst();
+        assertEquals(insertApnDPC, cursorPrioritized.getString(0));
+        assertEquals(insertNameDPC, cursorPrioritized.getString(1));
+        assertEquals(insertCurrent, cursorPrioritized.getInt(2));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorPrioritized.getInt(3));
+
+        // Test URI_DPC updates only DPC records.
+        ContentValues contentValuesDPCUpdate = new ContentValues();
+        final String updateApnDPC = "exampleApnNameDPCUpdated";
+        final String updateNameDPC = "exampleNameDPCUpdated";
+        contentValuesDPCUpdate.put(Carriers.APN, updateApnDPC);
+        contentValuesDPCUpdate.put(Carriers.NAME, updateNameDPC);
+        final String where= Carriers.NUMERIC + "=?";
+        String[] whereArgs = { insertNumeric };
+        Log.d(TAG, "testDPCRecordsAccessControl update where: " + where
+                + "\ntestDPCRecordsAccessControl update whereArgs: " + whereArgs);
+        final int updateCount = mContentResolver.update(URI_DPC, contentValuesDPCUpdate,
+                where, whereArgs);
+        assertEquals(1, updateCount);
+        Log.d(TAG, "testDPCRecordsAccessControl query projection after update: " + testProjection
+                + "\ntestDPCRecordsAccessControl selection after update: " + selection
+                + "\ntestDPCRecordsAccessControl selectionArgs after update: " + selectionArgs);
+        Cursor cursorGeneralUpdate = mContentResolver.query(Carriers.CONTENT_URI,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorDPCUpdate = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        // Verify that OTHERS records are not updated.
+        assertNotNull(cursorGeneralUpdate);
+        assertEquals(1, cursorGeneralUpdate.getCount());
+        cursorGeneralUpdate.moveToFirst();
+        assertEquals(insertApnOTHERS, cursorGeneralUpdate.getString(0));
+        assertEquals(insertNameOTHERS, cursorGeneralUpdate.getString(1));
+        // Verify that DPC records are updated.
+        assertNotNull(cursorDPCUpdate);
+        assertEquals(1, cursorDPCUpdate.getCount());
+        cursorDPCUpdate.moveToFirst();
+        assertEquals(updateApnDPC, cursorDPCUpdate.getString(0));
+        assertEquals(updateNameDPC, cursorDPCUpdate.getString(1));
+
+        // Test URI_DPC deletes only DPC records.
+        Log.d(TAG, "testDPCRecordsAccessControl delete selection: " + selection
+                + "testDPCRecordsAccessControl delete selectionArgs: " + selectionArgs);
+        int numRowsDeleted = mContentResolver.delete(URI_DPC, selection, selectionArgs);
+        assertEquals(1, numRowsDeleted);
+        Log.d(TAG, "testDPCRecordsAccessControl query projection after delete: " + testProjection
+                + "\ntestDPCRecordsAccessControl selection after delete: " + selection
+                + "\ntestDPCRecordsAccessControl selectionArgs after delete: " + selectionArgs);
+        Cursor cursorGeneralDelete = mContentResolver.query(Carriers.CONTENT_URI,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorDPCDelete = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorAllDelete = mContentResolver.query(URI_ALL,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorPrioritizedDelete = mContentResolver.query(URI_PRIORITIZED,
+                testProjection, selection, selectionArgs, null);
+        // Verify that OTHERS records are not deleted.
+        assertNotNull(cursorGeneralDelete);
+        assertEquals(1, cursorGeneralDelete.getCount());
+        cursorGeneralDelete.moveToFirst();
+        assertEquals(insertApnOTHERS, cursorGeneralDelete.getString(0));
+        assertEquals(insertNameOTHERS, cursorGeneralDelete.getString(1));
+        assertEquals(insertCurrent, cursorGeneralDelete.getInt(2));
+        assertEquals(Carriers.OWNED_BY_OTHERS, cursorGeneralDelete.getInt(3));
+        // Verify that DPC records are deleted.
+        assertNotNull(cursorDPCDelete);
+        assertEquals(0, cursorDPCDelete.getCount());
+        // Verify that ALL query returns all records.
+        assertNotNull(cursorAllDelete);
+        assertEquals(1, cursorAllDelete.getCount());
+        // Verify that PRIORITIZED query returns OTHERS records when no matching DPC records exist.
+        assertNotNull(cursorPrioritizedDelete);
+        assertEquals(1, cursorPrioritizedDelete.getCount());
+        cursorPrioritizedDelete.moveToFirst();
+        assertEquals(insertApnOTHERS, cursorPrioritizedDelete.getString(0));
+        assertEquals(insertNameOTHERS, cursorPrioritizedDelete.getString(1));
+        assertEquals(insertCurrent, cursorPrioritizedDelete.getInt(2));
+        assertEquals(Carriers.OWNED_BY_OTHERS, cursorPrioritizedDelete.getInt(3));
+
+        // Delete OTHERS records.
+        Log.d(TAG, "testDPCRecordsAccessControl delete selection: " + selection
+                + "testDPCRecordsAccessControl delete selectionArgs: " + selectionArgs);
+        numRowsDeleted = mContentResolver.delete(Carriers.CONTENT_URI,
+                selection, selectionArgs);
+        assertEquals(1, numRowsDeleted);
+
+        // Verify that deleted values are gone.
+        Cursor finalCursor = mContentResolver.query(Carriers.CONTENT_URI,
+                testProjection, selection, selectionArgs, null);
+        assertNotNull(finalCursor);
+        assertEquals(0, finalCursor.getCount());
     }
 }
