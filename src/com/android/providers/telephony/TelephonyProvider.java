@@ -86,6 +86,7 @@ import android.os.Binder;
 import android.os.Environment;
 import android.os.FileUtils;
 import android.os.IBinder;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.os.UserHandle;
@@ -138,6 +139,10 @@ public class TelephonyProvider extends ContentProvider
     private static final int URL_SIMINFO_USING_SUBID = 13;
     private static final int URL_UPDATE_DB = 14;
     private static final int URL_DELETE = 15;
+    private static final int URL_DPC = 16;
+    private static final int URL_ALL = 17;
+    private static final int URL_PRIORITIZED = 18;
+
 
     private static final String TAG = "TelephonyProvider";
     private static final String CARRIERS_TABLE = "carriers";
@@ -185,6 +190,7 @@ public class TelephonyProvider extends ContentProvider
             EDITED + "=" + CARRIER_DELETED_BUT_PRESENT_IN_XML;
     private static final String IS_NOT_CARRIER_DELETED_BUT_PRESENT_IN_XML =
             EDITED + "!=" + CARRIER_DELETED_BUT_PRESENT_IN_XML;
+    private static final String IS_OWNED_BY_DPC = OWNED_BY + "=" + OWNED_BY_DPC;
     private static final String NOT_OWNED_BY_DPC = OWNED_BY + "!=" + OWNED_BY_DPC;
 
     private static final int INVALID_APN_ID = -1;
@@ -324,6 +330,13 @@ public class TelephonyProvider extends ContentProvider
 
         s_urlMatcher.addURI("telephony", "carriers/update_db", URL_UPDATE_DB);
         s_urlMatcher.addURI("telephony", "carriers/delete", URL_DELETE);
+
+        // Only called by DevicePolicyManager.
+        s_urlMatcher.addURI("telephony", "carriers/dpc", URL_DPC);
+        // Only called by Settings.
+        s_urlMatcher.addURI("telephony", "carriers/all", URL_ALL);
+        // Only called by DcTracker.
+        s_urlMatcher.addURI("telephony", "carriers/prioritized", URL_PRIORITIZED);
 
         s_currentNullMap = new ContentValues(1);
         s_currentNullMap.put(CURRENT, "0");
@@ -1978,6 +1991,13 @@ public class TelephonyProvider extends ContentProvider
         }
     }
 
+    boolean isCallingFromSystemUid() {
+        return UserHandle.getAppId(Binder.getCallingUid()) == Process.SYSTEM_UID;
+    }
+
+    //bool isCallingFromSystemServerProcess() {
+    //}
+
     @Override
     public synchronized Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
@@ -2055,6 +2075,41 @@ public class TelephonyProvider extends ContentProvider
             case URL_PREFERAPN:
             case URL_PREFERAPN_NO_UPDATE: {
                 qb.appendWhere("_id = " + getPreferredApnId(subId, true));
+                break;
+            }
+
+            case URL_DPC: {
+                // Only allowed to be called from system server process.
+                // TO be fixed.
+
+                // DPC query only returns DPC records.
+                qb.appendWhere(IS_OWNED_BY_DPC);
+                break;
+            }
+
+            case URL_ALL: {
+                // Only allowed to be called from SYSTEM_UID.
+                if (!isCallingFromSystemUid()) {
+                    Log.d("TelephonyProvider", "URL_ALL called from non SYSTEM_UID.");
+                    return null;
+                }
+                // ALL query returns all records.
+                break;
+            }
+
+            case URL_PRIORITIZED: {
+                // Only allowed to be called from system server process.
+                // TO be fixed.
+
+                // PRIORITIZED query tries to find if there is matching DPC records first.
+                SQLiteDatabase db = getReadableDatabase();
+                Cursor ret = qb.query(db, projectionIn, selection + " and " + IS_OWNED_BY_DPC,
+                        selectionArgs, null, null, sort);
+                if (ret != null && ret.getCount() > 0) {
+                    // Matching DPC records found, should return DPC records only.
+                    qb.appendWhere(IS_OWNED_BY_DPC);
+                }
+                // Else fall back to non-dpm records.
                 break;
             }
 
@@ -2304,6 +2359,40 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_DPC: {
+                // Only allowed to be called from system server process.
+                // TO be fixed.
+                if (!isCallingFromSystemUid()) {
+                    return Pair.create(result, notify);
+                }
+
+                ContentValues values;
+                if (initialValues != null) {
+                    values = new ContentValues(initialValues);
+                } else {
+                    values = new ContentValues();
+                }
+
+                values = DatabaseHelper.setDefaultValue(values);
+
+                // OWNED_BY should be DPC is inserted via URL_DPC.
+                values.put(OWNED_BY, OWNED_BY_DPC);
+
+                try {
+                    // Replace on conflict.
+                    long rowID = db.insertWithOnConflict(CARRIERS_TABLE, null, values,
+                            SQLiteDatabase.CONFLICT_REPLACE);
+                    if (rowID >= 0) {
+                        result = ContentUris.withAppendedId(CONTENT_URI, rowID);
+                        notify = true;
+                    }
+                    if (VDBG) log("insert: inserted " + values.toString() + " rowID = " + rowID);
+                } catch (SQLException e) {
+                    log("insert: exception " + e);
+                }
+                break;
+            }
+
             case URL_SIMINFO: {
                long id = db.insert(SIMINFO_TABLE, null, initialValues);
                result = ContentUris.withAppendedId(SubscriptionManager.CONTENT_URI, id);
@@ -2447,6 +2536,18 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_DPC: {
+                // Only allowed to be called from system server process.
+                // TO be fixed.
+                if (!isCallingFromSystemUid()) {
+                    break;
+                }
+                // Only delete entries that owned by DPC.
+                count = db.delete(CARRIERS_TABLE, "(" + where + ")"
+                            + " and " + IS_OWNED_BY_DPC, whereArgs);
+                break;
+            }
+
             case URL_SIMINFO: {
                 count = db.delete(SIMINFO_TABLE, where, whereArgs);
                 break;
@@ -2584,6 +2685,18 @@ public class TelephonyProvider extends ContentProvider
                         }
                     }
                 }
+                break;
+            }
+
+            case URL_DPC: {
+                // Only allowed to be called from system server process.
+                // TO be fixed.
+                if (!isCallingFromSystemUid()) {
+                    break;
+                }
+                count = db.updateWithOnConflict(CARRIERS_TABLE, values, where +
+                                " and " + IS_OWNED_BY_DPC, whereArgs,
+                        SQLiteDatabase.CONFLICT_REPLACE);
                 break;
             }
 
