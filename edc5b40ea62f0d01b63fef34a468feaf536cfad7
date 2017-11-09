@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "17cdb38a_58188870",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-09T00:16:25Z",
+      "side": 1,
+      "message": "sure will do this tomorrow",
+      "parentUuid": "5e476de7_874d197f",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "563589d0_9a4bd827",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "31bd4a9b_da7a2202",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-09T00:16:25Z",
+      "side": 1,
+      "message": "I\u0027m actually quite confused about the previous implementation here. These three UNIQUE columns were not added into selectionArgs, which means the number of variables in selection clause doesn\u0027t equal to the number of selectionArgs:\nString selection \u003d TextUtils.join(\"\u003d? AND \", CARRIERS_UNIQUE_FIELDS) + \"\u003d?\";\nall unique fields(17) are added into selection clause, but only 14 of them are added into selection args.\n\nwon\u0027t this always lead to an error?",
+      "parentUuid": "563589d0_9a4bd827",
+      "range": {
+        "startLine": 1660,
+        "startChar": 12,
+        "endLine": 1664,
+        "endChar": 41
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6699ce99_393fe05b",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-08T23:51:03Z",
       "side": 1,
       "message": "Seems you can also leave this value blank since you\u0027ve made the default value OWNED_BY_OTHERS already",
+      "range": {
+        "startLine": 2217,
+        "startChar": 16,
+        "endLine": 2220,
+        "endChar": 17
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35f92e00_522328fb",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-09T00:16:25Z",
+      "side": 1,
+      "message": "hmmm actually can I force to put OWNED_BY\u003dOWNED_BY_OTHERS here since someone may try to insert a row with OWNED_BY\u003dDPC with URL_TELEPHONY?",
+      "parentUuid": "6699ce99_393fe05b",
       "range": {
         "startLine": 2217,
         "startChar": 16,
