@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.ContentObserver;
 import android.database.DatabaseErrorHandler;
@@ -33,6 +34,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.FileUtils;
+import android.os.Process;
 import android.provider.Telephony.Carriers;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -55,6 +57,10 @@ import org.junit.Test;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -84,6 +90,12 @@ public class TelephonyProviderTest extends TestCase {
     private static final Uri CONTENT_URI_WITH_SUBID = Uri.parse(
             "content://telephony/carriers/subId/" + TEST_SUBID);
 
+    // Constants for DPC related tests.
+    private static final Uri URI_DPC = Uri.parse("content://telephony/carriers/dpc");
+    private static final Uri URI_TELEPHONY = Carriers.CONTENT_URI;
+    private static final Uri URI_FILTERED = Uri.parse("content://telephony/carriers/filtered");
+    private static final Uri URI_ENFORCE_MANAGED= Uri.parse("content://telephony/carriers/enforce_managed");
+    private static final String ENFORCED_KEY = "enforced";
 
     /**
      * This is used to give the TelephonyProviderTest a mocked context which takes a
@@ -92,6 +104,7 @@ public class TelephonyProviderTest extends TestCase {
      */
     private class MockContextWithProvider extends MockContext {
         private final MockContentResolver mResolver;
+        private final MockSharedPreferences mSharedPreferences;
         private TelephonyManager mTelephonyManager = mock(TelephonyManager.class);
 
         public MockContextWithProvider(TelephonyProvider telephonyProvider) {
@@ -102,6 +115,8 @@ public class TelephonyProviderTest extends TestCase {
                     notifyChangeCount++;
                 }
             };
+
+            mSharedPreferences = new MockSharedPreferences();
 
             // return test subId 0 for all operators
             doReturn(TEST_OPERATOR).when(mTelephonyManager).getSimOperator(anyInt());
@@ -141,6 +156,11 @@ public class TelephonyProviderTest extends TestCase {
         @Override
         public MockContentResolver getContentResolver() {
             return mResolver;
+        }
+
+        @Override
+       public SharedPreferences getSharedPreferences(String name, int mode) {
+          return mSharedPreferences;
         }
 
         // Gives permission to write to the APN table within the MockContext
@@ -351,7 +371,7 @@ public class TelephonyProviderTest extends TestCase {
         final String selectionToDelete = Carriers.NUMERIC + "=?";
         String[] selectionArgsToDelete = { insertNumeric };
         Log.d(TAG, "testInsertCarriers deleting selection: " + selectionToDelete
-                + "testInsertCarriers selectionArgs: " + selectionArgs);
+                + "testInsertCarriers selectionArgs: " + selectionArgsToDelete);
         int numRowsDeleted = mContentResolver.delete(Carriers.CONTENT_URI,
                 selectionToDelete, selectionArgsToDelete);
         assertEquals(1, numRowsDeleted);
@@ -409,7 +429,7 @@ public class TelephonyProviderTest extends TestCase {
         final String selectionToDelete = SubscriptionManager.DISPLAY_NAME + "=?";
         String[] selectionArgsToDelete = { insertDisplayName };
         Log.d(TAG, "testSimTable deleting selection: " + selectionToDelete
-                + "testSimTable selectionArgs: " + selectionArgs);
+                + "testSimTable selectionArgs: " + selectionArgsToDelete);
         int numRowsDeleted = mContentResolver.delete(SubscriptionManager.CONTENT_URI,
                 selectionToDelete, selectionArgsToDelete);
         assertEquals(1, numRowsDeleted);
@@ -418,5 +438,413 @@ public class TelephonyProviderTest extends TestCase {
         cursor = mContentResolver.query(SubscriptionManager.CONTENT_URI,
                 testProjection, selection, selectionArgs, null);
         assertEquals(0, cursor.getCount());
+    }
+
+    private int parseIdFromInsertedUri(Uri uri) {
+        int id = 0;
+        if (uri != null) {
+            try {
+                id = Integer.parseInt(uri.getLastPathSegment());
+            }
+            catch (NumberFormatException e) {
+            }
+        }
+        assertTrue("Can't parse ID for inserted APN", id != 0);
+        return id;
+    }
+
+    private int insertApnRecord(Uri uri, String apn, String name, int current, String numeric) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Carriers.APN, apn);
+        contentValues.put(Carriers.NAME, name);
+        contentValues.put(Carriers.CURRENT, current);
+        contentValues.put(Carriers.NUMERIC, numeric);
+        Uri resultUri = mContentResolver.insert(uri, contentValues);
+        return parseIdFromInsertedUri(resultUri);
+    }
+
+    /**
+     * Test URL_ENFORCE_MANAGED and URL_FILTERED works correctly.
+     * Verify that when enforce is set true via URL_ENFORCE_MANAGED, only DPC records are returned
+     * for URL_FILTERED.
+     * Verify that when enforce is set false via URL_ENFORCE_MANAGED, only non-DPC records
+     * are returned for URL_FILTERED.
+     */
+    @Test
+    @SmallTest
+    public void testEnforceManagedUri() {
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID);
+
+        // Insert DPC record.
+        final String insertApnDPC = "exampleApnNameDPC";
+        final String insertNameDPC = "exampleNameDPC";
+        final int insertCurrent = 1;
+        final String insertNumeric = "123456789";
+        int insertedIdDPC = insertApnRecord(URI_DPC, insertApnDPC, insertNameDPC,
+                insertCurrent, insertNumeric);
+
+        // Insert non-DPC record.
+
+        final String insertApnOthers = "exampleApnNameOTHERS";
+        final String insertNameOthers = "exampleNameDPOTHERS";
+        insertApnRecord(URI_TELEPHONY, insertApnOthers, insertNameOthers,
+                insertCurrent, insertNumeric);
+
+        // Set enforced = false.
+        ContentValues enforceManagedValue = new ContentValues();
+        enforceManagedValue.put(ENFORCED_KEY, false);
+        Log.d(TAG, "testEnforceManagedUri Updating enforced = false: "
+                + enforceManagedValue);
+        mContentResolver.update(URI_ENFORCE_MANAGED, enforceManagedValue, "", new String[]{});
+
+        // Verify URL_FILTERED query only returns non-DPC record.
+        final String[] testProjection =
+                {
+                        Carriers.OWNED_BY
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Log.d(TAG, "testEnforceManagedUri query projection: " + testProjection
+                + "\ntestEnforceManagedUri selection: " + selection
+                + "\ntestEnforceManagedUri selectionArgs: " + selectionArgs);
+        Cursor cursorNotEnforced = mContentResolver.query(URI_FILTERED,
+            testProjection, selection, selectionArgs, null);
+        assertNotNull(cursorNotEnforced);
+        assertEquals(1, cursorNotEnforced.getCount());
+        cursorNotEnforced.moveToFirst();
+        assertEquals(Carriers.OWNED_BY_OTHERS, cursorNotEnforced.getInt(0));
+
+        // Set enforced = true.
+        enforceManagedValue.put(ENFORCED_KEY, true);
+        Log.d(TAG, "testEnforceManagedUri Updating enforced = true: "
+                + enforceManagedValue);
+        mContentResolver.update(URI_ENFORCE_MANAGED, enforceManagedValue, "", new String[]{});
+
+        // Verify URL_FILTERED query only returns DPC record.
+        Cursor cursorEnforced = mContentResolver.query(URI_FILTERED,
+                testProjection, selection, selectionArgs, null);
+        assertNotNull(cursorEnforced);
+        assertEquals(1, cursorEnforced.getCount());
+        cursorEnforced.moveToFirst();
+        assertEquals(Carriers.OWNED_BY_DPC, cursorEnforced.getInt(0));
+
+        // Delete testing records.
+        int numRowsDeleted = mContentResolver.delete(URI_TELEPHONY, selection, selectionArgs);
+        assertEquals(1, numRowsDeleted);
+
+        numRowsDeleted = mContentResolver.delete(
+                Uri.parse("content://telephony/carriers/dpc/" + insertedIdDPC),
+                "", new String[]{});
+        assertEquals(1, numRowsDeleted);
+    }
+
+    @Test
+    @SmallTest
+    /**
+     * Test URL_TELEPHONY cannot insert, query, update or delete DPC records.
+     */
+    public void testTelephonyUriDPCRecordAccessControl() {
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID);
+
+        // Insert DPC record.
+        final String insertApnDPC = "exampleApnNameDPC";
+        final String insertNameDPC = "exampleNameDPC";
+        final int insertCurrent = 1;
+        final String insertNumeric = "123456789";
+        int insertedIdDPC = insertApnRecord(URI_DPC, insertApnDPC, insertNameDPC,
+                insertCurrent, insertNumeric);
+
+        // Insert non-DPC record.
+
+        final String insertApnOthers = "exampleApnNameOTHERS";
+        final String insertNameOthers = "exampleNameDPOTHERS";
+        insertApnRecord(URI_TELEPHONY, insertApnOthers, insertNameOthers,
+                insertCurrent, insertNumeric);
+
+        // Verify URL_TELEPHONY query only returns non-DPC record.
+        final String[] testProjection =
+                {
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Log.d(TAG, "testTelephonyUriDPCRecordAccessControl query projection: " + testProjection
+                + "\ntestTelephonyUriDPCRecordAccessControl selection: " + selection
+                + "\ntestTelephonyUriDPCRecordAccessControl selectionArgs: " + selectionArgs);
+        Cursor cursorTelephony = mContentResolver.query(URI_TELEPHONY,
+                testProjection, selection, selectionArgs, null);
+        assertNotNull(cursorTelephony);
+        assertEquals(1, cursorTelephony.getCount());
+        cursorTelephony.moveToFirst();
+        assertEquals(insertApnOthers, cursorTelephony.getString(0));
+        assertEquals(insertNameOthers, cursorTelephony.getString(1));
+        assertEquals(insertCurrent, cursorTelephony.getInt(2));
+        assertEquals(Carriers.OWNED_BY_OTHERS, cursorTelephony.getInt(3));
+
+        // Verify URI_TELEPHONY updates only non-DPC records.
+        ContentValues contentValuesOthersUpdate = new ContentValues();
+        final String updateApnOthers = "exampleApnNameOTHERSUpdated";
+        final String updateNameOthers = "exampleNameOTHERSpdated";
+        contentValuesOthersUpdate.put(Carriers.APN, updateApnOthers);
+        contentValuesOthersUpdate.put(Carriers.NAME, updateNameOthers);
+        final int updateCount = mContentResolver.update(URI_TELEPHONY, contentValuesOthersUpdate,
+                selection, selectionArgs);
+        assertEquals(1, updateCount);
+        Cursor cursorNonDPCUpdate = mContentResolver.query(URI_TELEPHONY,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorDPCUpdate = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        // Verify that non-DPC records are updated.
+        assertNotNull(cursorNonDPCUpdate);
+        assertEquals(1, cursorNonDPCUpdate.getCount());
+        cursorNonDPCUpdate.moveToFirst();
+        assertEquals(updateApnOthers, cursorNonDPCUpdate.getString(0));
+        assertEquals(updateNameOthers, cursorNonDPCUpdate.getString(1));
+        // Verify that DPC records are not updated.
+        assertNotNull(cursorDPCUpdate);
+        assertEquals(1, cursorDPCUpdate.getCount());
+        cursorDPCUpdate.moveToFirst();
+        assertEquals(insertApnDPC, cursorDPCUpdate.getString(0));
+        assertEquals(insertNameDPC, cursorDPCUpdate.getString(1));
+
+        // Verify URI_TELEPHONY deletes only non-DPC records.
+        int numRowsDeleted = mContentResolver.delete(URI_TELEPHONY, selection, selectionArgs);
+        assertEquals(1, numRowsDeleted);
+        Cursor cursorTelephonyDeleted = mContentResolver.query(URI_TELEPHONY,
+                testProjection, selection, selectionArgs, null);
+        assertNotNull(cursorTelephonyDeleted);
+        assertEquals(0, cursorTelephonyDeleted.getCount());
+        Cursor cursorDPCDeleted = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        assertNotNull(cursorDPCDeleted);
+        assertEquals(1, cursorDPCDeleted.getCount());
+
+        // Delete remaining test records.
+        numRowsDeleted = mContentResolver.delete(
+                Uri.parse("content://telephony/carriers/dpc/" + insertedIdDPC),
+                "", new String[]{});
+        assertEquals(1, numRowsDeleted);
+    }
+
+    /**
+     * Test URL_DPC cannot insert, query, update or delete non-DPC records.
+     */
+    @Test
+    @SmallTest
+    public void testDPCUri() {
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID);
+
+        // Insert DPC record.
+        final String insertApnDPC = "exampleApnNameDPC";
+        final String insertNameDPC = "exampleNameDPC";
+        final int insertCurrent = 1;
+        final String insertNumeric = "123456789";
+        int insertedIdDPC = insertApnRecord(URI_DPC, insertApnDPC, insertNameDPC,
+                insertCurrent, insertNumeric);
+
+        // Insert non-DPC record.
+
+        final String insertApnOthers = "exampleApnNameOTHERS";
+        final String insertNameOthers = "exampleNameDPOTHERS";
+        insertApnRecord(URI_TELEPHONY, insertApnOthers, insertNameOthers,
+                insertCurrent, insertNumeric);
+
+        // Verify that URI_DPC query only returns DPC records.
+        // The columns to get in table.
+        final String[] testProjection =
+                {
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Log.d(TAG, "testDPCUri query projection: " + testProjection
+                + "\ntestDPCUri selection: " + selection
+                + "\ntestDPCUri selectionArgs: " + selectionArgs);
+        Cursor cursorDPC = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        // Verify that DPC query returns only DPC records.
+        assertNotNull(cursorDPC);
+        assertEquals(1, cursorDPC.getCount());
+        cursorDPC.moveToFirst();
+        assertEquals(insertApnDPC, cursorDPC.getString(0));
+        assertEquals(insertNameDPC, cursorDPC.getString(1));
+        assertEquals(insertCurrent, cursorDPC.getInt(2));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorDPC.getInt(3));
+
+        // Delete remaining test records.
+        int numRowsDeleted = mContentResolver.delete(URI_TELEPHONY, selection, selectionArgs);
+        assertEquals(1, numRowsDeleted);
+
+        numRowsDeleted = mContentResolver.delete(
+                Uri.parse("content://telephony/carriers/dpc/" + insertedIdDPC),
+                "", new String[]{});
+        assertEquals(1, numRowsDeleted);
+    }
+
+    /**
+     * Test URL_DPC_ID cannot query, update or delete non-DPC records.
+     */
+    @Test
+    @SmallTest
+    public void testDPCIdUri() {
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID);
+
+        // Insert DPC record.
+        final String insertApnDPC = "exampleApnNameDPC";
+        final String insertNameDPC = "exampleNameDPC";
+        final int insertCurrent = 1;
+        final String insertNumeric = "123456789";
+        int insertedIdDPC = insertApnRecord(URI_DPC, insertApnDPC, insertNameDPC,
+                insertCurrent, insertNumeric);
+
+        // Insert non-DPC record.
+
+        final String insertApnOthers = "exampleApnNameOTHERS";
+        final String insertNameOthers = "exampleNameDPOTHERS";
+        int insertedIdNonDPC = insertApnRecord(URI_TELEPHONY, insertApnOthers, insertNameOthers,
+                insertCurrent, insertNumeric);
+
+        Log.d(TAG, "testDPCIdUri Id for inserted DPC record: " + insertedIdDPC);
+        Log.d(TAG, "testDPCIdUri Id for inserted non-DPC record: " + insertedIdNonDPC);
+
+        // Verify that URI_DPC query returns the inserted DPC record.
+        final String[] testProjection =
+                {
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Cursor cursorDPC = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        // Verify that the return APN record is correct.
+        assertNotNull(cursorDPC);
+        assertEquals(1, cursorDPC.getCount());
+        cursorDPC.moveToFirst();
+        assertEquals(insertApnDPC, cursorDPC.getString(0));
+        assertEquals(insertNameDPC, cursorDPC.getString(1));
+        assertEquals(insertCurrent, cursorDPC.getInt(2));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorDPC.getInt(3));
+
+        // Test URI_DPC_ID updates only DPC records.
+        ContentValues contentValuesDPCUpdate = new ContentValues();
+        final String updateApnDPC = "exampleApnNameDPCUpdated";
+        final String updateNameDPC = "exampleNameDPCUpdated";
+        contentValuesDPCUpdate.put(Carriers.APN, updateApnDPC);
+        contentValuesDPCUpdate.put(Carriers.NAME, updateNameDPC);
+        final int updateCount = mContentResolver.update(
+                Uri.parse("content://telephony/carriers/dpc/" + insertedIdDPC),
+                contentValuesDPCUpdate, null, null);
+        assertEquals(1, updateCount);
+        Log.d(TAG, "testDPCIdUri query projection after update: " + testProjection
+                + "\ntestDPCIdUri selection after update: " + selection
+                + "\ntestDPCIdUri selectionArgs after update: " + selectionArgs);
+        Cursor cursorNonDPCUpdate = mContentResolver.query(URI_TELEPHONY,
+                testProjection, selection, selectionArgs, null);
+        Cursor cursorDPCUpdate = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        // Verify that non-DPC records are not updated.
+        assertNotNull(cursorNonDPCUpdate);
+        assertEquals(1, cursorNonDPCUpdate.getCount());
+        cursorNonDPCUpdate.moveToFirst();
+        assertEquals(insertApnOthers, cursorNonDPCUpdate.getString(0));
+        assertEquals(insertNameOthers, cursorNonDPCUpdate.getString(1));
+        // Verify that DPC records are updated.
+        assertNotNull(cursorDPCUpdate);
+        assertEquals(1, cursorDPCUpdate.getCount());
+        cursorDPCUpdate.moveToFirst();
+        assertEquals(updateApnDPC, cursorDPCUpdate.getString(0));
+        assertEquals(updateNameDPC, cursorDPCUpdate.getString(1));
+
+        // Test URI_DPC_ID deletes only DPC records.
+        int numRowsDeleted = mContentResolver.delete(
+                Uri.parse("content://telephony/carriers/dpc/" + insertedIdDPC),
+                null, new String[]{});
+        assertEquals(1, numRowsDeleted);
+        numRowsDeleted = mContentResolver.delete(
+                Uri.parse("content://telephony/carriers/dpc/" + insertedIdNonDPC),
+                null, new String[]{});
+        assertEquals(0, numRowsDeleted);
+
+        // Delete remaining test records.
+        numRowsDeleted = mContentResolver.delete(
+                Uri.parse("content://telephony/carriers/" + insertedIdNonDPC),
+                null, new String[]{});
+        assertEquals(1, numRowsDeleted);
+    }
+
+    /**
+     * Verify that SecurityException is thrown if URL_DPC, URL_FILTERED and
+     * URL_ENFORCE_MANAGED is accessed from non-SYSTEM_UID.
+     */
+    @Test
+    @SmallTest
+    public void testAccessURLDPCThrowSecurityExceptionFromOtherUid() {
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID + 1);
+
+        // Test insert().
+        ContentValues contentValuesDPC = new ContentValues();
+        try {
+            mContentResolver.insert(URI_DPC, contentValuesDPC);
+            assertFalse("SecurityException should be thrown when URI_DPC is called from"
+                    + " non-SYSTEM_UID", true);
+        } catch (SecurityException e) {
+            // Should catch SecurityException.
+        }
+
+        // Test query().
+        try {
+            mContentResolver.query(URI_DPC,
+                    new String[]{}, "", new String[]{}, null);
+            assertFalse("SecurityException should be thrown when URI_DPC is called from"
+                    + " non-SYSTEM_UID", true);
+        } catch (SecurityException e) {
+            // Should catch SecurityException.
+        }
+        try {
+            mContentResolver.query(URI_FILTERED,
+                    new String[]{}, "", new String[]{}, null);
+            assertFalse("SecurityException should be thrown when URI_PRIORITIZED is called"
+                    + " from non-SYSTEM_UID", true);
+        } catch (SecurityException e) {
+            // Should catch SecurityException.
+        }
+
+        // Test update().
+        ContentValues contentValuesDPCUpdate = new ContentValues();
+        try {
+            mContentResolver.update(
+                    Uri.parse("content://telephony/carriers/dpc/1"),
+                    contentValuesDPCUpdate, "", new String[]{});
+            assertFalse("SecurityException should be thrown when URI_DPC is called"
+                    + " from non-SYSTEM_UID", true);
+        } catch (SecurityException e) {
+            // Should catch SecurityException.
+        }
+        try {
+            mContentResolver.update(URI_ENFORCE_MANAGED, contentValuesDPCUpdate, "", new String[]{});
+            assertFalse("SecurityException should be thrown when URI_DPC is called"
+                    + " from non-SYSTEM_UID", true);
+        } catch (SecurityException e) {
+            // Should catch SecurityException.
+        }
+
+        // Test delete().
+        try {
+            mContentResolver.delete(
+                    Uri.parse("content://telephony/carriers/dpc/0"), "", new String[]{});
+            assertFalse("SecurityException should be thrown when URI_DPC is called"
+                    + " from non-SYSTEM_UID", true);
+        } catch (SecurityException e) {
+            // Should catch SecurityException.
+        }
     }
 }
