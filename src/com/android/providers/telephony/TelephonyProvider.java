@@ -86,6 +86,7 @@ import android.os.Binder;
 import android.os.Environment;
 import android.os.FileUtils;
 import android.os.IBinder;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.os.UserHandle;
@@ -139,6 +140,11 @@ public class TelephonyProvider extends ContentProvider
     private static final int URL_SIMINFO_USING_SUBID = 13;
     private static final int URL_UPDATE_DB = 14;
     private static final int URL_DELETE = 15;
+    private static final int URL_DPC = 16;
+    private static final int URL_DPC_ID = 17;
+    private static final int URL_FILTERED = 18;
+    private static final int URL_ENFORCE_MANAGED = 19;
+
 
     private static final String TAG = "TelephonyProvider";
     private static final String CARRIERS_TABLE = "carriers";
@@ -154,6 +160,9 @@ public class TelephonyProvider extends ContentProvider
 
     private static final String BUILD_ID_FILE = "build-id";
     private static final String RO_BUILD_ID = "ro_build_id";
+
+    private static final String ENFORCED_FILE = "dpc-apn-enforced";
+    private static final String ENFORCED_KEY = "enforced";
 
     private static final String PREF_FILE = "telephonyprovider";
     private static final String APN_CONF_CHECKSUM = "apn_conf_checksum";
@@ -186,6 +195,7 @@ public class TelephonyProvider extends ContentProvider
             EDITED + "=" + CARRIER_DELETED_BUT_PRESENT_IN_XML;
     private static final String IS_NOT_CARRIER_DELETED_BUT_PRESENT_IN_XML =
             EDITED + "!=" + CARRIER_DELETED_BUT_PRESENT_IN_XML;
+    private static final String IS_OWNED_BY_DPC = OWNED_BY + "=" + OWNED_BY_DPC;
     private static final String NOT_OWNED_BY_DPC = OWNED_BY + "!=" + OWNED_BY_DPC;
 
     private static final int INVALID_APN_ID = -1;
@@ -197,6 +207,9 @@ public class TelephonyProvider extends ContentProvider
     protected final Object mLock = new Object();
     @GuardedBy("mLock")
     private IApnSourceService mIApnSourceService;
+    private Injector mInjector;
+
+    private boolean mManagedApnEnforced;
 
     static {
         // Columns not included in UNIQUE constraint: name, current, edited, user, server, password,
@@ -329,11 +342,40 @@ public class TelephonyProvider extends ContentProvider
         s_urlMatcher.addURI("telephony", "carriers/update_db", URL_UPDATE_DB);
         s_urlMatcher.addURI("telephony", "carriers/delete", URL_DELETE);
 
+        // Only called by DevicePolicyManager to manipulate DPC records.
+        s_urlMatcher.addURI("telephony", "carriers/dpc", URL_DPC);
+        // Only called by DevicePolicyManager to manipulate a DPC record with certain _ID.
+        s_urlMatcher.addURI("telephony", "carriers/dpc/#", URL_DPC_ID);
+        // Only called by Settings app, DcTracker and other telephony components to get APN list
+        // according to whether DPC records are enforced.
+        s_urlMatcher.addURI("telephony", "carriers/filtered", URL_FILTERED);
+        // Only Called by DevicePolicyManager to enforce DPC records.
+        s_urlMatcher.addURI("telephony", "carriers/enforce_managed", URL_ENFORCE_MANAGED);
+
         s_currentNullMap = new ContentValues(1);
         s_currentNullMap.put(CURRENT, "0");
 
         s_currentSetMap = new ContentValues(1);
         s_currentSetMap.put(CURRENT, "1");
+    }
+
+    /**
+     * Unit test will subclass it to inject mocks.
+     */
+    @VisibleForTesting
+    static class Injector {
+        int binderGetCallingUid() {
+            return Binder.getCallingUid();
+        }
+    }
+
+    public TelephonyProvider() {
+        this(new Injector());
+    }
+
+    @VisibleForTesting
+    public TelephonyProvider(Injector injector) {
+        mInjector = injector;
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -1828,8 +1870,28 @@ public class TelephonyProvider extends ContentProvider
             }
         }
 
+        SharedPreferences sp = getContext().getSharedPreferences(ENFORCED_FILE,
+                Context.MODE_PRIVATE);
+        mManagedApnEnforced = sp.getBoolean(ENFORCED_KEY, false);
+
         if (VDBG) log("onCreate:- ret true");
+
         return true;
+    }
+
+    private synchronized boolean isManagedApnEnforced() {
+        return mManagedApnEnforced;
+    }
+
+    private void setManagedApnEnforced(boolean enforced) {
+        SharedPreferences sp = getContext().getSharedPreferences(ENFORCED_FILE,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(ENFORCED_KEY, enforced);
+        editor.apply();
+        synchronized (this) {
+            mManagedApnEnforced = enforced;
+        }
     }
 
     private void setPreferredApnId(Long id, int subId, boolean saveApn) {
@@ -1969,6 +2031,16 @@ public class TelephonyProvider extends ContentProvider
         }
     }
 
+    boolean isCallingFromSystemUid() {
+        return mInjector.binderGetCallingUid() == Process.SYSTEM_UID;
+    }
+
+    void ensureCallingFromSystemUid(String message) {
+        if (!isCallingFromSystemUid()) {
+            throw new SecurityException(message);
+        }
+    }
+
     @Override
     public synchronized Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
@@ -2046,6 +2118,25 @@ public class TelephonyProvider extends ContentProvider
             case URL_PREFERAPN:
             case URL_PREFERAPN_NO_UPDATE: {
                 constraints.add("_id = " + getPreferredApnId(subId, true));
+                break;
+            }
+
+            case URL_DPC: {
+                ensureCallingFromSystemUid("URL_DPC called from non SYSTEM_UID.");
+                // DPC query only returns DPC records.
+                constraints.add(IS_OWNED_BY_DPC);
+                break;
+            }
+
+            case URL_FILTERED: {
+                ensureCallingFromSystemUid("URL_FILTERED called from non SYSTEM_UID.");
+                if(isManagedApnEnforced()) {
+                    // If enforced, return DPC records only.
+                    constraints.add(IS_OWNED_BY_DPC);
+                } else {
+                    // Otherwise return non-DPC records only.
+                    constraints.add(NOT_OWNED_BY_DPC);
+                }
                 break;
             }
 
@@ -2172,7 +2263,47 @@ public class TelephonyProvider extends ContentProvider
         return rowAndNotify.first;
     }
 
-    private Pair<Uri, Boolean> insertSingleRow(Uri url, ContentValues initialValues) {
+    /**
+     * Internal insert function to prevent code duplication for URL_TELEPHONY and URL_DPC.
+     *
+     * @param values the value that caller wants to insert
+     * @return a pair in which the first element refers to the Uri for the row inserted, the second
+     *         element refers to whether sends out nofitication.
+     */
+    private Pair<Uri, Boolean> insertRowWithValue(ContentValues values) {
+        Uri result = null;
+        boolean notify = false;
+        SQLiteDatabase db = getWritableDatabase();
+
+        try {
+            // Replace on conflict so that if same APN is present in db with edited
+            // as UNEDITED or USER/CARRIER_DELETED, it is replaced with
+            // edited USER/CARRIER_EDITED
+            long rowID = db.insertWithOnConflict(CARRIERS_TABLE, null, values,
+                    SQLiteDatabase.CONFLICT_REPLACE);
+            if (rowID >= 0) {
+                result = ContentUris.withAppendedId(CONTENT_URI, rowID);
+                notify = true;
+            }
+            if (VDBG) log("insert: inserted " + values.toString() + " rowID = " + rowID);
+        } catch (SQLException e) {
+            log("insert: exception " + e);
+            // Insertion failed which could be due to a conflict. Check if that is the case
+            // and merge the entries
+            Cursor oldRow = DatabaseHelper.selectConflictingRow(db, CARRIERS_TABLE, values);
+            if (oldRow != null) {
+                ContentValues mergedValues = new ContentValues();
+                DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
+                        mergedValues, false, getContext());
+                oldRow.close();
+                notify = true;
+            }
+        }
+        return Pair.create(result, notify);
+    }
+
+    private Pair<Uri, Boolean> insertSingleRow(Uri url, ContentValues initialValues)
+            throws SecurityException {
         Uri result = null;
         int subId = SubscriptionManager.getDefaultSubscriptionId();
 
@@ -2206,40 +2337,16 @@ public class TelephonyProvider extends ContentProvider
                 }
 
                 values.put(SUBSCRIPTION_ID, subId);
-
                 values = DatabaseHelper.setDefaultValue(values);
                 if (!values.containsKey(EDITED)) {
                     values.put(EDITED, USER_EDITED);
                 }
-
                 // Owned_by should be others if inserted via general uri.
                 values.put(OWNED_BY, OWNED_BY_OTHERS);
 
-                try {
-                    // Replace on conflict so that if same APN is present in db with edited
-                    // as UNEDITED or USER/CARRIER_DELETED, it is replaced with
-                    // edited USER/CARRIER_EDITED
-                    long rowID = db.insertWithOnConflict(CARRIERS_TABLE, null, values,
-                            SQLiteDatabase.CONFLICT_REPLACE);
-                    if (rowID >= 0) {
-                        result = ContentUris.withAppendedId(CONTENT_URI, rowID);
-                        notify = true;
-                    }
-                    if (VDBG) log("insert: inserted " + values.toString() + " rowID = " + rowID);
-                } catch (SQLException e) {
-                    log("insert: exception " + e);
-                    // Insertion failed which could be due to a conflict. Check if that is the case
-                    // and merge the entries
-                    Cursor oldRow = DatabaseHelper.selectConflictingRow(db, CARRIERS_TABLE, values);
-                    if (oldRow != null) {
-                        ContentValues mergedValues = new ContentValues();
-                        DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
-                                mergedValues, false, getContext());
-                        oldRow.close();
-                        notify = true;
-                    }
-                }
-
+                Pair<Uri, Boolean> ret = insertRowWithValue(values);
+                result = ret.first;
+                notify = ret.second;
                 break;
             }
 
@@ -2302,6 +2409,26 @@ public class TelephonyProvider extends ContentProvider
                 break;
             }
 
+            case URL_DPC: {
+                ensureCallingFromSystemUid("URL_DPC called from non SYSTEM_UID.");
+
+                ContentValues values;
+                if (initialValues != null) {
+                    values = new ContentValues(initialValues);
+                } else {
+                    values = new ContentValues();
+                }
+
+                // Owned_by should be DPC if inserted via URL_DPC.
+                values.put(OWNED_BY, OWNED_BY_DPC);
+                // DPC records should not be user editable.
+                values.put(USER_EDITABLE, false);
+                Pair<Uri, Boolean> ret = insertRowWithValue(values);
+                result = ret.first;
+                notify = ret.second;
+                break;
+            }
+
             case URL_SIMINFO: {
                long id = db.insert(SIMINFO_TABLE, null, initialValues);
                result = ContentUris.withAppendedId(SubscriptionManager.CONTENT_URI, id);
@@ -2314,7 +2441,7 @@ public class TelephonyProvider extends ContentProvider
 
     @Override
     public synchronized int delete(Uri url, String where, String[] whereArgs)
-    {
+            throws SecurityException {
         int count = 0;
         int subId = SubscriptionManager.getDefaultSubscriptionId();
         String userOrCarrierEdited = ") and (" +
@@ -2442,6 +2569,15 @@ public class TelephonyProvider extends ContentProvider
             {
                 setPreferredApnId((long)INVALID_APN_ID, subId, true);
                 if ((match == URL_PREFERAPN) || (match == URL_PREFERAPN_USING_SUBID)) count = 1;
+                break;
+            }
+
+            case URL_DPC_ID: {
+                ensureCallingFromSystemUid("URL_DPC_ID called from non SYSTEM_UID.");
+
+                // Only delete if owned by DPC.
+                count = db.delete(CARRIERS_TABLE, "(" + _ID + "=?)" + " and " + IS_OWNED_BY_DPC,
+                        new String[] { url.getLastPathSegment() });
                 break;
             }
 
@@ -2580,6 +2716,31 @@ public class TelephonyProvider extends ContentProvider
                                 (match == URL_PREFERAPN_USING_SUBID)) {
                             count = 1;
                         }
+                    }
+                }
+                break;
+            }
+
+            case URL_DPC_ID:
+            {
+                ensureCallingFromSystemUid("URL_DPC called from non SYSTEM_UID.");
+
+                if (where != null || whereArgs != null) {
+                    throw new UnsupportedOperationException(
+                            "Cannot update URL " + url + " with a where clause");
+                }
+                count = db.updateWithOnConflict(CARRIERS_TABLE, values,
+                        _ID + "=?" + " and " + IS_OWNED_BY_DPC,
+                        new String[] { url.getLastPathSegment() }, SQLiteDatabase.CONFLICT_REPLACE);
+                break;
+            }
+
+            case URL_ENFORCE_MANAGED: {
+                ensureCallingFromSystemUid("URL_ENFORCE_MANAGED called from non SYSTEM_UID.");
+                if (values != null) {
+                    if (values.containsKey(ENFORCED_KEY)) {
+                        setManagedApnEnforced(values.getAsBoolean(ENFORCED_KEY));
+                        count = 1;
                     }
                 }
                 break;
