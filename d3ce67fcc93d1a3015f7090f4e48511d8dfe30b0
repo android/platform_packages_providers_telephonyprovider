@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae8a5f1c_b635ddf1",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "I think we need\n1. carriers/dpc\n- To query all records, and insert records\n2. carriers/dpc/#\n- To query/update/delete specific record with a row number\n\nFor settings, just carriers/all is enough\nFor DcTracker, I guess just carriers/prioritized is enough too. Is there usage that request a record of specific row there?",
+      "range": {
+        "startLine": 335,
+        "startChar": 54,
+        "endLine": 335,
+        "endChar": 55
+      },
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ba863af_9c0cb780",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "throw SecurityException, same for DPC and PRIORITIZED",
+      "range": {
+        "startLine": 2094,
+        "startChar": 27,
+        "endLine": 2094,
+        "endChar": 31
+      },
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "775ba400_c6bf4e29",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "clone a query and use appendWhere, don\u0027t use hardcoded \"and\"",
+      "range": {
+        "startLine": 2106,
+        "startChar": 70,
+        "endLine": 2106,
+        "endChar": 93
+      },
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b57d61c5_d58ca3aa",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2364,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "any way we can avoid copying the code and share with case URL_TELEPHONY?",
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7a63b04_588868fa",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2367,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "throw exception",
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a36cb3b6_6db1dc9c",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2545,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "exception",
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdacad15_dacb522d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2548,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "append query",
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d1d2eae_1872ecd2",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2696,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "exception",
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00b4aab1_6e7b36eb",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2699,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T07:36:56Z",
+      "side": 1,
+      "message": "append query",
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
