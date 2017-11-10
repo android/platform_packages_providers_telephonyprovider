@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4f86b398_3addc52b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-10T11:09:46Z",
+      "side": 1,
+      "message": "hmm do you think we need dpc/subId/* too? I guess we don\u0027t need that for all and prioritized since currently  URL_TELEPHONY_USING_SUBID are not called from settings or dctracker. Dctracker also doesn\u0027t call URL_ID so I guess carriers/prioritized should be enough?",
+      "parentUuid": "ae8a5f1c_b635ddf1",
+      "range": {
+        "startLine": 335,
+        "startChar": 54,
+        "endLine": 335,
+        "endChar": 55
+      },
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ba863af_9c0cb780",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
