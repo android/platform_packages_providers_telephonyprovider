@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7e721ab2_58bd8f6d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-10T14:39:06Z",
+      "side": 1,
+      "message": "Looking at the DevicePolicyManager API that we need to add, I don\u0027t think so, we don\u0027t have an API that only get from a subId.\n\nOk, just carriers/prioritized then",
+      "parentUuid": "4f86b398_3addc52b",
+      "range": {
+        "startLine": 335,
+        "startChar": 54,
+        "endLine": 335,
+        "endChar": 55
+      },
+      "revId": "d3ce67fcc93d1a3015f7090f4e48511d8dfe30b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ba863af_9c0cb780",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
