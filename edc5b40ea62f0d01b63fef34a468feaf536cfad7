@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "0c7bfcb7_dd2933cd",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-11-13T22:26:36Z",
+      "side": 1,
+      "message": "I see. PROTOCOL and ROAMING_PROTOCOL were added with ag/1859094 which didn\u0027t modify this function. Do you mind adding a comment at the initialization block of CARRIERS_UNIQUE_FIELDS like\n\n// When adding or removing unique fields we also must update\n// selectConflictingRow.\n\n@Amit in the future we may want to change this code so it just iterates through unique fields with default values.\n\nI think this is also the cause of b/36378643",
+      "parentUuid": "31bd4a9b_da7a2202",
+      "range": {
+        "startLine": 1660,
+        "startChar": 12,
+        "endLine": 1664,
+        "endChar": 41
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6699ce99_393fe05b",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
