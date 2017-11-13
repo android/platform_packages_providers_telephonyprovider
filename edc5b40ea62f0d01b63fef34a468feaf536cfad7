@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "64a25ff2_1cddddb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-13T16:41:13Z",
+      "side": 1,
+      "message": "Feel it\u0027s easier to test after adding new urls: URL_ALL, URL_DPC and URL_PRIORITIZED which are able to insert or query DPC records. So I just add some minor test in this cl and please see test in https://android-review.googlesource.com/#/c/platform/packages/providers/TelephonyProvider/+/531956/.",
+      "parentUuid": "17cdb38a_58188870",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "563589d0_9a4bd827",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "ah, good point",
       "parentUuid": "35f92e00_522328fb",
+      "range": {
+        "startLine": 2217,
+        "startChar": 16,
+        "endLine": 2220,
+        "endChar": 17
+      },
+      "revId": "edc5b40ea62f0d01b63fef34a468feaf536cfad7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab644fb2_af04cdfc",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2220,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-13T16:41:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89b1d1fd_ca8aa8b0",
       "range": {
         "startLine": 2217,
         "startChar": 16,
