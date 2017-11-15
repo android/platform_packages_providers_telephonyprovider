@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a52cd8c_b9543133",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "@VisibleForTesting",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d452566b_626a254c",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "@VisibleFoeForTesting\n\npackage visibility",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45090366_c8332151",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "Hmm, why we only allow system server process only, as opposed to system server Uid?",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "133b612b_1cb24ce1",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2103,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "How about extracting this permission checking into a single function? It is now all over the places :)",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff32aab7_e576c1b3",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2141,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "Could you please close the cursor in finally clause?",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d263d33_ad919247",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2269,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "Instead of taking ContentValue as argument, is it more clear to accept the exact parameters that you needs? \ni.e. edited and owned_by\n\nAlso, could you please add a javadoc here to explain thing like what\u0027s the returned Pair object is?",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "075ebdd2_10544a7c",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "Could you please break down this test into multiple tests?\nUsually, one test should only test one single thing.",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4a7c63d_321ade24",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2017-11-15T03:28:13Z",
+      "side": 1,
+      "message": "Please use assertFalse instead.\n\nEven better, you could use assertThrow.",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
