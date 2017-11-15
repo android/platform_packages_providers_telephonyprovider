@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "03587a89_9e179e29",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a52cd8c_b9543133",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d452566b_626a254c",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-15T03:28:13Z",
       "side": 1,
       "message": "@VisibleFoeForTesting\n\npackage visibility",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "806e678b_15db04cc",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d452566b_626a254c",
       "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "db7b33f1_d497e928",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2101,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "It\u0027s the initial design, we don\u0027t want other system services rather than DPC to call this. Makoto raised this..",
+      "parentUuid": "45090366_c8332151",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "133b612b_1cb24ce1",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2017-11-15T03:28:13Z",
       "side": 1,
       "message": "How about extracting this permission checking into a single function? It is now all over the places :)",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6288bc84_deac3dc4",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2103,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133b612b_1cb24ce1",
       "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "eaf9fb40_ebf60538",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2141,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff32aab7_e576c1b3",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d263d33_ad919247",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2017-11-15T03:28:13Z",
       "side": 1,
       "message": "Instead of taking ContentValue as argument, is it more clear to accept the exact parameters that you needs? \ni.e. edited and owned_by\n\nAlso, could you please add a javadoc here to explain thing like what\u0027s the returned Pair object is?",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8349c01d_c12c24ee",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2269,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "hmmm if they want to enforce other columns in the future they may not want to add an additional argument?",
+      "parentUuid": "6d263d33_ad919247",
       "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "8f9f70f0_4afdd047",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "hmmm I feel it\u0027s better to put together? Since if I want to test update/delete/query I need to insert first. And if I want to test access control I need to insert both DPC record and OTHERS record.\n\nIf I break it into several tests I will need to do a lot of similar things?",
+      "parentUuid": "075ebdd2_10544a7c",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4a7c63d_321ade24",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 4
@@ -132,6 +258,24 @@
       "writtenOn": "2017-11-15T03:28:13Z",
       "side": 1,
       "message": "Please use assertFalse instead.\n\nEven better, you could use assertThrow.",
+      "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d807471_27ba8185",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-15T19:15:01Z",
+      "side": 1,
+      "message": "hmm you mean assertFalse(true)? what\u0027s the difference?",
+      "parentUuid": "c4a7c63d_321ade24",
       "revId": "39e26b63c6d50f8d054e619f7f3de84db793fc06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
