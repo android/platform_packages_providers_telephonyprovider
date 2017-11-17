@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ce909f2_25ca07d1",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-11-17T22:52:50Z",
+      "side": 1,
+      "message": "why do we need these?",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 56
+      },
+      "revId": "b9259d71c81245dca8e30f41304101574455eda1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
