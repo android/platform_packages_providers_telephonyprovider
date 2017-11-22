@@ -52,6 +52,24 @@
       "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d77b721_4574f171",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2017-11-22T13:13:17Z",
+      "side": 1,
+      "message": "I\u0027m sorry for my late response. You\u0027re right. I should have considered MVNO. So, I changed the solution and I updated TelephonyProvider patch and moved logic to Settings git.\n\nhttps://android-review.googlesource.com/#/c/platform/packages/apps/Settings/+/545159/",
+      "parentUuid": "1557e13c_0b23d394",
+      "revId": "013e877484f489bf605103d7fb0d121cdd6fa3fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
