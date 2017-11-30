@@ -22,6 +22,29 @@
       "revId": "b1ccd6edeef810b253e29685a62cdf5cfcdc3d9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "712bb459_7be7739f",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2437,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-11-30T00:28:08Z",
+      "side": 1,
+      "message": "can we keep this log since we\u0027re allowing optional user-created where clauses?",
+      "range": {
+        "startLine": 2437,
+        "startChar": 0,
+        "endLine": 2437,
+        "endChar": 50
+      },
+      "revId": "b1ccd6edeef810b253e29685a62cdf5cfcdc3d9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
