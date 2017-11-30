@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b77a5133_85996506",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-30T13:45:12Z",
+      "side": 1,
+      "message": "should be called FILTERED now",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0aa892fd_71965b9a",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 5
@@ -22,6 +45,29 @@
       "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1296380e_b303ffd7",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-11-30T13:45:12Z",
+      "side": 1,
+      "message": "name more explicitly. ensureCallingFromSystemUid",
+      "range": {
+        "startLine": 2021,
+        "startChar": 9,
+        "endLine": 2021,
+        "endChar": 24
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
