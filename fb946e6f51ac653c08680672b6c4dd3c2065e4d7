@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ed1dcfe_33f01298",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T16:26:46Z",
+      "side": 1,
+      "message": "just finished the code change for new design.",
+      "parentUuid": "b77a5133_85996506",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0aa892fd_71965b9a",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-18T18:30:52Z",
       "side": 1,
       "message": "Would you mind adding purpose of each URL ? For eg. its difficult to understand URL_DPC vs URL_DPC_ID from here.",
+      "range": {
+        "startLine": 142,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 50
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26c38cf3_2ef4a29e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T16:26:46Z",
+      "side": 1,
+      "message": "I added the comments for the purpose of each URL in the UrlMatcher part where actual url strings are presented.",
+      "parentUuid": "0aa892fd_71965b9a",
       "range": {
         "startLine": 142,
         "startChar": 4,
@@ -68,6 +116,54 @@
       "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98f122a9_e71483b4",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T16:26:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1296380e_b303ffd7",
+      "range": {
+        "startLine": 2021,
+        "startChar": 9,
+        "endLine": 2021,
+        "endChar": 24
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c1dcf52_87dc3ce9",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T16:26:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1296380e_b303ffd7",
+      "range": {
+        "startLine": 2021,
+        "startChar": 9,
+        "endLine": 2021,
+        "endChar": 24
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +224,30 @@
       "writtenOn": "2017-11-18T18:30:52Z",
       "side": 1,
       "message": "delete",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 0
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d559286f_3d51af85",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T16:26:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c13ef63_e3f50ce7",
       "range": {
         "startLine": 139,
         "startChar": 0,
