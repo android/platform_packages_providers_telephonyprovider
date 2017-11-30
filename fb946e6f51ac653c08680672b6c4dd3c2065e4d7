@@ -213,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a2a74537_230030a6",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2129,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T16:41:41Z",
+      "side": 1,
+      "message": "Hi Sanket,\n\nThanks for reminding! If this is the case, we shouldn\u0027t restrict this URL(now changed to URL_FILTERED) to be called from system uid only.",
+      "parentUuid": "9a3a4b1b_1d97c897",
+      "range": {
+        "startLine": 2129,
+        "startChar": 16,
+        "endLine": 2129,
+        "endChar": 79
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c13ef63_e3f50ce7",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 5
