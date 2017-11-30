@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba231485_9e6294c9",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T19:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78ed41fa_46f12e3e",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 66
+      },
+      "revId": "1e869787504ad81c91a2bd6daf236f8e6169b796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbeeeefb_2aa92689",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "1e869787504ad81c91a2bd6daf236f8e6169b796",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374c83d2_9d58748a",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T19:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbeeeefb_2aa92689",
+      "range": {
+        "startLine": 1885,
+        "startChar": 20,
+        "endLine": 1885,
+        "endChar": 40
+      },
+      "revId": "1e869787504ad81c91a2bd6daf236f8e6169b796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8d00a970_4d174fdc",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2130,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T19:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "699ced54_a65ab80b",
+      "range": {
+        "startLine": 2128,
+        "startChar": 14,
+        "endLine": 2130,
+        "endChar": 49
+      },
+      "revId": "1e869787504ad81c91a2bd6daf236f8e6169b796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f04e8ef_ba18cc91",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4e7e81f9_eb7a57ec",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T19:43:59Z",
+      "side": 1,
+      "message": "As Sanket points out paris and other clients might not call from system uid, I need to check this.",
+      "parentUuid": "3f04e8ef_ba18cc91",
+      "range": {
+        "startLine": 2149,
+        "startChar": 16,
+        "endLine": 2149,
+        "endChar": 42
+      },
+      "revId": "1e869787504ad81c91a2bd6daf236f8e6169b796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c68639a_5454dc67",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2017-11-30T18:49:24Z",
       "side": 1,
       "message": "we don\u0027t actually need the version without specifying an ID",
+      "range": {
+        "startLine": 2602,
+        "startChar": 12,
+        "endLine": 2609,
+        "endChar": 13
+      },
+      "revId": "1e869787504ad81c91a2bd6daf236f8e6169b796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "547ccbcc_d32486e4",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2609,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-11-30T19:43:59Z",
+      "side": 1,
+      "message": "for update and delete we seems only need one of URL_DPC_ID or URL_DPC.",
+      "parentUuid": "0c68639a_5454dc67",
       "range": {
         "startLine": 2602,
         "startChar": 12,
