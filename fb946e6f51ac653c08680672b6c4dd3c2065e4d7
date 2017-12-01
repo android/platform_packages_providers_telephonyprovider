@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "38ff5cf7_5210f242",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2129,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-12-01T20:52:43Z",
+      "side": 1,
+      "message": "Sanket is correct, PARIS client and OMA-DM will not be calling from system uid.",
+      "parentUuid": "a2a74537_230030a6",
+      "range": {
+        "startLine": 2129,
+        "startChar": 16,
+        "endLine": 2129,
+        "endChar": 79
+      },
+      "revId": "fb946e6f51ac653c08680672b6c4dd3c2065e4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c13ef63_e3f50ce7",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 5
