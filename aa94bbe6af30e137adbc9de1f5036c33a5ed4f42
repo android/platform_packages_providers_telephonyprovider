@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "25862931_89d7a3e9",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4228154d_45a2bd1a",
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3762c873_b98e4f6e",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 8
@@ -59,6 +77,48 @@
     },
     {
       "key": {
+        "uuid": "9a9dd8e0_644d55c8",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3762c873_b98e4f6e",
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2496ea2_832ccc94",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "hmmmm we actually only need URL_APC for query and insert, and URL_DPC_ID for delete and update. I\u0027ll remove all unnecessary part.",
+      "parentUuid": "ac62ffde_c0058f94",
+      "range": {
+        "startLine": 2124,
+        "startChar": 0,
+        "endLine": 2126,
+        "endChar": 13
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fcb0189_6bbf8539",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 8
@@ -79,6 +139,30 @@
       "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4153ab83_a92048ad",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fcb0189_6bbf8539",
+      "range": {
+        "startLine": 2260,
+        "startChar": 80,
+        "endLine": 2260,
+        "endChar": 97
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "47e83194_4bfd00c0",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2277,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a0073e3_5913bef1",
+      "range": {
+        "startLine": 2277,
+        "startChar": 31,
+        "endLine": 2277,
+        "endChar": 56
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "240c021d_cfe47cc3",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 8
@@ -119,6 +227,24 @@
       "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d974b91f_a25fb5fe",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2345,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240c021d_cfe47cc3",
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "d92fdb8c_719d599d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2585,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b7b6af5_acc88a98",
+      "range": {
+        "startLine": 2578,
+        "startChar": 12,
+        "endLine": 2585,
+        "endChar": 13
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c3aeb69_43623f12",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 8
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "064d6cc2_e8e4386b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2622,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c3aeb69_43623f12",
+      "range": {
+        "startLine": 2622,
+        "startChar": 19,
+        "endLine": 2622,
+        "endChar": 36
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c449c06e_6792c48b",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 8
@@ -188,6 +362,30 @@
       "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7ae3b1_d22da15e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2743,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-01T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c449c06e_6792c48b",
+      "range": {
+        "startLine": 2736,
+        "startChar": 12,
+        "endLine": 2743,
+        "endChar": 13
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
