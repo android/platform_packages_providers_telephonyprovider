@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4228154d_45a2bd1a",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "also SEttings",
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3762c873_b98e4f6e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "comment that it\u0027s intentional fall through",
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac62ffde_c0058f94",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "Actually, we don\u0027t use per-id query, we only have a getApns which use URL_DPC instead of URL_DPC_ID",
+      "range": {
+        "startLine": 2124,
+        "startChar": 0,
+        "endLine": 2126,
+        "endChar": 13
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fcb0189_6bbf8539",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "1. no need to declare SecurityException\n2. super method does not throw SecurityExcepion, don\u0027t think you can add it in subclass",
+      "range": {
+        "startLine": 2260,
+        "startChar": 80,
+        "endLine": 2260,
+        "endChar": 97
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a0073e3_5913bef1",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2277,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "1. no enforceValues param now\n2. Don\u0027t think this method is related to \"enforce\" anymore",
+      "range": {
+        "startLine": 2277,
+        "startChar": 31,
+        "endLine": 2277,
+        "endChar": 56
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "240c021d_cfe47cc3",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2345,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "revert unnecessary white space changes",
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b7b6af5_acc88a98",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2585,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "Don\u0027t think we\u0027ll use this one, our delete method is per APN config",
+      "range": {
+        "startLine": 2578,
+        "startChar": 12,
+        "endLine": 2585,
+        "endChar": 13
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c3aeb69_43623f12",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2622,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 2622,
+        "startChar": 19,
+        "endLine": 2622,
+        "endChar": 36
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c449c06e_6792c48b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2743,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-01T12:47:48Z",
+      "side": 1,
+      "message": "Don\u0027t think we\u0027ll use this one, our update method is per APN config",
+      "range": {
+        "startLine": 2736,
+        "startChar": 12,
+        "endLine": 2743,
+        "endChar": 13
+      },
+      "revId": "aa94bbe6af30e137adbc9de1f5036c33a5ed4f42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
