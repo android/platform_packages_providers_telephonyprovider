@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac177846_b69869b8",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "please revert unnecessary changes in the old methods to make the CL shorter",
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45870e4a_21b2b049",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "URI_DPC + \"/\" +",
+      "range": {
+        "startLine": 536,
+        "startChar": 26,
+        "endLine": 536,
+        "endChar": 61
+      },
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a35546a_9e62baee",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "remove whitespace",
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aac39ea_a0c0be80",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "URI_DPC",
+      "range": {
+        "startLine": 630,
+        "startChar": 27,
+        "endLine": 630,
+        "endChar": 61
+      },
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63108fa1_dd424ff6",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "add a new line before //",
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f63990_8e114ab9",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "URI_DPC",
+      "range": {
+        "startLine": 693,
+        "startChar": 27,
+        "endLine": 693,
+        "endChar": 60
+      },
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb903027_2ef1ae6a",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "URI_DPC",
+      "range": {
+        "startLine": 719,
+        "startChar": 27,
+        "endLine": 719,
+        "endChar": 60
+      },
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0539fa6_3307f22f",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-05T12:28:01Z",
+      "side": 1,
+      "message": "URI_DPC",
+      "range": {
+        "startLine": 767,
+        "startChar": 31,
+        "endLine": 767,
+        "endChar": 64
+      },
+      "revId": "1e58db94e5553e46b834a56e8419cd48e01b7c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
