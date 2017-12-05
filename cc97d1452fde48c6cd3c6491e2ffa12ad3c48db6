@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "953358e8_96b55a91",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-05T08:24:29Z",
+      "side": 1,
+      "message": "For consistency change this to IS_NOT",
+      "range": {
+        "startLine": 199,
+        "startChar": 32,
+        "endLine": 199,
+        "endChar": 35
+      },
+      "revId": "cc97d1452fde48c6cd3c6491e2ffa12ad3c48db6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404ff7f1_ce241092",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-05T08:24:29Z",
+      "side": 1,
+      "message": "Why does FILTERED have to be from system uid? It may not be the case.",
+      "revId": "cc97d1452fde48c6cd3c6491e2ffa12ad3c48db6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3601534_a589a148",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2283,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-05T08:24:29Z",
+      "side": 1,
+      "message": "This should be CONFLICT_ABORT; we want it to throw an exception in case of a conflict.",
+      "range": {
+        "startLine": 2283,
+        "startChar": 35,
+        "endLine": 2283,
+        "endChar": 51
+      },
+      "revId": "cc97d1452fde48c6cd3c6491e2ffa12ad3c48db6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
