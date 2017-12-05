@@ -26,14 +26,21 @@ import android.util.Log;
 
 import java.util.List;
 import java.util.ArrayList;
+import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.telephony.uicc.IccRecords;
 import com.android.providers.telephony.TelephonyProvider;
 import static android.provider.Telephony.Carriers.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 /**
  * A subclass of TelephonyProvider used for testing on an in-memory database
  */
 public class TelephonyProviderTestable extends TelephonyProvider {
     private static final String TAG = "TelephonyProviderTestable";
+
+    @VisibleForTesting
+    public static final String TEST_SPN = "testspn";
 
     private InMemoryTelephonyProviderDbHelper mDbHelper;
     private MockInjector mMockInjector;
@@ -80,6 +87,14 @@ public class TelephonyProviderTestable extends TelephonyProvider {
     boolean needApnDbUpdate() {
         Log.d(TAG, "needApnDbUpdate called; returning false");
         return false;
+    }
+
+    @Override
+    IccRecords getIccRecords(int subId) {
+        Log.d(TAG, "getIccRecords called");
+        IccRecords iccRecords = mock(IccRecords.class);
+        doReturn(TEST_SPN).when(iccRecords).getServiceProviderName();
+        return iccRecords;
     }
 
     public void fakeCallingUid(int uid) {
