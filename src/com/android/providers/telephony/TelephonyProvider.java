@@ -40,6 +40,7 @@ import static android.provider.Telephony.Carriers.MTU;
 import static android.provider.Telephony.Carriers.MVNO_MATCH_DATA;
 import static android.provider.Telephony.Carriers.MVNO_TYPE;
 import static android.provider.Telephony.Carriers.NAME;
+import static android.provider.Telephony.Carriers.NETWORK_TYPE_BITMASK;
 import static android.provider.Telephony.Carriers.NUMERIC;
 import static android.provider.Telephony.Carriers.OWNED_BY;
 import static android.provider.Telephony.Carriers.OWNED_BY_OTHERS;
@@ -201,7 +202,7 @@ public class TelephonyProvider extends ContentProvider
     static {
         // Columns not included in UNIQUE constraint: name, current, edited, user, server, password,
         // authtype, type, protocol, roaming_protocol, sub_id, modem_cognitive, max_conns,
-        // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible
+        // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible, network_type_bitmask
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(NUMERIC, "");
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(MCC, "");
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(MNC, "");
@@ -249,6 +250,7 @@ public class TelephonyProvider extends ContentProvider
                 CARRIER_ENABLED + " BOOLEAN DEFAULT 1," +
                 BEARER + " INTEGER DEFAULT 0," +
                 BEARER_BITMASK + " INTEGER DEFAULT 0," +
+                NETWORK_TYPE_BITMASK + " INTEGER DEFAULT 0," +
                 MVNO_TYPE + " TEXT DEFAULT ''," +
                 MVNO_MATCH_DATA + " TEXT DEFAULT ''," +
                 SUBSCRIPTION_ID + " INTEGER DEFAULT "
@@ -267,7 +269,8 @@ public class TelephonyProvider extends ContentProvider
                 // here it means we will accept both (user edited + new apn_conf definition)
                 // Columns not included in UNIQUE constraint: name, current, edited,
                 // user, server, password, authtype, type, sub_id, modem_cognitive, max_conns,
-                // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible.
+                // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible,
+                // network_type_bitmask.
                 "UNIQUE (" + TextUtils.join(", ", CARRIERS_UNIQUE_FIELDS) + "));";
     }
 
@@ -1167,6 +1170,7 @@ public class TelephonyProvider extends ContentProvider
             getIntValueFromCursor(cv, c, MAX_CONNS_TIME);
             getIntValueFromCursor(cv, c, MTU);
             getIntValueFromCursor(cv, c, BEARER_BITMASK);
+            getIntValueFromCursor(cv, c, NETWORK_TYPE_BITMASK);
             getIntValueFromCursor(cv, c, EDITED);
             getIntValueFromCursor(cv, c, USER_VISIBLE);
         }
@@ -1190,6 +1194,11 @@ public class TelephonyProvider extends ContentProvider
                         int bearer_bitmask = ServiceState.getBitmaskForTech(
                                 Integer.parseInt(bearerStr));
                         cv.put(BEARER_BITMASK, bearer_bitmask);
+
+                        int network_type_bitmask = ServiceState.getBitmaskForTech(
+                                ServiceState.rilRadioTechnologyToNetworkType(
+                                        Integer.parseInt(bearerStr)));
+                        cv.put(NETWORK_TYPE_BITMASK, network_type_bitmask);
                     }
 
                     int userEditedColumnIdx = c.getColumnIndex("user_edited");
@@ -1337,6 +1346,13 @@ public class TelephonyProvider extends ContentProvider
             }
             map.put(BEARER_BITMASK, bearerBitmask);
 
+            int networkTypeBitmask = 0;
+            String networkTypeList = parser.getAttributeValue(null, "network_type_bitmask");
+            if (networkTypeList != null) {
+                networkTypeBitmask = ServiceState.getNetworkTypeBitmaskFromString(networkTypeList);
+            }
+            map.put(NETWORK_TYPE_BITMASK, networkTypeBitmask);
+
             String mvno_type = parser.getAttributeValue(null, "mvno_type");
             if (mvno_type != null) {
                 String mvno_match_data = parser.getAttributeValue(null, "mvno_match_data");
@@ -1476,10 +1492,10 @@ public class TelephonyProvider extends ContentProvider
                         if (VDBG) {
                             log("mergeFieldsAndUpdateDb: Calling separateRowsNeeded() oldType=" +
                                     oldType + " old bearer=" + oldRow.getInt(oldRow.getColumnIndex(
-                                    BEARER_BITMASK)) +
+                                    BEARER_BITMASK)) +  " old networkType=" +
+                                    oldRow.getInt(oldRow.getColumnIndex(NETWORK_TYPE_BITMASK)) +
                                     " old profile_id=" + oldRow.getInt(oldRow.getColumnIndex(
-                                    PROFILE_ID)) +
-                                    " newRow " + newRow);
+                                    PROFILE_ID)) + " newRow " + newRow);
                         }
 
                         // If separate rows are needed, do not need to merge any further
@@ -1520,6 +1536,19 @@ public class TelephonyProvider extends ContentProvider
                     }
                 }
                 mergedValues.put(BEARER_BITMASK, newRow.getAsInteger(BEARER_BITMASK));
+            }
+
+            if (newRow.containsKey(NETWORK_TYPE_BITMASK)) {
+                int oldBearer = oldRow.getInt(oldRow.getColumnIndex(NETWORK_TYPE_BITMASK));
+                int newBearer = newRow.getAsInteger(NETWORK_TYPE_BITMASK);
+                if (oldBearer != newBearer) {
+                    if (oldBearer == 0 || newBearer == 0) {
+                        newRow.put(NETWORK_TYPE_BITMASK, 0);
+                    } else {
+                        newRow.put(NETWORK_TYPE_BITMASK, (oldBearer | newBearer));
+                    }
+                }
+                mergedValues.put(NETWORK_TYPE_BITMASK, newRow.getAsInteger(NETWORK_TYPE_BITMASK));
             }
 
             if (!onUpgrade) {
@@ -1639,6 +1668,7 @@ public class TelephonyProvider extends ContentProvider
                     TYPE,
                     EDITED,
                     BEARER_BITMASK,
+                    NETWORK_TYPE_BITMASK,
                     PROFILE_ID };
             String selection = TextUtils.join("=? AND ", CARRIERS_UNIQUE_FIELDS) + "=?";
             int i = 0;
