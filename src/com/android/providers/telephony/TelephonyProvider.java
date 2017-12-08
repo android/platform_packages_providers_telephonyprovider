@@ -27,6 +27,7 @@ import static android.provider.Telephony.Carriers.CARRIER_EDITED;
 import static android.provider.Telephony.Carriers.CARRIER_ENABLED;
 import static android.provider.Telephony.Carriers.CONTENT_URI;
 import static android.provider.Telephony.Carriers.CURRENT;
+import static android.provider.Telephony.Carriers.DEFAULT_SORT_ORDER;
 import static android.provider.Telephony.Carriers.EDITED;
 import static android.provider.Telephony.Carriers.MAX_CONNS;
 import static android.provider.Telephony.Carriers.MAX_CONNS_TIME;
@@ -101,6 +102,9 @@ import android.util.Xml;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.telephony.IApnSourceService;
+import com.android.internal.telephony.dataconnection.ApnSetting;
+import com.android.internal.telephony.uicc.IccRecords;
+import com.android.internal.telephony.uicc.UiccController;
 import com.android.internal.util.XmlUtils;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -2639,9 +2643,14 @@ public class TelephonyProvider extends ContentProvider
 
     private void restoreDefaultAPN(int subId) {
         SQLiteDatabase db = getWritableDatabase();
+        String where = getWhereClauseForRestoreDefaultApn(db, subId);
+        log("restoreDefaultAPN: where: " + where);
+        if (TextUtils.isEmpty(where)) {
+            return;
+        }
 
         try {
-            db.delete(CARRIERS_TABLE, NOT_OWNED_BY_DPC, null);
+            db.delete(CARRIERS_TABLE, where, null);
         } catch (SQLException e) {
             loge("got exception when deleting to restore: " + e);
         }
@@ -2665,6 +2674,57 @@ public class TelephonyProvider extends ContentProvider
         } else {
             initDatabaseWithDatabaseHelper(db);
         }
+    }
+
+    private String getWhereClauseForRestoreDefaultApn(SQLiteDatabase db, int subId) {
+        IccRecords iccRecords = UiccController.getInstance().getIccRecords(
+                SubscriptionManager.getPhoneId(subId), UiccController.APP_FAM_3GPP);
+        if (iccRecords == null) {
+            return null;
+        }
+
+        TelephonyManager tm =
+                (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        String simOperator = tm.getSimOperator(subId);
+        Cursor cursor = db.query(CARRIERS_TABLE, new String[] {MVNO_TYPE, MVNO_MATCH_DATA},
+                NUMERIC + "='" + simOperator + "'", null, null, null, DEFAULT_SORT_ORDER);
+        String where = null;
+
+        if (cursor != null) {
+            String mvnoType = null;
+            String mvnoMatchData = null;
+
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String mvno_type = cursor.getString(0 /* MVNO_TYPE index */);
+                String mvno_match_data = cursor.getString(1 /* MVNO_MATCH_DATA index */);
+                if (hasMvnoParams(mvno_type, mvno_match_data)) {
+                    if (ApnSetting.mvnoMatches(iccRecords, mvno_type, mvno_match_data)) {
+                        mvnoType = mvno_type;
+                        mvnoMatchData = mvno_match_data;
+                    }
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            if (hasMvnoParams(mvnoType, mvnoMatchData)) {
+                where = NUMERIC + "='" + simOperator + "'"
+                        + " AND " + MVNO_TYPE + "='" + mvnoType + "'"
+                        + " AND " + MVNO_MATCH_DATA + "='" + mvnoMatchData + "'"
+                        + " AND " + NOT_OWNED_BY_DPC;
+            } else {
+                where = NUMERIC + "='" + simOperator + "'"
+                        + " AND (" + MVNO_TYPE + "='' OR " + MVNO_MATCH_DATA + "='')"
+                        + " AND " + NOT_OWNED_BY_DPC;
+            }
+        }
+
+        return where;
+    }
+
+    private boolean hasMvnoParams(String mvnoType, String mvnoMatchData) {
+        return !TextUtils.isEmpty(mvnoType) && !TextUtils.isEmpty(mvnoMatchData);
     }
 
     private synchronized void updateApnDb() {
