@@ -22,6 +22,30 @@
       "revId": "7ff5f519c592443931b23e6b4a516b24cf405782",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a32c79_9d963bc1",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2017-12-08T18:03:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7138fa5f_511b6ec7",
+      "range": {
+        "startLine": 2148,
+        "startChar": 69,
+        "endLine": 2148,
+        "endChar": 77
+      },
+      "revId": "7ff5f519c592443931b23e6b4a516b24cf405782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
