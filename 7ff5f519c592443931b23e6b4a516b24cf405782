@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7138fa5f_511b6ec7",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 2148,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2017-12-08T17:26:16Z",
+      "side": 1,
+      "message": "ENFORCED_KEY",
+      "range": {
+        "startLine": 2148,
+        "startChar": 69,
+        "endLine": 2148,
+        "endChar": 77
+      },
+      "revId": "7ff5f519c592443931b23e6b4a516b24cf405782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
