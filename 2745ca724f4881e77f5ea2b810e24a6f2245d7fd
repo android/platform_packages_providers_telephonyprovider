@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8040e37a_1843a974",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1128278
+      },
+      "writtenOn": "2017-12-08T18:58:53Z",
+      "side": 1,
+      "message": "I think you need to also add code here to upgrade the existing database. We need to define a new version because we alter the table by adding a new column.",
+      "range": {
+        "startLine": 589,
+        "startChar": 20,
+        "endLine": 589,
+        "endChar": 29
+      },
+      "revId": "2745ca724f4881e77f5ea2b810e24a6f2245d7fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
