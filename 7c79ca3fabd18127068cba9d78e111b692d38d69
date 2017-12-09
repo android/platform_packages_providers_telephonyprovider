@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29d0bd63_b3ab9160",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1128278
+      },
+      "writtenOn": "2017-12-09T01:11:34Z",
+      "side": 1,
+      "message": "This block is duplicated. You should move your alter block above the original if(DBG) block at line 921.",
+      "range": {
+        "startLine": 936,
+        "startChar": 0,
+        "endLine": 938,
+        "endChar": 13
+      },
+      "revId": "7c79ca3fabd18127068cba9d78e111b692d38d69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
