@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52de2aa1_9442f624",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2706,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2017-12-09T01:05:08Z",
+      "side": 1,
+      "message": "should we break the loop when we find this? Also why do we need the temp variables mvno_type and mvno_match_data?\n\nmvnoType \u003d cursor.getString(0 /* MVNO_TYPE index */);\nmvnoMatchData \u003d cursor.getString(1 /* MVNO_MATCH_DATA index */);\nif (hasMvnoParams(mvnoType, mvnoMatchData)\n        \u0026\u0026 ApnSetting.mvnoMatches(iccRecords, mvnoType, mvnoMatchData)) {\n    break;\n}",
+      "range": {
+        "startLine": 2699,
+        "startChar": 0,
+        "endLine": 2706,
+        "endChar": 17
+      },
+      "revId": "b4b48c55d8122000c82ebe964ddd8936eafdfd03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
