@@ -128,6 +128,30 @@
       "revId": "cc97d1452fde48c6cd3c6491e2ffa12ad3c48db6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eda3dd92_ef8501fd",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2283,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-11T19:03:28Z",
+      "side": 1,
+      "message": "That was not correct, but since this is independent of your change you can leave it as it is.",
+      "parentUuid": "8bf4d049_28f61411",
+      "range": {
+        "startLine": 2283,
+        "startChar": 35,
+        "endLine": 2283,
+        "endChar": 51
+      },
+      "revId": "cc97d1452fde48c6cd3c6491e2ffa12ad3c48db6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
