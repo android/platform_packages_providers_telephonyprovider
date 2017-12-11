@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "837a07f0_a62da97b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2650,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-11T19:28:02Z",
+      "side": 1,
+      "message": "In case of error we should fall back to the default behavior. This is a user operation, restore should not fail.",
+      "range": {
+        "startLine": 2648,
+        "startChar": 8,
+        "endLine": 2650,
+        "endChar": 9
+      },
+      "revId": "b4b48c55d8122000c82ebe964ddd8936eafdfd03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca896e95_59cc953b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2681,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-11T19:28:02Z",
+      "side": 1,
+      "message": "Why 3gpp? What about 3gpp2 MVNOs?",
+      "range": {
+        "startLine": 2681,
+        "startChar": 70,
+        "endLine": 2681,
+        "endChar": 82
+      },
+      "revId": "b4b48c55d8122000c82ebe964ddd8936eafdfd03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52de2aa1_9442f624",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 9
