@@ -1,0 +1,10 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Sanket Padawe <sanketpadawe@google.com>
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Verified+1: Yueming Wang <yuemingw@google.com>
+Autosubmit+1: Yueming Wang <yuemingw@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 14 Dec 2017 22:05:05 +0000
+Reviewed-on: https://android-review.googlesource.com/531956
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
