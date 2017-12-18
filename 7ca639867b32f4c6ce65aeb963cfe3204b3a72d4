@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae12b5c5_6b1d4100",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-18T21:41:30Z",
+      "side": 1,
+      "message": "Regardless of it is null or not, we need to make sure the value inserted is in sync with bearer_bitmask.",
+      "range": {
+        "startLine": 1412,
+        "startChar": 16,
+        "endLine": 1412,
+        "endChar": 31
+      },
+      "revId": "7ca639867b32f4c6ce65aeb963cfe3204b3a72d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335ab318_757826bd",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1603,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-18T21:41:30Z",
+      "side": 1,
+      "message": "Don\u0027t call these bearers for clarity and to differentiate from above block.\n\nAlso, throw an exception or log an error if the bitmask being added is not in sync with bearerBitmask added above.",
+      "range": {
+        "startLine": 1603,
+        "startChar": 23,
+        "endLine": 1603,
+        "endChar": 29
+      },
+      "revId": "7ca639867b32f4c6ce65aeb963cfe3204b3a72d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
