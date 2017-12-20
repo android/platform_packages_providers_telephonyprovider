@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cbe9964_961ae0f2",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-20T01:43:43Z",
+      "side": 1,
+      "message": "Update NETWORK_TYPE_BITMASK also to keep it in sync.",
+      "range": {
+        "startLine": 1414,
+        "startChar": 14,
+        "endLine": 1414,
+        "endChar": 18
+      },
+      "revId": "8fff287beef8e1f771e11db8fe8c1bc867f08206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4d1811_9cdf752b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-20T01:43:43Z",
+      "side": 1,
+      "message": "inserting and updating",
+      "range": {
+        "startLine": 2936,
+        "startChar": 61,
+        "endLine": 2936,
+        "endChar": 93
+      },
+      "revId": "8fff287beef8e1f771e11db8fe8c1bc867f08206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
