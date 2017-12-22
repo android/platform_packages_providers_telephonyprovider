@@ -22,6 +22,30 @@
       "revId": "82be0fa7217ead73483a57662b245d2c3aa95420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92c0d018_42a3d474",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2017-12-22T21:21:56Z",
+      "side": 1,
+      "message": "Also this will cause bearer bitmask and network type bitmask to be out of sync. On upgrade, you need to recreate the db making sure that the 2 columns are in sync.",
+      "parentUuid": "92abb58a_50dd4943",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 13
+      },
+      "revId": "82be0fa7217ead73483a57662b245d2c3aa95420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
