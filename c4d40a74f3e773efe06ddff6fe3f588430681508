@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e51e697_3d14557d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1081638
+      },
+      "writtenOn": "2017-12-22T21:03:42Z",
+      "side": 1,
+      "message": "Wasn\u0027t this caused any merge conflict at internal master? 22 has been used by ag/3022310",
+      "range": {
+        "startLine": 902,
+        "startChar": 0,
+        "endLine": 913,
+        "endChar": 13
+      },
+      "revId": "c4d40a74f3e773efe06ddff6fe3f588430681508",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
