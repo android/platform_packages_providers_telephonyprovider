@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92abb58a_50dd4943",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1081638
+      },
+      "writtenOn": "2017-12-22T20:58:14Z",
+      "side": 1,
+      "message": "I think ag/3022310 was not CP\u0027d to AOSP and now this looks different from internal master. Need to solve it first before you can merge this in.",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 13
+      },
+      "revId": "82be0fa7217ead73483a57662b245d2c3aa95420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
