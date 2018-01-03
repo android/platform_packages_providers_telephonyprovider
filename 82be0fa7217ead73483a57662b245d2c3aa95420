@@ -190,6 +190,30 @@
       "revId": "82be0fa7217ead73483a57662b245d2c3aa95420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922a376c_4f24c43f",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1061212
+      },
+      "writtenOn": "2018-01-03T23:08:54Z",
+      "side": 1,
+      "message": "Latest patch doesn\u0027t seem to have taken care of this comment, can you please update ?",
+      "parentUuid": "92c0d018_42a3d474",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 13
+      },
+      "revId": "82be0fa7217ead73483a57662b245d2c3aa95420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
