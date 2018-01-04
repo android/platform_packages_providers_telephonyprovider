@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7827d22_71d4498d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-04T20:14:32Z",
+      "side": 1,
+      "message": "I guess this is not needed since db will be recreated on upgrading to version 24 below anyway?\n\nSee how upgrading to version 14 above skips it, I think we can do the same here.",
+      "range": {
+        "startLine": 888,
+        "startChar": 16,
+        "endLine": 888,
+        "endChar": 26
+      },
+      "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b0c4f70_7fb52286",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-04T20:14:32Z",
+      "side": 1,
+      "message": "Why? This can be done independent of the version since the db is newly created so it should have all columns, no?",
+      "range": {
+        "startLine": 1218,
+        "startChar": 23,
+        "endLine": 1218,
+        "endChar": 37
+      },
+      "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
