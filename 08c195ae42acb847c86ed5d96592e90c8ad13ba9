@@ -45,6 +45,29 @@
       "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e110428b_41525ad0",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-04T20:17:09Z",
+      "side": 1,
+      "message": "Actually I think we need to pass the version all the way down to here. If upgrading to 24 or lower, give priority to bearerBitmask, otherwise give priority to networyTypeBitmask. What do you think?",
+      "range": {
+        "startLine": 1379,
+        "startChar": 21,
+        "endLine": 1379,
+        "endChar": 52
+      },
+      "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
