@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "652216dc_1934a6f6",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-04T22:53:25Z",
+      "side": 1,
+      "message": "Delete unused parameter",
+      "range": {
+        "startLine": 1198,
+        "startChar": 73,
+        "endLine": 1198,
+        "endChar": 80
+      },
+      "revId": "aa0d5472dcb6b4c9cbd424c267fa8f321ec8d69c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
