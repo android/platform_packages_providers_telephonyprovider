@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f7f1f20f_95c21b5d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-04T22:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7827d22_71d4498d",
+      "range": {
+        "startLine": 888,
+        "startChar": 16,
+        "endLine": 888,
+        "endChar": 26
+      },
+      "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b0c4f70_7fb52286",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c6e3f9f6_8fa6b2da",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-04T22:32:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b0c4f70_7fb52286",
+      "range": {
+        "startLine": 1218,
+        "startChar": 23,
+        "endLine": 1218,
+        "endChar": 37
+      },
+      "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e110428b_41525ad0",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2018-01-04T20:17:09Z",
       "side": 1,
       "message": "Actually I think we need to pass the version all the way down to here. If upgrading to 24 or lower, give priority to bearerBitmask, otherwise give priority to networyTypeBitmask. What do you think?",
+      "range": {
+        "startLine": 1379,
+        "startChar": 21,
+        "endLine": 1379,
+        "endChar": 52
+      },
+      "revId": "08c195ae42acb847c86ed5d96592e90c8ad13ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc373a5_188cda08",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-04T22:32:43Z",
+      "side": 1,
+      "message": "I think your suggestion here is similar with current implementation. The only difference is that should we give priority to bearerBitmask depending on version number or depending on could we get column index of NETWORK_TYPE_BITMASK in cursor. And I think the later one is better since it looks more guaranteed to me.",
+      "parentUuid": "e110428b_41525ad0",
       "range": {
         "startLine": 1379,
         "startChar": 21,
