@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "421d38a4_47b2c285",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-04T23:55:48Z",
+      "side": 1,
+      "message": "can you make sure TelephonyProviderTest still passes, and also try inserting and deleting some APNs, and inserting and reinserting the SIM card while verifying that APNs are correctly populated?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "981c1fe1_814dc647",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -42,6 +65,29 @@
         "startChar": 86,
         "endLine": 967,
         "endChar": 109
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f7c3cbd_0949f4d6",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-04T23:55:48Z",
+      "side": 1,
+      "message": "join these lines?",
+      "range": {
+        "startLine": 1006,
+        "startChar": 0,
+        "endLine": 1007,
+        "endChar": 25
       },
       "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -96,6 +142,52 @@
     },
     {
       "key": {
+        "uuid": "564b9d60_2921c13a",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-04T23:55:48Z",
+      "side": 1,
+      "message": "have you tried this with an apns xml file that specifies network_type_bitmask?",
+      "range": {
+        "startLine": 1460,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 66
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54d05df7_275780af",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1681,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-04T23:55:48Z",
+      "side": 1,
+      "message": "shouldn\u0027t we try to sync this in the \u0027or\u0027 case instead of only when the row contains both?",
+      "range": {
+        "startLine": 1681,
+        "startChar": 20,
+        "endLine": 1681,
+        "endChar": 22
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "023911f7_1a5d7b43",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -136,6 +228,29 @@
         "startChar": 6,
         "endLine": 3002,
         "endChar": 20
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e512cb17_e69995ab",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3013,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-04T23:55:48Z",
+      "side": 1,
+      "message": "can we add a temp var for readability\n\nconvertedBitmask \u003d ServiceState.convertNetworkTypeBitmaskToBearerBitmask(values.getAsInteger(NETWORK_TYPE_BITMASK);\nif (values.containsKey(BEARER_BITMASK) \u0026\u0026 convertedBitmask !\u003d values.getAsInteger(BEARER_BITMASK)) {\n    loge(\"Network type bitmask and bearer bitmask are not compatible.\");\n}\nvalues.put(BEARER_BITMASK, convertedBitmask);",
+      "range": {
+        "startLine": 3006,
+        "startChar": 12,
+        "endLine": 3013,
+        "endChar": 64
       },
       "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
