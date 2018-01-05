@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a17ce445_9c025e2a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "I\u0027ve tested with TelephonyProviderTest and it passed. \nAnd in ApnDatabase CTS test, I\u0027ve tried to insert/update/delete into carrier database, it should be the same with manually inserting/deleting right?",
+      "parentUuid": "421d38a4_47b2c285",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "981c1fe1_814dc647",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -72,6 +96,54 @@
     },
     {
       "key": {
+        "uuid": "47021ec8_534e4f91",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981c1fe1_814dc647",
+      "range": {
+        "startLine": 967,
+        "startChar": 86,
+        "endLine": 967,
+        "endChar": 109
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35cfd605_f2e64ba0",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "917d886c_7e32686b",
+      "range": {
+        "startLine": 967,
+        "startChar": 86,
+        "endLine": 967,
+        "endChar": 109
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f7c3cbd_0949f4d6",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -83,6 +155,30 @@
       "writtenOn": "2018-01-04T23:55:48Z",
       "side": 1,
       "message": "join these lines?",
+      "range": {
+        "startLine": 1006,
+        "startChar": 0,
+        "endLine": 1007,
+        "endChar": 25
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d9c4043_fe470787",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f7c3cbd_0949f4d6",
       "range": {
         "startLine": 1006,
         "startChar": 0,
@@ -142,6 +238,54 @@
     },
     {
       "key": {
+        "uuid": "5b263ebe_c1cfe4b4",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd721bbe_c6589e8d",
+      "range": {
+        "startLine": 1360,
+        "startChar": 11,
+        "endLine": 1361,
+        "endChar": 19
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c71945c7_f9d7ba5d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c54fe1_76963938",
+      "range": {
+        "startLine": 1360,
+        "startChar": 11,
+        "endLine": 1361,
+        "endChar": 19
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "564b9d60_2921c13a",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -165,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "48ec7ec6_4ee88a3a",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "I\u0027ve tried it with specified network_type_bitmask in the CTS test",
+      "parentUuid": "564b9d60_2921c13a",
+      "range": {
+        "startLine": 1460,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 66
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54d05df7_275780af",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -176,6 +344,30 @@
       "writtenOn": "2018-01-04T23:55:48Z",
       "side": 1,
       "message": "shouldn\u0027t we try to sync this in the \u0027or\u0027 case instead of only when the row contains both?",
+      "range": {
+        "startLine": 1681,
+        "startChar": 20,
+        "endLine": 1681,
+        "endChar": 22
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b443659_a20eb0b3",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1681,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "The OR case should be handled in the above two case. We only need to solve the conflict and sync BEARER_BITMASK and NETWORK_TYPE_BITMASK when they both existed.",
+      "parentUuid": "54d05df7_275780af",
       "range": {
         "startLine": 1681,
         "startChar": 20,
@@ -235,6 +427,54 @@
     },
     {
       "key": {
+        "uuid": "d298ca1b_b17c0138",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3002,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd0e10ed_1df416aa",
+      "range": {
+        "startLine": 3002,
+        "startChar": 6,
+        "endLine": 3002,
+        "endChar": 20
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d036dc8_13152701",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3002,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "023911f7_1a5d7b43",
+      "range": {
+        "startLine": 3002,
+        "startChar": 6,
+        "endLine": 3002,
+        "endChar": 20
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e512cb17_e69995ab",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
@@ -246,6 +486,30 @@
       "writtenOn": "2018-01-04T23:55:48Z",
       "side": 1,
       "message": "can we add a temp var for readability\n\nconvertedBitmask \u003d ServiceState.convertNetworkTypeBitmaskToBearerBitmask(values.getAsInteger(NETWORK_TYPE_BITMASK);\nif (values.containsKey(BEARER_BITMASK) \u0026\u0026 convertedBitmask !\u003d values.getAsInteger(BEARER_BITMASK)) {\n    loge(\"Network type bitmask and bearer bitmask are not compatible.\");\n}\nvalues.put(BEARER_BITMASK, convertedBitmask);",
+      "range": {
+        "startLine": 3006,
+        "startChar": 12,
+        "endLine": 3013,
+        "endChar": 64
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0261928_60dfe547",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3013,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-05T00:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e512cb17_e69995ab",
       "range": {
         "startLine": 3006,
         "startChar": 12,
