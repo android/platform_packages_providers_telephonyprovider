@@ -312,6 +312,7 @@ public class TelephonyProvider extends ContentProvider
             + SubscriptionManager.SIM_PROVISIONING_STATUS
                 + " INTEGER DEFAULT " + SubscriptionManager.SIM_PROVISIONED + ","
             + SubscriptionManager.IS_EMBEDDED + " INTEGER DEFAULT 0,"
+            + SubscriptionManager.CARD_ID + " TEXT NOT NULL,"
             + SubscriptionManager.ACCESS_RULES + " BLOB,"
             + SubscriptionManager.IS_REMOVABLE + " INTEGER DEFAULT 0,"
             + SubscriptionManager.CB_EXTREME_THREAT_ALERT + " INTEGER DEFAULT 1,"
@@ -994,6 +995,19 @@ public class TelephonyProvider extends ContentProvider
                     }
                 }
                 oldVersion = 23 << 16 | 6;
+            }
+            if (oldVersion < (24 << 16 | 6)) {
+                try {
+                    // Try to update the siminfo table. It might not be there.
+                    db.execSQL("ALTER TABLE " + SIMINFO_TABLE + " ADD COLUMN " +
+                            SubscriptionManager.CARD_ID + " TEXT NOT NULL;");
+                } catch (SQLiteException e) {
+                    if (DBG) {
+                        log("onUpgrade skipping " + SIMINFO_TABLE + " upgrade. " +
+                            " The table will get created in onOpen.");
+                    }
+                }
+                oldVersion = 24 << 16 | 6;
             }
             if (DBG) {
                 log("dbh.onUpgrade:- db=" + db + " oldV=" + oldVersion + " newV=" + newVersion);
