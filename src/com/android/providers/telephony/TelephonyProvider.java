@@ -127,7 +127,7 @@ public class TelephonyProvider extends ContentProvider
     private static final boolean DBG = true;
     private static final boolean VDBG = false; // STOPSHIP if true
 
-    private static final int DATABASE_VERSION = 24 << 16;
+    private static final int DATABASE_VERSION = 25 << 16;
     private static final int URL_UNKNOWN = 0;
     private static final int URL_TELEPHONY = 1;
     private static final int URL_CURRENT = 2;
@@ -315,6 +315,7 @@ public class TelephonyProvider extends ContentProvider
             + SubscriptionManager.SIM_PROVISIONING_STATUS
                 + " INTEGER DEFAULT " + SubscriptionManager.SIM_PROVISIONED + ","
             + SubscriptionManager.IS_EMBEDDED + " INTEGER DEFAULT 0,"
+            + SubscriptionManager.CARD_ID + " TEXT NOT NULL,"
             + SubscriptionManager.ACCESS_RULES + " BLOB,"
             + SubscriptionManager.IS_REMOVABLE + " INTEGER DEFAULT 0,"
             + SubscriptionManager.CB_EXTREME_THREAT_ALERT + " INTEGER DEFAULT 1,"
@@ -963,12 +964,26 @@ public class TelephonyProvider extends ContentProvider
                     c = db.query(CARRIERS_TABLE, proj, null, null, null, null, null);
                     log("dbh.onUpgrade:- after upgrading total number of rows: " + c.getCount());
                     c.close();
-                    c = db.query(CARRIERS_TABLE, proj, NETWORK_TYPE_BITMASK, null, null, null, null);
+                    c = db.query(
+                            CARRIERS_TABLE, proj, NETWORK_TYPE_BITMASK, null, null, null, null);
                     log("dbh.onUpgrade:- after upgrading total number of rows with "
                             + NETWORK_TYPE_BITMASK + ": " + c.getCount());
                     c.close();
                 }
                 oldVersion = 24 << 16 | 6;
+            }
+            if (oldVersion < (25 << 16 | 6)) {
+                try {
+                    // Try to update the siminfo table. It might not be there.
+                    db.execSQL("ALTER TABLE " + SIMINFO_TABLE + " ADD COLUMN " +
+                            SubscriptionManager.CARD_ID + " TEXT NOT NULL DEFAULT '';");
+                } catch (SQLiteException e) {
+                    if (DBG) {
+                        log("onUpgrade skipping " + SIMINFO_TABLE + " upgrade. " +
+                            " The table will get created in onOpen.");
+                    }
+                }
+                oldVersion = 25 << 16 | 6;
             }
             if (DBG) {
                 log("dbh.onUpgrade:- db=" + db + " oldV=" + oldVersion + " newV=" + newVersion);
