@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "254ebcb9_49decfee",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-08T16:54:11Z",
+      "side": 1,
+      "message": "this chunk of code is for loading apns from an xml though, I think. Does the CTS test do that or just try inserting into the DB?",
+      "parentUuid": "48ec7ec6_4ee88a3a",
+      "range": {
+        "startLine": 1460,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 66
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54d05df7_275780af",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
