@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4323c039_2627ab0d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2650,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2018-01-09T11:00:41Z",
+      "side": 1,
+      "message": "Okay. I fixed that in https://android-review.googlesource.com/#/c/platform/packages/providers/TelephonyProvider/+/584046/1/src/com/android/providers/telephony/TelephonyProvider.java.",
+      "parentUuid": "837a07f0_a62da97b",
+      "range": {
+        "startLine": 2648,
+        "startChar": 8,
+        "endLine": 2650,
+        "endChar": 9
+      },
+      "revId": "b4b48c55d8122000c82ebe964ddd8936eafdfd03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca896e95_59cc953b",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-11T19:28:02Z",
       "side": 1,
       "message": "Why 3gpp? What about 3gpp2 MVNOs?",
+      "range": {
+        "startLine": 2681,
+        "startChar": 70,
+        "endLine": 2681,
+        "endChar": 82
+      },
+      "revId": "b4b48c55d8122000c82ebe964ddd8936eafdfd03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a646424e_d0febd14",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 2681,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2018-01-09T11:00:41Z",
+      "side": 1,
+      "message": "Thank you for your comments. I also considered APP_FAM_3GPP2 for CDMA in https://android-review.googlesource.com/#/c/platform/packages/providers/TelephonyProvider/+/584046/1/src/com/android/providers/telephony/TelephonyProvider.java.",
+      "parentUuid": "ca896e95_59cc953b",
       "range": {
         "startLine": 2681,
         "startChar": 70,
