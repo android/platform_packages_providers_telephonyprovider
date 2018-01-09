@@ -357,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "b80b6252_73cd56d9",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1224967
+      },
+      "writtenOn": "2018-01-09T00:06:01Z",
+      "side": 1,
+      "message": "Tested with inserting the following entry into apns-conf.xml:\n\u003capn carrier\u003d\"T-Mobile NL MMS\"\n         mcc\u003d\"204\"\n         mnc\u003d\"16\"\n         apn\u003d\"mms\"\n         user\u003d\"tmobilemms\"\n         password\u003d\"tmobilemms\"\n         server\u003d\"*\"\n         mmsproxy\u003d\"010.010.010.011\"\n         mmsport\u003d\"8080\"\n         mmsc\u003d\"http://t-mobilemms\"\n         type\u003d\"mms\"\n         network_type_bitmask\u003d\"8\"\n/\u003e\n\nGot the row below from table Carriers:\n22|T-Mobile NL MMS|20416|204|16|mms|tmobilemms|*|tmobilemms|||010.010.010.011|8080|http://t-mobilemms|-1|mms||IP|IP|1|0|256|128|||-1|0|0|0|0|0|0|0|1|1|1\n\n128 is the right network type bitmask, and 256 is the right bearer bitmask.",
+      "parentUuid": "254ebcb9_49decfee",
+      "range": {
+        "startLine": 1460,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 66
+      },
+      "revId": "23cc0130f3998d313ba90a6bf5b0b16c91690fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54d05df7_275780af",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 13
