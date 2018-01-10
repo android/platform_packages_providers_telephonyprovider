@@ -2415,9 +2415,12 @@ public class TelephonyProvider extends ContentProvider
             // and merge the entries
             Cursor oldRow = DatabaseHelper.selectConflictingRow(db, CARRIERS_TABLE, values);
             if (oldRow != null) {
+                oldRow.moveToFirst();
                 ContentValues mergedValues = new ContentValues();
                 DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
                         mergedValues, false, getContext());
+                result = ContentUris.withAppendedId(CONTENT_URI,
+                        oldRow.getInt(oldRow.getColumnIndex(_ID)));
                 oldRow.close();
                 notify = true;
             }

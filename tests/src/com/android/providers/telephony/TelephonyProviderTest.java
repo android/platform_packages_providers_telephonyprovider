@@ -326,6 +326,72 @@ public class TelephonyProviderTest extends TestCase {
 
     @Test
     @SmallTest
+    public void testInsertConflict() {
+        // Insert test contentValues.
+        ContentValues oldContentValues = new ContentValues();
+        final String insertApn = "exampleApnName";
+        final String insertName = "exampleName";
+        final String insertNumeric = TEST_OPERATOR;
+        final String oldType = "old"
+        final String oldPassword = "old";
+        oldContentValues.put(Carriers.APN, insertApn);
+        oldContentValues.put(Carriers.NAME, insertName);
+        oldContentValues.put(Carriers.NUMERIC, insertNumeric);
+        oldContentValues.put(Carriers.TYPE, oldType);
+        oldContentValues.put(Carriers.PASSWORD, oldPassword);
+
+        Log.d(TAG, "testInsertConflict Inserting contentValues: " + oldContentValues);
+        int oldId = parseIdFromInsertedUri(
+                mContentResolver.insert(Carriers.CONTENT_URI, oldContentValues));
+
+        // Insert new contentValues.
+        ContentValues newContentValues = new ContentValues();
+        final String newType = "new"
+        final String newPassword = "new";
+        newContentValues.put(Carriers.APN, insertApn);
+        newContentValues.put(Carriers.NAME, insertName);
+        newContentValues.put(Carriers.NUMERIC, insertNumeric);
+        newContentValues.put(Carriers.TYPE, newType);
+        newContentValues.put(Carriers.PASSWORD, newPassword);
+
+        Log.d(TAG, "testInsertConflict Inserting contentValues: " + newContentValues);
+        int newId = parseIdFromInsertedUri(
+                mContentResolver.insert(Carriers.CONTENT_URI, newContentValues));
+        assertEquals(oldId, newId);
+
+        final String[] testProjection =
+                {
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.TYPE,
+                        Carriers.PASSWORD
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Cursor cursor = mContentResolver.query(Carriers.CONTENT_URI,
+                testProjection, selection, selectionArgs, null);
+
+        // Verify that inserted values match results of query.
+        assertNotNull(cursor);
+        assertEquals(1, cursor.getCount());
+        cursor.moveToFirst();
+        final String resultApn = cursor.getString(0);
+        final String resultName = cursor.getString(1);
+        final Integer resultType = cursor.getString(2);
+        final String resultPassword = cursor.getString(3);
+        assertEquals(insertApn, resultApn);
+        assertEquals(insertName, resultName);
+        assertEquals(insertType, "old,new");
+        assertEquals(newPassword, resultPassword);
+
+        int numRowsDeleted = mContentResolver.delete(
+                Uri.parse(Carriers.CONTENT_URI + "/" + newId),
+                "", new String[]{});
+        assertEquals(1, numRowsDeleted);
+    }
+
+    @Test
+    @SmallTest
     public void testOwnedBy() {
         // insert test contentValues
         ContentValues contentValues = new ContentValues();
