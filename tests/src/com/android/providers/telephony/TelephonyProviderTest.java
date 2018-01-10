@@ -42,6 +42,7 @@ import android.test.AndroidTestCase;
 import android.test.mock.MockContentProvider;
 import android.test.mock.MockContentResolver;
 import android.test.mock.MockContext;
+import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.text.TextUtils;
 import android.util.Log;
@@ -81,6 +82,7 @@ public class TelephonyProviderTest extends TestCase {
     private MockContextWithProvider mContext;
     private MockContentResolver mContentResolver;
     private TelephonyProviderTestable mTelephonyProviderTestable;
+    private Resources mResources;
 
     private int notifyChangeCount;
 
@@ -104,6 +106,7 @@ public class TelephonyProviderTest extends TestCase {
      */
     private class MockContextWithProvider extends MockContext {
         private final MockContentResolver mResolver;
+        private final Resources mResources = mock(Resources.class);
         private final SharedPreferences mSharedPreferences = mock(SharedPreferences.class);
         private final SharedPreferences.Editor mEditor = mock(SharedPreferences.Editor.class);
         private TelephonyManager mTelephonyManager = mock(TelephonyManager.class);
@@ -150,8 +153,8 @@ public class TelephonyProviderTest extends TestCase {
 
         @Override
         public Resources getResources() {
-            Log.d(TAG, "getResources: returning null");
-            return null;
+            Log.d(TAG, "getResources: returning mock Resources");
+            return mResources;
         }
 
         @Override
@@ -185,6 +188,7 @@ public class TelephonyProviderTest extends TestCase {
         mTelephonyProviderTestable = new TelephonyProviderTestable();
         mContext = new MockContextWithProvider(mTelephonyProviderTestable);
         mContentResolver = (MockContentResolver) mContext.getContentResolver();
+        mResources = mContext.getResources();
         notifyChangeCount = 0;
     }
 
@@ -326,6 +330,74 @@ public class TelephonyProviderTest extends TestCase {
 
     @Test
     @SmallTest
+    public void testInsertConflict() {
+        when(mResources.getStringArray(anyInt())).thenReturn(new String[]{});
+
+        // Insert test contentValues.
+        ContentValues oldContentValues = new ContentValues();
+        final String insertApn = "exampleApnName";
+        final String insertName = "exampleName";
+        final String insertNumeric = TEST_OPERATOR;
+        final String oldType = "old";
+        final String oldPassword = "old";
+        oldContentValues.put(Carriers.APN, insertApn);
+        oldContentValues.put(Carriers.NAME, insertName);
+        oldContentValues.put(Carriers.NUMERIC, insertNumeric);
+        oldContentValues.put(Carriers.TYPE, oldType);
+        oldContentValues.put(Carriers.PASSWORD, oldPassword);
+
+        Log.d(TAG, "testInsertConflict Inserting contentValues: " + oldContentValues);
+        int oldId = parseIdFromInsertedUri(
+                mContentResolver.insert(Carriers.CONTENT_URI, oldContentValues));
+
+        // Insert new contentValues.
+        ContentValues newContentValues = new ContentValues();
+        final String newType = "new";
+        final String newPassword = "new";
+        newContentValues.put(Carriers.APN, insertApn);
+        newContentValues.put(Carriers.NAME, insertName);
+        newContentValues.put(Carriers.NUMERIC, insertNumeric);
+        newContentValues.put(Carriers.TYPE, newType);
+        newContentValues.put(Carriers.PASSWORD, newPassword);
+
+        Log.d(TAG, "testInsertConflict Inserting contentValues: " + newContentValues);
+        int newId = parseIdFromInsertedUri(
+                mContentResolver.insert(Carriers.CONTENT_URI, newContentValues));
+        assertEquals(oldId, newId);
+
+        final String[] testProjection =
+                {
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.TYPE,
+                        Carriers.PASSWORD
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { insertNumeric };
+        Cursor cursor = mContentResolver.query(Carriers.CONTENT_URI,
+                testProjection, selection, selectionArgs, null);
+
+        // Verify that inserted values match results of query.
+        assertNotNull(cursor);
+        assertEquals(1, cursor.getCount());
+        cursor.moveToFirst();
+        final String resultApn = cursor.getString(0);
+        final String resultName = cursor.getString(1);
+        final String resultType = cursor.getString(2);
+        final String resultPassword = cursor.getString(3);
+        assertEquals(insertApn, resultApn);
+        assertEquals(insertName, resultName);
+        assertEquals("old,new", resultType);
+        assertEquals(newPassword, resultPassword);
+
+        int numRowsDeleted = mContentResolver.delete(
+                Uri.parse(Carriers.CONTENT_URI + "/" + newId),
+                "", new String[]{});
+        assertEquals(1, numRowsDeleted);
+    }
+
+    @Test
+    @SmallTest
     public void testOwnedBy() {
         // insert test contentValues
         ContentValues contentValues = new ContentValues();
@@ -448,9 +520,9 @@ public class TelephonyProviderTest extends TestCase {
                 id = Integer.parseInt(uri.getLastPathSegment());
             }
             catch (NumberFormatException e) {
+                fail("Can't parse ID for inserted APN");
             }
         }
-        assertTrue("Can't parse ID for inserted APN", id != 0);
         return id;
     }
 
@@ -500,7 +572,7 @@ public class TelephonyProviderTest extends TestCase {
 
         // Verify that enforced is set to false in TelephonyProvider.
         Cursor enforceCursor = mContentResolver.query(URI_ENFORCE_MANAGED,
-            null, null, null, null);
+                null, null, null, null);
         assertNotNull(enforceCursor);
         assertEquals(1, enforceCursor.getCount());
         enforceCursor.moveToFirst();
@@ -508,14 +580,14 @@ public class TelephonyProviderTest extends TestCase {
 
         // Verify URL_FILTERED query only returns non-DPC record.
         final String[] testProjection =
-        {
-            Carriers._ID,
-            Carriers.OWNED_BY
-        };
+                {
+                        Carriers._ID,
+                        Carriers.OWNED_BY
+                };
         final String selection = Carriers.NUMERIC + "=?";
         String[] selectionArgs = { numeric };
         Cursor cursorNotEnforced = mContentResolver.query(URI_FILTERED,
-            testProjection, selection, selectionArgs, null);
+                testProjection, selection, selectionArgs, null);
         assertNotNull(cursorNotEnforced);
         assertEquals(1, cursorNotEnforced.getCount());
         cursorNotEnforced.moveToFirst();
@@ -530,7 +602,7 @@ public class TelephonyProviderTest extends TestCase {
 
         // Verify that enforced is set to true in TelephonyProvider.
         enforceCursor = mContentResolver.query(URI_ENFORCE_MANAGED,
-            null, null, null, null);
+                null, null, null, null);
         assertNotNull(enforceCursor);
         assertEquals(1, enforceCursor.getCount());
         enforceCursor.moveToFirst();
@@ -580,13 +652,13 @@ public class TelephonyProviderTest extends TestCase {
 
         // Verify URL_TELEPHONY query only returns non-DPC record.
         final String[] testProjection =
-        {
-            Carriers._ID,
-            Carriers.APN,
-            Carriers.NAME,
-            Carriers.CURRENT,
-            Carriers.OWNED_BY,
-        };
+                {
+                        Carriers._ID,
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
         final String selection = Carriers.NUMERIC + "=?";
         String[] selectionArgs = { numeric };
         Cursor cursorTelephony = mContentResolver.query(URI_TELEPHONY,
@@ -678,13 +750,13 @@ public class TelephonyProviderTest extends TestCase {
         // Verify that URI_DPC query only returns DPC records.
         // The columns to get in table.
         final String[] testProjection =
-        {
-            Carriers._ID,
-            Carriers.APN,
-            Carriers.NAME,
-            Carriers.CURRENT,
-            Carriers.OWNED_BY,
-        };
+                {
+                        Carriers._ID,
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
         final String selection = Carriers.NUMERIC + "=?";
         String[] selectionArgs = { numeric };
         Cursor cursorDPC = mContentResolver.query(URI_DPC,
@@ -778,9 +850,9 @@ public class TelephonyProviderTest extends TestCase {
         }
         try {
             mContentResolver.query(URI_ENFORCE_MANAGED,
-            new String[]{}, "", new String[]{}, null);
+                    new String[]{}, "", new String[]{}, null);
             assertFalse("SecurityException should be thrown when URI_ENFORCE_MANAGED is called "
-                + "from non-SYSTEM_UID", true);
+                    + "from non-SYSTEM_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }

@@ -1598,7 +1598,7 @@ public class TelephonyProvider extends ContentProvider
             }
         }
 
-        public static void mergeFieldsAndUpdateDb(SQLiteDatabase db, String table, Cursor oldRow,
+        public static Uri mergeFieldsAndUpdateDb(SQLiteDatabase db, String table, Cursor oldRow,
                                                   ContentValues newRow, ContentValues mergedValues,
                                                   boolean onUpgrade, Context context) {
             if (newRow.containsKey(TYPE)) {
@@ -1622,12 +1622,13 @@ public class TelephonyProvider extends ContentProvider
                                     PROFILE_ID)) + " newRow " + newRow);
                         }
 
+                        Uri result = separateRowsNeeded(db, table, oldRow, newRow, context,
+                                oldTypes, newTypes);
                         // If separate rows are needed, do not need to merge any further
-                        if (separateRowsNeeded(db, table, oldRow, newRow, context, oldTypes,
-                                newTypes)) {
+                        if (result != null) {
                             if (VDBG) log("mergeFieldsAndUpdateDb: separateRowsNeeded() returned " +
                                     "true");
-                            return;
+                            return result;
                         }
 
                         // Merge the 2 types
@@ -1683,13 +1684,16 @@ public class TelephonyProvider extends ContentProvider
                 mergedValues.putAll(newRow);
             }
 
+            int id = oldRow.getInt(oldRow.getColumnIndex("_id"));
             if (mergedValues.size() > 0) {
-                db.update(table, mergedValues, "_id=" + oldRow.getInt(oldRow.getColumnIndex("_id")),
+                db.update(table, mergedValues, "_id=" + id,
                         null);
             }
+
+            return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        private static boolean separateRowsNeeded(SQLiteDatabase db, String table, Cursor oldRow,
+        private static Uri separateRowsNeeded(SQLiteDatabase db, String table, Cursor oldRow,
                                                   ContentValues newRow, Context context,
                                                   String[] oldTypes, String[] newTypes) {
             // If this APN falls under persist_apns_for_plmn, and the
@@ -1710,7 +1714,7 @@ public class TelephonyProvider extends ContentProvider
                 }
             }
 
-            if (!match) return false;
+            if (!match) return null;
 
             // APN falls under persist_apns_for_plmn
             // Check if only difference between old type and new type is that
@@ -1728,13 +1732,13 @@ public class TelephonyProvider extends ContentProvider
                 listWithDun = newTypesAl;
                 listWithoutDun = oldTypesAl;
             } else {
-                return false;
+                return null;
             }
 
             if (listWithDun.contains("dun") && !listWithoutDun.contains("dun")) {
                 listWithoutDun.add("dun");
                 if (!listWithDun.containsAll(listWithoutDun)) {
-                    return false;
+                    return null;
                 }
 
                 // Only difference between old type and new type is that
@@ -1757,41 +1761,36 @@ public class TelephonyProvider extends ContentProvider
                             log("separateRowsNeeded: updating type in oldRow to " + updatedType);
                         }
                         updateOldRow.put(TYPE, updatedType);
-                        db.update(table, updateOldRow,
-                                "_id=" + oldRow.getInt(oldRow.getColumnIndex("_id")), null);
-                        return true;
+                        int id = oldRow.getInt(oldRow.getColumnIndex("_id"));
+                        db.update(table, updateOldRow, "_id=" + id, null);
+                        return ContentUris.withAppendedId(CONTENT_URI, id);
                     } else {
                         if (VDBG) log("separateRowsNeeded: adding profile id 1 to newRow");
                         // Update newRow to set profile_id to 1
                         newRow.put(PROFILE_ID, new Integer(1));
                     }
                 } else {
-                    return false;
+                    return null;
                 }
 
                 // If match was found, both oldRow and newRow need to exist
                 // separately in db. Add newRow to db.
                 try {
-                    db.insertWithOnConflict(table, null, newRow, SQLiteDatabase.CONFLICT_REPLACE);
+                    long id =
+                            db.insertWithOnConflict(table, null, newRow,
+                                    SQLiteDatabase.CONFLICT_REPLACE);
                     if (VDBG) log("separateRowsNeeded: added newRow with profile id 1 to db");
-                    return true;
+                    return id == -1 ? null : ContentUris.withAppendedId(CONTENT_URI, id);
                 } catch (SQLException e) {
                     loge("Exception on trying to add new row after updating profile_id");
                 }
             }
 
-            return false;
+            return null;
         }
 
         public static Cursor selectConflictingRow(SQLiteDatabase db, String table,
                                                   ContentValues row) {
-            // Conflict is possible only when numeric, mcc, mnc (fields without any default value)
-            // are set in the new row
-            if (!row.containsKey(NUMERIC) || !row.containsKey(MCC) || !row.containsKey(MNC)) {
-                loge("dbh.selectConflictingRow: called for non-conflicting row: " + row);
-                return null;
-            }
-
             String[] columns = { "_id",
                     TYPE,
                     EDITED,
@@ -2416,7 +2415,7 @@ public class TelephonyProvider extends ContentProvider
             Cursor oldRow = DatabaseHelper.selectConflictingRow(db, CARRIERS_TABLE, values);
             if (oldRow != null) {
                 ContentValues mergedValues = new ContentValues();
-                DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
+                result = DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
                         mergedValues, false, getContext());
                 oldRow.close();
                 notify = true;
