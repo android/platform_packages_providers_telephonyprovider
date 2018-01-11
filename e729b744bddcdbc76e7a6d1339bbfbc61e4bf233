@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b237d0fa_d7e3ea39",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-11T00:24:24Z",
+      "side": 1,
+      "message": "Just copying the last comments from the other patch so we can see the diff:\n\n\"In case of error we should fall back to the default behavior\"\n\nlooks good",
+      "range": {
+        "startLine": 2862,
+        "startChar": 12,
+        "endLine": 2862,
+        "endChar": 40
+      },
+      "revId": "e729b744bddcdbc76e7a6d1339bbfbc61e4bf233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49dcfaf5_b77528e3",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2898,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-11T00:24:24Z",
+      "side": 1,
+      "message": "\"Why 3gpp? What about 3gpp2 MVNOs\"\n\nthis lgtm but Amit will have to take a look",
+      "range": {
+        "startLine": 2895,
+        "startChar": 8,
+        "endLine": 2898,
+        "endChar": 63
+      },
+      "revId": "e729b744bddcdbc76e7a6d1339bbfbc61e4bf233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80f6ac82_be0cc105",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2920,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-11T00:24:24Z",
+      "side": 1,
+      "message": "\"should we break the loop when we find this? Also why do we need the temp variables mvno_type and mvno_match_data?\"\n\nlooks good",
+      "range": {
+        "startLine": 2910,
+        "startChar": 16,
+        "endLine": 2920,
+        "endChar": 36
+      },
+      "revId": "e729b744bddcdbc76e7a6d1339bbfbc61e4bf233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
