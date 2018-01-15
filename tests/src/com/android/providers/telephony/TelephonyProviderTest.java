@@ -750,19 +750,19 @@ public class TelephonyProviderTest extends TestCase {
 
     /**
      * Verify that SecurityException is thrown if URL_DPC, URL_FILTERED and
-     * URL_ENFORCE_MANAGED is accessed from non-SYSTEM_UID.
+     * URL_ENFORCE_MANAGED is accessed from neither SYSTEM_UID nor PHONE_UID.
      */
     @Test
     @SmallTest
     public void testAccessURLDPCThrowSecurityExceptionFromOtherUid() {
-        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID + 1);
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID + 123456);
 
         // Test insert().
         ContentValues contentValuesDPC = new ContentValues();
         try {
             mContentResolver.insert(URI_DPC, contentValuesDPC);
             assertFalse("SecurityException should be thrown when URI_DPC is called from"
-                    + " non-SYSTEM_UID", true);
+                    + " neither SYSTEM_UID nor PHONE_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }
@@ -772,15 +772,15 @@ public class TelephonyProviderTest extends TestCase {
             mContentResolver.query(URI_DPC,
                     new String[]{}, "", new String[]{}, null);
             assertFalse("SecurityException should be thrown when URI_DPC is called from"
-                    + " non-SYSTEM_UID", true);
+                    + " neither SYSTEM_UID nor PHONE_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }
         try {
             mContentResolver.query(URI_ENFORCE_MANAGED,
             new String[]{}, "", new String[]{}, null);
-            assertFalse("SecurityException should be thrown when URI_ENFORCE_MANAGED is called "
-                + "from non-SYSTEM_UID", true);
+            assertFalse("SecurityException should be thrown when URI_ENFORCE_MANAGED is "
+                    + "called from neither SYSTEM_UID nor PHONE_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }
@@ -792,7 +792,7 @@ public class TelephonyProviderTest extends TestCase {
                     Uri.parse(URI_DPC + "/1"),
                     contentValuesDPCUpdate, "", new String[]{});
             assertFalse("SecurityException should be thrown when URI_DPC is called"
-                    + " from non-SYSTEM_UID", true);
+                    + " from neither SYSTEM_UID nor PHONE_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }
@@ -800,7 +800,7 @@ public class TelephonyProviderTest extends TestCase {
             mContentResolver.update(URI_ENFORCE_MANAGED, contentValuesDPCUpdate,
                     "", new String[]{});
             assertFalse("SecurityException should be thrown when URI_DPC is called"
-                    + " from non-SYSTEM_UID", true);
+                    + " from neither SYSTEM_UID nor PHONE_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }
@@ -810,7 +810,7 @@ public class TelephonyProviderTest extends TestCase {
             mContentResolver.delete(
                     Uri.parse(URI_DPC + "/0"), "", new String[]{});
             assertFalse("SecurityException should be thrown when URI_DPC is called"
-                    + " from non-SYSTEM_UID", true);
+                    + " from neither SYSTEM_UID nor PHONE_UID", true);
         } catch (SecurityException e) {
             // Should catch SecurityException.
         }
