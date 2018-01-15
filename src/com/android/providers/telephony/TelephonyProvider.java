@@ -2148,12 +2148,13 @@ public class TelephonyProvider extends ContentProvider
         }
     }
 
-    boolean isCallingFromSystemUid() {
-        return mInjector.binderGetCallingUid() == Process.SYSTEM_UID;
+    boolean isCallingFromSystemOrPhoneUid() {
+        return mInjector.binderGetCallingUid() == Process.SYSTEM_UID ||
+                mInjector.binderGetCallingUid() == Process.PHONE_UID;
     }
 
-    void ensureCallingFromSystemUid(String message) {
-        if (!isCallingFromSystemUid()) {
+    void ensureCallingFromSystemOrPhoneUid(String message) {
+        if (!isCallingFromSystemOrPhoneUid()) {
             throw new SecurityException(message);
         }
     }
@@ -2239,7 +2240,7 @@ public class TelephonyProvider extends ContentProvider
             }
 
             case URL_DPC: {
-                ensureCallingFromSystemUid("URL_DPC called from non SYSTEM_UID.");
+                ensureCallingFromSystemOrPhoneUid("URL_DPC called from non SYSTEM_UID.");
                 // DPC query only returns DPC records.
                 constraints.add(IS_OWNED_BY_DPC);
                 break;
@@ -2257,7 +2258,8 @@ public class TelephonyProvider extends ContentProvider
             }
 
             case URL_ENFORCE_MANAGED: {
-                ensureCallingFromSystemUid("URL_ENFORCE_MANAGED called from non SYSTEM_UID.");
+                ensureCallingFromSystemOrPhoneUid(
+                        "URL_ENFORCE_MANAGED called from non SYSTEM_UID.");
                 MatrixCursor cursor = new MatrixCursor(new String[]{ENFORCED_KEY});
                 cursor.addRow(new Object[]{isManagedApnEnforced() ? 1 : 0});
                 return cursor;
@@ -2533,7 +2535,7 @@ public class TelephonyProvider extends ContentProvider
             }
 
             case URL_DPC: {
-                ensureCallingFromSystemUid("URL_DPC called from non SYSTEM_UID.");
+                ensureCallingFromSystemOrPhoneUid("URL_DPC called from non SYSTEM_UID.");
 
                 ContentValues values;
                 if (initialValues != null) {
@@ -2695,7 +2697,7 @@ public class TelephonyProvider extends ContentProvider
             }
 
             case URL_DPC_ID: {
-                ensureCallingFromSystemUid("URL_DPC_ID called from non SYSTEM_UID.");
+                ensureCallingFromSystemOrPhoneUid("URL_DPC_ID called from non SYSTEM_UID.");
 
                 // Only delete if owned by DPC.
                 count = db.delete(CARRIERS_TABLE, "(" + _ID + "=?)" + " and " + IS_OWNED_BY_DPC,
@@ -2856,7 +2858,7 @@ public class TelephonyProvider extends ContentProvider
 
             case URL_DPC_ID:
             {
-                ensureCallingFromSystemUid("URL_DPC_ID called from non SYSTEM_UID.");
+                ensureCallingFromSystemOrPhoneUid("URL_DPC_ID called from non SYSTEM_UID.");
 
                 if (where != null || whereArgs != null) {
                     throw new UnsupportedOperationException(
@@ -2869,7 +2871,8 @@ public class TelephonyProvider extends ContentProvider
             }
 
             case URL_ENFORCE_MANAGED: {
-                ensureCallingFromSystemUid("URL_ENFORCE_MANAGED called from non SYSTEM_UID.");
+                ensureCallingFromSystemOrPhoneUid(
+                        "URL_ENFORCE_MANAGED called from non SYSTEM_UID.");
                 if (values != null) {
                     if (values.containsKey(ENFORCED_KEY)) {
                         setManagedApnEnforced(values.getAsBoolean(ENFORCED_KEY));
