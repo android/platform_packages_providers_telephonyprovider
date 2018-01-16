@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c7aadc1_dab6c5ab",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-16T23:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb4db7b_0198160d",
+      "range": {
+        "startLine": 318,
+        "startChar": 46,
+        "endLine": 318,
+        "endChar": 50
+      },
+      "revId": "ed369ca99e9855265d67fccc5701366d8b8cc70f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55729e37_a95349c9",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "85ac2adb_56e73e93",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-16T23:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55729e37_a95349c9",
+      "range": {
+        "startLine": 967,
+        "startChar": 20,
+        "endLine": 971,
+        "endChar": 0
+      },
+      "revId": "ed369ca99e9855265d67fccc5701366d8b8cc70f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa9964b8_7ac4654e",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "ed369ca99e9855265d67fccc5701366d8b8cc70f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89da3dfe_26c69438",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-16T23:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa9964b8_7ac4654e",
+      "range": {
+        "startLine": 979,
+        "startChar": 60,
+        "endLine": 979,
+        "endChar": 64
+      },
+      "revId": "ed369ca99e9855265d67fccc5701366d8b8cc70f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
