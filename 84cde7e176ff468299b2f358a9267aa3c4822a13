@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dfa8a49_f77d1774",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1131623
+      },
+      "writtenOn": "2018-01-16T19:34:13Z",
+      "side": 1,
+      "message": "Why these information appear?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 80
+      },
+      "revId": "84cde7e176ff468299b2f358a9267aa3c4822a13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
