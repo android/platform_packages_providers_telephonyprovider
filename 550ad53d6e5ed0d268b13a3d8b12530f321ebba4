@@ -46,6 +46,30 @@
       "revId": "550ad53d6e5ed0d268b13a3d8b12530f321ebba4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8b9322e_72bab2fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-17T22:01:24Z",
+      "side": 1,
+      "message": "I have manually tested creating new table and upgrading old tables, all passed. I also modified the TelephonyProviderTest.testSimTable() to cover the newly added column.",
+      "parentUuid": "fb6a9ca2_cbfeb68b",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "550ad53d6e5ed0d268b13a3d8b12530f321ebba4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
