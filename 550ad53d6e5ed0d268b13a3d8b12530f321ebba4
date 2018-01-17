@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "463c5bca_bab10198",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-17T18:27:35Z",
+      "side": 1,
+      "message": "please make sure the manual test involves adding/removing some APNs.\n\nAlso can you add a unit test to TelephonyProviderTest",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "550ad53d6e5ed0d268b13a3d8b12530f321ebba4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
