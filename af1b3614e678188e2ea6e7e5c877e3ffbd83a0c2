@@ -1,0 +1,10 @@
+Verified+1: Shuo Qian <shuoq@google.com>
+Code-Review+2: Shuo Qian <shuoq@google.com>
+Code-Review+2: Chen Xu <fionaxu@google.com>
+Autosubmit+1: Shuo Qian <shuoq@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 17 Jan 2018 21:43:18 +0000
+Reviewed-on: https://android-review.googlesource.com/591373
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
