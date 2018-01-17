@@ -22,6 +22,30 @@
       "revId": "550ad53d6e5ed0d268b13a3d8b12530f321ebba4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb6a9ca2_cbfeb68b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-01-17T19:48:09Z",
+      "side": 1,
+      "message": "nevermind about APNs, but do trigger some inserts/deletes in the relevant table",
+      "parentUuid": "463c5bca_bab10198",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "550ad53d6e5ed0d268b13a3d8b12530f321ebba4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
