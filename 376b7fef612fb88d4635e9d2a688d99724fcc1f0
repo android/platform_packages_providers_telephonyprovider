@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "bb7d4982_3a4f87af",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-18T20:08:24Z",
+      "side": 1,
+      "message": "these 2 parameters are selection and selectionArgs, so it makes the query look like \"where SubscriptionManager.CARD_ID\", which seems pretty strange and I am not sure if and how this is expected to work. Maybe you should change the third parameters to \"SubscriptionManager.CARD_ID not null\"?",
+      "parentUuid": "4615ca98_685ad380",
+      "range": {
+        "startLine": 988,
+        "startChar": 54,
+        "endLine": 989,
+        "endChar": 32
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e12422e_989204a7",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 5
