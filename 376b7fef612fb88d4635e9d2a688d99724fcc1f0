@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "807736de_258757f2",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-18T17:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40e417df_96711cd2",
+      "range": {
+        "startLine": 128,
+        "startChar": 40,
+        "endLine": 128,
+        "endChar": 44
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5214bf4_59d672bd",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f16907b7_7f61bd8b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-18T17:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5214bf4_59d672bd",
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef104782_7455d6a4",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 5
@@ -53,6 +95,30 @@
       "writtenOn": "2018-01-18T04:20:22Z",
       "side": 1,
       "message": "What does this query mean? Are you trying to get the number of columns with a non-empty card_id? I don\u0027t think this is the right query for that.",
+      "range": {
+        "startLine": 988,
+        "startChar": 54,
+        "endLine": 989,
+        "endChar": 32
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4615ca98_685ad380",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-18T17:50:57Z",
+      "side": 1,
+      "message": "I am trying to query the number of columns with \"non-null\" CARD_ID, just like the existing code on line 971, it worked as expected when I manually tested the upgrading function. What do you think is the right way for that query?",
+      "parentUuid": "ef104782_7455d6a4",
       "range": {
         "startLine": 988,
         "startChar": 54,
@@ -85,6 +151,30 @@
       "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "636377d1_b2e053b3",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-01-18T17:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e12422e_989204a7",
+      "range": {
+        "startLine": 1033,
+        "startChar": 27,
+        "endLine": 1033,
+        "endChar": 47
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
