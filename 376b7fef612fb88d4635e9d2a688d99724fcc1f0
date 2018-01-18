@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40e417df_96711cd2",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-18T04:20:22Z",
+      "side": 1,
+      "message": "Change to false before merging.",
+      "range": {
+        "startLine": 128,
+        "startChar": 40,
+        "endLine": 128,
+        "endChar": 44
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5214bf4_59d672bd",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-18T04:20:22Z",
+      "side": 1,
+      "message": "Add some comments about what this upgrade is doing and how.",
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef104782_7455d6a4",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-18T04:20:22Z",
+      "side": 1,
+      "message": "What does this query mean? Are you trying to get the number of columns with a non-empty card_id? I don\u0027t think this is the right query for that.",
+      "range": {
+        "startLine": 988,
+        "startChar": 54,
+        "endLine": 989,
+        "endChar": 32
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e12422e_989204a7",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-18T04:20:22Z",
+      "side": 1,
+      "message": "Simply call insert; we don\u0027t expect a conflict here.",
+      "range": {
+        "startLine": 1033,
+        "startChar": 27,
+        "endLine": 1033,
+        "endChar": 47
+      },
+      "revId": "376b7fef612fb88d4635e9d2a688d99724fcc1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
