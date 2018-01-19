@@ -22,6 +22,30 @@
       "revId": "d044ec1c69afaa6e002e6acb7d050e6200b00651",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0dc1f94_b7ed8696",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-01-19T06:20:39Z",
+      "side": 1,
+      "message": "Ying, we should add a comment to answer that question somewhere. Either in this file or on the UiccController side, or maybe both places.",
+      "parentUuid": "83cad334_175ef07d",
+      "range": {
+        "startLine": 1035,
+        "startChar": 23,
+        "endLine": 1035,
+        "endChar": 72
+      },
+      "revId": "d044ec1c69afaa6e002e6acb7d050e6200b00651",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
