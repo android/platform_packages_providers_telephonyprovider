@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3754789b_033f2e01",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2718,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 2718,
+        "startChar": 16,
+        "endLine": 2718,
+        "endChar": 20
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d390b007_93740986",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2724,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "To reduce log clutter, we usually log only the failure case (when we had an insertion conflict).",
+      "range": {
+        "startLine": 2724,
+        "startChar": 16,
+        "endLine": 2724,
+        "endChar": 93
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685ab2bc_57eea75d",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "Can be reduced to a single line: return (uri !\u003d null ? Integer.parseInt(uri.getLastPathSegment()) : -1)",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 458,
+        "endChar": 18
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9860cbd_64d1d984",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "final, as well as everywhere below",
+      "range": {
+        "startLine": 791,
+        "startChar": 8,
+        "endLine": 791,
+        "endChar": 11
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be26986b_3a6a7f5b",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "How about we introduce a private assertApnEquals(Object[] apn, Cursor cursor) so we keep the method readable and a bit shorter? If you think of something better than Object[] to represent the APN, go for it.",
+      "range": {
+        "startLine": 816,
+        "startChar": 8,
+        "endLine": 823,
+        "endChar": 66
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c20db03_585e6251",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "With the new assertApnEquals method I mentioned above, you can reduce all of this to 2 lines.",
+      "range": {
+        "startLine": 843,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 66
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18fcfbae_18e9bc88",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1286044
+      },
+      "writtenOn": "2018-02-21T18:39:41Z",
+      "side": 1,
+      "message": "Is this the same as ContentUris.withAppendedId? If so, please use that instead, so we don\u0027t have magic string composition.",
+      "range": {
+        "startLine": 860,
+        "startChar": 16,
+        "endLine": 860,
+        "endChar": 56
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
