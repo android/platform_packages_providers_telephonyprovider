@@ -450,16 +450,11 @@ public class TelephonyProviderTest extends TestCase {
         assertEquals(0, cursor.getCount());
     }
 
-    private int parseIdFromInsertedUri(Uri uri) {
-        int id = 0;
+    private int parseIdFromInsertedUri(Uri uri) throws NumberFormatException {
+        int id = -1;
         if (uri != null) {
-            try {
-                id = Integer.parseInt(uri.getLastPathSegment());
-            }
-            catch (NumberFormatException e) {
-            }
+            id = Integer.parseInt(uri.getLastPathSegment());
         }
-        assertTrue("Can't parse ID for inserted APN", id != 0);
         return id;
     }
 
@@ -591,7 +586,7 @@ public class TelephonyProviderTest extends TestCase {
     /**
      * Test URL_TELEPHONY cannot insert, query, update or delete DPC records.
      */
-    public void testTelephonyUriDPCRecordAccessControl() {
+    public void testTelephonyUriDpcRecordAccessControl() {
         mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID);
 
         final int current = 1;
@@ -780,12 +775,102 @@ public class TelephonyProviderTest extends TestCase {
     }
 
     /**
+     * Test URL_DPC does not change database on conflict for insert and update.
+     */
+    @Test
+    @SmallTest
+    public void testDpcUriOnConflict() {
+        mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID);
+
+        final int current = 1;
+        final String numeric = "123456789";
+
+        // Insert DPC record 1.
+        final String dpcRecordApn1 = "exampleApnNameDPC";
+        final String dpcRecordName = "exampleNameDPC";
+        int dpcRecordId1 = insertApnRecord(URI_DPC, dpcRecordApn1, dpcRecordName,
+                current, numeric);
+        Log.d(TAG, "testDpcUriOnConflict Id for DPC record 1: " + dpcRecordId1);
+
+        // Insert conflicting DPC record.
+        final String dpcRecordNameConflict = "exampleNameDPCConflict";
+        int dpcRecordIdConflict = insertApnRecord(URI_DPC, dpcRecordApn1, dpcRecordNameConflict,
+                current, numeric);
+
+        // Verity that conflicting DPC record is not inserted.
+        assertEquals(-1, dpcRecordIdConflict);
+        // The columns to get in table.
+        final String[] testProjection =
+                {
+                        Carriers._ID,
+                        Carriers.APN,
+                        Carriers.NAME,
+                        Carriers.CURRENT,
+                        Carriers.OWNED_BY,
+                };
+        final String selection = Carriers.NUMERIC + "=?";
+        String[] selectionArgs = { numeric };
+        Cursor cursorDPC1 = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        // Verify that APN 1 is not replaced or updated.
+        assertNotNull(cursorDPC1);
+        assertEquals(1, cursorDPC1.getCount());
+        cursorDPC1.moveToFirst();
+        assertEquals(dpcRecordId1, cursorDPC1.getInt(0));
+        assertEquals(dpcRecordApn1, cursorDPC1.getString(1));
+        assertEquals(dpcRecordName, cursorDPC1.getString(2));
+        assertEquals(current, cursorDPC1.getInt(3));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorDPC1.getInt(4));
+
+        // Insert DPC record 2.
+        final String dpcRecordApn2 = "exampleApnNameDPC2";
+        int dpcRecordId2 = insertApnRecord(URI_DPC, dpcRecordApn2, dpcRecordName,
+                current, numeric);
+        Log.d(TAG, "testDpcUriOnConflict Id for DPC record 2: " + dpcRecordId2);
+
+        // Update conflicting DPC record.
+        ContentValues contentValuesDpcUpdate = new ContentValues();
+        contentValuesDpcUpdate.put(Carriers.APN, dpcRecordApn1);
+        contentValuesDpcUpdate.put(Carriers.NAME, dpcRecordNameConflict);
+        final int updateCount = mContentResolver.update(
+                Uri.parse(URI_DPC + "/" + dpcRecordId2),
+                contentValuesDpcUpdate, null, null);
+
+        // Verify that database is not updated.
+        assertEquals(0, updateCount);
+        Cursor cursorDPC2 = mContentResolver.query(URI_DPC,
+                testProjection, selection, selectionArgs, null);
+        assertNotNull(cursorDPC2);
+        assertEquals(2, cursorDPC2.getCount());
+        cursorDPC2.moveToFirst();
+        assertEquals(dpcRecordId1, cursorDPC2.getInt(0));
+        assertEquals(dpcRecordApn1, cursorDPC2.getString(1));
+        assertEquals(dpcRecordName, cursorDPC2.getString(2));
+        assertEquals(current, cursorDPC2.getInt(3));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorDPC2.getInt(4));
+        cursorDPC2.moveToNext();
+        assertEquals(dpcRecordId2, cursorDPC2.getInt(0));
+        assertEquals(dpcRecordApn2, cursorDPC2.getString(1));
+        assertEquals(dpcRecordName, cursorDPC2.getString(2));
+        assertEquals(current, cursorDPC2.getInt(3));
+        assertEquals(Carriers.OWNED_BY_DPC, cursorDPC2.getInt(4));
+
+        // Delete test records.
+        int numRowsDeleted = mContentResolver.delete(
+                Uri.parse(URI_DPC + "/"  + dpcRecordId1), null, null);
+        assertEquals(1, numRowsDeleted);
+        numRowsDeleted = mContentResolver.delete(
+                Uri.parse(URI_DPC + "/"  + dpcRecordId2), null, null);
+        assertEquals(1, numRowsDeleted);
+    }
+
+    /**
      * Verify that SecurityException is thrown if URL_DPC, URL_FILTERED and
      * URL_ENFORCE_MANAGED is accessed from neither SYSTEM_UID nor PHONE_UID.
      */
     @Test
     @SmallTest
-    public void testAccessURLDPCThrowSecurityExceptionFromOtherUid() {
+    public void testAccessUrlDpcThrowSecurityExceptionFromOtherUid() {
         mTelephonyProviderTestable.fakeCallingUid(Process.SYSTEM_UID + 123456);
 
         // Test insert().
