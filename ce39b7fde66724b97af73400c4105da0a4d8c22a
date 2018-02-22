@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "ee092f4a_7b2f8ad7",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2018-02-22T04:43:47Z",
+      "side": 1,
+      "message": "private queryApnRecord method that can be shared with above test methods?",
+      "range": {
+        "startLine": 803,
+        "startChar": 8,
+        "endLine": 814,
+        "endChar": 63
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be26986b_3a6a7f5b",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 2
@@ -110,6 +133,29 @@
         "startChar": 8,
         "endLine": 823,
         "endChar": 66
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20cb6418_a74d0923",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2018-02-22T04:43:47Z",
+      "side": 1,
+      "message": "can this be a separate test? Looks unrelated to dpcrecordApn1 above.",
+      "range": {
+        "startLine": 825,
+        "startChar": 8,
+        "endLine": 825,
+        "endChar": 31
       },
       "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
