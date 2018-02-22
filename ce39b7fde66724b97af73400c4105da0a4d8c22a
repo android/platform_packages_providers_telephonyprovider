@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bced0035_e800fc62",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2718,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3754789b_033f2e01",
+      "range": {
+        "startLine": 2718,
+        "startChar": 16,
+        "endLine": 2718,
+        "endChar": 20
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d390b007_93740986",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-21T18:39:41Z",
       "side": 1,
       "message": "To reduce log clutter, we usually log only the failure case (when we had an insertion conflict).",
+      "range": {
+        "startLine": 2724,
+        "startChar": 16,
+        "endLine": 2724,
+        "endChar": 93
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded4fdae_09b3520a",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2724,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "This is telephony provider\u0027s pattern(see line 2579), let\u0027s keep it?",
+      "parentUuid": "d390b007_93740986",
       "range": {
         "startLine": 2724,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "07b1a882_273cbeaa",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "685ab2bc_57eea75d",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 458,
+        "endChar": 18
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9860cbd_64d1d984",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cd48269_f7655d8e",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9860cbd_64d1d984",
+      "range": {
+        "startLine": 791,
+        "startChar": 8,
+        "endLine": 791,
+        "endChar": 11
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "eb2cd3e7_17b8bac4",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee092f4a_7b2f8ad7",
+      "range": {
+        "startLine": 803,
+        "startChar": 8,
+        "endLine": 814,
+        "endChar": 63
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be26986b_3a6a7f5b",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "aa63f4bf_bcb5cf9c",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be26986b_3a6a7f5b",
+      "range": {
+        "startLine": 816,
+        "startChar": 8,
+        "endLine": 823,
+        "endChar": 66
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20cb6418_a74d0923",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2018-02-22T04:43:47Z",
       "side": 1,
       "message": "can this be a separate test? Looks unrelated to dpcrecordApn1 above.",
+      "range": {
+        "startLine": 825,
+        "startChar": 8,
+        "endLine": 825,
+        "endChar": 31
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f98180_9ddddcfc",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "This is related to dpcrecordApn1 as to create a update conflict. We should test that dpcrecordApn2 is originally different from dpcrecordApn1, and if we try to update it to have same unique fields as dpcrecordApn1, this update should be ignored.",
+      "parentUuid": "20cb6418_a74d0923",
       "range": {
         "startLine": 825,
         "startChar": 8,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "1b7b515e_e459576a",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c20db03_585e6251",
+      "range": {
+        "startLine": 843,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 66
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18fcfbae_18e9bc88",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 2
@@ -206,6 +398,30 @@
       "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b65dcb9e_78002927",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-02-22T15:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18fcfbae_18e9bc88",
+      "range": {
+        "startLine": 860,
+        "startChar": 16,
+        "endLine": 860,
+        "endChar": 56
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
