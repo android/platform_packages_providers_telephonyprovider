@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "cf1e49c2_12c1d535",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2724,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2018-02-23T07:13:24Z",
+      "side": 1,
+      "message": "should be fine as there is a VDBG check which wont\u0027 be submitted if true",
+      "parentUuid": "ded4fdae_09b3520a",
+      "range": {
+        "startLine": 2724,
+        "startChar": 16,
+        "endLine": 2724,
+        "endChar": 93
+      },
+      "revId": "ce39b7fde66724b97af73400c4105da0a4d8c22a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "685ab2bc_57eea75d",
         "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
         "patchSetId": 2
