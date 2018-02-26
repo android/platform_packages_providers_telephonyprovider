@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e684a21_11c09480",
+        "filename": "tests/src/com/android/providers/telephony/TelephonyProviderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1061229
+      },
+      "writtenOn": "2018-02-26T10:44:44Z",
+      "side": 1,
+      "message": "looks like this is still part of the test instead of a teardown, so put in the try block",
+      "range": {
+        "startLine": 732,
+        "startChar": 12,
+        "endLine": 738,
+        "endChar": 44
+      },
+      "revId": "04c03762579b4215e7bf7d41ab7b3910e1400151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
