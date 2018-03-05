@@ -2839,11 +2839,13 @@ public class TelephonyProvider extends ContentProvider
                     throw new IllegalArgumentException("Invalid subId " + url);
                 }
                 if (DBG) log("subIdString = " + subIdString + " subId = " + subId);
-                // FIXME use subId in query
             }
             case URL_RESTOREAPN: {
                 count = 1;
                 restoreDefaultAPN(subId);
+                getContext().getContentResolver().notifyChange(
+                        Uri.parse("content://telephony/carriers/restore/subId/" + subId),
+                        true, UserHandle.USER_ALL);
                 break;
             }
 
