@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68ef5427_26074bb6",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2841,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2018-03-06T01:49:06Z",
+      "side": 1,
+      "message": "Might be nice to add a \"// Fall through\" comment here so it\u0027s clear that this is intentional, or otherwise refactor this to avoid an intentional fall through which is easy to misunderstand or get wrong IMO, but independent from this CL. (In our app\u0027s codebase, we have fallthroughs without such comments lead to compilation failures since they\u0027re more often than not mistakes due to forgetting a break).",
+      "revId": "570296c989eb4ef32f758511f3dbb9594c9c85e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
