@@ -16,6 +16,24 @@
       "revId": "570296c989eb4ef32f758511f3dbb9594c9c85e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1c1044_487ed7e8",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2841,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-03-06T18:55:59Z",
+      "side": 1,
+      "message": "We do already have that comment in most other fall through cases in this file, but looks like not all. I agree it should be added, with this or a subsequent CL.",
+      "parentUuid": "68ef5427_26074bb6",
+      "revId": "570296c989eb4ef32f758511f3dbb9594c9c85e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
