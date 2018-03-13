@@ -95,6 +95,12 @@ public class TelephonyProviderTest extends TestCase {
     // Used to test the "restore to default"
     private static final Uri URL_RESTOREAPN_USING_SUBID = Uri.parse(
             "content://telephony/carriers/restore/subId/" + TEST_SUBID);
+    // Used to test the preferred apn
+    private static final Uri URL_PREFERAPN_USING_SUBID = Uri.parse(
+            "content://telephony/carriers/preferapn/subId/" + TEST_SUBID);
+
+    private static final String COLUMN_APN_ID = "apn_id";
+    private static final long TEST_PREF_APN_ID = 3500;
 
     // Constants for DPC related tests.
     private static final Uri URI_DPC = Uri.parse("content://telephony/carriers/dpc");
@@ -1029,6 +1035,39 @@ public class TelephonyProviderTest extends TestCase {
         // be seen
         Cursor cur = mContentResolver.query(URI_TELEPHONY, testProjection, null, null, null);
         assertEquals(0, cur.getCount());
+    }
+
+    /**
+     * Test URL_PREFERAPN_USING_SUBID works correctly.
+     */
+    @Test
+    @SmallTest
+    public void testQueryPreferredApn() {
+        // create APN to be deleted (including MVNO values)
+        ContentValues preferredValues = new ContentValues();
+        preferredValues.put(Carriers.APN, "apnName");
+        preferredValues.put(Carriers.NAME, "name");
+        preferredValues.put(Carriers.NUMERIC, TEST_OPERATOR);
+        preferredValues.put(COLUMN_APN_ID, TEST_PREF_APN_ID);
+        // create other operator APN (sama MCCMNC)
+        ContentValues otherValues = new ContentValues();
+        final String otherApn = "otherApnName";
+        final String otherName = "otherName";
+        otherValues.put(Carriers.APN, otherApn);
+        otherValues.put(Carriers.NAME, otherName);
+        otherValues.put(Carriers.NUMERIC, TEST_OPERATOR);
+
+        // insert APNs
+        Log.d(TAG, "testQueryPreferredApn: Bulk inserting contentValues=" + preferredValues + ", "
+                + otherValues);
+        ContentValues[] values = new ContentValues[]{ preferredValues, otherValues };
+        mContentResolver.bulkInsert(Carriers.CONTENT_URI, values);
+
+        // query preferred APN
+        final String[] testProjection = { Carriers.APN, Carriers.NAME };
+        Cursor cursor = mContentResolver.query(
+                URL_PREFERAPN_USING_SUBID, testProjection, null, null, null);
+        assertEquals(1, cursor.getCount());
     }
 
     /**
