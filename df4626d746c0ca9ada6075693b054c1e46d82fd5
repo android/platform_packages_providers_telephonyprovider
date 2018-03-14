@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "95c5a839_0bba2413",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2353,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-03-14T18:23:04Z",
+      "side": 1,
+      "message": "I think this was added (https://android-review.googlesource.com/#/c/platform/packages/providers/TelephonyProvider/+/541366/1/src/com/android/providers/telephony/TelephonyProvider.java)",
+      "parentUuid": "a4403d7d_95968219",
+      "revId": "df4626d746c0ca9ada6075693b054c1e46d82fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5aec7e70_abb6e73f",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2018-03-14T18:17:01Z",
       "side": 1,
       "message": "delete?",
+      "range": {
+        "startLine": 2633,
+        "startChar": 16,
+        "endLine": 2633,
+        "endChar": 51
+      },
+      "revId": "df4626d746c0ca9ada6075693b054c1e46d82fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2053aa2_976cf280",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-03-14T18:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aec7e70_abb6e73f",
       "range": {
         "startLine": 2633,
         "startChar": 16,
