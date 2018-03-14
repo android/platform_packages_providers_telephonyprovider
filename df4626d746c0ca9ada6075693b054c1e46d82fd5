@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4403d7d_95968219",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2353,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-03-14T18:17:01Z",
+      "side": 1,
+      "message": "I believe this one was already present, probably dont need to change this?",
+      "revId": "df4626d746c0ca9ada6075693b054c1e46d82fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aec7e70_abb6e73f",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-03-14T18:17:01Z",
+      "side": 1,
+      "message": "delete?",
+      "range": {
+        "startLine": 2633,
+        "startChar": 16,
+        "endLine": 2633,
+        "endChar": 51
+      },
+      "revId": "df4626d746c0ca9ada6075693b054c1e46d82fd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
