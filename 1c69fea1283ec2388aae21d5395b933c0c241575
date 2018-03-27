@@ -1,0 +1,10 @@
+Verified+1: Brad Ebinger <breadley@google.com>
+Code-Review+2: Xiangyu/Malcolm Chen <refuhoo@google.com>
+Code-Review+2: Tyler Gunn <tgunn@google.com>
+Code-Review+1: Ying Xu <yinxu@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Brad Ebinger <breadley@google.com>
+Submitted-at: Tue, 27 Mar 2018 23:34:01 +0000
+Reviewed-on: https://android-review.googlesource.com/649633
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
