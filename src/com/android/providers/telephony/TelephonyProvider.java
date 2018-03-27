@@ -1021,7 +1021,11 @@ public class TelephonyProvider extends ContentProvider
                 c.close();
             }
 
-            c = db.query(SIMINFO_TABLE, null, null, null, null, null, null);
+            // Order by subscription id to make sure the rows do not get flipped during the query
+            // and added in the new sim info table in another order (sub id is stored in settings
+            // between migrations).
+            c = db.query(SIMINFO_TABLE, null, null, null, null, null,
+                    SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID);
 
             db.execSQL("DROP TABLE IF EXISTS " + SIMINFO_TABLE_TMP);
 
