@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3b95c42_eeb4a0f7",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2578,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-03-29T00:29:13Z",
+      "side": 1,
+      "message": "I believe that this should also delete the row with id\u003durl.getLastPathSegment, otherwise this update call will modify an existing row and leave the row that the caller called update(URL_ID) on, which seems wrong.",
+      "range": {
+        "startLine": 2564,
+        "startChar": 16,
+        "endLine": 2578,
+        "endChar": 17
+      },
+      "revId": "e0101b8f0a9ae56f75cae0f46e6cedcba7902326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
