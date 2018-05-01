@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dfef1ee_e332daec",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1098848
+      },
+      "writtenOn": "2018-05-01T22:07:07Z",
+      "side": 1,
+      "message": "Is this a new class? I can\u0027t find this in the codebase.",
+      "range": {
+        "startLine": 111,
+        "startChar": 53,
+        "endLine": 111,
+        "endChar": 68
+      },
+      "revId": "e5548103b088e6133fde49ffc4c11789c6a77567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
