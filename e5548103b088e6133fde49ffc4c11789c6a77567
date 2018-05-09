@@ -22,6 +22,30 @@
       "revId": "e5548103b088e6133fde49ffc4c11789c6a77567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5dca832_dc41c948",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1247187
+      },
+      "writtenOn": "2018-05-09T17:45:53Z",
+      "side": 1,
+      "message": "yes it\u0027s in aosp/675904",
+      "parentUuid": "6dfef1ee_e332daec",
+      "range": {
+        "startLine": 111,
+        "startChar": 53,
+        "endLine": 111,
+        "endChar": 68
+      },
+      "revId": "e5548103b088e6133fde49ffc4c11789c6a77567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
