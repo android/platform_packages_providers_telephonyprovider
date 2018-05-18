@@ -1,0 +1,8 @@
+Verified+1: Xiangyu/Malcolm Chen <refuhoo@google.com>
+Code-Review+2: Xiangyu/Malcolm Chen <refuhoo@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Xiangyu/Malcolm Chen <refuhoo@google.com>
+Submitted-at: Fri, 18 May 2018 21:05:32 +0000
+Reviewed-on: https://android-review.googlesource.com/689469
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
