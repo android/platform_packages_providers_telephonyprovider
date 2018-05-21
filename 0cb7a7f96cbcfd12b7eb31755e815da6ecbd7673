@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9bfbaa3_45036f48",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-05-21T19:36:50Z",
+      "side": 1,
+      "message": "nitpick: can you add a comment here similar to the explanation in the commit message about RROs?",
+      "revId": "0cb7a7f96cbcfd12b7eb31755e815da6ecbd7673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
