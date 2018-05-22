@@ -16,6 +16,24 @@
       "revId": "0cb7a7f96cbcfd12b7eb31755e815da6ecbd7673",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bb46c25_2cfe82d8",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1221112
+      },
+      "writtenOn": "2018-05-22T07:40:43Z",
+      "side": 1,
+      "message": "sure, I will fix that.",
+      "parentUuid": "f9bfbaa3_45036f48",
+      "revId": "0cb7a7f96cbcfd12b7eb31755e815da6ecbd7673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
