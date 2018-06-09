@@ -95,6 +95,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.provider.Telephony;
 import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -126,6 +127,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.zip.CRC32;
 
@@ -136,7 +138,7 @@ public class TelephonyProvider extends ContentProvider
     private static final boolean DBG = true;
     private static final boolean VDBG = false; // STOPSHIP if true
 
-    private static final int DATABASE_VERSION = 26 << 16;
+    private static final int DATABASE_VERSION = 27 << 16;
     private static final int URL_UNKNOWN = 0;
     private static final int URL_TELEPHONY = 1;
     private static final int URL_CURRENT = 2;
@@ -333,6 +335,8 @@ public class TelephonyProvider extends ContentProvider
                 + " INTEGER DEFAULT " + SubscriptionManager.DATA_ROAMING_DEFAULT + ","
                 + SubscriptionManager.MCC + " INTEGER DEFAULT 0,"
                 + SubscriptionManager.MNC + " INTEGER DEFAULT 0,"
+                + SubscriptionManager.MCC_STRING + " TEXT,"
+                + SubscriptionManager.MNC_STRING + " TEXT,"
                 + SubscriptionManager.SIM_PROVISIONING_STATUS
                 + " INTEGER DEFAULT " + SubscriptionManager.SIM_PROVISIONED + ","
                 + SubscriptionManager.IS_EMBEDDED + " INTEGER DEFAULT 0,"
@@ -1058,6 +1062,32 @@ public class TelephonyProvider extends ContentProvider
                     }
                 }
                 oldVersion = 26 << 16 | 6;
+            }
+
+            if (oldVersion < (27 << 16 | 6)) {
+                // Add the new MCC_STRING and MNC_STRING columns into the subscription table,
+                // and attempt to populate them.
+                try {
+                    // Try to update the siminfo table. It might not be there.
+                    db.execSQL("ALTER TABLE " + SIMINFO_TABLE +
+                            " ADD COLUMN " + SubscriptionManager.MCC_STRING + " TEXT;");
+                    db.execSQL("ALTER TABLE " + SIMINFO_TABLE +
+                            " ADD COLUMN " + SubscriptionManager.MNC_STRING + " TEXT;");
+                } catch (SQLiteException e) {
+                    if (DBG) {
+                        log("onUpgrade skipping " + SIMINFO_TABLE + " upgrade. " +
+                                " The table will get created in onOpen.");
+                    }
+                }
+                // Migrate the old integer values over to strings
+                String[] proj = {SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID,
+                        SubscriptionManager.MCC, SubscriptionManager.MNC};
+                try (Cursor c = db.query(SIMINFO_TABLE, proj, null, null, null, null, null)) {
+                    while (c.moveToNext()) {
+                        fillInMccMncStringAtCursor(mContext, db, c);
+                    }
+                }
+                oldVersion = 27 << 16 | 6;
             }
             if (DBG) {
                 log("dbh.onUpgrade:- db=" + db + " oldV=" + oldVersion + " newV=" + newVersion);
@@ -3315,10 +3345,59 @@ public class TelephonyProvider extends ContentProvider
 
         initDatabaseWithDatabaseHelper(db);
 
-        // Notify listereners of DB change since DB has been updated
+        // Notify listeners of DB change since DB has been updated
         getContext().getContentResolver().notifyChange(
                 CONTENT_URI, null, true, UserHandle.USER_ALL);
 
+    }
+
+    public static void fillInMccMncStringAtCursor(Context context, SQLiteDatabase db, Cursor c) {
+        int mcc, mnc;
+        String subId;
+        try {
+            mcc = c.getInt(c.getColumnIndexOrThrow(SubscriptionManager.MCC));
+            mnc = c.getInt(c.getColumnIndexOrThrow(SubscriptionManager.MNC));
+            subId = c.getString(c.getColumnIndexOrThrow(
+                    SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID));
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Possible database corruption -- some columns not found.");
+            return;
+        }
+
+        String mccString = String.format(Locale.getDefault(), "%03d", mcc);
+        String mncString = getBestStringMnc(context, mcc, mnc);
+        ContentValues cv = new ContentValues(2);
+        cv.put(SubscriptionManager.MCC_STRING, mccString);
+        cv.put(SubscriptionManager.MNC_STRING, mncString);
+        db.update(SIMINFO_TABLE, cv,
+                SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID + "=?",
+                new String[]{subId});
+    }
+
+    /*
+     * Find the best string-form mnc by looking up possibilities in the carrier id db.
+     * Default to the three-digit version if neither/both are valid.
+     */
+    private static String getBestStringMnc(Context context, int mcc, int mnc) {
+        String paddedMccString = String.format(Locale.getDefault(), "%03d", mcc);
+        if (mnc >= 100 && mnc <= 999) {
+            return String.valueOf(mnc);
+        }
+        String twoDigitMnc = String.format(Locale.getDefault(), "%02d", mnc);
+        String threeDigitMnc = "0" + twoDigitMnc;
+
+        try (
+                Cursor twoDigitMncCursor = context.getContentResolver().query(
+                        Telephony.CarrierId.All.CONTENT_URI,
+                        /* projection */ null,
+                        /* selection */ Telephony.CarrierId.All.MCCMNC + "=?",
+                        /* selectionArgs */ new String[]{paddedMccString + twoDigitMnc}, null)
+        ) {
+            if (twoDigitMncCursor.getCount() > 0) {
+                return twoDigitMnc;
+            }
+            return threeDigitMnc;
+        }
     }
 
     /**
