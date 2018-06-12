@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b59f79df_313aad2f",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1098053
+      },
+      "writtenOn": "2018-06-12T18:34:08Z",
+      "side": 1,
+      "message": "This is only called between updates v24 and v24. Why is this addition needed if the mcc/mnc info is added and converted in v27",
+      "range": {
+        "startLine": 1157,
+        "startChar": 12,
+        "endLine": 1158,
+        "endChar": 76
+      },
+      "revId": "e391140cce25c2ae2a361ee56bcd8f6921e6a27b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "173dd1d7_b25cb320",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3357,
+      "author": {
+        "id": 1098053
+      },
+      "writtenOn": "2018-06-12T18:34:08Z",
+      "side": 1,
+      "message": "Why not getColumnIndex and then handle possible -1 result?",
+      "range": {
+        "startLine": 3357,
+        "startChar": 29,
+        "endLine": 3357,
+        "endChar": 50
+      },
+      "revId": "e391140cce25c2ae2a361ee56bcd8f6921e6a27b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
