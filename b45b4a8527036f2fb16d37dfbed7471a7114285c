@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0f9985a_76b3758d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-06-12T22:22:42Z",
+      "side": 1,
+      "message": "you re-added this? maybe it should be a separate CL?",
+      "range": {
+        "startLine": 568,
+        "startChar": 52,
+        "endLine": 568,
+        "endChar": 66
+      },
+      "revId": "b45b4a8527036f2fb16d37dfbed7471a7114285c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
