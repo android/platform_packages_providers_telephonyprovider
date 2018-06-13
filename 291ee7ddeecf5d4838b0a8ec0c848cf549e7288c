@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9add40d2_7448082b",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3367,
+      "author": {
+        "id": 1098053
+      },
+      "writtenOn": "2018-06-13T18:16:51Z",
+      "side": 1,
+      "message": "Why not just pass this string value into getBestStringMnc instead of doing the same operation again?",
+      "range": {
+        "startLine": 3367,
+        "startChar": 8,
+        "endLine": 3367,
+        "endChar": 75
+      },
+      "revId": "291ee7ddeecf5d4838b0a8ec0c848cf549e7288c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
