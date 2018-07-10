@@ -1,0 +1,9 @@
+Code-Review+2: Jordan Liu <jminjie@google.com>
+Verified+1: Bo Hu <bohu@google.com>
+Autosubmit+1: Bo Hu <bohu@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Tue, 10 Jul 2018 00:08:43 +0000
+Reviewed-on: https://android-review.googlesource.com/704370
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
