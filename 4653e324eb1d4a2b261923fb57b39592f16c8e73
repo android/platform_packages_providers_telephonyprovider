@@ -1,0 +1,8 @@
+Code-Review+2: Jordan Liu <jminjie@google.com>
+Presubmit-Ready+1: Jordan Liu <jminjie@google.com>
+Verified+1: Hall Liu <hallliu@google.com>
+Submitted-by: Hall Liu <hallliu@google.com>
+Submitted-at: Wed, 11 Jul 2018 21:50:09 +0000
+Reviewed-on: https://android-review.googlesource.com/715897
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
