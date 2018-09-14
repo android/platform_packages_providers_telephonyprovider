@@ -208,6 +208,9 @@ public class SmsProvider extends ContentProvider {
                 qb.setProjectionMap(projectionMap);
                 break;
 
+            case SMS_RAW_MESSAGE_ID:
+                qb.appendWhere(
+                        "(sub_id = " + url.getLastPathSegment() + ")");
             case SMS_RAW_MESSAGE:
                 // before querying purge old entries with deleted = 1
                 purgeDeletedMessagesInRawTable(db);
@@ -425,7 +428,9 @@ public class SmsProvider extends ContentProvider {
             // The raw table is used by the telephony layer for storing an sms before
             // sending out a notification that an sms has arrived. We don't want to notify
             // the default sms app of changes to this table.
-            final boolean notifyIfNotDefault = sURLMatcher.match(url) != SMS_RAW_MESSAGE;
+            final int matchedId = sURLMatcher.match(url);
+            final boolean notifyIfNotDefault = !(matchedId == SMS_RAW_MESSAGE
+                    || matchedId == SMS_RAW_MESSAGE_ID);
             notifyChange(notifyIfNotDefault, url, callerPkg);
             return messagesInserted;
         } finally {
@@ -444,7 +449,9 @@ public class SmsProvider extends ContentProvider {
             // The raw table is used by the telephony layer for storing an sms before
             // sending out a notification that an sms has arrived. We don't want to notify
             // the default sms app of changes to this table.
-            final boolean notifyIfNotDefault = sURLMatcher.match(url) != SMS_RAW_MESSAGE;
+            final int matchedId = sURLMatcher.match(url);
+            final boolean notifyIfNotDefault = !(matchedId == SMS_RAW_MESSAGE
+                    || matchedId == SMS_RAW_MESSAGE_ID);
             notifyChange(notifyIfNotDefault, insertUri, callerPkg);
             return insertUri;
         } finally {
@@ -460,6 +467,7 @@ public class SmsProvider extends ContentProvider {
         int match = sURLMatcher.match(url);
         String table = TABLE_SMS;
         boolean notifyIfNotDefault = true;
+        int subId = -1;
 
         switch (match) {
             case SMS_ALL:
@@ -496,6 +504,12 @@ public class SmsProvider extends ContentProvider {
                 type = Sms.MESSAGE_TYPE_OUTBOX;
                 break;
 
+            case SMS_RAW_MESSAGE_ID:
+                String subIdString = url.getLastPathSegment();
+                try {
+                    subId = Integer.parseInt(subIdString);
+                } catch (NumberFormatException e) {
+                }
             case SMS_RAW_MESSAGE:
                 table = "raw";
                 // The raw table is used by the telephony layer for storing an sms before
@@ -615,6 +629,10 @@ public class SmsProvider extends ContentProvider {
             }
         }
 
+        if (table.equals(TABLE_RAW)) {
+            values.put("sub_id", subId);
+        }
+
         rowID = db.insert(table, "body", values);
 
         // Don't use a trigger for updating the words table because of a bug
@@ -650,6 +668,7 @@ public class SmsProvider extends ContentProvider {
         int match = sURLMatcher.match(url);
         SQLiteDatabase db = getWritableDatabase(match);
         boolean notifyIfNotDefault = true;
+        int subId = -1;
         switch (match) {
             case SMS_ALL:
                 count = db.delete(TABLE_SMS, where, whereArgs);
@@ -686,16 +705,22 @@ public class SmsProvider extends ContentProvider {
                 MmsSmsDatabaseHelper.updateThread(db, threadID);
                 break;
 
+            case SMS_RAW_MESSAGE_ID:
+                String subIdString = url.getLastPathSegment();
+                try {
+                    subId = Integer.parseInt(subIdString);
+                } catch (NumberFormatException e) {
+                }
             case SMS_RAW_MESSAGE:
                 ContentValues cv = new ContentValues();
                 cv.put("deleted", 1);
+                cv.put("sub_id", subId);
                 count = db.update(TABLE_RAW, cv, where, whereArgs);
                 if (Log.isLoggable(TAG, Log.VERBOSE)) {
                     Log.d(TAG, "delete: num rows marked deleted in raw table: " + count);
                 }
                 notifyIfNotDefault = false;
                 break;
-
             case SMS_RAW_MESSAGE_PERMANENT_DELETE:
                 count = db.delete(TABLE_RAW, where, whereArgs);
                 if (Log.isLoggable(TAG, Log.VERBOSE)) {
@@ -758,6 +783,8 @@ public class SmsProvider extends ContentProvider {
         SQLiteDatabase db = getWritableDatabase(match);
 
         switch (match) {
+            case SMS_RAW_MESSAGE_ID:
+                extraWhere = "sub_id=" + url.getLastPathSegment();
             case SMS_RAW_MESSAGE:
                 table = TABLE_RAW;
                 notifyIfNotDefault = false;
@@ -904,6 +931,7 @@ public class SmsProvider extends ContentProvider {
         sURLMatcher.addURI("sms", "conversations", SMS_CONVERSATIONS);
         sURLMatcher.addURI("sms", "conversations/*", SMS_CONVERSATIONS_ID);
         sURLMatcher.addURI("sms", "raw", SMS_RAW_MESSAGE);
+        sURLMatcher.addURI("sms", "raw/*", SMS_RAW_MESSAGE_ID);
         sURLMatcher.addURI("sms", "raw/permanentDelete", SMS_RAW_MESSAGE_PERMANENT_DELETE);
         sURLMatcher.addURI("sms", "attachments", SMS_ATTACHMENT);
         sURLMatcher.addURI("sms", "attachments/#", SMS_ATTACHMENT_ID);
