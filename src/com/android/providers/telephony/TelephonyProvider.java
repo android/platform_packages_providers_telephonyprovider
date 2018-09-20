@@ -242,9 +242,10 @@ public class TelephonyProvider extends ContentProvider
     private boolean mManagedApnEnforced;
 
     static {
-        // Columns not included in UNIQUE constraint: name, current, edited, user, server, password,
+        // Columns not included in UNIQUE constraint: current, edited, user, server, password,
         // authtype, type, protocol, roaming_protocol, sub_id, modem_cognitive, max_conns,
         // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible, network_type_bitmask
+        CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(NAME, "");
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(NUMERIC, "");
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(MCC, "");
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(MNC, "");
@@ -319,7 +320,7 @@ public class TelephonyProvider extends ContentProvider
                 APN_SET_ID + " INTEGER DEFAULT " + NO_SET_SET + "," +
                 // Uniqueness collisions are used to trigger merge code so if a field is listed
                 // here it means we will accept both (user edited + new apn_conf definition)
-                // Columns not included in UNIQUE constraint: name, current, edited,
+                // Columns not included in UNIQUE constraint: current, edited,
                 // user, server, password, authtype, type, sub_id, modem_cognitive, max_conns,
                 // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible,
                 // network_type_bitmask.
