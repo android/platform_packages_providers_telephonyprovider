@@ -27,6 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.test.InstrumentationRegistry;
 import android.telephony.SubscriptionManager;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -146,6 +147,21 @@ public final class TelephonyDatabaseHelperTest {
 
         assertArrayEquals("Siminfo table from onUpgrade doesn't match full table",
                 fullColumns, upgradedColumns);
+    }
+
+    @Test
+    public void databaseHelperOnUpgrade_hasSubscriptionTypeField() {
+        Log.d(TAG, "databaseHelperOnUpgrade_hasSubscriptionTypeField");
+        // (5 << 16 | 6) is the first upgrade trigger in onUpgrade
+        SQLiteDatabase db = mInMemoryDbHelper.getWritableDatabase();
+        mHelper.onUpgrade(db, (4 << 16), TelephonyProvider.DatabaseHelper.getVersion(mContext));
+
+        // the upgraded db must have the SubscriptionManager.SUBSCRIPTION_TYPE field
+        Cursor cursor = db.query("siminfo", null, null, null, null, null, null);
+        String[] upgradedColumns = cursor.getColumnNames();
+        Log.d(TAG, "siminfo columns: " + Arrays.toString(upgradedColumns));
+
+        assertTrue(Arrays.asList(upgradedColumns).contains(SubscriptionManager.SUBSCRIPTION_TYPE));
     }
 
     /**
