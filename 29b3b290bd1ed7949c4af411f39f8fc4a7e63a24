@@ -46,6 +46,30 @@
       "revId": "29b3b290bd1ed7949c4af411f39f8fc4a7e63a24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c638334e_ac5d3645",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3284,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-09-28T21:23:40Z",
+      "side": 1,
+      "message": "Oh that\u0027s true. I guess even today any app with carrier privileges can alter the APNs of other carriers... this seems fine given that, but maybe carrier privileges shouldn\u0027t work like that? For the permission WRITE_APN_SETTINGS it makes sense, since it explicitly gives all callers permission to write any APN settings, but for carrier privilege I\u0027m not sure.\n\nBut since it matches the docs at https://source.android.com/devices/tech/config/uicc I think this is okay for now.",
+      "parentUuid": "8b460700_72aa9252",
+      "range": {
+        "startLine": 3284,
+        "startChar": 0,
+        "endLine": 3284,
+        "endChar": 81
+      },
+      "revId": "29b3b290bd1ed7949c4af411f39f8fc4a7e63a24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
