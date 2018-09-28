@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f940eb31_7ae1d36d",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3284,
+      "author": {
+        "id": 1121198
+      },
+      "writtenOn": "2018-09-28T18:25:29Z",
+      "side": 1,
+      "message": "so we\u0027ll allow any carrier to have permission to edit any other carrier\u0027s APNs/subscriptions? Is there some way we could do it per-subscription?",
+      "range": {
+        "startLine": 3284,
+        "startChar": 0,
+        "endLine": 3284,
+        "endChar": 81
+      },
+      "revId": "29b3b290bd1ed7949c4af411f39f8fc4a7e63a24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
