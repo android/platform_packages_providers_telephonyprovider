@@ -22,6 +22,30 @@
       "revId": "29b3b290bd1ed7949c4af411f39f8fc4a7e63a24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b460700_72aa9252",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3284,
+      "author": {
+        "id": 1148298
+      },
+      "writtenOn": "2018-09-28T20:18:03Z",
+      "side": 1,
+      "message": "checkPermission() is to verify whether the carrier privilege is present, it is either \"has carrier privilege and then you can edit the APN database\" or \"has no carrier privilege and then you can not edit the APN database\". In short, we protect the APN database as a whole thing instead of per carrier.",
+      "parentUuid": "f940eb31_7ae1d36d",
+      "range": {
+        "startLine": 3284,
+        "startChar": 0,
+        "endLine": 3284,
+        "endChar": 81
+      },
+      "revId": "29b3b290bd1ed7949c4af411f39f8fc4a7e63a24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
