@@ -3259,6 +3259,17 @@ public class TelephonyProvider extends ContentProvider
                 case URL_SIMINFO:
                     getContext().getContentResolver().notifyChange(
                             SubscriptionManager.CONTENT_URI, null, true, UserHandle.USER_ALL);
+                    // notify observers on specific user settings changes.
+                    if (values.containsKey(SubscriptionManager.WFC_IMS_ENABLED)) {
+                        getContext().getContentResolver().notifyChange(
+                                SubscriptionManager.WFC_ENABLED_CONTENT_URI, null, true,
+                                UserHandle.USER_ALL);
+                    }
+                    if (values.containsKey(SubscriptionManager.ENHANCED_4G_MODE_ENABLED)) {
+                        getContext().getContentResolver().notifyChange(
+                                SubscriptionManager.ENHANCED_4G_ENABLED_CONTENT_URI, null, true,
+                                UserHandle.USER_ALL);
+                    }
                     break;
                 default:
                     getContext().getContentResolver().notifyChange(

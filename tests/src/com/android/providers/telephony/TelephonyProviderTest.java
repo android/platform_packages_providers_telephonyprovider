@@ -73,6 +73,7 @@ public class TelephonyProviderTest extends TestCase {
 
     private int notifyChangeCount;
     private int notifyChangeRestoreCount;
+    private int notifyWfcCount;
 
     private static final String TEST_SUBID = "1";
     private static final String TEST_OPERATOR = "123456";
@@ -119,6 +120,8 @@ public class TelephonyProviderTest extends TestCase {
                     notifyChangeCount++;
                     if (URL_RESTOREAPN_USING_SUBID.equals(uri)) {
                         notifyChangeRestoreCount++;
+                    } else if (SubscriptionManager.WFC_ENABLED_CONTENT_URI.equals(uri)) {
+                        notifyWfcCount++;
                     }
                 }
             };
@@ -1381,5 +1384,45 @@ public class TelephonyProviderTest extends TestCase {
                 Carriers.CONTENT_URI, testProjection, null, null, null);
         assertEquals(0, cursor.getCount());
         assertEquals(3, notifyChangeRestoreCount);
+    }
+
+    /**
+     * Test changes to siminfo/WFC_IMS_ENABLED.
+     */
+    @Test
+    @SmallTest
+    public void testUpdateWfcEnabled() {
+        // insert test contentValues
+        ContentValues contentValues = new ContentValues();
+        final int insertSubId = 12;
+        final String insertDisplayName = "exampleDisplayName";
+        final String insertCarrierName = "exampleCarrierName";
+        final String insertIccId = "exampleIccId";
+        final String insertCardId = "exampleCardId";
+        contentValues.put(SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID, insertSubId);
+        contentValues.put(SubscriptionManager.DISPLAY_NAME, insertDisplayName);
+        contentValues.put(SubscriptionManager.CARRIER_NAME, insertCarrierName);
+        contentValues.put(SubscriptionManager.ICC_ID, insertIccId);
+        contentValues.put(SubscriptionManager.CARD_ID, insertCardId);
+
+        Log.d(TAG, "testSimTable Inserting wfc contentValues: " + contentValues);
+        mContentResolver.insert(SubscriptionManager.CONTENT_URI, contentValues);
+        assertEquals(0, notifyWfcCount);
+
+
+        // update wfc_enabled
+        ContentValues values = new ContentValues();
+        values.put(SubscriptionManager.WFC_IMS_ENABLED, true);
+        final String selection = SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID + "=?";
+        final String[] selectionArgs = { "" + insertSubId };
+        mContentResolver.update(SubscriptionManager.CONTENT_URI, values, selection, selectionArgs);
+        assertEquals(1, notifyWfcCount);
+
+        // update other fields
+        values = new ContentValues();
+        values.put(SubscriptionManager.DISPLAY_NAME, "exampleDisplayNameNew");
+        mContentResolver.update(SubscriptionManager.CONTENT_URI, values, selection, selectionArgs);
+        // expect no change on wfc count
+        assertEquals(1, notifyWfcCount);
     }
 }
