@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7e2ce76_04f1d88e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3265,
+      "author": {
+        "id": 1098053
+      },
+      "writtenOn": "2018-10-04T16:50:56Z",
+      "side": 1,
+      "message": "This doesnt look subscription specific... do you think it would be valuable to be able to provide a subscription in the uri as well in the case of msim devices?",
+      "range": {
+        "startLine": 3265,
+        "startChar": 52,
+        "endLine": 3265,
+        "endChar": 75
+      },
+      "revId": "d7d4a4236d49020de639827608d3400b94832319",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
