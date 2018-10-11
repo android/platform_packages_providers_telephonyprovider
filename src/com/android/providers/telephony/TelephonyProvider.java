@@ -141,7 +141,7 @@ public class TelephonyProvider extends ContentProvider
     private static final boolean DBG = true;
     private static final boolean VDBG = false; // STOPSHIP if true
 
-    private static final int DATABASE_VERSION = 28 << 16;
+    private static final int DATABASE_VERSION = 29 << 16;
     private static final int URL_UNKNOWN = 0;
     private static final int URL_TELEPHONY = 1;
     private static final int URL_CURRENT = 2;
@@ -374,7 +374,9 @@ public class TelephonyProvider extends ContentProvider
                 + SubscriptionManager.WFC_IMS_ROAMING_MODE + " INTEGER DEFAULT -1,"
                 + SubscriptionManager.WFC_IMS_ROAMING_ENABLED + " INTEGER DEFAULT -1,"
                 + SubscriptionManager.IS_OPPORTUNISTIC + " INTEGER DEFAULT 0,"
-                + SubscriptionManager.PARENT_SUB_ID + " INTEGER DEFAULT -1"
+                + SubscriptionManager.PARENT_SUB_ID + " INTEGER DEFAULT -1,"
+                + SubscriptionManager.SUBSCRIPTION_TYPE
+                + " INTEGER DEFAULT " + SubscriptionManager.SUBSCRIPTION_TYPE_LOCAL_SIM
                 + ");";
     }
 
@@ -1118,6 +1120,21 @@ public class TelephonyProvider extends ContentProvider
                     }
                 }
                 oldVersion = 28 << 16 | 6;
+            }
+
+            if (oldVersion < (29 << 16 | 6)) {
+                try {
+                    // Try to update the siminfo table. It might not be there.
+                    db.execSQL("ALTER TABLE " + SIMINFO_TABLE + " ADD COLUMN "
+                        + SubscriptionManager.SUBSCRIPTION_TYPE + " INTEGER DEFAULT "
+                        + SubscriptionManager.SUBSCRIPTION_TYPE_LOCAL_SIM + ";");
+                } catch (SQLiteException e) {
+                    if (DBG) {
+                        log("onUpgrade skipping " + SIMINFO_TABLE + " upgrade. " +
+                            "The table will get created in onOpen.");
+                    }
+                }
+                oldVersion = 29 << 16 | 6;
             }
             if (DBG) {
                 log("dbh.onUpgrade:- db=" + db + " oldV=" + oldVersion + " newV=" + newVersion);
