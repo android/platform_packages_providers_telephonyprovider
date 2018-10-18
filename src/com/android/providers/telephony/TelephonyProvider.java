@@ -69,6 +69,7 @@ import static android.provider.Telephony.Carriers._ID;
 
 import android.content.ComponentName;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -3285,7 +3286,10 @@ public class TelephonyProvider extends ContentProvider
                     // intentional fall through from above case
                 case URL_SIMINFO:
                     getContext().getContentResolver().notifyChange(
-                            SubscriptionManager.CONTENT_URI, null, true, UserHandle.USER_ALL);
+                            SubscriptionManager.CONTENT_URI, null,
+                            ContentResolver.NOTIFY_SYNC_TO_NETWORK
+                                    | ContentResolver.NOTIFY_SKIP_NOTIFY_FOR_DESCENDANTS,
+                            UserHandle.USER_ALL);
                     // notify observers on specific user settings changes.
                     if (values.containsKey(SubscriptionManager.WFC_IMS_ENABLED)) {
                         getContext().getContentResolver().notifyChange(
