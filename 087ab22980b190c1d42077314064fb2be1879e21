@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe284e6_a9e7da59",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3291,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2018-10-19T04:40:10Z",
+      "side": 1,
+      "message": "What do these flags do and why is this change needed? Can you add some comment/CL description?",
+      "range": {
+        "startLine": 3290,
+        "startChar": 0,
+        "endLine": 3291,
+        "endChar": 88
+      },
+      "revId": "087ab22980b190c1d42077314064fb2be1879e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
