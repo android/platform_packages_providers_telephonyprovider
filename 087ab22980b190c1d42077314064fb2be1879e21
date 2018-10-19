@@ -22,6 +22,30 @@
       "revId": "087ab22980b190c1d42077314064fb2be1879e21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d40c417_19f37932",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3291,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2018-10-19T06:55:52Z",
+      "side": 1,
+      "message": "added some comments for flag skip_notify_descendents. regarding flag sync_to_nw, I didn\u0027t find any doc about what does it do. Before the change, we pass a flag(sync_to_network\u003d\u003dtrue) to contentResolver.notify(), so I add this flag for the consistency.",
+      "parentUuid": "ebe284e6_a9e7da59",
+      "range": {
+        "startLine": 3290,
+        "startChar": 0,
+        "endLine": 3291,
+        "endChar": 88
+      },
+      "revId": "087ab22980b190c1d42077314064fb2be1879e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
