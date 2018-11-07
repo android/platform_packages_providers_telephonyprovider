@@ -184,6 +184,9 @@ public class TelephonyProvider extends ContentProvider
     private static final String BUILD_ID_FILE = "build-id";
     private static final String RO_BUILD_ID = "ro_build_id";
 
+    private static final String VERSION_ID_FILE = "version-id";
+    private static final String RO_VERSION_ID = "ro_version_id";
+
     private static final String ENFORCED_FILE = "dpc-apn-enforced";
     private static final String ENFORCED_KEY = "enforced";
 
@@ -2260,15 +2263,36 @@ public class TelephonyProvider extends ContentProvider
 
             // Update APN db on build update
             String newBuildId = SystemProperties.get("ro.build.id", null);
-            if (!TextUtils.isEmpty(newBuildId)) {
-                // Check if build id has changed
-                SharedPreferences sp = getContext().getSharedPreferences(BUILD_ID_FILE,
-                        Context.MODE_PRIVATE);
-                String oldBuildId = sp.getString(RO_BUILD_ID, "");
-                if (!newBuildId.equals(oldBuildId)) {
-                    if (DBG) log("onCreate: build id changed from " + oldBuildId + " to " +
-                            newBuildId);
-
+            String newVersionId = SystemProperties.get("ro.build.version.incremental", null);
+            String oldBuildId;
+            String oldVersionId;
+            SharedPreferences sp = null;
+            SharedPreferences spForVersionId = null;
+            boolean isNeedUpdateDb = false;
+            if (!TextUtils.isEmpty(newBuildId) || !TextUtils.isEmpty(newVersionId)) {
+                if (!TextUtils.isEmpty(newBuildId)) {
+                    // Check if build id has changed
+                    sp = getContext().getSharedPreferences(BUILD_ID_FILE,
+                            Context.MODE_PRIVATE);
+                    oldBuildId = sp.getString(RO_BUILD_ID, "");
+                    if (!newBuildId.equals(oldBuildId)) {
+                        if (DBG) log("onCreate: build id changed from " + oldBuildId + " to " +
+                                newBuildId);
+                        isNeedUpdateDb = true;
+                    }
+                }
+                if (!TextUtils.isEmpty(newVersionId)) {
+                    // Check if version id has changed
+                    spForVersionId = getContext().getSharedPreferences(VERSION_ID_FILE,
+                            Context.MODE_PRIVATE);
+                    oldVersionId = spForVersionId.getString(RO_VERSION_ID, "");
+                    if (!newVersionId.equals(oldVersionId)) {
+                        if (DBG) log("onCreate: version id changed from " + oldVersionId + " to " +
+                                newVersionId);
+                        isNeedUpdateDb = true;
+                    }
+                }
+                if (isNeedUpdateDb) {
                     // Get rid of old preferred apn shared preferences
                     SubscriptionManager sm = SubscriptionManager.from(getContext());
                     if (sm != null) {
@@ -2287,11 +2311,17 @@ public class TelephonyProvider extends ContentProvider
                     // Update APN DB
                     updateApnDb();
                 } else {
-                    if (VDBG) log("onCreate: build id did not change: " + oldBuildId);
+                    if (VDBG) log("onCreate: Both build id "  + oldBuildId +
+                            " and version id " + oldVersionId +" did not change ");
                 }
-                sp.edit().putString(RO_BUILD_ID, newBuildId).apply();
+                if (sp != null) {
+                    sp.edit().putString(RO_BUILD_ID, newBuildId).apply();
+                }
+                if (spForVersionId != null) {
+                    spForVersionId.edit().putString(RO_VERSION_ID, newVersionId).apply();
+                }
             } else {
-                if (VDBG) log("onCreate: newBuildId is empty");
+                if (VDBG) log("onCreate: Both newBuildId and newVersionId are empty");
             }
         }
 
