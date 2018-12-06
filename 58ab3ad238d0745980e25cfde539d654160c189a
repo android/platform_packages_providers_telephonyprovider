@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e4713ba_2fc0348c",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3188,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2018-12-06T05:59:14Z",
+      "side": 1,
+      "message": "should we use the record based on phonetype rather than using the one from 3GPP? we have seen an issue that Sprint APN has gid1 configured and because we are reading from 3GPP2 which return null gid1, thus we can\u0027t find a matching APN and the correct gid1 is from 3GPP. AFAIK, most of telephony APIs returning values from 3GPP only e.g, TM.getGid1, TM.getSPN...",
+      "range": {
+        "startLine": 3180,
+        "startChar": 3,
+        "endLine": 3188,
+        "endChar": 5
+      },
+      "revId": "58ab3ad238d0745980e25cfde539d654160c189a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
