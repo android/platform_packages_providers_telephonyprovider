@@ -22,6 +22,30 @@
       "revId": "58ab3ad238d0745980e25cfde539d654160c189a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf1f4c4_31d9dd7e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3188,
+      "author": {
+        "id": 1237921
+      },
+      "writtenOn": "2018-12-10T02:52:52Z",
+      "side": 1,
+      "message": "We fixed this by Google\u0027s comment below.\n\nhttps://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/463577/9/src/com/android/providers/telephony/TelephonyProvider.java#2681\n\nIt seems AOSP expects GID1 is not available in CDFA from GsmCdmaPhone#getGroupIdLevel1.",
+      "parentUuid": "3e4713ba_2fc0348c",
+      "range": {
+        "startLine": 3180,
+        "startChar": 3,
+        "endLine": 3188,
+        "endChar": 5
+      },
+      "revId": "58ab3ad238d0745980e25cfde539d654160c189a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
