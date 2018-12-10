@@ -539,7 +539,10 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 // disappeared mysteriously?
                 localLogWtf("onCreate: was already called once earlier");
                 intent.putExtra(Intents.EXTRA_IS_INITIAL_CREATE, false);
+<<<<<<< HEAD   (46f842 Merge "Fix cursor leak in TelephonyProvider")
                 sendDbLostIntent(mContext, false);
+=======
+>>>>>>> BRANCH (9b9733 Merge PQ1A.181205.006 from Pi-QPR1-Release into ToT for Pi-P)
             } else {
                 setInitialCreateDone();
                 intent.putExtra(Intents.EXTRA_IS_INITIAL_CREATE, true);
@@ -561,12 +564,21 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         createIndices(db);
     }
 
+<<<<<<< HEAD   (46f842 Merge "Fix cursor leak in TelephonyProvider")
     private static void localLog(String logMsg) {
         Log.d(TAG, logMsg);
         PhoneFactory.localLog(TAG, logMsg);
     }
 
     private static void localLogWtf(String logMsg) {
+=======
+    private void localLog(String logMsg) {
+        Log.d(TAG, logMsg);
+        PhoneFactory.localLog(TAG, logMsg);
+    }
+
+    private void localLogWtf(String logMsg) {
+>>>>>>> BRANCH (9b9733 Merge PQ1A.181205.006 from Pi-QPR1-Release into ToT for Pi-P)
         Slog.wtf(TAG, logMsg);
         PhoneFactory.localLog(TAG, logMsg);
     }
