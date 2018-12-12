@@ -1526,45 +1526,6 @@ public class TelephonyProviderTest extends TestCase {
 
     @Test
     @SmallTest
-    public void testGetCurrentAPNList_APNMatchTheMNOCarrierID() {
-        // Test on getCurrentAPNList() step 3
-        TelephonyManager telephonyManager =
-                ((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE));
-        doReturn(telephonyManager).when(telephonyManager).createForSubscriptionId(anyInt());
-
-        final String apnName = "apnName";
-        final String carrierName = "name";
-        final int carrierId = 100;
-        final int mnoCarrierId = 101;
-        final String numeric = TEST_OPERATOR;
-        doReturn(carrierId).when(telephonyManager).getSimCarrierId();
-        doReturn(mnoCarrierId).when(telephonyManager).getSimMNOCarrierId();
-        doReturn(numeric).when(telephonyManager).getSimOperator();
-
-        // The DB only have the MNO carrier id APN
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Carriers.APN, apnName);
-        contentValues.put(Carriers.NAME, carrierName);
-        contentValues.put(Carriers.CARRIER_ID, mnoCarrierId);
-        mContentResolver.insert(Carriers.CONTENT_URI, contentValues);
-
-        final String[] testProjection =
-            {
-                Carriers.APN,
-                Carriers.NAME,
-                Carriers.CARRIER_ID,
-            };
-        Cursor cursor = mContentResolver.query(URL_SIM_APN_LIST,
-            testProjection, null, null, null);
-
-        cursor.moveToFirst();
-        assertEquals(apnName, cursor.getString(0));
-        assertEquals(carrierName, cursor.getString(1));
-        assertEquals(String.valueOf(mnoCarrierId), cursor.getString(2));
-    }
-
-    @Test
-    @SmallTest
     public void testGetCurrentAPNList_APNMatchTheParentMCCMNC() {
         // Test on getCurrentAPNList() step 4
         TelephonyManager telephonyManager =
@@ -1576,12 +1537,10 @@ public class TelephonyProviderTest extends TestCase {
         final String numeric = TEST_OPERATOR;
         final String mvnoData = TelephonyProviderTestable.TEST_SPN;
         final int carrierId = 100;
-        final int mnoCarrierId = 101;
 
         doReturn(carrierId).when(telephonyManager).getSimCarrierId();
         doReturn(numeric).when(telephonyManager).getSimOperator();
         doReturn(mvnoData).when(telephonyManager).getSimOperatorName();
-        doReturn(mnoCarrierId).when(telephonyManager).getSimMNOCarrierId();
 
         // The DB only have the MNO APN
         ContentValues contentValues = new ContentValues();
