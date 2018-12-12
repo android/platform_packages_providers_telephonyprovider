@@ -552,8 +552,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         createCommonTables(db);
 
         if (IS_RCS_TABLE_SCHEMA_CODE_COMPLETE) {
-            RcsProviderThreadHelper.createParticipantTables(db);
-            RcsProviderParticipantHelper.createThreadTables(db);
+            RcsProviderThreadHelper.createThreadTables(db);
+            RcsProviderParticipantHelper.createParticipantTables(db);
         }
 
         createCommonTriggers(db);
@@ -1641,8 +1641,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             if (currentVersion <= 67 || !IS_RCS_TABLE_SCHEMA_CODE_COMPLETE) {
                 return;
             }
-            RcsProviderThreadHelper.createParticipantTables(db);
-            RcsProviderParticipantHelper.createThreadTables(db);
+            RcsProviderThreadHelper.createThreadTables(db);
+            RcsProviderParticipantHelper.createParticipantTables(db);
             return;
         }
 
