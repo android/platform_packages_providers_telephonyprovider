@@ -323,7 +323,7 @@ public class TelephonyProviderTest extends TestCase {
         try (Cursor c = mContentResolver.query(SubscriptionManager.CONTENT_URI, proj,
                 null, null, null)) {
             while (c.moveToNext()) {
-                TelephonyProvider.fillInMccMncStringAtCursor(mContext,
+                TelephonyDatabaseHelper.fillInMccMncStringAtCursor(mContext,
                         mTelephonyProviderTestable.getWritableDatabase(), c);
             }
         }

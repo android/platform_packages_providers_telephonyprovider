@@ -45,14 +45,14 @@ public final class TelephonyDatabaseHelperTest {
     private final static String TAG = TelephonyDatabaseHelperTest.class.getSimpleName();
 
     private Context mContext;
-    private TelephonyProvider.DatabaseHelper mHelper; // the actual class being tested
+    private TelephonyDatabaseHelper.DatabaseHelper mHelper; // the actual class being tested
     private SQLiteOpenHelper mInMemoryDbHelper; // used to give us an in-memory db
 
     @Before
     public void setUp() {
         Log.d(TAG, "setUp() +");
         mContext = InstrumentationRegistry.getContext();
-        mHelper = new TelephonyProvider.DatabaseHelper(mContext);
+        mHelper = new TelephonyDatabaseHelper.DatabaseHelper(mContext);
         mInMemoryDbHelper = new InMemoryTelephonyProviderV5DbHelper();
         Log.d(TAG, "setUp() -");
     }
@@ -62,7 +62,7 @@ public final class TelephonyDatabaseHelperTest {
         Log.d(TAG, "databaseHelperOnUpgrade_hasApnSetIdField");
         // (5 << 16 | 6) is the first upgrade trigger in onUpgrade
         SQLiteDatabase db = mInMemoryDbHelper.getWritableDatabase();
-        mHelper.onUpgrade(db, (4 << 16), TelephonyProvider.DatabaseHelper.getVersion(mContext));
+        mHelper.onUpgrade(db, (4 << 16), TelephonyDatabaseHelper.DatabaseHelper.getVersion(mContext));
 
         // the upgraded db must have the APN_SET_ID field
         Cursor cursor = db.query("carriers", null, null, null, null, null, null);
@@ -77,7 +77,7 @@ public final class TelephonyDatabaseHelperTest {
         Log.d(TAG, "databaseHelperOnUpgrade_hasSubscriptionTypeField");
         // (5 << 16 | 6) is the first upgrade trigger in onUpgrade
         SQLiteDatabase db = mInMemoryDbHelper.getWritableDatabase();
-        mHelper.onUpgrade(db, (4 << 16), TelephonyProvider.DatabaseHelper.getVersion(mContext));
+        mHelper.onUpgrade(db, (4 << 16), TelephonyDatabaseHelper.DatabaseHelper.getVersion(mContext));
 
         // the upgraded db must have the Telephony.Carriers.CARRIER_ID field
         Cursor cursor = db.query("carriers", null, null, null, null, null, null);
@@ -91,10 +91,10 @@ public final class TelephonyDatabaseHelperTest {
         Log.d(TAG, "databaseHelperOnUpgrade_columnsMatchNewlyCreatedDb");
         // (5 << 16 | 6) is the first upgrade trigger in onUpgrade
         SQLiteDatabase db = mInMemoryDbHelper.getWritableDatabase();
-        mHelper.onUpgrade(db, (4 << 16), TelephonyProvider.DatabaseHelper.getVersion(mContext));
+        mHelper.onUpgrade(db, (4 << 16), TelephonyDatabaseHelper.DatabaseHelper.getVersion(mContext));
 
         // compare upgraded carriers table to a carriers table created from scratch
-        db.execSQL(TelephonyProvider.getStringForCarrierTableCreation("carriers_full"));
+        db.execSQL(TelephonyDatabaseHelper.getStringForCarrierTableCreation("carriers_full"));
 
         Cursor cursor = db.query("carriers", null, null, null, null, null, null);
         String[] upgradedColumns = cursor.getColumnNames();
@@ -108,7 +108,7 @@ public final class TelephonyDatabaseHelperTest {
                 fullColumns, upgradedColumns);
 
         // compare upgraded siminfo table to siminfo table created from scratch
-        db.execSQL(TelephonyProvider.getStringForSimInfoTableCreation("siminfo_full"));
+        db.execSQL(TelephonyDatabaseHelper.getStringForSimInfoTableCreation("siminfo_full"));
 
         cursor = db.query("siminfo", null, null, null, null, null, null);
         upgradedColumns = cursor.getColumnNames();
