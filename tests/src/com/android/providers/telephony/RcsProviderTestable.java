@@ -31,7 +31,7 @@ public class RcsProviderTestable extends RcsProvider {
 
     static class InMemoryRcsDatabase extends SQLiteOpenHelper {
         InMemoryRcsDatabase() {
-            super(null,      // no context is needed for in-memory db
+            super(null,        // no context is needed for in-memory db
                     null,      // db file name is null for in-memory db
                     null,      // CursorFactory is null by default
                     1);        // db version is no-op for tests
@@ -39,7 +39,8 @@ public class RcsProviderTestable extends RcsProvider {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            RcsProviderThreadHelper.createParticipantTables(db);
+            RcsProviderThreadHelper.createThreadTables(db);
+            RcsProviderParticipantHelper.createParticipantTables(db);
         }
 
         @Override
