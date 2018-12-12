@@ -1272,9 +1272,12 @@ public class MmsSmsProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         if (URI_MATCHER.match(uri) == URI_PENDING_MSG) {
-            SQLiteDatabase db = mOpenHelper.getWritableDatabase();
             long rowId = db.insert(TABLE_PENDING_MSG, null, values);
+            return Uri.parse(uri + "/" + rowId);
+        } else if (URI_MATCHER.match(uri) == URI_CANONICAL_ADDRESS) {
+            long rowId = db.insert(TABLE_CANONICAL_ADDRESSES, null, values);
             return Uri.parse(uri + "/" + rowId);
         }
         throw new UnsupportedOperationException(NO_DELETES_INSERTS_OR_UPDATES + uri);
