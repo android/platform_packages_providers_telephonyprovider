@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f9e46c5_481f3834",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2018-12-14T18:33:08Z",
+      "side": 1,
+      "message": "my understanding is product partition is similar like oem/ but support updatability. so we should prefer /product over /oem but I dont see why we should prefer /product over /data",
+      "range": {
+        "startLine": 611,
+        "startChar": 12,
+        "endLine": 612,
+        "endChar": 98
+      },
+      "revId": "bac01e2ddbed07ac49bead7a3babdb8cc381773c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
