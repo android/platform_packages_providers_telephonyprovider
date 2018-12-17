@@ -1,0 +1,122 @@
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License
+ */
+package com.android.providers.telephony;
+
+import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
+import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
+import static com.android.providers.telephony.RcsProviderThreadHelper.GROUP_NAME_COLUMN;
+import static com.android.providers.telephony.RcsProviderThreadHelper.RCS_THREAD_ID_COLUMN;
+
+import static com.google.common.truth.Truth.assertThat;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.mock.MockContentResolver;
+
+import com.android.providers.telephony.RcsProviderTestable.MockContextWithProvider;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+
+@RunWith(AndroidJUnit4.class)
+public class RcsProviderQueryTest {
+    private MockContentResolver mContentResolver;
+    private RcsProviderTestable mRcsProvider;
+
+    private static final String GROUP_NAME = "group name";
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        mRcsProvider = new RcsProviderTestable();
+        MockContextWithProvider context = new MockContextWithProvider(mRcsProvider);
+        mContentResolver = context.getContentResolver();
+
+        // insert two 1 to 1 threads
+        ContentValues p2pContentValues = new ContentValues(0);
+        Uri threadsUri = Uri.parse("content://rcs/p2p_thread");
+        assertThat(mContentResolver.insert(threadsUri, p2pContentValues)).isEqualTo(
+                Uri.parse("content://rcs/p2p_thread/1"));
+        assertThat(mContentResolver.insert(threadsUri, p2pContentValues)).isEqualTo(
+                Uri.parse("content://rcs/p2p_thread/2"));
+
+        // insert one group thread
+        ContentValues groupContentValues = new ContentValues(1);
+        groupContentValues.put(GROUP_NAME_COLUMN, GROUP_NAME);
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/group_thread"),
+                groupContentValues)).isEqualTo(Uri.parse("content://rcs/group_thread/3"));
+    }
+
+    @After
+    public void tearDown() {
+        mRcsProvider.tearDown();
+    }
+
+    @Test
+    public void testCanQueryUnifiedThreads() {
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/thread"),
+                new String[]{GROUP_NAME_COLUMN}, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(3);
+
+        cursor.moveToNext();
+        assertThat(cursor.getString(0)).isEqualTo(null);
+        cursor.moveToNext();
+        assertThat(cursor.getString(0)).isEqualTo(null);
+        cursor.moveToNext();
+        assertThat(cursor.getString(0)).isEqualTo(GROUP_NAME);
+    }
+
+    @Test
+    public void testQuery1To1Threads() {
+        // verify two threads are returned in the query
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/p2p_thread"),
+                new String[]{RCS_THREAD_ID_COLUMN}, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(2);
+    }
+
+    @Test
+    public void testQueryGroupThreads() {
+        // verify one thread is returned in the query
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/group_thread"),
+                new String[]{GROUP_NAME_COLUMN}, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+
+        cursor.moveToNext();
+        assertThat(cursor.getString(0)).isEqualTo(GROUP_NAME);
+    }
+
+    @Test
+    public void testQueryParticipant() {
+        // insert a participant
+        Uri participantUri = Uri.parse("content://rcs/participant");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CANONICAL_ADDRESS_ID_COLUMN, 99);
+        contentValues.put(RCS_ALIAS_COLUMN, "Some alias");
+
+        mContentResolver.insert(participantUri, contentValues);
+
+        // Query the participant back
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/participant"),
+                new String[]{RCS_ALIAS_COLUMN}, null, null, null);
+        cursor.moveToNext();
+        assertThat(cursor.getString(0)).isEqualTo("Some alias");
+    }
+}
