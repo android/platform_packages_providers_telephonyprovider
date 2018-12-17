@@ -15,12 +15,17 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProvider.TAG;
 import static com.android.providers.telephony.RcsProviderThreadHelper.RCS_THREAD_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.THREAD_TABLE;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQueryBuilder;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -38,8 +43,12 @@ public class RcsProviderParticipantHelper {
     static final String PARTICIPANT_THREAD_JUNCTION_TABLE = "rcs_thread_participant";
     static final String RCS_PARTICIPANT_ID_COLUMN = "rcs_participant_id";
 
+    private static final int PARTICIPANT_ID_INDEX_IN_URI = 1;
+
     @VisibleForTesting
     public static void createParticipantTables(SQLiteDatabase db) {
+        Log.d(TAG, "Creating participant tables");
+
         db.execSQL("CREATE TABLE " + PARTICIPANT_TABLE + " (" +
                 ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CANONICAL_ADDRESS_ID_COLUMN + " INTEGER ," +
@@ -59,27 +68,63 @@ public class RcsProviderParticipantHelper {
                 + ") REFERENCES " + PARTICIPANT_TABLE + "(" + ID_COLUMN + "))");
     }
 
-    static void buildParticipantsQuery(SQLiteQueryBuilder qb) {
-        qb.setTables(PARTICIPANT_TABLE);
+    private final SQLiteOpenHelper mSqLiteOpenHelper;
+
+    RcsProviderParticipantHelper(SQLiteOpenHelper sqLiteOpenHelper) {
+        mSqLiteOpenHelper = sqLiteOpenHelper;
     }
 
-    static long insert(SQLiteDatabase db, ContentValues values) {
-        long rowId = db.insert(PARTICIPANT_TABLE, ID_COLUMN, values);
-        db.setTransactionSuccessful();
-        return rowId;
+    Cursor queryParticipant(String[] projection, String selection, String[] selectionArgs,
+            String sortOrder) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getReadableDatabase();
+        return db.query(PARTICIPANT_TABLE, projection, selection, selectionArgs, null, null,
+                sortOrder);
     }
 
-    static int delete(SQLiteDatabase db, String selection,
-            String[] selectionArgs) {
-        int deletedRows = db.delete(PARTICIPANT_TABLE, selection, selectionArgs);
-        db.setTransactionSuccessful();
-        return deletedRows;
+    Cursor queryParticipantWithId(Uri uri, String[] projection) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getReadableDatabase();
+        return db.query(PARTICIPANT_TABLE, projection, getParticipantIdSelection(uri), null, null,
+                null,
+                null);
     }
 
-    static int update(SQLiteDatabase db, ContentValues values,
-            String selection, String[] selectionArgs) {
-        int updatedRows = db.update(PARTICIPANT_TABLE, values, selection, selectionArgs);
-        db.setTransactionSuccessful();
-        return updatedRows;
+    long insertParticipant(ContentValues contentValues) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        if (!contentValues.containsKey(CANONICAL_ADDRESS_ID_COLUMN) || TextUtils.isEmpty(
+                contentValues.getAsString(CANONICAL_ADDRESS_ID_COLUMN))) {
+            Log.e(TAG,
+                    "RcsProviderParticipantHelper: Inserting participants without canonical "
+                            + "address is not supported");
+            return Long.MIN_VALUE;
+        }
+        return db.insert(PARTICIPANT_TABLE, RCS_PARTICIPANT_ID_COLUMN, contentValues);
+    }
+
+    int deleteParticipant(String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        // TODO - delete entries from junction table
+        return db.delete(PARTICIPANT_TABLE, selection, selectionArgs);
+    }
+
+    int deleteParticipantWithId(Uri uri) {
+        return deleteParticipant(getParticipantIdSelection(uri), null);
+    }
+
+    int updateParticipant(ContentValues contentValues, String selection, String[] selectionArgs) {
+        if (contentValues.containsKey(ID_COLUMN)) {
+            Log.e(TAG, "RcsProviderParticipantHelper: Updating participant id is not supported");
+            return 0;
+        }
+
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        return db.update(PARTICIPANT_TABLE, contentValues, selection, selectionArgs);
+    }
+
+    int updateParticipantWithId(ContentValues contentValues, Uri uri) {
+        return updateParticipant(contentValues, getParticipantIdSelection(uri), null);
+    }
+
+    private String getParticipantIdSelection(Uri uri) {
+        return "_id=" + uri.getPathSegments().get(PARTICIPANT_ID_INDEX_IN_URI);
     }
 }
