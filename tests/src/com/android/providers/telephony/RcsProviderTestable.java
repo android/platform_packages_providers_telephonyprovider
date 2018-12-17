@@ -15,21 +15,45 @@
  */
 package com.android.providers.telephony;
 
+import android.app.AppOpsManager;
+import android.content.Context;
+import android.content.pm.ProviderInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.telephony.TelephonyManager;
+import android.test.mock.MockContentResolver;
+import android.test.mock.MockContext;
+
+import org.mockito.Mockito;
 
 /**
  * A subclass of RcsProvider used for testing on an in-memory database
  */
 public class RcsProviderTestable extends RcsProvider {
+    private final Context mContext;
+
+    RcsProviderTestable(MockContextWithProvider context) {
+        context.setRcsProvider(this);
+        mContext = context;
+    }
 
     @Override
     public boolean onCreate() {
         mDbOpenHelper = new InMemoryRcsDatabase();
+        mParticipantHelper = new RcsProviderParticipantHelper(mDbOpenHelper);
+        mThreadHelper = new RcsProviderThreadHelper(mDbOpenHelper);
         return true;
     }
 
-    static class InMemoryRcsDatabase extends SQLiteOpenHelper {
+    protected void tearDown() {
+        mDbOpenHelper.close();
+    }
+
+    public SQLiteDatabase getWritableDatabase() {
+        return mDbOpenHelper.getWritableDatabase();
+    }
+
+    class InMemoryRcsDatabase extends SQLiteOpenHelper {
         InMemoryRcsDatabase() {
             super(null,        // no context is needed for in-memory db
                     null,      // db file name is null for in-memory db
@@ -39,6 +63,9 @@ public class RcsProviderTestable extends RcsProvider {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            MmsSmsDatabaseHelper mmsSmsDatabaseHelper = new MmsSmsDatabaseHelper(mContext, null);
+            mmsSmsDatabaseHelper.onCreate(db);
+
             RcsProviderThreadHelper.createThreadTables(db);
             RcsProviderParticipantHelper.createParticipantTables(db);
         }
@@ -46,6 +73,46 @@ public class RcsProviderTestable extends RcsProvider {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             // no-op
+        }
+    }
+
+    static class MockContextWithProvider extends MockContext {
+        private MockContentResolver mResolver;
+
+        MockContextWithProvider() {
+            // empty constructor
+        }
+
+        void setRcsProvider(RcsProvider rcsProvider) {
+            mResolver = new MockContentResolver();
+
+            // Add authority="rcs" to given smsProvider
+            ProviderInfo providerInfo = new ProviderInfo();
+            providerInfo.authority = RcsProvider.AUTHORITY;
+            rcsProvider.attachInfoForTesting(this, providerInfo);
+            mResolver.addProvider(RcsProvider.AUTHORITY, rcsProvider);
+        }
+
+        @Override
+        public MockContentResolver getContentResolver() {
+            return mResolver;
+        }
+
+        @Override
+        public Object getSystemService(String name) {
+            switch (name) {
+                case Context.APP_OPS_SERVICE:
+                    return Mockito.mock(AppOpsManager.class);
+                case Context.TELEPHONY_SERVICE:
+                    return Mockito.mock(TelephonyManager.class);
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public boolean isCredentialProtectedStorage() {
+            return false;
         }
     }
 }
