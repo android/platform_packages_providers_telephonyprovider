@@ -289,7 +289,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    private MmsSmsDatabaseHelper(Context context, MmsSmsDatabaseErrorHandler dbErrorHandler) {
+    @VisibleForTesting
+    MmsSmsDatabaseHelper(Context context, MmsSmsDatabaseErrorHandler dbErrorHandler) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, dbErrorHandler);
         mContext = context;
         // Memory optimization - close idle connections after 30s of inactivity
@@ -528,7 +529,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         localLog("onCreate: Creating all SMS-MMS tables.");
         // if FBE is not supported, or if this onCreate is for CE partition database
         if (!StorageManager.isFileEncryptedNativeOrEmulated()
-                || mContext.isCredentialProtectedStorage()) {
+                || (mContext != null && mContext.isCredentialProtectedStorage())) {
             localLog("onCreate: broadcasting ACTION_SMS_MMS_DB_CREATED");
             // Broadcast ACTION_SMS_MMS_DB_CREATED
             Intent intent = new Intent(Sms.Intents.ACTION_SMS_MMS_DB_CREATED);
