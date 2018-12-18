@@ -18,6 +18,7 @@ package com.android.providers.telephony;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
+import static com.android.providers.telephony.RcsProviderThreadHelper.GROUP_NAME_COLUMN;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -83,6 +84,47 @@ public class RcsProviderInsertTest {
 
         Uri uri = mContentResolver.insert(Uri.parse("content://rcs/participant"), contentValues);
         assertThat(uri).isEqualTo(Uri.parse("content://rcs/participant/1"));
+    }
+
+    @Test
+    public void testInsertParticipantInto1To1Thread() {
+        // create a participant
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CANONICAL_ADDRESS_ID_COLUMN, 15);
+        contentValues.put(RCS_ALIAS_COLUMN, "Alias");
+        mContentResolver.insert(Uri.parse("content://rcs/participant"), contentValues);
+
+        // create a thread
+        ContentValues values = new ContentValues(1);
+        values.put(FALLBACK_THREAD_ID_COLUMN, 699);
+        mContentResolver.insert(Uri.parse("content://rcs/p2p_thread"), values);
+
+        // add participant to the thread
+        Uri uri = Uri.parse("content://rcs/p2p_thread/1/participant/1");
+        assertThat(mContentResolver.insert(uri, null)).isEqualTo(uri);
+
+        // assert that adding again fails
+        assertThat(mContentResolver.insert(uri, null)).isNull();
+    }
+
+    @Test
+    public void testInsertParticipantIntoGroupThread() {
+        // create a participant
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CANONICAL_ADDRESS_ID_COLUMN, 23);
+        mContentResolver.insert(Uri.parse("content://rcs/participant"), contentValues);
+
+        // create a thread
+        ContentValues values = new ContentValues(1);
+        values.put(GROUP_NAME_COLUMN, "Group");
+        mContentResolver.insert(Uri.parse("content://rcs/group_thread"), values);
+
+        // add participant to the thread
+        Uri uri = Uri.parse("content://rcs/group_thread/1/participant/1");
+        assertThat(mContentResolver.insert(uri, null)).isEqualTo(uri);
+
+        // assert that adding again fails
+        assertThat(mContentResolver.insert(uri, null)).isNull();
     }
 
 }

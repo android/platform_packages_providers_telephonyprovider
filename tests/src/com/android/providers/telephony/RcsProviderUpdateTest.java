@@ -25,11 +25,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.mock.MockContentResolver;
-import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
@@ -80,6 +78,13 @@ public class RcsProviderUpdateTest {
         Uri groupThreadUri = Uri.parse("content://rcs/group_thread");
         assertThat(mContentResolver.insert(groupThreadUri, groupContentValues)).isEqualTo(
                 Uri.parse("content://rcs/group_thread/2"));
+
+        // Add participant to both threads
+        Uri p2pInsertionUri = Uri.parse("content://rcs/p2p_thread/1/participant/1");
+        assertThat(mContentResolver.insert(p2pInsertionUri, null)).isEqualTo(p2pInsertionUri);
+
+        Uri groupInsertionUri = Uri.parse("content://rcs/group_thread/2/participant/1");
+        assertThat(mContentResolver.insert(groupInsertionUri, null)).isEqualTo(groupInsertionUri);
     }
 
     @After
@@ -192,5 +197,18 @@ public class RcsProviderUpdateTest {
         assertThat(cursor.getCount()).isEqualTo(1);
         cursor.moveToNext();
         assertThat(cursor.getString(0)).isEqualTo("Bobby");
+    }
+
+    @Test
+    public void testUpdate1To1ThreadParticipantFails() {
+        assertThat(
+                mContentResolver.update(Uri.parse("content://rcs/p2p_thread/1/participant/1"), null,
+                        null, null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testUpdateGroupParticipantFails() {
+        assertThat(mContentResolver.update(Uri.parse("content://rcs/group_thread/2/participant/1"),
+                null, null, null)).isEqualTo(0);
     }
 }
