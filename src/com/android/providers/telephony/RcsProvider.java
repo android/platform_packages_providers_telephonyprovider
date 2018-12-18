@@ -20,7 +20,6 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
@@ -41,7 +40,7 @@ public class RcsProvider extends ContentProvider {
     private static final String THREAD_URI_PREFIX = "content://" + AUTHORITY + "/thread/";
     private static final String PARTICIPANT_URI_PREFIX = "content://" + AUTHORITY + "/participant/";
     private static final String P2P_THREAD_URI_PREFIX = "content://" + AUTHORITY + "/p2p_thread/";
-    private static final String GROUP_THREAD_URI_PREFIX =
+    static final String GROUP_THREAD_URI_PREFIX =
             "content://" + AUTHORITY + "/group_thread/";
 
     private static final UriMatcher URL_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
@@ -53,9 +52,11 @@ public class RcsProvider extends ContentProvider {
     private static final int P2P_THREAD = 5;
     private static final int P2P_THREAD_WITH_ID = 6;
     private static final int P2P_THREAD_PARTICIPANT = 7;
-    private static final int GROUP_THREAD = 8;
-    private static final int GROUP_THREAD_WITH_ID = 9;
-    private static final int GROUP_THREAD_PARTICIPANT = 10;
+    private static final int P2P_THREAD_PARTICIPANT_WITH_ID = 8;
+    private static final int GROUP_THREAD = 9;
+    private static final int GROUP_THREAD_WITH_ID = 10;
+    private static final int GROUP_THREAD_PARTICIPANT = 11;
+    private static final int GROUP_THREAD_PARTICIPANT_WITH_ID = 12;
 
     SQLiteOpenHelper mDbOpenHelper;
 
@@ -83,8 +84,11 @@ public class RcsProvider extends ContentProvider {
         // example query: content://rcs/p2p_thread/4 , where 4 is the _id in rcs_threads table.
         URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#", P2P_THREAD_WITH_ID);
 
-        // example query: content://rcs/p2p_thread/7/participant?alias="bob"
+        // example query: content://rcs/p2p_thread/7/participant"
         URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#/participant", P2P_THREAD_PARTICIPANT);
+
+        // example query: content://rcs/p2p_thread/9/participant/3", only supports a 1 time insert
+        URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#/participant/#", P2P_THREAD_PARTICIPANT_WITH_ID);
 
         // example query: content://rcs/group_thread?group_name="best friends"
         URL_MATCHER.addURI(AUTHORITY, "group_thread", GROUP_THREAD);
@@ -95,6 +99,11 @@ public class RcsProvider extends ContentProvider {
         // example query: content://rcs/group_thread/18/participant?alias="charlie"
         URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant",
                 GROUP_THREAD_PARTICIPANT);
+
+        // example query: content://rcs/group_thread/21/participant/4, only supports inserts and
+        // deletes
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant/#",
+                GROUP_THREAD_PARTICIPANT_WITH_ID);
     }
 
     @Override
@@ -129,7 +138,10 @@ public class RcsProvider extends ContentProvider {
             case P2P_THREAD_WITH_ID:
                 return mThreadHelper.query1To1ThreadUsingId(uri, projection);
             case P2P_THREAD_PARTICIPANT:
-                // TODO(109759350) - implement
+                return mParticipantHelper.queryParticipantIn1To1Thread(uri);
+            case P2P_THREAD_PARTICIPANT_WITH_ID:
+                Log.e(TAG, "Querying participants in 1 to 1 threads via id's is not supported, uri "
+                        + uri);
                 break;
             case GROUP_THREAD:
                 return mThreadHelper.queryGroupThread(projection, selection,
@@ -137,8 +149,9 @@ public class RcsProvider extends ContentProvider {
             case GROUP_THREAD_WITH_ID:
                 return mThreadHelper.queryGroupThreadUsingId(uri, projection);
             case GROUP_THREAD_PARTICIPANT:
-                // TODO(109759350) - implement
-                break;
+                return mParticipantHelper.queryParticipantsInGroupThread(uri);
+            case GROUP_THREAD_PARTICIPANT_WITH_ID:
+                return mParticipantHelper.queryParticipantInGroupThreadWithId(uri);
             default:
                 Log.e(TAG, "Invalid query: " + uri);
         }
@@ -187,7 +200,17 @@ public class RcsProvider extends ContentProvider {
                 Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri:" + uri);
                 break;
             case P2P_THREAD_PARTICIPANT:
-                // TODO(109759350) - implement
+                Log.e(TAG,
+                        "Inserting a participant into a thread via content values is not "
+                                + "supported, uri: "
+                                + uri);
+                break;
+            case P2P_THREAD_PARTICIPANT_WITH_ID:
+                rowId = mParticipantHelper.insertParticipantIntoP2pThread(uri);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri;
                 break;
             case GROUP_THREAD:
                 rowId = mThreadHelper.insertGroupThread(values);
@@ -200,7 +223,18 @@ public class RcsProvider extends ContentProvider {
                 Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri:" + uri);
                 break;
             case GROUP_THREAD_PARTICIPANT:
-                // TODO(109759350) - implement
+                rowId = mParticipantHelper.insertParticipantIntoGroupThread(values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = mParticipantHelper.getParticipantInThreadUri(values, rowId);
+                break;
+            case GROUP_THREAD_PARTICIPANT_WITH_ID:
+                rowId = mParticipantHelper.insertParticipantIntoGroupThreadWithId(uri);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri;
                 break;
             default:
                 Log.e(TAG, "Invalid insert: " + uri);
@@ -220,7 +254,8 @@ public class RcsProvider extends ContentProvider {
             case UNIFIED_RCS_THREAD_WITH_ID:
                 return mThreadHelper.deleteUnifiedThreadWithId(uri);
             case PARTICIPANT:
-                return mParticipantHelper.deleteParticipant(selection, selectionArgs);
+                Log.e(TAG, "Deleting participant with selection is not allowed: " + uri);
+                break;
             case PARTICIPANT_WITH_ID:
                 return mParticipantHelper.deleteParticipantWithId(uri);
             case P2P_THREAD:
@@ -228,15 +263,20 @@ public class RcsProvider extends ContentProvider {
             case P2P_THREAD_WITH_ID:
                 return mThreadHelper.delete1To1ThreadWithId(uri);
             case P2P_THREAD_PARTICIPANT:
-                // TODO(109759350) - implement
+                Log.e(TAG, "Removing participant from 1 to 1 thread is not allowed, uri: " + uri);
                 break;
             case GROUP_THREAD:
                 return mThreadHelper.deleteGroupThread(selection, selectionArgs);
             case GROUP_THREAD_WITH_ID:
                 return mThreadHelper.deleteGroupThreadWithId(uri);
             case GROUP_THREAD_PARTICIPANT:
-                // TODO(109759350) - implement
+                Log.e(TAG,
+                        "Deleting a participant from group thread via selection is not allowed, "
+                                + "uri: "
+                                + uri);
                 break;
+            case GROUP_THREAD_PARTICIPANT_WITH_ID:
+                return mParticipantHelper.deleteParticipantFromGroupThread(uri);
             default:
                 Log.e(TAG, "Invalid delete: " + uri);
         }
@@ -266,14 +306,17 @@ public class RcsProvider extends ContentProvider {
             case P2P_THREAD_WITH_ID:
                 return mThreadHelper.update1To1ThreadWithId(values, uri);
             case P2P_THREAD_PARTICIPANT:
-                Log.e(TAG, "Updating junction table entries is supported, uri: " + uri);
+                Log.e(TAG, "Updating junction table entries is not supported, uri: " + uri);
                 break;
             case GROUP_THREAD:
                 return mThreadHelper.updateGroupThread(values, selection, selectionArgs);
             case GROUP_THREAD_WITH_ID:
                 return mThreadHelper.updateGroupThreadWithId(values, uri);
             case GROUP_THREAD_PARTICIPANT:
-                Log.e(TAG, "Updating junction table entries is supported, uri: " + uri);
+                Log.e(TAG, "Updating junction table entries is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_WITH_ID:
+                Log.e(TAG, "Updating junction table entries is not supported, uri: " + uri);
                 break;
             default:
                 Log.e(TAG, "Invalid update: " + uri);

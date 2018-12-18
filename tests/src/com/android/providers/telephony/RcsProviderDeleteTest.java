@@ -74,6 +74,15 @@ public class RcsProviderDeleteTest {
         Uri groupThreadUri = Uri.parse("content://rcs/group_thread");
         assertThat(mContentResolver.insert(groupThreadUri, groupContentValues)).isEqualTo(
                 Uri.parse("content://rcs/group_thread/2"));
+
+        // add the participant into both threads
+        Uri addParticipantTo1To1Thread = Uri.parse("content://rcs/p2p_thread/1/participant/1");
+        assertThat(mContentResolver.insert(addParticipantTo1To1Thread, null)).isEqualTo(
+                addParticipantTo1To1Thread);
+
+        Uri addParticipantToGroupThread = Uri.parse("content://rcs/group_thread/2/participant/1");
+        assertThat(mContentResolver.insert(addParticipantToGroupThread, null)).isEqualTo(
+                addParticipantToGroupThread);
     }
 
     @After
@@ -125,18 +134,56 @@ public class RcsProviderDeleteTest {
     }
 
     @Test
-    public void testDeleteParticipantWithId() {
+    public void testDeleteParticipantWithIdWhileParticipatingInAThread() {
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/participant/1"), null,
+                null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteParticipantAfterLeavingThreads() {
+        // leave the first thread
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/group_thread/2/participant/1"),
+                null, null)).isEqualTo(1);
+
+        // try deleting the participant. It should fail
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/participant/1"), null,
+                null)).isEqualTo(0);
+
+        // delete the p2p thread
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1"), null,
+                null)).isEqualTo(1);
+
+        // try deleting the participant. It should succeed
         assertThat(mContentResolver.delete(Uri.parse("content://rcs/participant/1"), null,
                 null)).isEqualTo(1);
         assertDeletionViaQuery("content://rcs/participant/1");
     }
 
     @Test
-    public void testDeleteParticipantWithSelection() {
+    public void testDeleteParticipantWithSelectionFails() {
         assertThat(
                 mContentResolver.delete(Uri.parse("content://rcs/participant"), "rcs_alias=\"Bob\"",
-                        null)).isEqualTo(1);
-        assertDeletionViaQuery("content://rcs/participant/1");
+                        null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteParticipantFrom1To1ThreadFails() {
+        assertThat(
+                mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/participant/1"), null,
+                        null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteParticipantFromGroupThread() {
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/group_thread/2/participant/1"),
+                null, null)).isEqualTo(1);
+        assertDeletionViaQuery("content://rcs/group_thread/2/participant");
+    }
+
+    @Test
+    public void testDeleteParticipantFromGroupThreadWithSelectionFails() {
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/group_thread/2/participant"),
+                "rcs_alias=?", new String[]{"Bob"})).isEqualTo(0);
     }
 
     private void assertDeletionViaQuery(String queryUri) {

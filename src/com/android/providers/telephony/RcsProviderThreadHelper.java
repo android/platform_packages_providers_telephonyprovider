@@ -49,7 +49,7 @@ class RcsProviderThreadHelper {
 
     static final String UNIFIED_RCS_THREAD_VIEW = "unified_rcs_thread_view";
 
-    private static final int THREAD_ID_INDEX_IN_URI = 1;
+    static final int THREAD_ID_INDEX_IN_URI = 1;
 
     @VisibleForTesting
     public static void createThreadTables(SQLiteDatabase db) {
@@ -135,6 +135,37 @@ class RcsProviderThreadHelper {
                 "CREATE TRIGGER deleteRcsThreadBeforeGroup AFTER DELETE ON rcs_group_thread BEGIN"
                         + " DELETE FROM rcs_thread WHERE rcs_thread._id=OLD.rcs_thread_id; END");
 
+        // Delete the junction table entries upon deleting a 1 to 1 thread
+        //
+        // CREATE TRIGGER delete1To1JunctionEntries
+        // AFTER
+        //  DELETE ON rcs_1_to_1_thread
+        // BEGIN
+        //  DELETE FROM
+        //   rcs_thread_participant
+        //  WHERE
+        //   rcs_thread_participant.rcs_thread_id = OLD.rcs_thread_id;
+        // END
+        db.execSQL("CREATE TRIGGER delete1To1JunctionEntries AFTER DELETE ON rcs_1_to_1_thread "
+                + "BEGIN DELETE FROM rcs_thread_participant WHERE rcs_thread_participant"
+                + ".rcs_thread_id=OLD.rcs_thread_id; END");
+
+        // Delete the junction table entries upon deleting a group thread
+        //
+        // CREATE TRIGGER delete1To1JunctionEntries
+        // AFTER
+        //  DELETE ON rcs_1_to_1_thread
+        // BEGIN
+        //  DELETE FROM
+        //   rcs_thread_participant
+        //  WHERE
+        //   rcs_thread_participant.rcs_thread_id = OLD.rcs_thread_id;
+        // END
+        db.execSQL("CREATE TRIGGER deleteGroupJunctionEntries AFTER DELETE ON rcs_group_thread "
+                + "BEGIN DELETE FROM rcs_thread_participant WHERE rcs_thread_participant"
+                + ".rcs_thread_id=OLD.rcs_thread_id; END");
+
+        // TODO - create indexes for faster querying
     }
 
     private final SQLiteOpenHelper mSqLiteOpenHelper;
@@ -255,7 +286,6 @@ class RcsProviderThreadHelper {
         }
         boolean isGroup = cursor.getInt(0) == 1;
 
-        // TODO - delete entries from participants junction table
         if (isGroup) {
             deletedCount = db.delete(RCS_GROUP_THREAD_TABLE, selection, selectionArgs);
         } else {
@@ -320,6 +350,10 @@ class RcsProviderThreadHelper {
     }
 
     private String getThreadIdSelection(Uri uri) {
-        return "rcs_thread_id=" + uri.getPathSegments().get(THREAD_ID_INDEX_IN_URI);
+        return "rcs_thread_id=" + getThreadIdFromUri(uri);
+    }
+
+    static String getThreadIdFromUri(Uri uri) {
+        return uri.getPathSegments().get(THREAD_ID_INDEX_IN_URI);
     }
 }
