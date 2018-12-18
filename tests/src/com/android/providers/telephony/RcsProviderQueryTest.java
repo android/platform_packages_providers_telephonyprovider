@@ -50,6 +50,14 @@ public class RcsProviderQueryTest {
         MockContextWithProvider context = new MockContextWithProvider(mRcsProvider);
         mContentResolver = context.getContentResolver();
 
+        // insert a participant
+        Uri participantUri = Uri.parse("content://rcs/participant");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CANONICAL_ADDRESS_ID_COLUMN, 99);
+        contentValues.put(RCS_ALIAS_COLUMN, "Some alias");
+
+        mContentResolver.insert(participantUri, contentValues);
+
         // insert two 1 to 1 threads
         ContentValues p2pContentValues = new ContentValues(0);
         Uri threadsUri = Uri.parse("content://rcs/p2p_thread");
@@ -105,18 +113,58 @@ public class RcsProviderQueryTest {
 
     @Test
     public void testQueryParticipant() {
-        // insert a participant
-        Uri participantUri = Uri.parse("content://rcs/participant");
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(CANONICAL_ADDRESS_ID_COLUMN, 99);
-        contentValues.put(RCS_ALIAS_COLUMN, "Some alias");
-
-        mContentResolver.insert(participantUri, contentValues);
-
-        // Query the participant back
         Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/participant"),
                 new String[]{RCS_ALIAS_COLUMN}, null, null, null);
         cursor.moveToNext();
         assertThat(cursor.getString(0)).isEqualTo("Some alias");
+    }
+
+    @Test
+    public void testQueryParticipantOf1To1Thread() {
+        // insert the participant into a 1 to 1 thread
+        Uri insertUri = Uri.parse("content://rcs/p2p_thread/1/participant/1");
+        assertThat(mContentResolver.insert(insertUri, null)).isNotNull();
+
+        // query the participant back
+        Uri queryUri = Uri.parse("content://rcs/p2p_thread/1/participant");
+        Cursor cursor = mContentResolver.query(queryUri, null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+
+        assertThat(cursor.getInt(1)).isEqualTo(99);
+        assertThat(cursor.getString(2)).isEqualTo("Some alias");
+    }
+
+    @Test
+    public void testQueryParticipantOfGroupThread() {
+        // insert the participant into a group thread
+        Uri insertUri = Uri.parse("content://rcs/group_thread/3/participant/1");
+        assertThat(mContentResolver.insert(insertUri, null)).isNotNull();
+
+        // query all the participants in this thread
+        Uri queryUri = Uri.parse("content://rcs/group_thread/3/participant");
+        Cursor cursor = mContentResolver.query(queryUri, null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+
+        assertThat(cursor.getInt(0)).isEqualTo(1);
+        assertThat(cursor.getInt(1)).isEqualTo(99);
+        assertThat(cursor.getString(2)).isEqualTo("Some alias");
+    }
+
+    @Test
+    public void testQueryParticipantOfGroupThreadWithId() {
+        // insert the participant into a group thread
+        Uri uri = Uri.parse("content://rcs/group_thread/3/participant/1");
+        assertThat(mContentResolver.insert(uri, null)).isNotNull();
+
+        // query the participant back
+        Cursor cursor = mContentResolver.query(uri, null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+
+        assertThat(cursor.getInt(0)).isEqualTo(1);
+        assertThat(cursor.getInt(1)).isEqualTo(99);
+        assertThat(cursor.getString(2)).isEqualTo("Some alias");
     }
 }
