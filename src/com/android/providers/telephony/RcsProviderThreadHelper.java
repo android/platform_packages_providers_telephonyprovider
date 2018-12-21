@@ -119,7 +119,7 @@ class RcsProviderThreadHelper {
         //  AFTER DELETE ON rcs_1_to_1_thread
         // BEGIN
         //	DELETE FROM rcs_thread WHERE rcs_thread._id=OLD.rcs_thread_id;
-        // END;
+        // END
         db.execSQL(
                 "CREATE TRIGGER deleteRcsThreadBefore1to1 AFTER DELETE ON rcs_1_to_1_thread BEGIN"
                         + " DELETE FROM rcs_thread WHERE rcs_thread._id=OLD.rcs_thread_id; END");
@@ -130,7 +130,7 @@ class RcsProviderThreadHelper {
         //  AFTER DELETE ON rcs_1_to_1_thread
         // BEGIN
         //	DELETE FROM rcs_thread WHERE rcs_thread._id=OLD.rcs_thread_id;
-        // END;
+        // END
         db.execSQL(
                 "CREATE TRIGGER deleteRcsThreadBeforeGroup AFTER DELETE ON rcs_group_thread BEGIN"
                         + " DELETE FROM rcs_thread WHERE rcs_thread._id=OLD.rcs_thread_id; END");
