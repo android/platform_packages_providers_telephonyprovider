@@ -15,6 +15,13 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProviderMessageHelper.GLOBAL_ID_COLUMN;
+import static com.android.providers.telephony.RcsProviderMessageHelper.INCOMING_MESSAGE_TABLE;
+import static com.android.providers.telephony.RcsProviderMessageHelper.MESSAGE_TABLE;
+import static com.android.providers.telephony.RcsProviderMessageHelper.OUTGOING_MESSAGE_TABLE;
+import static com.android.providers.telephony.RcsProviderMessageHelper.UNIFIED_INCOMING_MESSAGE_VIEW;
+import static com.android.providers.telephony.RcsProviderMessageHelper.UNIFIED_MESSAGE_VIEW;
+import static com.android.providers.telephony.RcsProviderMessageHelper.UNIFIED_OUTGOING_MESSAGE_VIEW;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
@@ -23,9 +30,13 @@ import static com.android.providers.telephony.RcsProviderThreadHelper.GROUP_NAME
 import static com.google.common.truth.Truth.assertThat;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.mock.MockContentResolver;
+import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
@@ -125,6 +136,61 @@ public class RcsProviderInsertTest {
 
         // assert that adding again fails
         assertThat(mContentResolver.insert(uri, null)).isNull();
+    }
+
+    @Test
+    public void testInsertMessageFails() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(GLOBAL_ID_COLUMN, "global RCS id");
+
+        // try inserting messages without threads
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/message"),
+                contentValues)).isNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/message/6"),
+                contentValues)).isNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/incoming_message"),
+                contentValues)).isNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/incoming_message/12"),
+                contentValues)).isNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message"),
+                contentValues)).isNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/18"),
+                contentValues)).isNull();
+
+        // try inserting into unified thread view
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/thread/5/incoming_message"),
+                contentValues)).isNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/thread/5/outgoing_message"),
+                contentValues)).isNull();
+    }
+
+    @Test
+    public void testInsertMessageIntoThread() {
+        // create two threads
+        ContentValues values = new ContentValues();
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/p2p_thread"), values)).isNotNull();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/group_thread"),
+                values)).isNotNull();
+
+        // add messages to threads
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/incoming_message"),
+                values)).isEqualTo(Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"));
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/outgoing_message"),
+                values)).isEqualTo(Uri.parse("content://rcs/p2p_thread/1/outgoing_message/2"));
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/incoming_message"),
+                        values)).isEqualTo(
+                Uri.parse("content://rcs/group_thread/2/incoming_message/3"));
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/outgoing_message"),
+                        values)).isEqualTo(
+                Uri.parse("content://rcs/group_thread/2/outgoing_message/4"));
+
+        // assert that they are accessible in messages table
+        Cursor messageCursor = mContentResolver.query(Uri.parse("content://rcs/message"), null,
+                null, null, null);
+        assertThat(messageCursor.getCount()).isEqualTo(4);
     }
 
 }

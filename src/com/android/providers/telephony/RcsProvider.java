@@ -30,6 +30,11 @@ import com.android.internal.annotations.VisibleForTesting;
  * Content provider to handle RCS messages. The functionality here is similar to SmsProvider,
  * MmsProvider etc.
  *
+ * The provider has constraints around inserting, updating and deleting - the user needs to know
+ * whether they are inserting a message that is incoming/outgoing, or the thread they are inserting
+ * is a group or p2p etc. This is in order to keep the implementation simple and avoid complex
+ * queries.
+ *
  * @hide
  */
 public class RcsProvider extends ContentProvider {
@@ -57,6 +62,22 @@ public class RcsProvider extends ContentProvider {
     private static final int GROUP_THREAD_WITH_ID = 10;
     private static final int GROUP_THREAD_PARTICIPANT = 11;
     private static final int GROUP_THREAD_PARTICIPANT_WITH_ID = 12;
+    private static final int UNIFIED_MESSAGE = 13;
+    private static final int UNIFIED_MESSAGE_WITH_ID = 14;
+    private static final int INCOMING_MESSAGE = 15;
+    private static final int INCOMING_MESSAGE_WITH_ID = 16;
+    private static final int OUTGOING_MESSAGE = 17;
+    private static final int OUTGOING_MESSAGE_WITH_ID = 18;
+    private static final int UNIFIED_MESSAGE_ON_THREAD = 19;
+    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 20;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 21;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 22;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 23;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 24;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 25;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 26;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 27;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 28;
 
     SQLiteOpenHelper mDbOpenHelper;
 
@@ -64,6 +85,7 @@ public class RcsProvider extends ContentProvider {
     RcsProviderThreadHelper mThreadHelper;
     @VisibleForTesting
     RcsProviderParticipantHelper mParticipantHelper;
+    RcsProviderMessageHelper mMessageHelper;
 
     static {
         // example query: content://rcs/thread?owner_participant=3
@@ -104,6 +126,62 @@ public class RcsProvider extends ContentProvider {
         // deletes
         URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant/#",
                 GROUP_THREAD_PARTICIPANT_WITH_ID);
+
+        // example query: content://rcs/message?sub_id=5
+        URL_MATCHER.addURI(AUTHORITY, "message", UNIFIED_MESSAGE);
+
+        // example query: content://rcs/message/4
+        URL_MATCHER.addURI(AUTHORITY, "message/#", UNIFIED_MESSAGE_WITH_ID);
+
+        // example query: content://rcs/incoming_message?sub_id=4
+        URL_MATCHER.addURI(AUTHORITY, "incoming_message", INCOMING_MESSAGE);
+
+        // example query: content://rcs/incoming_message/#
+        URL_MATCHER.addURI(AUTHORITY, "incoming_message/#", INCOMING_MESSAGE_WITH_ID);
+
+        // example query: content://rcs/outgoing_message?sub_id=9
+        URL_MATCHER.addURI(AUTHORITY, "outgoing_message", OUTGOING_MESSAGE);
+
+        // example query: content://rcs/outgoing_message/#
+        URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#", OUTGOING_MESSAGE_WITH_ID);
+
+        // example query: content://rcs/thread/5/message?recipient=11. Only supports querying.
+        URL_MATCHER.addURI(AUTHORITY, "thread/#/message", UNIFIED_MESSAGE_ON_THREAD);
+
+        // example query: content://rcs/thread/5/message/40. Only supports querying.
+        URL_MATCHER.addURI(AUTHORITY, "thread/#/message/#", UNIFIED_MESSAGE_ON_THREAD_WITH_ID);
+
+        // only available for inserting incoming messages onto a 1 to 1 thread.
+        URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#/incoming_message",
+                INCOMING_MESSAGE_ON_P2P_THREAD);
+
+        // example query: content://rcs/p2p_thread/11/incoming_message/45. Only supports querying
+        URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#/incoming_message/#",
+                INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID);
+
+        // only available for inserting outgoing messages onto a 1 to 1 thread.
+        URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#/outgoing_message",
+                OUTGOING_MESSAGE_ON_P2P_THREAD);
+
+        // example query: content://rcs/p2p_thread/11/outgoing_message/46. Only supports querying
+        URL_MATCHER.addURI(AUTHORITY, "p2p_thread/#/outgoing_message/#",
+                OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID);
+
+        // only available for inserting incoming messages onto a group thread.
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/incoming_message",
+                INCOMING_MESSAGE_ON_GROUP_THREAD);
+
+        // example query: content://rcs/group_thread/13/incoming_message/71. Only supports querying
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/incoming_message/#",
+                INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID);
+
+        // only available for inserting outgoing messages onto a group thread.
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/outgoing_message",
+                OUTGOING_MESSAGE_ON_GROUP_THREAD);
+
+        // example query: content://rcs/group_thread/13/outgoing_message/72. Only supports querying
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/outgoing_message/#",
+                OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID);
     }
 
     @Override
@@ -113,6 +191,7 @@ public class RcsProvider extends ContentProvider {
         mDbOpenHelper = MmsSmsDatabaseHelper.getInstanceForCe(getContext());
         mParticipantHelper = new RcsProviderParticipantHelper(mDbOpenHelper);
         mThreadHelper = new RcsProviderThreadHelper(mDbOpenHelper);
+        mMessageHelper = new RcsProviderMessageHelper(mDbOpenHelper);
         return true;
     }
 
@@ -152,6 +231,54 @@ public class RcsProvider extends ContentProvider {
                 return mParticipantHelper.queryParticipantsInGroupThread(uri);
             case GROUP_THREAD_PARTICIPANT_WITH_ID:
                 return mParticipantHelper.queryParticipantInGroupThreadWithId(uri);
+            case UNIFIED_MESSAGE:
+                return mMessageHelper.queryUnifiedMessageWithSelection(selection, selectionArgs);
+            case UNIFIED_MESSAGE_WITH_ID:
+                return mMessageHelper.queryUnifiedMessageWithId(uri);
+            case INCOMING_MESSAGE:
+                return mMessageHelper.queryIncomingMessageWithSelection(selection, selectionArgs);
+            case INCOMING_MESSAGE_WITH_ID:
+                return mMessageHelper.queryIncomingMessageWithId(uri);
+            case OUTGOING_MESSAGE:
+                return mMessageHelper.queryOutgoingMessageWithSelection(selection, selectionArgs);
+            case OUTGOING_MESSAGE_WITH_ID:
+                return mMessageHelper.queryOutgoingMessageWithId(uri);
+            case UNIFIED_MESSAGE_ON_THREAD:
+                return mMessageHelper.queryAllMessagesOnThread(uri, selection, selectionArgs);
+            case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
+                return mMessageHelper.queryUnifiedMessageWithIdInThread(uri);
+            case INCOMING_MESSAGE_ON_P2P_THREAD:
+                Log.e(TAG,
+                        "Querying incoming messages on P2P thread with selection is not "
+                                + "supported, uri: "
+                                + uri);
+                break;
+            case INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                return mMessageHelper.queryUnifiedMessageWithIdInThread(uri);
+            case OUTGOING_MESSAGE_ON_P2P_THREAD:
+                Log.e(TAG,
+                        "Querying incoming messages on P2P thread with selection is not "
+                                + "supported, uri: "
+                                + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                return mMessageHelper.queryUnifiedMessageWithIdInThread(uri);
+            case INCOMING_MESSAGE_ON_GROUP_THREAD:
+                Log.e(TAG,
+                        "Querying incoming messages on group thread with selection is not "
+                                + "supported, uri: "
+                                + uri);
+                break;
+            case INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                return mMessageHelper.queryUnifiedMessageWithIdInThread(uri);
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD:
+                Log.e(TAG,
+                        "Querying outgoing messages on group thread with selection is not "
+                                + "supported, uri: "
+                                + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                return mMessageHelper.queryUnifiedMessageWithIdInThread(uri);
             default:
                 Log.e(TAG, "Invalid query: " + uri);
         }
@@ -236,6 +363,60 @@ public class RcsProvider extends ContentProvider {
                 }
                 returnUri = uri;
                 break;
+            case UNIFIED_MESSAGE:
+                Log.e(TAG, "Inserting into unified message view is not supported, uri:" + uri);
+                break;
+            case UNIFIED_MESSAGE_WITH_ID:
+                Log.e(TAG, "Inserting into unified message view is not supported, uri:" + uri);
+                break;
+            case INCOMING_MESSAGE:
+                Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri:"
+                        + uri);
+                break;
+            case INCOMING_MESSAGE_WITH_ID:
+                Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri:"
+                        + uri);
+                break;
+            case OUTGOING_MESSAGE:
+                Log.e(TAG, "Inserting an outgoing message without a thread is not supported, uri:"
+                        + uri);
+                break;
+            case OUTGOING_MESSAGE_WITH_ID:
+                Log.e(TAG, "Inserting an outgoing message without a thread is not supported, uri:"
+                        + uri);
+                break;
+            case UNIFIED_MESSAGE_ON_THREAD:
+                Log.e(TAG,
+                        "Inserting a message on unified thread view is not supported, uri:" + uri);
+                break;
+            case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
+                Log.e(TAG,
+                        "Inserting a message on unified thread view is not supported, uri:" + uri);
+                break;
+            case INCOMING_MESSAGE_ON_P2P_THREAD:
+                return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
+                        true, /* is1To1 */ true);
+            case INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_P2P_THREAD:
+                return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
+                        false, /* is1To1 */ true);
+            case OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                break;
+            case INCOMING_MESSAGE_ON_GROUP_THREAD:
+                return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
+                        true, /* is1To1 */ false);
+            case INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD:
+                return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
+                        false, /* is1To1 */ false);
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                break;
             default:
                 Log.e(TAG, "Invalid insert: " + uri);
         }
@@ -277,6 +458,51 @@ public class RcsProvider extends ContentProvider {
                 break;
             case GROUP_THREAD_PARTICIPANT_WITH_ID:
                 return mParticipantHelper.deleteParticipantFromGroupThread(uri);
+            case UNIFIED_MESSAGE:
+                Log.e(TAG,
+                        "Deleting message from unified view with selection is not allowed: " + uri);
+                break;
+            case UNIFIED_MESSAGE_WITH_ID:
+                Log.e(TAG, "Deleting message from unified view with id is not allowed: " + uri);
+                break;
+            case INCOMING_MESSAGE:
+                return mMessageHelper.deleteIncomingMessageWithSelection(selection, selectionArgs);
+            case INCOMING_MESSAGE_WITH_ID:
+                return mMessageHelper.deleteIncomingMessageWithId(uri);
+            case OUTGOING_MESSAGE:
+                return mMessageHelper.deleteOutgoingMessageWithSelection(selection, selectionArgs);
+            case OUTGOING_MESSAGE_WITH_ID:
+                return mMessageHelper.deleteOutgoingMessageWithId(uri);
+            case UNIFIED_MESSAGE_ON_THREAD:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_P2P_THREAD:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_P2P_THREAD:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_GROUP_THREAD:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
+                break;
             default:
                 Log.e(TAG, "Invalid delete: " + uri);
         }
@@ -318,9 +544,59 @@ public class RcsProvider extends ContentProvider {
             case GROUP_THREAD_PARTICIPANT_WITH_ID:
                 Log.e(TAG, "Updating junction table entries is not supported, uri: " + uri);
                 break;
+            case UNIFIED_MESSAGE:
+                Log.e(TAG, "Updating unified message view via selection is not supported, uri: "
+                        + uri);
+                break;
+            case UNIFIED_MESSAGE_WITH_ID:
+                Log.e(TAG, "Updating unified message view is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE:
+                Log.e(TAG,
+                        "Updating an incoming message via selection is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_WITH_ID:
+                return mMessageHelper.updateIncomingMessage(uri, values);
+            case OUTGOING_MESSAGE:
+                Log.e(TAG,
+                        "Updating an outgoing message via selection is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_WITH_ID:
+                return mMessageHelper.updateOutgoingMessage(uri, values);
+            case UNIFIED_MESSAGE_ON_THREAD:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_P2P_THREAD:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_P2P_THREAD:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_GROUP_THREAD:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
+                Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
+                break;
             default:
                 Log.e(TAG, "Invalid update: " + uri);
         }
+
         return updatedCount;
     }
 }

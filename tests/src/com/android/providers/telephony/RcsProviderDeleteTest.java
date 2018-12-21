@@ -15,6 +15,7 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProviderMessageHelper.MESSAGE_TABLE;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
@@ -25,6 +26,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.mock.MockContentResolver;
@@ -83,6 +85,23 @@ public class RcsProviderDeleteTest {
         Uri addParticipantToGroupThread = Uri.parse("content://rcs/group_thread/2/participant/1");
         assertThat(mContentResolver.insert(addParticipantToGroupThread, null)).isEqualTo(
                 addParticipantToGroupThread);
+
+        // add incoming and outgoing messages to both threads
+        ContentValues messageValues = new ContentValues();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/incoming_message"),
+                messageValues)).isEqualTo(
+                Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"));
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/outgoing_message"),
+                messageValues)).isEqualTo(
+                Uri.parse("content://rcs/p2p_thread/1/outgoing_message/2"));
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/incoming_message"),
+                        messageValues)).isEqualTo(
+                Uri.parse("content://rcs/group_thread/2/incoming_message/3"));
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/outgoing_message"),
+                        messageValues)).isEqualTo(
+                Uri.parse("content://rcs/group_thread/2/outgoing_message/4"));
     }
 
     @After
@@ -184,6 +203,45 @@ public class RcsProviderDeleteTest {
     public void testDeleteParticipantFromGroupThreadWithSelectionFails() {
         assertThat(mContentResolver.delete(Uri.parse("content://rcs/group_thread/2/participant"),
                 "rcs_alias=?", new String[]{"Bob"})).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteMessagesUsingUnifiedMessageViewFails() {
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/message/1"), null, null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteMessagesUsingThreadUrisFails() {
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/message/1"), null, null)).isEqualTo(0);
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"), null, null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteMessage() {
+        // verify there exists 4 messages
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/message"), null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(4);
+        cursor.close();
+
+        // delete 2 of them
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/incoming_message/1"), null, null)).isEqualTo(1);
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/outgoing_message/4"), null, null)).isEqualTo(1);
+
+        // verify that only 2 messages are left
+        cursor = mContentResolver.query(Uri.parse("content://rcs/message"), null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(2);
+        cursor.close();
+
+        // verify that entries in common table is deleted and only messages with id's 2 and 3 remain
+        SQLiteDatabase db = mRcsProvider.getWritableDatabase();
+        cursor = db.query(MESSAGE_TABLE, null, null, null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(2);
+
+        cursor.moveToNext();
+        assertThat(cursor.getInt(0)).isEqualTo(2);
+        cursor.moveToNext();
+        assertThat(cursor.getInt(0)).isEqualTo(3);
+        cursor.close();
     }
 
     private void assertDeletionViaQuery(String queryUri) {

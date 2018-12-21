@@ -15,6 +15,8 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProviderMessageHelper.ARRIVAL_TIMESTAMP;
+import static com.android.providers.telephony.RcsProviderMessageHelper.ORIGINATION_TIMESTAMP_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
@@ -85,6 +87,23 @@ public class RcsProviderUpdateTest {
 
         Uri groupInsertionUri = Uri.parse("content://rcs/group_thread/2/participant/1");
         assertThat(mContentResolver.insert(groupInsertionUri, null)).isEqualTo(groupInsertionUri);
+
+        // add incoming and outgoing messages to both threads
+        ContentValues messageValues = new ContentValues();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/incoming_message"),
+                messageValues)).isEqualTo(
+                Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"));
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/outgoing_message"),
+                messageValues)).isEqualTo(
+                Uri.parse("content://rcs/p2p_thread/1/outgoing_message/2"));
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/incoming_message"),
+                        messageValues)).isEqualTo(
+                Uri.parse("content://rcs/group_thread/2/incoming_message/3"));
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/outgoing_message"),
+                        messageValues)).isEqualTo(
+                Uri.parse("content://rcs/group_thread/2/outgoing_message/4"));
     }
 
     @After
@@ -210,5 +229,70 @@ public class RcsProviderUpdateTest {
     public void testUpdateGroupParticipantFails() {
         assertThat(mContentResolver.update(Uri.parse("content://rcs/group_thread/2/participant/1"),
                 null, null, null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testUpdateUnifiedMessageViewFails() {
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(ORIGINATION_TIMESTAMP_COLUMN, 1234567890);
+
+        assertThat(mContentResolver.update(Uri.parse("content://rcs/message"), updateValues, null,
+                null)).isEqualTo(0);
+        assertThat(mContentResolver.update(Uri.parse("content://rcs/message/1"), updateValues, null,
+                null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testUpdateMessageOnThreadFails() {
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(ORIGINATION_TIMESTAMP_COLUMN, 1234567890);
+
+        assertThat(mContentResolver.update(Uri.parse("content://rcs/p2p_thread/1/incoming_message"),
+                updateValues, null, null)).isEqualTo(0);
+        assertThat(
+                mContentResolver.update(Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"),
+                        updateValues, null, null)).isEqualTo(0);
+        assertThat(
+                mContentResolver.update(Uri.parse("content://rcs/group_thread/2/outgoing_message"),
+                        updateValues, null, null)).isEqualTo(0);
+        assertThat(mContentResolver.update(
+                Uri.parse("content://rcs/groupp_thread/2/outgoing_message/1"), updateValues, null,
+                null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testUpdateMessage() {
+        // update the message
+        ContentValues updateValues = new ContentValues(1);
+        updateValues.put(ORIGINATION_TIMESTAMP_COLUMN, 1234567890);
+        assertThat(
+                mContentResolver.update(Uri.parse("content://rcs/outgoing_message/2"), updateValues,
+                        null, null)).isEqualTo(1);
+
+        // verify the value is actually updated
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/outgoing_message/2"), null,
+                null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+        assertThat(cursor.getLong(5)).isEqualTo(1234567890);
+        cursor.close();
+    }
+
+    @Test
+    public void testUpdateIncomingMessageSpecificColumn() {
+        // update the message
+        ContentValues updateValues = new ContentValues(1);
+        updateValues.put(ARRIVAL_TIMESTAMP, 987654321);
+        assertThat(
+                mContentResolver.update(Uri.parse("content://rcs/incoming_message/3"), updateValues,
+                        null, null)).isEqualTo(1);
+
+        // verify the value is actually updated
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/incoming_message/3"), null,
+                null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+        assertThat(cursor.getLong(7)).isEqualTo(987654321);
+        cursor.close();
     }
 }
