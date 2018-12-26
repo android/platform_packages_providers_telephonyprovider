@@ -22,6 +22,30 @@
       "revId": "bac01e2ddbed07ac49bead7a3babdb8cc381773c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ff49478_df44e87e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1138418
+      },
+      "writtenOn": "2018-12-26T02:24:49Z",
+      "side": 1,
+      "message": "Hi Xu,\nAccording to our current logic,the priority of loading APN is /data \u003e /oem \u003e /product\nCould you please point out the reasonable priority you think?\n\nThanks so much!",
+      "parentUuid": "1f9e46c5_481f3834",
+      "range": {
+        "startLine": 611,
+        "startChar": 12,
+        "endLine": 612,
+        "endChar": 98
+      },
+      "revId": "bac01e2ddbed07ac49bead7a3babdb8cc381773c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
