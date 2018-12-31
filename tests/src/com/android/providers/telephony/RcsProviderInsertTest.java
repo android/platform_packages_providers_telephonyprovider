@@ -193,4 +193,20 @@ public class RcsProviderInsertTest {
         assertThat(messageCursor.getCount()).isEqualTo(4);
     }
 
+    @Test
+    public void testInsertMessageDelivery() {
+        // create a thread
+        ContentValues values = new ContentValues();
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/p2p_thread"), values)).isNotNull();
+
+        // add an outgoing message to the thread
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/outgoing_message"),
+                values)).isEqualTo(Uri.parse("content://rcs/p2p_thread/1/outgoing_message/1"));
+
+        // add a delivery to the outgoing message
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/1/delivery/1"),
+                values)).isEqualTo(Uri.parse("content://rcs/outgoing_message/1/delivery/1"));
+    }
+
 }
