@@ -314,6 +314,54 @@ public class RcsProviderMessageHelper {
                         + "/" + rowId);
     }
 
+    long insertMessageDelivery(Uri uri, ContentValues values) {
+        String messageId = getMessageIdFromUri(uri);
+        String participantId = getParticipantIdFromDeliveryUri(uri);
+        values.put(MESSAGE_ID_COLUMN, messageId);
+        values.put(RCS_PARTICIPANT_ID_COLUMN, participantId);
+
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        long rowId = db.insert(MESSAGE_DELIVERY_TABLE, MESSAGE_ID_COLUMN, values);
+
+        values.remove(MESSAGE_ID_COLUMN);
+        values.remove(RCS_PARTICIPANT_ID_COLUMN);
+        return rowId;
+    }
+
+    int updateDelivery(Uri uri, ContentValues contentValues) {
+        Log.e("###TEST", "update delivery. Uri: " + uri + ", content values: " + contentValues);
+
+        String messageId = getMessageIdFromUri(uri);
+        Log.e("###TEST", "message id: " + messageId);
+        String participantId = getParticipantIdFromDeliveryUri(uri);
+        Log.e("###TEST", "participant id: " + participantId);
+
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+
+        // TODO - delete
+        Log.e("###TEST", "BEFORE - delivery table");
+        Cursor cursor = db.query(MESSAGE_DELIVERY_TABLE, null, null, null, null, null, null, null);
+
+        Log.e("###TEST", DatabaseUtils.dumpCursorToString(cursor));
+
+        db.update(MESSAGE_DELIVERY_TABLE, contentValues,
+                "rcs_message_row_id=? AND rcs_participant_id=?",
+                new String[]{messageId, participantId});
+
+        cursor.close();
+
+        Log.e("###TEST", "AFTER - delivery table");
+        cursor = db.query(MESSAGE_DELIVERY_TABLE, null, null, null, null, null, null, null);
+
+        Log.e("###TEST", DatabaseUtils.dumpCursorToString(cursor));
+        // TODO - end delete
+
+
+        return db.update(MESSAGE_DELIVERY_TABLE, contentValues,
+                "rcs_message_row_id=? AND rcs_participant_id=?",
+                new String[]{messageId, participantId});
+    }
+
     int deleteIncomingMessageWithId(Uri uri) {
         return deleteIncomingMessageWithSelection(getMessageIdSelection(uri), null);
     }
@@ -345,7 +393,8 @@ public class RcsProviderMessageHelper {
                     getMessageIdSelection(uri), null);
         }
         if (!values.isEmpty()) {
-            updateCountInCommon = db.update(MESSAGE_TABLE, values, getMessageIdSelection(uri), null);
+            updateCountInCommon = db.update(MESSAGE_TABLE, values, getMessageIdSelection(uri),
+                    null);
         }
         db.setTransactionSuccessful();
         db.endTransaction();
@@ -356,6 +405,14 @@ public class RcsProviderMessageHelper {
     int updateOutgoingMessage(Uri uri, ContentValues values) {
         SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
         return db.update(MESSAGE_TABLE, values, getMessageIdSelection(uri), null);
+    }
+
+    Cursor queryOutgoingMessageDeliveries(Uri uri) {
+        String messageId = getMessageIdFromUri(uri);
+
+        SQLiteDatabase db = mSqLiteOpenHelper.getReadableDatabase();
+        return db.query(MESSAGE_DELIVERY_TABLE, null, "rcs_message_row_id=" + messageId, null, null,
+                null, null);
     }
 
     /**
@@ -404,6 +461,12 @@ public class RcsProviderMessageHelper {
 
     private String getMessageIdFromUri(Uri uri) {
         return uri.getPathSegments().get(MESSAGE_ID_INDEX_IN_URI);
+    }
+
+    private String getParticipantIdFromDeliveryUri(Uri uri) {
+        // this works because messages in threads and participants in deliveries have the same
+        // indices.
+        return getMessageIdFromThreadUri(uri);
     }
 
     private String getMessageIdFromThreadUri(Uri uri) {

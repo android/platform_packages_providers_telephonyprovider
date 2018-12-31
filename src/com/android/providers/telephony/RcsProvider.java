@@ -68,16 +68,18 @@ public class RcsProvider extends ContentProvider {
     private static final int INCOMING_MESSAGE_WITH_ID = 16;
     private static final int OUTGOING_MESSAGE = 17;
     private static final int OUTGOING_MESSAGE_WITH_ID = 18;
-    private static final int UNIFIED_MESSAGE_ON_THREAD = 19;
-    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 20;
-    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 21;
-    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 22;
-    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 23;
-    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 24;
-    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 25;
-    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 26;
-    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 27;
-    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 28;
+    private static final int OUTGOING_MESSAGE_DELIVERY = 19;
+    private static final int OUTGOING_MESSAGE_DELIVERY_WITH_ID = 20;
+    private static final int UNIFIED_MESSAGE_ON_THREAD = 21;
+    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 22;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 23;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 24;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 25;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 26;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 27;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 28;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 29;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 30;
 
     SQLiteOpenHelper mDbOpenHelper;
 
@@ -136,14 +138,20 @@ public class RcsProvider extends ContentProvider {
         // example query: content://rcs/incoming_message?sub_id=4
         URL_MATCHER.addURI(AUTHORITY, "incoming_message", INCOMING_MESSAGE);
 
-        // example query: content://rcs/incoming_message/#
+        // example query: content://rcs/incoming_message/45
         URL_MATCHER.addURI(AUTHORITY, "incoming_message/#", INCOMING_MESSAGE_WITH_ID);
 
         // example query: content://rcs/outgoing_message?sub_id=9
         URL_MATCHER.addURI(AUTHORITY, "outgoing_message", OUTGOING_MESSAGE);
 
-        // example query: content://rcs/outgoing_message/#
+        // example query: content://rcs/outgoing_message/54
         URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#", OUTGOING_MESSAGE_WITH_ID);
+
+        // example query: content://rcs/outgoing_message/54/delivery. Only supports queries
+        URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#/delivery", OUTGOING_MESSAGE_DELIVERY);
+
+        // example query: content://rcs/outgoing_message/9/delivery/4. Does not support queries
+        URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#/delivery/#", OUTGOING_MESSAGE_DELIVERY_WITH_ID);
 
         // example query: content://rcs/thread/5/message?recipient=11. Only supports querying.
         URL_MATCHER.addURI(AUTHORITY, "thread/#/message", UNIFIED_MESSAGE_ON_THREAD);
@@ -243,6 +251,10 @@ public class RcsProvider extends ContentProvider {
                 return mMessageHelper.queryOutgoingMessageWithSelection(selection, selectionArgs);
             case OUTGOING_MESSAGE_WITH_ID:
                 return mMessageHelper.queryOutgoingMessageWithId(uri);
+            case OUTGOING_MESSAGE_DELIVERY:
+                return mMessageHelper.queryOutgoingMessageDeliveries(uri);
+            case OUTGOING_MESSAGE_DELIVERY_WITH_ID:
+                Log.e(TAG, "Querying deliveries with message and participant ids is not supported, uri: " + uri);
             case UNIFIED_MESSAGE_ON_THREAD:
                 return mMessageHelper.queryAllMessagesOnThread(uri, selection, selectionArgs);
             case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
@@ -300,10 +312,10 @@ public class RcsProvider extends ContentProvider {
 
         switch (match) {
             case UNIFIED_RCS_THREAD:
-                Log.e(TAG, "Inserting into unified thread view is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting into unified thread view is not supported, uri: " + uri);
                 break;
             case UNIFIED_RCS_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri: " + uri);
                 break;
             case PARTICIPANT:
                 rowId = mParticipantHelper.insertParticipant(values);
@@ -313,7 +325,7 @@ public class RcsProvider extends ContentProvider {
                 returnUri = Uri.parse(PARTICIPANT_URI_PREFIX + rowId);
                 break;
             case PARTICIPANT_WITH_ID:
-                Log.e(TAG, "Inserting participant with a specified ID is not supported, uri:"
+                Log.e(TAG, "Inserting participant with a specified ID is not supported, uri: "
                         + uri);
                 break;
             case P2P_THREAD:
@@ -324,7 +336,7 @@ public class RcsProvider extends ContentProvider {
                 returnUri = Uri.parse(P2P_THREAD_URI_PREFIX + rowId);
                 break;
             case P2P_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri: " + uri);
                 break;
             case P2P_THREAD_PARTICIPANT:
                 Log.e(TAG,
@@ -347,7 +359,7 @@ public class RcsProvider extends ContentProvider {
                 returnUri = Uri.parse(GROUP_THREAD_URI_PREFIX + rowId);
                 break;
             case GROUP_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri: " + uri);
                 break;
             case GROUP_THREAD_PARTICIPANT:
                 rowId = mParticipantHelper.insertParticipantIntoGroupThread(values);
@@ -364,58 +376,68 @@ public class RcsProvider extends ContentProvider {
                 returnUri = uri;
                 break;
             case UNIFIED_MESSAGE:
-                Log.e(TAG, "Inserting into unified message view is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting into unified message view is not supported, uri: " + uri);
                 break;
             case UNIFIED_MESSAGE_WITH_ID:
-                Log.e(TAG, "Inserting into unified message view is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting into unified message view is not supported, uri: " + uri);
                 break;
             case INCOMING_MESSAGE:
-                Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri:"
+                Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri: "
                         + uri);
                 break;
             case INCOMING_MESSAGE_WITH_ID:
-                Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri:"
+                Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri: "
                         + uri);
                 break;
             case OUTGOING_MESSAGE:
-                Log.e(TAG, "Inserting an outgoing message without a thread is not supported, uri:"
+                Log.e(TAG, "Inserting an outgoing message without a thread is not supported, uri: "
                         + uri);
                 break;
             case OUTGOING_MESSAGE_WITH_ID:
-                Log.e(TAG, "Inserting an outgoing message without a thread is not supported, uri:"
+                Log.e(TAG, "Inserting an outgoing message without a thread is not supported, uri: "
                         + uri);
+                break;
+            case OUTGOING_MESSAGE_DELIVERY:
+                Log.e(TAG, "Inserting an outgoing message delivery without a participant is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_DELIVERY_WITH_ID:
+                rowId = mMessageHelper.insertMessageDelivery(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri;
                 break;
             case UNIFIED_MESSAGE_ON_THREAD:
                 Log.e(TAG,
-                        "Inserting a message on unified thread view is not supported, uri:" + uri);
+                        "Inserting a message on unified thread view is not supported, uri: " + uri);
                 break;
             case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
                 Log.e(TAG,
-                        "Inserting a message on unified thread view is not supported, uri:" + uri);
+                        "Inserting a message on unified thread view is not supported, uri: " + uri);
                 break;
             case INCOMING_MESSAGE_ON_P2P_THREAD:
                 return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
                         true, /* is1To1 */ true);
             case INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri: " + uri);
                 break;
             case OUTGOING_MESSAGE_ON_P2P_THREAD:
                 return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
                         false, /* is1To1 */ true);
             case OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri: " + uri);
                 break;
             case INCOMING_MESSAGE_ON_GROUP_THREAD:
                 return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
                         true, /* is1To1 */ false);
             case INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri: " + uri);
                 break;
             case OUTGOING_MESSAGE_ON_GROUP_THREAD:
                 return mMessageHelper.insertMessageOnThread(uri, values, /* isIncoming= */
                         false, /* is1To1 */ false);
             case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
-                Log.e(TAG, "Inserting a message with a specific id is not supported, uri:" + uri);
+                Log.e(TAG, "Inserting a message with a specific id is not supported, uri: " + uri);
                 break;
             default:
                 Log.e(TAG, "Invalid insert: " + uri);
@@ -473,6 +495,12 @@ public class RcsProvider extends ContentProvider {
                 return mMessageHelper.deleteOutgoingMessageWithSelection(selection, selectionArgs);
             case OUTGOING_MESSAGE_WITH_ID:
                 return mMessageHelper.deleteOutgoingMessageWithId(uri);
+            case OUTGOING_MESSAGE_DELIVERY:
+                Log.e(TAG, "Deleting message deliveries is not supported, uri: " + uri);
+                break;
+            case OUTGOING_MESSAGE_DELIVERY_WITH_ID:
+                Log.e(TAG, "Deleting message deliveries is not supported, uri: " + uri);
+                break;
             case UNIFIED_MESSAGE_ON_THREAD:
                 Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
                 break;
@@ -563,6 +591,12 @@ public class RcsProvider extends ContentProvider {
                 break;
             case OUTGOING_MESSAGE_WITH_ID:
                 return mMessageHelper.updateOutgoingMessage(uri, values);
+            case OUTGOING_MESSAGE_DELIVERY:
+                Log.e(TAG, "Updating message deliveries using message uris is not supported, uri: "
+                        + uri);
+                break;
+            case OUTGOING_MESSAGE_DELIVERY_WITH_ID:
+                return mMessageHelper.updateDelivery(uri, values);
             case UNIFIED_MESSAGE_ON_THREAD:
                 Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
                 break;

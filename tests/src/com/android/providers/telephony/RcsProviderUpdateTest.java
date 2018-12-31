@@ -16,7 +16,9 @@
 package com.android.providers.telephony;
 
 import static com.android.providers.telephony.RcsProviderMessageHelper.ARRIVAL_TIMESTAMP;
+import static com.android.providers.telephony.RcsProviderMessageHelper.DELIVERED_TIMESTAMP;
 import static com.android.providers.telephony.RcsProviderMessageHelper.ORIGINATION_TIMESTAMP_COLUMN;
+import static com.android.providers.telephony.RcsProviderMessageHelper.SEEN_TIMESTAMP;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
@@ -104,6 +106,13 @@ public class RcsProviderUpdateTest {
                 mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/outgoing_message"),
                         messageValues)).isEqualTo(
                 Uri.parse("content://rcs/group_thread/2/outgoing_message/4"));
+
+        // add message delivery to the outgoing messages
+        ContentValues deliveryValues = new ContentValues();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/2/delivery/1"),
+                deliveryValues)).isEqualTo(Uri.parse("content://rcs/outgoing_message/2/delivery/1"));
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/4/delivery/1"),
+                deliveryValues)).isEqualTo(Uri.parse("content://rcs/outgoing_message/4/delivery/1"));
     }
 
     @After
@@ -294,5 +303,26 @@ public class RcsProviderUpdateTest {
         cursor.moveToNext();
         assertThat(cursor.getLong(7)).isEqualTo(987654321);
         cursor.close();
+    }
+
+    @Test
+    public void testUpdateMessageDelivery() {
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(DELIVERED_TIMESTAMP, 12345);
+        updateValues.put(SEEN_TIMESTAMP, 54321);
+
+        assertThat(mContentResolver.update(Uri.parse("content://rcs/outgoing_message/2/delivery/1"),
+                updateValues, null, null)).isEqualTo(1);
+
+        // verify the value is actually updated
+        Cursor cursor = mContentResolver.query(
+                Uri.parse("content://rcs/outgoing_message/2/delivery"), null, null, null, null,
+                null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+        assertThat(cursor.getInt(0)).isEqualTo(2);
+        assertThat(cursor.getInt(1)).isEqualTo(1);
+        assertThat(cursor.getLong(2)).isEqualTo(12345);
+        assertThat(cursor.getLong(3)).isEqualTo(54321);
     }
 }
