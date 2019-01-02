@@ -16,12 +16,6 @@
 package com.android.providers.telephony;
 
 import static com.android.providers.telephony.RcsProviderMessageHelper.GLOBAL_ID_COLUMN;
-import static com.android.providers.telephony.RcsProviderMessageHelper.INCOMING_MESSAGE_TABLE;
-import static com.android.providers.telephony.RcsProviderMessageHelper.MESSAGE_TABLE;
-import static com.android.providers.telephony.RcsProviderMessageHelper.OUTGOING_MESSAGE_TABLE;
-import static com.android.providers.telephony.RcsProviderMessageHelper.UNIFIED_INCOMING_MESSAGE_VIEW;
-import static com.android.providers.telephony.RcsProviderMessageHelper.UNIFIED_MESSAGE_VIEW;
-import static com.android.providers.telephony.RcsProviderMessageHelper.UNIFIED_OUTGOING_MESSAGE_VIEW;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
@@ -31,12 +25,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.mock.MockContentResolver;
-import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
@@ -207,6 +198,22 @@ public class RcsProviderInsertTest {
         // add a delivery to the outgoing message
         assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/1/delivery/1"),
                 values)).isEqualTo(Uri.parse("content://rcs/outgoing_message/1/delivery/1"));
+    }
+
+    @Test
+    public void testInsertFileTransfer() {
+        // create a thread
+        ContentValues values = new ContentValues();
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/p2p_thread"), values)).isNotNull();
+
+        // add an outgoing message to the thread
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/1/outgoing_message"),
+                values)).isEqualTo(Uri.parse("content://rcs/p2p_thread/1/outgoing_message/1"));
+
+        // add a file transfer to the message
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/message/1/file_transfer"),
+                values)).isEqualTo(Uri.parse("content://rcs/file_transfer/1"));
     }
 
 }

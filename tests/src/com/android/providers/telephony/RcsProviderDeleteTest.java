@@ -102,6 +102,11 @@ public class RcsProviderDeleteTest {
                 mContentResolver.insert(Uri.parse("content://rcs/group_thread/2/outgoing_message"),
                         messageValues)).isEqualTo(
                 Uri.parse("content://rcs/group_thread/2/outgoing_message/4"));
+
+        // add a file transfer to a message
+        ContentValues fileTransferValues = new ContentValues();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/message/3/file_transfer"),
+                fileTransferValues)).isEqualTo(Uri.parse("content://rcs/file_transfer/1"));
     }
 
     @After
@@ -207,25 +212,32 @@ public class RcsProviderDeleteTest {
 
     @Test
     public void testDeleteMessagesUsingUnifiedMessageViewFails() {
-        assertThat(mContentResolver.delete(Uri.parse("content://rcs/message/1"), null, null)).isEqualTo(0);
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/message/1"), null,
+                null)).isEqualTo(0);
     }
 
     @Test
     public void testDeleteMessagesUsingThreadUrisFails() {
-        assertThat(mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/message/1"), null, null)).isEqualTo(0);
-        assertThat(mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"), null, null)).isEqualTo(0);
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/message/1"), null,
+                null)).isEqualTo(0);
+        assertThat(
+                mContentResolver.delete(Uri.parse("content://rcs/p2p_thread/1/incoming_message/1"),
+                        null, null)).isEqualTo(0);
     }
 
     @Test
     public void testDeleteMessage() {
         // verify there exists 4 messages
-        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/message"), null, null, null);
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/message"), null, null,
+                null);
         assertThat(cursor.getCount()).isEqualTo(4);
         cursor.close();
 
         // delete 2 of them
-        assertThat(mContentResolver.delete(Uri.parse("content://rcs/incoming_message/1"), null, null)).isEqualTo(1);
-        assertThat(mContentResolver.delete(Uri.parse("content://rcs/outgoing_message/4"), null, null)).isEqualTo(1);
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/incoming_message/1"), null,
+                null)).isEqualTo(1);
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/outgoing_message/4"), null,
+                null)).isEqualTo(1);
 
         // verify that only 2 messages are left
         cursor = mContentResolver.query(Uri.parse("content://rcs/message"), null, null, null);
@@ -242,6 +254,13 @@ public class RcsProviderDeleteTest {
         cursor.moveToNext();
         assertThat(cursor.getInt(0)).isEqualTo(3);
         cursor.close();
+    }
+
+    @Test
+    public void testDeleteFileTransfer() {
+        assertThat(mContentResolver.delete(Uri.parse("content://rcs/file_transfer/1"), null,
+                null)).isEqualTo(1);
+        assertDeletionViaQuery("content://rcs/file_transfer/1");
     }
 
     private void assertDeletionViaQuery(String queryUri) {
