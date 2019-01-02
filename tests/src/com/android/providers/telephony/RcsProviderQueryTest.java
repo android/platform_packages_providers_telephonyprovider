@@ -15,6 +15,8 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProviderMessageHelper.FILE_SIZE;
+import static com.android.providers.telephony.RcsProviderMessageHelper.SESSION_ID;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.GROUP_NAME_COLUMN;
@@ -166,5 +168,31 @@ public class RcsProviderQueryTest {
         assertThat(cursor.getInt(0)).isEqualTo(1);
         assertThat(cursor.getInt(1)).isEqualTo(99);
         assertThat(cursor.getString(2)).isEqualTo("Some alias");
+    }
+
+    @Test
+    public void testQueryFileTransfer() {
+        ContentValues values = new ContentValues();
+        // add an incoming message to the thread 2
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/p2p_thread/2/incoming_message"),
+                values)).isEqualTo(Uri.parse("content://rcs/p2p_thread/2/incoming_message/1"));
+
+        // add a file transfer
+        values.put(SESSION_ID, "session_id");
+        values.put(FILE_SIZE, 1234567890);
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/message/1/file_transfer"),
+                        values)).isEqualTo(Uri.parse("content://rcs/file_transfer/1"));
+
+        // query the file transfer back
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/file_transfer/1"), null,
+                null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+
+        cursor.moveToNext();
+        assertThat(cursor.getInt(0)).isEqualTo(1);
+        assertThat(cursor.getInt(1)).isEqualTo(1);
+        assertThat(cursor.getString(2)).isEqualTo("session_id");
+        assertThat(cursor.getLong(5)).isEqualTo(1234567890);
     }
 }

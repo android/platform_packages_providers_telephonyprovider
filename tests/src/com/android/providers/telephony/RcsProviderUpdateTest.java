@@ -17,8 +17,10 @@ package com.android.providers.telephony;
 
 import static com.android.providers.telephony.RcsProviderMessageHelper.ARRIVAL_TIMESTAMP;
 import static com.android.providers.telephony.RcsProviderMessageHelper.DELIVERED_TIMESTAMP;
+import static com.android.providers.telephony.RcsProviderMessageHelper.HEIGHT;
 import static com.android.providers.telephony.RcsProviderMessageHelper.ORIGINATION_TIMESTAMP_COLUMN;
 import static com.android.providers.telephony.RcsProviderMessageHelper.SEEN_TIMESTAMP;
+import static com.android.providers.telephony.RcsProviderMessageHelper.WIDTH;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
 import static com.android.providers.telephony.RcsProviderThreadHelper.FALLBACK_THREAD_ID_COLUMN;
@@ -110,9 +112,16 @@ public class RcsProviderUpdateTest {
         // add message delivery to the outgoing messages
         ContentValues deliveryValues = new ContentValues();
         assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/2/delivery/1"),
-                deliveryValues)).isEqualTo(Uri.parse("content://rcs/outgoing_message/2/delivery/1"));
+                deliveryValues)).isEqualTo(
+                Uri.parse("content://rcs/outgoing_message/2/delivery/1"));
         assertThat(mContentResolver.insert(Uri.parse("content://rcs/outgoing_message/4/delivery/1"),
-                deliveryValues)).isEqualTo(Uri.parse("content://rcs/outgoing_message/4/delivery/1"));
+                deliveryValues)).isEqualTo(
+                Uri.parse("content://rcs/outgoing_message/4/delivery/1"));
+
+        // add a file transfer to an incoming message
+        ContentValues fileTransferValues = new ContentValues();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/message/3/file_transfer"),
+                fileTransferValues)).isEqualTo(Uri.parse("content://rcs/file_transfer/1"));
     }
 
     @After
@@ -324,5 +333,23 @@ public class RcsProviderUpdateTest {
         assertThat(cursor.getInt(1)).isEqualTo(1);
         assertThat(cursor.getLong(2)).isEqualTo(12345);
         assertThat(cursor.getLong(3)).isEqualTo(54321);
+    }
+
+    @Test
+    public void testUpdateFileTransfer() {
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(WIDTH, 640);
+        updateValues.put(HEIGHT, 480);
+
+        assertThat(mContentResolver.update(Uri.parse("content://rcs/file_transfer/1"), updateValues,
+                null, null)).isEqualTo(1);
+
+        // verify that the values are actually updated
+        Cursor cursor = mContentResolver.query(Uri.parse("content://rcs/file_transfer/1"), null,
+                null, null, null, null);
+        assertThat(cursor.getCount()).isEqualTo(1);
+        cursor.moveToNext();
+        assertThat(cursor.getInt(8)).isEqualTo(640);
+        assertThat(cursor.getInt(9)).isEqualTo(480);
     }
 }
