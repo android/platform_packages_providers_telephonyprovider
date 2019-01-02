@@ -248,8 +248,12 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static boolean sTriedAutoIncrement = false;
     private static boolean sFakeLowStorageTest = false;     // for testing only
 
+    private static final String NO_SUCH_COLUMN_EXCEPTION_MESSAGE = "no such column";
+    private static final String NO_SUCH_TABLE_EXCEPTION_MESSAGE = "no such table";
+
     static final String DATABASE_NAME = "mmssms.db";
-    static final int DATABASE_VERSION = 67;
+    //static final int DATABASE_VERSION = 67;
+    static final int DATABASE_VERSION = 68;
     private static final int IDLE_CONNECTION_TIMEOUT_MS = 30000;
 
     private final Context mContext;
@@ -564,6 +568,12 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     private static void localLog(String logMsg) {
         Log.d(TAG, logMsg);
         PhoneFactory.localLog(TAG, logMsg);
+    }
+
+   @Override
+    public void onOpen(SQLiteDatabase db) {
+        checkAndUpdateSmsTable(db);
+        checkAndUpdateThreadsTable(db);
     }
 
     private static void localLogWtf(String logMsg) {
@@ -1011,6 +1021,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             "error_code INTEGER DEFAULT 0," +
             "creator TEXT," +
             "seen INTEGER DEFAULT 0" +
+            "priority INTEGER DEFAULT -1" +
             ");";
 
     @VisibleForTesting
@@ -1102,7 +1113,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    Threads.ARCHIVED + " INTEGER DEFAULT 0," +
                    Threads.TYPE + " INTEGER DEFAULT 0," +
                    Threads.ERROR + " INTEGER DEFAULT 0," +
-                   Threads.HAS_ATTACHMENT + " INTEGER DEFAULT 0);");
+                   Threads.HAS_ATTACHMENT + " INTEGER DEFAULT 0," +
+                   Threads.NOTIFICATION + " INTEGER DEFAULT 0);");
 
         /**
          * This table stores the queue of messages to be sent/downloaded.
@@ -1641,6 +1653,21 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 return;
             }
             RcsProviderHelper.createRcsTables(db);
+        case 68:
+            if (currentVersion <= 68) {
+                return;
+            }
+            db.beginTransaction();
+            try {
+                checkAndUpdateSmsTable(db) {
+                checkAndUpdateThreadsTable(db)
+                db.setTransactionSuccessful();
+            } catch (Throwable ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+                break;
+            } finally {
+                db.endTransaction();
+            }
             return;
         }
 
@@ -1959,6 +1986,32 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         return db;
     }
 
+    private void checkAndUpdateSmsTable(SQLiteDatabase db) {
+        try {
+	    db.query(SmsProvider.TABLE_SMS, new String[] { "priority" },
+			null, null, null, null, null);
+	} catch (SQLiteException e) {
+	    Log.e(TAG, "checkAndUpgradeSmsTable: ex. ", e);
+	    if (e.getMessage().startsWith(NO_SUCH_COLUMN_EXCEPTION_MESSAGE)) {
+		db.execSQL("ALTER TABLE " + SmsProvider.TABLE_SMS + " ADD COLUMN "
+			+ "priority INTEGER DEFAULT -1");
+	    }
+       }
+    }
+
+    private void checkAndUpdateThreadsTable(SQLiteDatabase db) {
+        try {
+            db.query(MmsSmsProvider.TABLE_THREADS, new String[] { "notification" },
+	        null, null, null, null, null);
+	} catch (SQLiteException e) {
+	    Log.e(TAG, "checkAndUpdateThreadsTable: ex. ", e);
+	    if (e.getMessage().startsWith(NO_SUCH_COLUMN_EXCEPTION_MESSAGE)) {
+		db.execSQL("ALTER TABLE " + MmsSmsProvider.TABLE_THREADS + " ADD COLUMN "
+			     + "notification INTEGER DEFAULT 0");
+	    }
+	}
+   }
+
     @Override
     public synchronized SQLiteDatabase getWritableDatabase() {
         SQLiteDatabase db = super.getWritableDatabase();
@@ -2132,7 +2185,8 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 Threads.READ + " INTEGER DEFAULT 1," +
                 Threads.TYPE + " INTEGER DEFAULT 0," +
                 Threads.ERROR + " INTEGER DEFAULT 0," +
-                Threads.HAS_ATTACHMENT + " INTEGER DEFAULT 0);");
+                Threads.HAS_ATTACHMENT + " INTEGER DEFAULT 0," +
+                "notification" + " INTEGER DEFAULT 0);");
 
         db.execSQL("INSERT INTO threads_temp SELECT * from threads;");
         db.execSQL("DROP TABLE threads;");
