@@ -45,6 +45,7 @@ public class RcsProvider extends ContentProvider {
     private static final String THREAD_URI_PREFIX = "content://" + AUTHORITY + "/thread/";
     private static final String PARTICIPANT_URI_PREFIX = "content://" + AUTHORITY + "/participant/";
     private static final String P2P_THREAD_URI_PREFIX = "content://" + AUTHORITY + "/p2p_thread/";
+    private static final String FILE_TRANSFER_PREFIX = "content://" + AUTHORITY + "/file_transfer/";
     static final String GROUP_THREAD_URI_PREFIX =
             "content://" + AUTHORITY + "/group_thread/";
 
@@ -64,22 +65,24 @@ public class RcsProvider extends ContentProvider {
     private static final int GROUP_THREAD_PARTICIPANT_WITH_ID = 12;
     private static final int UNIFIED_MESSAGE = 13;
     private static final int UNIFIED_MESSAGE_WITH_ID = 14;
-    private static final int INCOMING_MESSAGE = 15;
-    private static final int INCOMING_MESSAGE_WITH_ID = 16;
-    private static final int OUTGOING_MESSAGE = 17;
-    private static final int OUTGOING_MESSAGE_WITH_ID = 18;
-    private static final int OUTGOING_MESSAGE_DELIVERY = 19;
-    private static final int OUTGOING_MESSAGE_DELIVERY_WITH_ID = 20;
-    private static final int UNIFIED_MESSAGE_ON_THREAD = 21;
-    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 22;
-    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 23;
-    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 24;
-    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 25;
-    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 26;
-    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 27;
-    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 28;
-    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 29;
-    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 30;
+    private static final int UNIFIED_MESSAGE_WITH_FILE_TRANSFER = 15;
+    private static final int INCOMING_MESSAGE = 16;
+    private static final int INCOMING_MESSAGE_WITH_ID = 17;
+    private static final int OUTGOING_MESSAGE = 18;
+    private static final int OUTGOING_MESSAGE_WITH_ID = 19;
+    private static final int OUTGOING_MESSAGE_DELIVERY = 20;
+    private static final int OUTGOING_MESSAGE_DELIVERY_WITH_ID = 21;
+    private static final int UNIFIED_MESSAGE_ON_THREAD = 22;
+    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 23;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 24;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 25;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 26;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 27;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 28;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 29;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 30;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 31;
+    private static final int FILE_TRANSFER_WITH_ID = 32;
 
     SQLiteOpenHelper mDbOpenHelper;
 
@@ -135,6 +138,10 @@ public class RcsProvider extends ContentProvider {
         // example query: content://rcs/message/4
         URL_MATCHER.addURI(AUTHORITY, "message/#", UNIFIED_MESSAGE_WITH_ID);
 
+        // example query: content://rcs/message/4/file_transfer, only supports inserts
+        URL_MATCHER.addURI(AUTHORITY, "message/#/file_transfer",
+                UNIFIED_MESSAGE_WITH_FILE_TRANSFER);
+
         // example query: content://rcs/incoming_message?sub_id=4
         URL_MATCHER.addURI(AUTHORITY, "incoming_message", INCOMING_MESSAGE);
 
@@ -151,7 +158,8 @@ public class RcsProvider extends ContentProvider {
         URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#/delivery", OUTGOING_MESSAGE_DELIVERY);
 
         // example query: content://rcs/outgoing_message/9/delivery/4. Does not support queries
-        URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#/delivery/#", OUTGOING_MESSAGE_DELIVERY_WITH_ID);
+        URL_MATCHER.addURI(AUTHORITY, "outgoing_message/#/delivery/#",
+                OUTGOING_MESSAGE_DELIVERY_WITH_ID);
 
         // example query: content://rcs/thread/5/message?recipient=11. Only supports querying.
         URL_MATCHER.addURI(AUTHORITY, "thread/#/message", UNIFIED_MESSAGE_ON_THREAD);
@@ -190,6 +198,9 @@ public class RcsProvider extends ContentProvider {
         // example query: content://rcs/group_thread/13/outgoing_message/72. Only supports querying
         URL_MATCHER.addURI(AUTHORITY, "group_thread/#/outgoing_message/#",
                 OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID);
+
+        // example query: content://rcs/file_transfer/1. Does not support insertion
+        URL_MATCHER.addURI(AUTHORITY, "file_transfer/#", FILE_TRANSFER_WITH_ID);
     }
 
     @Override
@@ -227,8 +238,9 @@ public class RcsProvider extends ContentProvider {
             case P2P_THREAD_PARTICIPANT:
                 return mParticipantHelper.queryParticipantIn1To1Thread(uri);
             case P2P_THREAD_PARTICIPANT_WITH_ID:
-                Log.e(TAG, "Querying participants in 1 to 1 threads via id's is not supported, uri "
-                        + uri);
+                Log.e(TAG,
+                        "Querying participants in 1 to 1 threads via id's is not supported, uri: "
+                                + uri);
                 break;
             case GROUP_THREAD:
                 return mThreadHelper.queryGroupThread(projection, selection,
@@ -243,6 +255,9 @@ public class RcsProvider extends ContentProvider {
                 return mMessageHelper.queryUnifiedMessageWithSelection(selection, selectionArgs);
             case UNIFIED_MESSAGE_WITH_ID:
                 return mMessageHelper.queryUnifiedMessageWithId(uri);
+            case UNIFIED_MESSAGE_WITH_FILE_TRANSFER:
+                Log.e(TAG,
+                        "Querying file transfers through messages is not supported, uri: " + uri);
             case INCOMING_MESSAGE:
                 return mMessageHelper.queryIncomingMessageWithSelection(selection, selectionArgs);
             case INCOMING_MESSAGE_WITH_ID:
@@ -254,7 +269,10 @@ public class RcsProvider extends ContentProvider {
             case OUTGOING_MESSAGE_DELIVERY:
                 return mMessageHelper.queryOutgoingMessageDeliveries(uri);
             case OUTGOING_MESSAGE_DELIVERY_WITH_ID:
-                Log.e(TAG, "Querying deliveries with message and participant ids is not supported, uri: " + uri);
+                Log.e(TAG,
+                        "Querying deliveries with message and participant ids is not supported, "
+                                + "uri: "
+                                + uri);
             case UNIFIED_MESSAGE_ON_THREAD:
                 return mMessageHelper.queryAllMessagesOnThread(uri, selection, selectionArgs);
             case UNIFIED_MESSAGE_ON_THREAD_WITH_ID:
@@ -291,6 +309,8 @@ public class RcsProvider extends ContentProvider {
                 break;
             case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
                 return mMessageHelper.queryUnifiedMessageWithIdInThread(uri);
+            case FILE_TRANSFER_WITH_ID:
+                return mMessageHelper.queryFileTransfer(uri);
             default:
                 Log.e(TAG, "Invalid query: " + uri);
         }
@@ -381,6 +401,13 @@ public class RcsProvider extends ContentProvider {
             case UNIFIED_MESSAGE_WITH_ID:
                 Log.e(TAG, "Inserting into unified message view is not supported, uri: " + uri);
                 break;
+            case UNIFIED_MESSAGE_WITH_FILE_TRANSFER:
+                rowId = mMessageHelper.insertFileTransferToMessage(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = Uri.parse(FILE_TRANSFER_PREFIX + rowId);
+                break;
             case INCOMING_MESSAGE:
                 Log.e(TAG, "Inserting an incoming message without a thread is not supported, uri: "
                         + uri);
@@ -398,7 +425,10 @@ public class RcsProvider extends ContentProvider {
                         + uri);
                 break;
             case OUTGOING_MESSAGE_DELIVERY:
-                Log.e(TAG, "Inserting an outgoing message delivery without a participant is not supported, uri: " + uri);
+                Log.e(TAG,
+                        "Inserting an outgoing message delivery without a participant is not "
+                                + "supported, uri: "
+                                + uri);
                 break;
             case OUTGOING_MESSAGE_DELIVERY_WITH_ID:
                 rowId = mMessageHelper.insertMessageDelivery(uri, values);
@@ -438,6 +468,10 @@ public class RcsProvider extends ContentProvider {
                         false, /* is1To1 */ false);
             case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
                 Log.e(TAG, "Inserting a message with a specific id is not supported, uri: " + uri);
+                break;
+            case FILE_TRANSFER_WITH_ID:
+                Log.e(TAG, "Inserting a file transfer without a message is not supported, uri: "
+                        + uri);
                 break;
             default:
                 Log.e(TAG, "Invalid insert: " + uri);
@@ -487,6 +521,9 @@ public class RcsProvider extends ContentProvider {
             case UNIFIED_MESSAGE_WITH_ID:
                 Log.e(TAG, "Deleting message from unified view with id is not allowed: " + uri);
                 break;
+            case UNIFIED_MESSAGE_WITH_FILE_TRANSFER:
+                Log.e(TAG, "Deleting file transfer using message uri is not allowed, uri: " + uri);
+                break;
             case INCOMING_MESSAGE:
                 return mMessageHelper.deleteIncomingMessageWithSelection(selection, selectionArgs);
             case INCOMING_MESSAGE_WITH_ID:
@@ -531,6 +568,8 @@ public class RcsProvider extends ContentProvider {
             case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
                 Log.e(TAG, "Deleting messages using thread uris is not supported, uri: " + uri);
                 break;
+            case FILE_TRANSFER_WITH_ID:
+                return mMessageHelper.deleteFileTransfer(uri);
             default:
                 Log.e(TAG, "Invalid delete: " + uri);
         }
@@ -579,6 +618,10 @@ public class RcsProvider extends ContentProvider {
             case UNIFIED_MESSAGE_WITH_ID:
                 Log.e(TAG, "Updating unified message view is not supported, uri: " + uri);
                 break;
+            case UNIFIED_MESSAGE_WITH_FILE_TRANSFER:
+                Log.e(TAG,
+                        "Updating file transfer using unified message uri is not supported, uri: "
+                                + uri);
             case INCOMING_MESSAGE:
                 Log.e(TAG,
                         "Updating an incoming message via selection is not supported, uri: " + uri);
@@ -627,6 +670,8 @@ public class RcsProvider extends ContentProvider {
             case OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID:
                 Log.e(TAG, "Updating messages using threads uris is not supported, uri: " + uri);
                 break;
+            case FILE_TRANSFER_WITH_ID:
+                return mMessageHelper.updateFileTransfer(uri, values);
             default:
                 Log.e(TAG, "Invalid update: " + uri);
         }

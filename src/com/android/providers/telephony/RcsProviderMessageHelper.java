@@ -17,6 +17,7 @@ package com.android.providers.telephony;
 
 import static com.android.providers.telephony.RcsProvider.AUTHORITY;
 import static com.android.providers.telephony.RcsProvider.TAG;
+import static com.android.providers.telephony.RcsProvider.TRANSACTION_FAILED;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.PARTICIPANT_TABLE;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_PARTICIPANT_ID_COLUMN;
@@ -47,6 +48,9 @@ public class RcsProviderMessageHelper {
     static final String SUB_ID_COLUMN = "sub_id";
     static final String STATUS_COLUMN = "status";
     static final String ORIGINATION_TIMESTAMP_COLUMN = "origination_timestamp";
+    static final String TEXT = "rcs_text";
+    static final String LATITUDE = "latitude";
+    static final String LONGITUDE = "longitude";
 
     static final String INCOMING_MESSAGE_TABLE = "rcs_incoming_message";
     static final String SENDER_PARTICIPANT_COLUMN = "sender_participant";
@@ -63,6 +67,20 @@ public class RcsProviderMessageHelper {
     static final String UNIFIED_INCOMING_MESSAGE_VIEW = "unified_incoming_message_view";
     static final String UNIFIED_OUTGOING_MESSAGE_VIEW = "unified_outgoing_message_view";
 
+    static final String FILE_TRANSFER_TABLE = "rcs_file_transfer_part";
+    static final String FILE_TRANSFER_ID = "rcs_file_transfer_id";
+    static final String SESSION_ID = "session_id";
+    static final String CONTENT_URI = "content_uri";
+    static final String CONTENT_TYPE = "content_type";
+    static final String FILE_SIZE = "file_size";
+    static final String TRANSFER_OFFSET = "transfer_offset";
+    static final String TRANSFER_STATUS = "transfer_status";
+    static final String WIDTH = "width";
+    static final String HEIGHT = "height";
+    static final String LENGTH = "length";
+    static final String PREVIEW_URI = "preview_uri";
+    static final String PREVIEW_TYPE = "preview_type";
+
     private static final int MESSAGE_ID_INDEX_IN_URI = 1;
     private static final int MESSAGE_ID_INDEX_IN_THREAD_URI = 3;
 
@@ -75,7 +93,8 @@ public class RcsProviderMessageHelper {
         // Add the message tables
         db.execSQL("CREATE TABLE " + MESSAGE_TABLE + "(" + MESSAGE_ID_COLUMN
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + RCS_THREAD_ID_COLUMN + " INTEGER, "
-                + GLOBAL_ID_COLUMN + " TEXT, " + SUB_ID_COLUMN + " INTEGER, " + STATUS_COLUMN
+                + GLOBAL_ID_COLUMN + " TEXT, " + SUB_ID_COLUMN + " INTEGER, " + TEXT + " TEXT,"
+                + LATITUDE + " REAL, " + LONGITUDE + " REAL, " + STATUS_COLUMN
                 + " INTEGER, " + ORIGINATION_TIMESTAMP_COLUMN + " INTEGER, FOREIGN KEY("
                 + RCS_THREAD_ID_COLUMN + ") REFERENCES " + THREAD_TABLE + "(" + ID_COLUMN + "))");
 
@@ -97,6 +116,15 @@ public class RcsProviderMessageHelper {
                 + ") REFERENCES " + MESSAGE_TABLE + "(" + MESSAGE_ID_COLUMN + "), FOREIGN KEY ("
                 + RCS_PARTICIPANT_ID_COLUMN + ") REFERENCES " + PARTICIPANT_TABLE + "(" + ID_COLUMN
                 + "))");
+
+        db.execSQL("CREATE TABLE " + FILE_TRANSFER_TABLE + " (" + FILE_TRANSFER_ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MESSAGE_ID_COLUMN + " INTEGER, "
+                + SESSION_ID + " TEXT, " + CONTENT_URI + " TEXT, " + CONTENT_TYPE + " TEXT, "
+                + "" + FILE_SIZE + " INTEGER, " + TRANSFER_OFFSET + " INTEGER, "
+                + TRANSFER_STATUS + " INTEGER, " + WIDTH + " INTEGER, " + HEIGHT + " INTEGER, "
+                + LENGTH + " INTEGER, " + PREVIEW_URI + " TEXT, " + PREVIEW_TYPE +
+                " TEXT, FOREIGN KEY (" + MESSAGE_ID_COLUMN + ") REFERENCES " + MESSAGE_TABLE
+                + "(" + MESSAGE_ID_COLUMN + "))");
 
         // Add the views
         //
@@ -201,7 +229,6 @@ public class RcsProviderMessageHelper {
                         + "rcs_message.origination_timestamp FROM rcs_message INNER JOIN "
                         + "rcs_outgoing_message ON rcs_message"
                         + ".rcs_message_row_id=rcs_outgoing_message.rcs_message_row_id");
-
 
         // Add triggers
 
@@ -308,6 +335,7 @@ public class RcsProviderMessageHelper {
             db.endTransaction();
         }
 
+        values.remove(RCS_THREAD_ID_COLUMN);
         return Uri.parse(
                 "content://" + AUTHORITY + "/" + (is1To1 ? "p2p_thread" : "group_thread") + "/"
                         + threadId + "/" + (isIncoming ? "incoming_message" : "outgoing_message")
@@ -329,34 +357,10 @@ public class RcsProviderMessageHelper {
     }
 
     int updateDelivery(Uri uri, ContentValues contentValues) {
-        Log.e("###TEST", "update delivery. Uri: " + uri + ", content values: " + contentValues);
-
         String messageId = getMessageIdFromUri(uri);
-        Log.e("###TEST", "message id: " + messageId);
         String participantId = getParticipantIdFromDeliveryUri(uri);
-        Log.e("###TEST", "participant id: " + participantId);
 
         SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
-
-        // TODO - delete
-        Log.e("###TEST", "BEFORE - delivery table");
-        Cursor cursor = db.query(MESSAGE_DELIVERY_TABLE, null, null, null, null, null, null, null);
-
-        Log.e("###TEST", DatabaseUtils.dumpCursorToString(cursor));
-
-        db.update(MESSAGE_DELIVERY_TABLE, contentValues,
-                "rcs_message_row_id=? AND rcs_participant_id=?",
-                new String[]{messageId, participantId});
-
-        cursor.close();
-
-        Log.e("###TEST", "AFTER - delivery table");
-        cursor = db.query(MESSAGE_DELIVERY_TABLE, null, null, null, null, null, null, null);
-
-        Log.e("###TEST", DatabaseUtils.dumpCursorToString(cursor));
-        // TODO - end delete
-
-
         return db.update(MESSAGE_DELIVERY_TABLE, contentValues,
                 "rcs_message_row_id=? AND rcs_participant_id=?",
                 new String[]{messageId, participantId});
@@ -415,6 +419,39 @@ public class RcsProviderMessageHelper {
                 null, null);
     }
 
+    Cursor queryFileTransfer(Uri uri) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getReadableDatabase();
+        return db.query(FILE_TRANSFER_TABLE, null, "rcs_file_transfer_id="
+                + getFileTransferIdFromUri(uri), null, null, null, null);
+    }
+
+    long insertFileTransferToMessage(Uri uri, ContentValues values) {
+        String messageId = getMessageIdFromUri(uri);
+        values.put(MESSAGE_ID_COLUMN, messageId);
+
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        long rowId = db.insert(FILE_TRANSFER_TABLE, MESSAGE_ID_COLUMN, values);
+        values.remove(MESSAGE_ID_COLUMN);
+
+        if (rowId <= 0) {
+            rowId = TRANSACTION_FAILED;
+        }
+
+        return rowId;
+    }
+
+    int deleteFileTransfer(Uri uri) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        return db.delete(FILE_TRANSFER_TABLE,
+                "rcs_file_transfer_id=" + getFileTransferIdFromUri(uri), null);
+    }
+
+    int updateFileTransfer(Uri uri, ContentValues values) {
+        SQLiteDatabase db = mSqLiteOpenHelper.getWritableDatabase();
+        return db.update(FILE_TRANSFER_TABLE, values,
+                "rcs_file_transfer_id=" + getFileTransferIdFromUri(uri), null);
+    }
+
     /**
      * Removes the incoming message values out of all values and returns as a separate content
      * values object.
@@ -461,6 +498,11 @@ public class RcsProviderMessageHelper {
 
     private String getMessageIdFromUri(Uri uri) {
         return uri.getPathSegments().get(MESSAGE_ID_INDEX_IN_URI);
+    }
+
+    private String getFileTransferIdFromUri(Uri uri) {
+        // this works because messages and file transfer uri's have the same indices.
+        return getMessageIdFromUri(uri);
     }
 
     private String getParticipantIdFromDeliveryUri(Uri uri) {
