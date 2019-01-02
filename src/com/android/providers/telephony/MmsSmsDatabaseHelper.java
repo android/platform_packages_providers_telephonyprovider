@@ -103,19 +103,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                         "        AND " + Mms.MESSAGE_BOX + " != 3) " +
                         "  WHERE threads._id = new.thread_id; ";
 
-    private static final String UPDATE_THREAD_COUNT_ON_OLD =
-                        "  UPDATE threads SET message_count = " +
-                        "     (SELECT COUNT(sms._id) FROM sms LEFT JOIN threads " +
-                        "      ON threads._id = " + Sms.THREAD_ID +
-                        "      WHERE " + Sms.THREAD_ID + " = old.thread_id" +
-                        "        AND sms." + Sms.TYPE + " != 3) + " +
-                        "     (SELECT COUNT(pdu._id) FROM pdu LEFT JOIN threads " +
-                        "      ON threads._id = " + Mms.THREAD_ID +
-                        "      WHERE " + Mms.THREAD_ID + " = old.thread_id" +
-                        "        AND (m_type=132 OR m_type=130 OR m_type=128)" +
-                        "        AND " + Mms.MESSAGE_BOX + " != 3) " +
-                        "  WHERE threads._id = old.thread_id; ";
-
     private static final String SMS_UPDATE_THREAD_DATE_SNIPPET_COUNT_ON_UPDATE =
                         "BEGIN" +
                         "  UPDATE threads SET" +
@@ -165,21 +152,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                         PDU_UPDATE_THREAD_READ_BODY +
                         "END;";
 
-    private static final String UPDATE_THREAD_SNIPPET_SNIPPET_CS_ON_DELETE =
-                        "  UPDATE threads SET snippet = " +
-                        "   (SELECT snippet FROM" +
-                        "     (SELECT date * 1000 AS date, sub AS snippet, thread_id FROM pdu" +
-                        "      UNION SELECT date, body AS snippet, thread_id FROM sms)" +
-                        "    WHERE thread_id = OLD.thread_id ORDER BY date DESC LIMIT 1) " +
-                        "  WHERE threads._id = OLD.thread_id; " +
-                        "  UPDATE threads SET snippet_cs = " +
-                        "   (SELECT snippet_cs FROM" +
-                        "     (SELECT date * 1000 AS date, sub_cs AS snippet_cs, thread_id FROM pdu" +
-                        "      UNION SELECT date, 0 AS snippet_cs, thread_id FROM sms)" +
-                        "    WHERE thread_id = OLD.thread_id ORDER BY date DESC LIMIT 1) " +
-                        "  WHERE threads._id = OLD.thread_id; ";
-
-
     // When a part is inserted, if it is not text/plain or application/smil
     // (which both can exist with text-only MMSes), then there is an attachment.
     // Set has_attachment=1 in the threads table for the thread in question.
@@ -203,28 +175,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                         "  UPDATE threads SET has_attachment=1 WHERE _id IN " +
                         "   (SELECT pdu.thread_id FROM part JOIN pdu ON pdu._id=part.mid " +
                         "     WHERE part._id=new._id LIMIT 1); " +
-                        " END";
-
-
-    // When a part is deleted (with the same non-text/SMIL constraint as when
-    // we set has_attachment), update the threads table for all threads.
-    // Unfortunately we cannot update only the thread that the part was
-    // attached to, as it is possible that the part has been orphaned and
-    // the message it was attached to is already gone.
-    private static final String PART_UPDATE_THREADS_ON_DELETE_TRIGGER =
-                        "CREATE TRIGGER update_threads_on_delete_part " +
-                        " AFTER DELETE ON part " +
-                        " WHEN old.ct != 'text/plain' AND old.ct != 'application/smil' " +
-                        " BEGIN " +
-                        "  UPDATE threads SET has_attachment = " +
-                        "   CASE " +
-                        "    (SELECT COUNT(*) FROM part JOIN pdu " +
-                        "     WHERE pdu.thread_id = threads._id " +
-                        "     AND part.ct != 'text/plain' AND part.ct != 'application/smil' " +
-                        "     AND part.mid = pdu._id)" +
-                        "   WHEN 0 THEN 0 " +
-                        "   ELSE 1 " +
-                        "   END; " +
                         " END";
 
     // When the 'thread_id' column in the pdu table is updated, we need to run the trigger to update
@@ -570,7 +520,18 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         Slog.wtf(TAG, logMsg);
         PhoneFactory.localLog(TAG, logMsg);
     }
+    @Override
+    public void onOpen(SQLiteDatabase db) {
 
+        // Improve the performance of deleting Mms.
+        dropMmsTriggers(db);
+    }
+
+    private void dropMmsTriggers(SQLiteDatabase db) {
+        db.execSQL("DROP TRIGGER IF EXISTS update_threads_on_delete_part");
+        db.execSQL("DROP TRIGGER IF EXISTS mms_words_delete");
+        db.execSQL("DROP TRIGGER IF EXISTS pdu_update_thread_on_delete");
+    }
     private boolean isInitialCreateDone() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         return sp.getBoolean(INITIAL_CREATE_DONE, false);
@@ -682,7 +643,17 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         createThreadIdDateIndex(db);
         createPartMidIndex(db);
         createAddrMsgIdIndex(db);
+        createPduPartIndex(db);
     }
+
+    private void createPduPartIndex(SQLiteDatabase db) {
+        try {
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_part ON " + MmsProvider.TABLE_PART +
+                        " (mid);");
+        } catch (Exception ex) {
+            Log.e(TAG, "got exception creating indices: " + ex.toString());
+        }
+     }
 
     private void createThreadIdIndex(SQLiteDatabase db) {
         try {
@@ -840,9 +811,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TRIGGER IF EXISTS update_threads_on_update_part");
         db.execSQL(PART_UPDATE_THREADS_ON_UPDATE_TRIGGER);
 
-        db.execSQL("DROP TRIGGER IF EXISTS update_threads_on_delete_part");
-        db.execSQL(PART_UPDATE_THREADS_ON_DELETE_TRIGGER);
-
         db.execSQL("DROP TRIGGER IF EXISTS update_threads_on_update_pdu");
         db.execSQL(PDU_UPDATE_THREADS_ON_UPDATE_TRIGGER);
 
@@ -918,10 +886,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                 " SET index_text = NEW.text WHERE (source_id=NEW._id AND table_to_use=2); " +
                 " END;");
 
-        db.execSQL("DROP TRIGGER IF EXISTS mms_words_delete");
-        db.execSQL("CREATE TRIGGER mms_words_delete AFTER DELETE ON part BEGIN DELETE FROM " +
-                " words WHERE source_id = OLD._id AND table_to_use = 2; END;");
-
         // Updates threads table whenever a message in pdu is updated.
         db.execSQL("DROP TRIGGER IF EXISTS pdu_update_thread_date_subject_on_update");
         db.execSQL("CREATE TRIGGER pdu_update_thread_date_subject_on_update AFTER" +
@@ -929,18 +893,6 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
                    "  ON " + MmsProvider.TABLE_PDU + " " +
                    PDU_UPDATE_THREAD_CONSTRAINTS +
                    PDU_UPDATE_THREAD_DATE_SNIPPET_COUNT_ON_UPDATE);
-
-        // Update threads table whenever a message in pdu is deleted
-        db.execSQL("DROP TRIGGER IF EXISTS pdu_update_thread_on_delete");
-        db.execSQL("CREATE TRIGGER pdu_update_thread_on_delete " +
-                   "AFTER DELETE ON pdu " +
-                   "BEGIN " +
-                   "  UPDATE threads SET " +
-                   "     date = (strftime('%s','now') * 1000)" +
-                   "  WHERE threads._id = old." + Mms.THREAD_ID + "; " +
-                   UPDATE_THREAD_COUNT_ON_OLD +
-                   UPDATE_THREAD_SNIPPET_SNIPPET_CS_ON_DELETE +
-                   "END;");
 
         // Updates threads table whenever a message is added to pdu.
         db.execSQL("DROP TRIGGER IF EXISTS pdu_update_thread_on_insert");

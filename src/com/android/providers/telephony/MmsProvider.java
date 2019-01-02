@@ -53,6 +53,7 @@ import com.google.android.mms.util.DownloadDrmHelper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
 
 /**
  * The class to provide base facility to access MMS related content,
@@ -681,6 +682,8 @@ public class MmsProvider extends ContentProvider {
                                          selectionArgs, uri);
         } else if (TABLE_PART.equals(table)) {
             deletedRows = deleteParts(db, finalSelection, selectionArgs);
+            cleanUpWords(db);
+            updateHasAttachment(db);
         } else if (TABLE_DRM.equals(table)) {
             deletedRows = deleteTempDrmData(db, finalSelection, selectionArgs);
         } else {
@@ -695,12 +698,13 @@ public class MmsProvider extends ContentProvider {
 
     static int deleteMessages(Context context, SQLiteDatabase db,
             String selection, String[] selectionArgs, Uri uri) {
-        Cursor cursor = db.query(TABLE_PDU, new String[] { Mms._ID },
+        Cursor cursor = db.query(TABLE_PDU, new String[] { Mms._ID, Mms.THREAD_ID },
                 selection, selectionArgs, null, null, null);
         if (cursor == null) {
             return 0;
         }
 
+        HashSet<Long> threadIds = new HashSet<Long>();
         try {
             if (cursor.getCount() == 0) {
                 return 0;
@@ -709,12 +713,18 @@ public class MmsProvider extends ContentProvider {
             while (cursor.moveToNext()) {
                 deleteParts(db, Part.MSG_ID + " = ?",
                         new String[] { String.valueOf(cursor.getLong(0)) });
+                threadIds.add(cursor.getLong(1));
             }
+            cleanUpWords(db);
+            updateHasAttachment(db);
         } finally {
             cursor.close();
         }
 
         int count = db.delete(TABLE_PDU, selection, selectionArgs);
+        for (long thread : threadIds) {
+            MmsSmsDatabaseHelper.updateThread(db, thread);
+        }
         if (count > 0) {
             Intent intent = new Intent(Mms.Intents.CONTENT_CHANGED_ACTION);
             intent.putExtra(Mms.Intents.DELETED_CONTENTS, uri);
@@ -724,6 +734,18 @@ public class MmsProvider extends ContentProvider {
             context.sendBroadcast(intent);
         }
         return count;
+    }
+
+    private static void cleanUpWords(SQLiteDatabase db) {
+        db.execSQL("DELETE FROM words WHERE source_id not in (select _id from part) AND "
+                + "table_to_use = 2");
+    }
+
+    private static void updateHasAttachment(SQLiteDatabase db) {
+        db.execSQL("UPDATE threads SET has_attachment = CASE "
+                + "(SELECT COUNT(*) FROM part JOIN pdu WHERE part.mid = pdu._id AND "
+                + "pdu.thread_id = threads._id AND part.ct != 'text/plain' "
+                + "AND part.ct != 'application/smil') WHEN 0 THEN 0 ELSE 1 END");
     }
 
     private static int deleteParts(SQLiteDatabase db, String selection,
