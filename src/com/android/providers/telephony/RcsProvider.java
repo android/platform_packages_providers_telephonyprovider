@@ -40,12 +40,13 @@ import com.android.internal.annotations.VisibleForTesting;
 public class RcsProvider extends ContentProvider {
     static final String TAG = "RcsProvider";
     static final String AUTHORITY = "rcs";
+    private static final String CONTENT_AUTHORITY = "content://" + AUTHORITY;
     static final long TRANSACTION_FAILED = Long.MIN_VALUE;
 
-    private static final String THREAD_URI_PREFIX = "content://" + AUTHORITY + "/thread/";
-    private static final String PARTICIPANT_URI_PREFIX = "content://" + AUTHORITY + "/participant/";
-    private static final String P2P_THREAD_URI_PREFIX = "content://" + AUTHORITY + "/p2p_thread/";
-    private static final String FILE_TRANSFER_PREFIX = "content://" + AUTHORITY + "/file_transfer/";
+    private static final String THREAD_URI_PREFIX = CONTENT_AUTHORITY + "/thread/";
+    private static final String PARTICIPANT_URI_PREFIX = CONTENT_AUTHORITY + "/participant/";
+    private static final String P2P_THREAD_URI_PREFIX = CONTENT_AUTHORITY + "/p2p_thread/";
+    private static final String FILE_TRANSFER_PREFIX = CONTENT_AUTHORITY + "/file_transfer/";
     static final String GROUP_THREAD_URI_PREFIX =
             "content://" + AUTHORITY + "/group_thread/";
 
@@ -55,34 +56,44 @@ public class RcsProvider extends ContentProvider {
     private static final int UNIFIED_RCS_THREAD_WITH_ID = 2;
     private static final int PARTICIPANT = 3;
     private static final int PARTICIPANT_WITH_ID = 4;
-    private static final int P2P_THREAD = 5;
-    private static final int P2P_THREAD_WITH_ID = 6;
-    private static final int P2P_THREAD_PARTICIPANT = 7;
-    private static final int P2P_THREAD_PARTICIPANT_WITH_ID = 8;
-    private static final int GROUP_THREAD = 9;
-    private static final int GROUP_THREAD_WITH_ID = 10;
-    private static final int GROUP_THREAD_PARTICIPANT = 11;
-    private static final int GROUP_THREAD_PARTICIPANT_WITH_ID = 12;
-    private static final int UNIFIED_MESSAGE = 13;
-    private static final int UNIFIED_MESSAGE_WITH_ID = 14;
-    private static final int UNIFIED_MESSAGE_WITH_FILE_TRANSFER = 15;
-    private static final int INCOMING_MESSAGE = 16;
-    private static final int INCOMING_MESSAGE_WITH_ID = 17;
-    private static final int OUTGOING_MESSAGE = 18;
-    private static final int OUTGOING_MESSAGE_WITH_ID = 19;
-    private static final int OUTGOING_MESSAGE_DELIVERY = 20;
-    private static final int OUTGOING_MESSAGE_DELIVERY_WITH_ID = 21;
-    private static final int UNIFIED_MESSAGE_ON_THREAD = 22;
-    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 23;
-    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 24;
-    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 25;
-    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 26;
-    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 27;
-    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 28;
-    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 29;
-    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 30;
-    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 31;
-    private static final int FILE_TRANSFER_WITH_ID = 32;
+    private static final int PARTICIPANT_ALIAS_CHANGE_EVENT = 5;
+    private static final int PARTICIPANT_ALIAS_CHANGE_EVENT_WITH_ID = 6;
+    private static final int P2P_THREAD = 7;
+    private static final int P2P_THREAD_WITH_ID = 8;
+    private static final int P2P_THREAD_PARTICIPANT = 9;
+    private static final int P2P_THREAD_PARTICIPANT_WITH_ID = 10;
+    private static final int GROUP_THREAD = 11;
+    private static final int GROUP_THREAD_WITH_ID = 12;
+    private static final int GROUP_THREAD_PARTICIPANT = 13;
+    private static final int GROUP_THREAD_PARTICIPANT_WITH_ID = 14;
+    private static final int GROUP_THREAD_PARTICIPANT_JOINED_EVENT = 15;
+    private static final int GROUP_THREAD_PARTICIPANT_JOINED_EVENT_WITH_ID = 16;
+    private static final int GROUP_THREAD_PARTICIPANT_LEFT_EVENT = 17;
+    private static final int GROUP_THREAD_PARTICIPANT_LEFT_EVENT_WITH_ID = 18;
+    private static final int GROUP_THREAD_NAME_CHANGE_EVENT = 19;
+    private static final int GROUP_THREAD_NAME_CHANGE_EVENT_WITH_ID = 20;
+    private static final int GROUP_THREAD_ICON_CHANGE_EVENT = 21;
+    private static final int GROUP_THREAD_ICON_CHANGE_EVENT_WITH_ID = 22;
+    private static final int UNIFIED_MESSAGE = 23;
+    private static final int UNIFIED_MESSAGE_WITH_ID = 24;
+    private static final int UNIFIED_MESSAGE_WITH_FILE_TRANSFER = 25;
+    private static final int INCOMING_MESSAGE = 26;
+    private static final int INCOMING_MESSAGE_WITH_ID = 27;
+    private static final int OUTGOING_MESSAGE = 28;
+    private static final int OUTGOING_MESSAGE_WITH_ID = 29;
+    private static final int OUTGOING_MESSAGE_DELIVERY = 30;
+    private static final int OUTGOING_MESSAGE_DELIVERY_WITH_ID = 31;
+    private static final int UNIFIED_MESSAGE_ON_THREAD = 32;
+    private static final int UNIFIED_MESSAGE_ON_THREAD_WITH_ID = 33;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD = 34;
+    private static final int INCOMING_MESSAGE_ON_P2P_THREAD_WITH_ID = 35;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD = 36;
+    private static final int OUTGOING_MESSAGE_ON_P2P_THREAD_WITH_ID = 37;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD = 38;
+    private static final int INCOMING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 39;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD = 40;
+    private static final int OUTGOING_MESSAGE_ON_GROUP_THREAD_WITH_ID = 41;
+    private static final int FILE_TRANSFER_WITH_ID = 42;
 
     SQLiteOpenHelper mDbOpenHelper;
 
@@ -90,7 +101,10 @@ public class RcsProvider extends ContentProvider {
     RcsProviderThreadHelper mThreadHelper;
     @VisibleForTesting
     RcsProviderParticipantHelper mParticipantHelper;
+    @VisibleForTesting
     RcsProviderMessageHelper mMessageHelper;
+    @VisibleForTesting
+    RcsProviderEventHelper mEventHelper;
 
     static {
         // example query: content://rcs/thread?owner_participant=3
@@ -104,6 +118,14 @@ public class RcsProvider extends ContentProvider {
 
         // example query: content://rcs/participant/12
         URL_MATCHER.addURI(AUTHORITY, "participant/#", PARTICIPANT_WITH_ID);
+
+        // example query: content://rcs/participant/12/alias_change_event
+        URL_MATCHER.addURI(AUTHORITY, "participant/#/alias_change_event",
+                PARTICIPANT_ALIAS_CHANGE_EVENT);
+
+        // example query: content://rcs/participant/12/alias_change_event/4, only supports deletes
+        URL_MATCHER.addURI(AUTHORITY, "participant/#/alias_change_event/#",
+                PARTICIPANT_ALIAS_CHANGE_EVENT_WITH_ID);
 
         // example query: content://rcs/p2p_thread?rcs_fallback_thread_id=6
         URL_MATCHER.addURI(AUTHORITY, "p2p_thread", P2P_THREAD);
@@ -122,6 +144,42 @@ public class RcsProvider extends ContentProvider {
 
         // example query: content://rcs/group_thread/13, where 13 is the _id in rcs_threads table.
         URL_MATCHER.addURI(AUTHORITY, "group_thread/#", GROUP_THREAD_WITH_ID);
+
+        // example query: content://rcs/group_thread/13/participant_joined_event. Supports
+        // queries and inserts
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant_joined_event",
+                GROUP_THREAD_PARTICIPANT_JOINED_EVENT);
+
+        // example query: content://rcs/group_thread/13/participant_joined_event/3. Supports deletes
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant_joined_event/#",
+                GROUP_THREAD_PARTICIPANT_JOINED_EVENT_WITH_ID);
+
+        // example query: content://rcs/group_thread/13/participant_left_event. Supports queries
+        // and inserts
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant_left_event",
+                GROUP_THREAD_PARTICIPANT_LEFT_EVENT);
+
+        // example query: content://rcs/group_thread/13/participant_left_event/5. Supports deletes
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant_left_event/#",
+                GROUP_THREAD_PARTICIPANT_LEFT_EVENT_WITH_ID);
+
+        // example query: content://rcs/group_thread/13/name_changed_event. Supports queries and
+        // inserts
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/name_changed_event",
+                GROUP_THREAD_NAME_CHANGE_EVENT);
+
+        // example query: content://rcs/group_thread/13/name_changed_event/7. Supports deletes
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/name_changed_event/#",
+                GROUP_THREAD_NAME_CHANGE_EVENT_WITH_ID);
+
+        // example query: content://rcs/group_thread/13/icon_changed_event. Supports queries and
+        // inserts
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/icon_changed_event",
+                GROUP_THREAD_ICON_CHANGE_EVENT);
+
+        // example query: content://rcs/group_thread/13/icon_changed_event/9. Supports deletes
+        URL_MATCHER.addURI(AUTHORITY, "group_thread/#/icon_changed_event/#",
+                GROUP_THREAD_ICON_CHANGE_EVENT_WITH_ID);
 
         // example query: content://rcs/group_thread/18/participant?alias="charlie"
         URL_MATCHER.addURI(AUTHORITY, "group_thread/#/participant",
@@ -211,6 +269,7 @@ public class RcsProvider extends ContentProvider {
         mParticipantHelper = new RcsProviderParticipantHelper(mDbOpenHelper);
         mThreadHelper = new RcsProviderThreadHelper(mDbOpenHelper);
         mMessageHelper = new RcsProviderMessageHelper(mDbOpenHelper);
+        mEventHelper = new RcsProviderEventHelper(mDbOpenHelper);
         return true;
     }
 
@@ -230,6 +289,12 @@ public class RcsProvider extends ContentProvider {
                         selectionArgs, sortOrder);
             case PARTICIPANT_WITH_ID:
                 return mParticipantHelper.queryParticipantWithId(uri, projection);
+            case PARTICIPANT_ALIAS_CHANGE_EVENT:
+                // TODO(109759350) - implement
+                break;
+            case PARTICIPANT_ALIAS_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Querying participant events with id's is not supported, uri: " + uri);
+                break;
             case P2P_THREAD:
                 return mThreadHelper.query1to1Thread(projection, selection,
                         selectionArgs, sortOrder);
@@ -251,6 +316,30 @@ public class RcsProvider extends ContentProvider {
                 return mParticipantHelper.queryParticipantsInGroupThread(uri);
             case GROUP_THREAD_PARTICIPANT_WITH_ID:
                 return mParticipantHelper.queryParticipantInGroupThreadWithId(uri);
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT:
+                // TODO(109759350) - implement
+                break;
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT_WITH_ID:
+                Log.e(TAG, "Querying thread events with id's is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT:
+                // TODO(109759350) - implement
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT_WITH_ID:
+                Log.e(TAG, "Querying thread events with id's is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT:
+                // TODO(109759350) - implement
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Querying thread events with id's is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT:
+                // TODO(109759350) - implement
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Querying thread events with id's is not supported, uri: " + uri);
+                break;
             case UNIFIED_MESSAGE:
                 return mMessageHelper.queryUnifiedMessageWithSelection(selection, selectionArgs);
             case UNIFIED_MESSAGE_WITH_ID:
@@ -348,6 +437,16 @@ public class RcsProvider extends ContentProvider {
                 Log.e(TAG, "Inserting participant with a specified ID is not supported, uri: "
                         + uri);
                 break;
+            case PARTICIPANT_ALIAS_CHANGE_EVENT:
+                rowId = mEventHelper.insertParticipantEvent(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri.buildUpon().appendPath(Long.toString(rowId)).build();
+                break;
+            case PARTICIPANT_ALIAS_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Inserting participant events with id's is not supported, uri: " + uri);
+                break;
             case P2P_THREAD:
                 rowId = mThreadHelper.insert1To1Thread(values);
                 if (rowId == TRANSACTION_FAILED) {
@@ -381,6 +480,47 @@ public class RcsProvider extends ContentProvider {
             case GROUP_THREAD_WITH_ID:
                 Log.e(TAG, "Inserting a thread with a specified ID is not supported, uri: " + uri);
                 break;
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT:
+                rowId = mEventHelper.insertParticipantJoinedEvent(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri.buildUpon().appendPath(Long.toString(rowId)).build();
+                break;
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT_WITH_ID:
+                Log.e(TAG, "Inserting thread events with id's is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT:
+                rowId = mEventHelper.insertParticipantLeftEvent(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri.buildUpon().appendPath(Long.toString(rowId)).build();
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT_WITH_ID:
+                Log.e(TAG, "Inserting thread events with id's is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT:
+                rowId = mEventHelper.insertThreadNameChangeEvent(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri.buildUpon().appendPath(Long.toString(rowId)).build();
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Inserting thread events with id's is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT:
+                rowId = mEventHelper.insertThreadIconChangeEvent(uri, values);
+                if (rowId == TRANSACTION_FAILED) {
+                    return null;
+                }
+                returnUri = uri.buildUpon().appendPath(Long.toString(rowId)).build();
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Inserting thread events with id's is not supported, uri: " + uri);
+                break;
+
             case GROUP_THREAD_PARTICIPANT:
                 rowId = mParticipantHelper.insertParticipantIntoGroupThread(values);
                 if (rowId == TRANSACTION_FAILED) {
@@ -495,6 +635,11 @@ public class RcsProvider extends ContentProvider {
                 break;
             case PARTICIPANT_WITH_ID:
                 return mParticipantHelper.deleteParticipantWithId(uri);
+            case PARTICIPANT_ALIAS_CHANGE_EVENT:
+                Log.e(TAG, "Deleting participant events without id is not allowed: " + uri);
+                break;
+            case PARTICIPANT_ALIAS_CHANGE_EVENT_WITH_ID:
+                return mEventHelper.deleteParticipantEvent(uri);
             case P2P_THREAD:
                 return mThreadHelper.delete1To1Thread(selection, selectionArgs);
             case P2P_THREAD_WITH_ID:
@@ -506,6 +651,26 @@ public class RcsProvider extends ContentProvider {
                 return mThreadHelper.deleteGroupThread(selection, selectionArgs);
             case GROUP_THREAD_WITH_ID:
                 return mThreadHelper.deleteGroupThreadWithId(uri);
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT:
+                Log.e(TAG, "Deleting thread events via selection is not allowed, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT_WITH_ID:
+                return mEventHelper.deleteGroupThreadEvent(uri);
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT:
+                Log.e(TAG, "Deleting thread events via selection is not allowed, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT_WITH_ID:
+                return mEventHelper.deleteGroupThreadEvent(uri);
+            case GROUP_THREAD_NAME_CHANGE_EVENT:
+                Log.e(TAG, "Deleting thread events via selection is not allowed, uri: " + uri);
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT_WITH_ID:
+                return mEventHelper.deleteGroupThreadEvent(uri);
+            case GROUP_THREAD_ICON_CHANGE_EVENT:
+                Log.e(TAG, "Deleting thread events via selection is not allowed, uri: " + uri);
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT_WITH_ID:
+                return mEventHelper.deleteGroupThreadEvent(uri);
             case GROUP_THREAD_PARTICIPANT:
                 Log.e(TAG,
                         "Deleting a participant from group thread via selection is not allowed, "
@@ -594,6 +759,12 @@ public class RcsProvider extends ContentProvider {
                 return mParticipantHelper.updateParticipant(values, selection, selectionArgs);
             case PARTICIPANT_WITH_ID:
                 return mParticipantHelper.updateParticipantWithId(values, uri);
+            case PARTICIPANT_ALIAS_CHANGE_EVENT:
+                Log.e(TAG, "Updating events is not supported, uri: " + uri);
+                break;
+            case PARTICIPANT_ALIAS_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Updating events is not supported, uri: " + uri);
+                break;
             case P2P_THREAD:
                 return mThreadHelper.update1To1Thread(values, selection, selectionArgs);
             case P2P_THREAD_WITH_ID:
@@ -605,6 +776,30 @@ public class RcsProvider extends ContentProvider {
                 return mThreadHelper.updateGroupThread(values, selection, selectionArgs);
             case GROUP_THREAD_WITH_ID:
                 return mThreadHelper.updateGroupThreadWithId(values, uri);
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_JOINED_EVENT_WITH_ID:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_PARTICIPANT_LEFT_EVENT_WITH_ID:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_NAME_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
+            case GROUP_THREAD_ICON_CHANGE_EVENT_WITH_ID:
+                Log.e(TAG, "Updating thread events is not supported, uri: " + uri);
+                break;
             case GROUP_THREAD_PARTICIPANT:
                 Log.e(TAG, "Updating junction table entries is not supported, uri: " + uri);
                 break;

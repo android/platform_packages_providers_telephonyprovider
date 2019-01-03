@@ -36,6 +36,7 @@ public class RcsProviderTestable extends RcsProvider {
         mParticipantHelper = new RcsProviderParticipantHelper(mDbOpenHelper);
         mThreadHelper = new RcsProviderThreadHelper(mDbOpenHelper);
         mMessageHelper = new RcsProviderMessageHelper(mDbOpenHelper);
+        mEventHelper = new RcsProviderEventHelper(mDbOpenHelper);
         return true;
     }
 
@@ -63,6 +64,7 @@ public class RcsProviderTestable extends RcsProvider {
             RcsProviderThreadHelper.createThreadTables(db);
             RcsProviderParticipantHelper.createParticipantTables(db);
             RcsProviderMessageHelper.createRcsMessageTables(db);
+            RcsProviderEventHelper.createRcsEventTables(db);
         }
 
         @Override

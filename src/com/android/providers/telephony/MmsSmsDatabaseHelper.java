@@ -556,6 +556,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             RcsProviderThreadHelper.createThreadTables(db);
             RcsProviderParticipantHelper.createParticipantTables(db);
             RcsProviderMessageHelper.createRcsMessageTables(db);
+            RcsProviderEventHelper.createRcsEventTables(db);
         }
 
         createCommonTriggers(db);
@@ -1646,6 +1647,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
             RcsProviderThreadHelper.createThreadTables(db);
             RcsProviderParticipantHelper.createParticipantTables(db);
             RcsProviderMessageHelper.createRcsMessageTables(db);
+            RcsProviderEventHelper.createRcsEventTables(db);
             return;
         }
 
