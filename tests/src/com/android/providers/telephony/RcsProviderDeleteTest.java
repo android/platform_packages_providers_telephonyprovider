@@ -15,6 +15,10 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProviderEventHelper.NEW_ALIAS;
+import static com.android.providers.telephony.RcsProviderEventHelper.NEW_NAME;
+import static com.android.providers.telephony.RcsProviderEventHelper.OLD_ALIAS;
+import static com.android.providers.telephony.RcsProviderEventHelper.OLD_NAME;
 import static com.android.providers.telephony.RcsProviderMessageHelper.MESSAGE_TABLE;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
@@ -107,6 +111,24 @@ public class RcsProviderDeleteTest {
         ContentValues fileTransferValues = new ContentValues();
         assertThat(mContentResolver.insert(Uri.parse("content://rcs/message/3/file_transfer"),
                 fileTransferValues)).isEqualTo(Uri.parse("content://rcs/file_transfer/1"));
+
+        // insert an alias change event
+        ContentValues eventValues = new ContentValues();
+        eventValues.put(OLD_ALIAS, "old alias");
+        eventValues.put(NEW_ALIAS, "new alias");
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/participant/1/alias_change_event"),
+                        eventValues)).isEqualTo(Uri.parse(
+                "content://rcs/participant/1/alias_change_event/1"));
+
+        // create a group name change event
+        eventValues.clear();
+        eventValues.put(OLD_NAME, "old name");
+        eventValues.put(NEW_NAME, "new name");
+        assertThat(mContentResolver.insert(
+                Uri.parse("content://rcs/group_thread/2/name_changed_event"),
+                eventValues)).isEqualTo(Uri.parse(
+                "content://rcs/group_thread/2/name_changed_event/1"));
     }
 
     @After
@@ -261,6 +283,28 @@ public class RcsProviderDeleteTest {
         assertThat(mContentResolver.delete(Uri.parse("content://rcs/file_transfer/1"), null,
                 null)).isEqualTo(1);
         assertDeletionViaQuery("content://rcs/file_transfer/1");
+    }
+
+    @Test
+    public void testDeleteParticipantEvent() {
+        assertThat(mContentResolver.delete(Uri.parse(
+                "content://rcs/participant/1/alias_change_event/1"), null, null)).isEqualTo(1);
+
+        // try deleting again and verify nothing is deleted
+        // TODO - convert to query once querying is in place
+        assertThat(mContentResolver.delete(Uri.parse(
+                "content://rcs/participant/1/alias_change_event/1"), null, null)).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteGroupThreadEvent() {
+        assertThat(mContentResolver.delete(Uri.parse(
+                "content://rcs/group_thread/2/name_changed_event/1"), null, null)).isEqualTo(1);
+
+        // try deleting again and verify nothing is deleted
+        // TODO - convert to query once querying is in place
+        assertThat(mContentResolver.delete(Uri.parse(
+                "content://rcs/group_thread/2/name_changed_event/1"), null, null)).isEqualTo(0);
     }
 
     private void assertDeletionViaQuery(String queryUri) {

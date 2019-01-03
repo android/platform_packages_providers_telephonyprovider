@@ -15,6 +15,10 @@
  */
 package com.android.providers.telephony;
 
+import static com.android.providers.telephony.RcsProviderEventHelper.NEW_ALIAS;
+import static com.android.providers.telephony.RcsProviderEventHelper.NEW_NAME;
+import static com.android.providers.telephony.RcsProviderEventHelper.OLD_ALIAS;
+import static com.android.providers.telephony.RcsProviderEventHelper.OLD_NAME;
 import static com.android.providers.telephony.RcsProviderMessageHelper.GLOBAL_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.CANONICAL_ADDRESS_ID_COLUMN;
 import static com.android.providers.telephony.RcsProviderParticipantHelper.RCS_ALIAS_COLUMN;
@@ -216,4 +220,37 @@ public class RcsProviderInsertTest {
                 values)).isEqualTo(Uri.parse("content://rcs/file_transfer/1"));
     }
 
+    @Test
+    public void testInsertParticipantEvent() {
+        // create a participant
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CANONICAL_ADDRESS_ID_COLUMN, 23);
+        mContentResolver.insert(Uri.parse("content://rcs/participant"), contentValues);
+
+        // insert an alias change event
+        ContentValues eventValues = new ContentValues();
+        eventValues.put(OLD_ALIAS, "old alias");
+        eventValues.put(NEW_ALIAS, "new alias");
+        assertThat(
+                mContentResolver.insert(Uri.parse("content://rcs/participant/1/alias_change_event"),
+                    eventValues)).isEqualTo(Uri.parse(
+                            "content://rcs/participant/1/alias_change_event/1"));
+    }
+
+    @Test
+    public void testInsertGroupThreadEvent() {
+        // create a group thread
+        ContentValues contentValues = new ContentValues();
+        assertThat(mContentResolver.insert(Uri.parse("content://rcs/group_thread"),
+                contentValues)).isEqualTo(Uri.parse("content://rcs/group_thread/1"));
+
+        // create a group name change event
+        ContentValues eventValues = new ContentValues();
+        eventValues.put(OLD_NAME, "old name");
+        eventValues.put(NEW_NAME, "new name");
+        assertThat(mContentResolver.insert(
+                Uri.parse("content://rcs/group_thread/1/name_changed_event"),
+                    eventValues)).isEqualTo(Uri.parse(
+                            "content://rcs/group_thread/1/name_changed_event/1"));
+    }
 }
