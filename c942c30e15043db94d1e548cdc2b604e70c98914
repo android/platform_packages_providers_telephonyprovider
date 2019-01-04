@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c15bed42_04b207e1",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T20:03:55Z",
+      "side": 1,
+      "message": "You can put them here: https://cs.corp.google.com/android/frameworks/base/telephony/java/android/provider/Telephony.java\n\nand mark them hidden. Don\u0027t forget to add comments for each wherever you put them. In general I would suggest you add more comments to the business logic as well, so we are not the only ones who understand the code :)",
+      "parentUuid": "35ca3c68_4b9d9012",
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "410e8cc1_7890a2ba",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 2
@@ -237,6 +255,30 @@
     },
     {
       "key": {
+        "uuid": "b3b28830_f709b3e8",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T20:03:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8fc36aa0_fcc810da",
+      "range": {
+        "startLine": 73,
+        "startChar": 48,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0916b15b_dba189ad",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 2
@@ -272,6 +314,30 @@
       "side": 1,
       "message": "AFAIK contacts and canonical addresses are different things, i.e. we can send a message to a random number which is not a contact.",
       "parentUuid": "0916b15b_dba189ad",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 94
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1516661_b77119f5",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T20:03:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c58a6a9_22a159cf",
       "range": {
         "startLine": 110,
         "startChar": 0,
@@ -378,6 +444,30 @@
     },
     {
       "key": {
+        "uuid": "098badc0_dee663a6",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T20:03:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3703aa43_960e967d",
+      "range": {
+        "startLine": 117,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ddf74da_a0b4937b",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -460,6 +550,30 @@
       "side": 1,
       "message": "Fixed in the 3rd commit here: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/860558/2/src/com/android/providers/telephony/RcsProviderThreadHelper.java",
       "parentUuid": "d7093e1d_07704baf",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5b03fa6_6e3e8421",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T20:03:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43a1b166_1b1c8d68",
       "range": {
         "startLine": 38,
         "startChar": 16,
