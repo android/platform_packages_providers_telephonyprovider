@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3454af59_c67d1641",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-04T17:57:25Z",
+      "side": 1,
+      "message": "Are these backwards? It seems createThreadTables is in the participant helper and createParticipantTables is in the threads helper.",
+      "range": {
+        "startLine": 45,
+        "startChar": 23,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
