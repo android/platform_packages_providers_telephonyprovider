@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "9327fac6_b14c51b1",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Do we have some place in the code that documents what each column is? If not, please do that here.\n\nAlso, won\u0027t these constants be needed by RcsController code to get specific columns? If yes, then maybe these should be in some common place that holds constants like these?",
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "410e8cc1_7890a2ba",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Is it up to the messaging app to update this or other fields in this table any time there\u0027s a change in contacts?",
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3454af59_c67d1641",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 2
@@ -18,6 +52,144 @@
         "startChar": 23,
         "endLine": 45,
         "endChar": 41
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d77f0ac0_06e58bf7",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Participant",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c6e159f_99734ce3",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "rcsParticipantContentValues, but it has only CANONICAL_ADDRESS_ID_COLUMN",
+      "range": {
+        "startLine": 73,
+        "startChar": 48,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0916b15b_dba189ad",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this instead be added to the device\u0027s contacts and then sync\u0027d from there to here?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 94
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711d5f29_0fb1d504",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Why? Either it should be int everywhere or long everywhere.",
+      "range": {
+        "startLine": 117,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ddf74da_a0b4937b",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Thread",
+      "range": {
+        "startLine": 35,
+        "startChar": 29,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7093e1d_07704baf",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-04T18:08:06Z",
+      "side": 1,
+      "message": "Is this relevant for 1:1 threads as well?",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 33
       },
       "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
