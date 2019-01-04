@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "35ca3c68_4b9d9012",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "Can you elaborate where that should be? Currently I am duplicating these strings across two places.",
+      "parentUuid": "9327fac6_b14c51b1",
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "410e8cc1_7890a2ba",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba124d91_85396751",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "RCS alias afaik is not supported by contacts providers, so currently yes, it is up to the messaging app.",
+      "parentUuid": "410e8cc1_7890a2ba",
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "51870485_95883b81",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "fb8484cc_d90c3376",
+      "range": {
+        "startLine": 45,
+        "startChar": 23,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "276dfa29_083377e7",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "d77f0ac0_06e58bf7",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c6e159f_99734ce3",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 2
@@ -129,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8fc36aa0_fcc810da",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "This function gets fixed and tested in the next commit :) removing the code now.",
+      "parentUuid": "4c6e159f_99734ce3",
+      "range": {
+        "startLine": 73,
+        "startChar": 48,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0916b15b_dba189ad",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 2
@@ -149,6 +257,30 @@
       "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c58a6a9_22a159cf",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "AFAIK contacts and canonical addresses are different things, i.e. we can send a message to a random number which is not a contact.",
+      "parentUuid": "0916b15b_dba189ad",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 94
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -198,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "3703aa43_960e967d",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "SQLiteDatabase.insert returns a long as the inserted row id, but realistically no one will have 2 billion plus contacts. So we need to cast to int.",
+      "parentUuid": "711d5f29_0fb1d504",
+      "range": {
+        "startLine": 117,
+        "startChar": 16,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7386adb6_36f3c5a9",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "As discussed offline, let\u0027s keep this as is and fix it after the CLs get submitted. It might be worthwhile to investigate whether we want to keep these in the same database even.",
+      "parentUuid": "e27e13df_346c9e74",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ddf74da_a0b4937b",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -221,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "4396bcb1_2da2f154",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "2ddf74da_a0b4937b",
+      "range": {
+        "startLine": 35,
+        "startChar": 29,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7093e1d_07704baf",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -241,6 +445,30 @@
       "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a1b166_1b1c8d68",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-04T19:01:14Z",
+      "side": 1,
+      "message": "Fixed in the 3rd commit here: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/860558/2/src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+      "parentUuid": "d7093e1d_07704baf",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "c942c30e15043db94d1e548cdc2b604e70c98914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
