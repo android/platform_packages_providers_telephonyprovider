@@ -46,6 +46,30 @@
       "revId": "bac01e2ddbed07ac49bead7a3babdb8cc381773c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17c1f116_2e531c43",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-01-05T01:53:20Z",
+      "side": 1,
+      "message": "before the change, the priority is like data \u003e oem \u003e system\nafter the change, the priority is data \u003e oem \u003e product \u003e system.\nMy question is why oem is preferred over product partition? these two partitions are similar except product partition support updatability.",
+      "parentUuid": "4ff49478_df44e87e",
+      "range": {
+        "startLine": 611,
+        "startChar": 12,
+        "endLine": 612,
+        "endChar": 98
+      },
+      "revId": "bac01e2ddbed07ac49bead7a3babdb8cc381773c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
