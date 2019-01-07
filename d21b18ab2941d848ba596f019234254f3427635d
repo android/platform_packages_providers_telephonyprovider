@@ -114,6 +114,29 @@
       "revId": "d21b18ab2941d848ba596f019234254f3427635d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01798a49_86ac04a5",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-07T21:21:38Z",
+      "side": 1,
+      "message": "Is this a RCS spec thing, as in does the spec say that there will be a URI per thread? Is \"CONFERENCE\" required here? From the db perspective this is just for the thread, correct?",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
