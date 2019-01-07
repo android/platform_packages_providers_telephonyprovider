@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1cf7aa92_07e7ae02",
+        "filename": "src/com/android/providers/telephony/MmsSmsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-07T22:42:38Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "f25df03d_228cd23f",
+      "range": {
+        "startLine": 1276,
+        "startChar": 12,
+        "endLine": 1276,
+        "endChar": 34
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba2d74cd_8a7a0029",
         "filename": "src/com/android/providers/telephony/MmsSmsProvider.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d21b18ab2941d848ba596f019234254f3427635d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5661f98d_6d593ba6",
+        "filename": "src/com/android/providers/telephony/MmsSmsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-07T22:42:38Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "ba2d74cd_8a7a0029",
+      "range": {
+        "startLine": 1281,
+        "startChar": 19,
+        "endLine": 1281,
+        "endChar": 47
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65ee449b_050bdea3",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-07T22:42:38Z",
+      "side": 1,
+      "message": "Yep, as per Amit\u0027s suggestions, I will move all of this to android.provider.Telephony.java. Don\u0027t want to do it right now as it will require a lot of rebasing, and Telephony.java might also be changing as well.",
+      "parentUuid": "ae0ce580_692884b0",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 49
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c6510a7_edc78b43",
         "filename": "src/com/android/providers/telephony/RcsProvider.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "d21b18ab2941d848ba596f019234254f3427635d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "811fe84a_e3af2cf4",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-07T22:42:38Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "9c6510a7_edc78b43",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 68
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6dbc55f4_34118797",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-07T22:42:38Z",
+      "side": 1,
+      "message": "Fixed, thanks! This was a bad rebase that also broke presubmits",
+      "parentUuid": "efd921ee_b09c65e0",
+      "range": {
+        "startLine": 67,
+        "startChar": 13,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01798a49_86ac04a5",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "d21b18ab2941d848ba596f019234254f3427635d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942c0325_942f331a",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-07T22:42:38Z",
+      "side": 1,
+      "message": "RCS spec defines a \"conference URI\" for groups. AFAIK this where the clients get the group information from. It is not used for 1 to 1 threads.",
+      "parentUuid": "01798a49_86ac04a5",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
