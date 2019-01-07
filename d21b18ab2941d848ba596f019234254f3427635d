@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f25df03d_228cd23f",
+        "filename": "src/com/android/providers/telephony/MmsSmsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-07T19:09:03Z",
+      "side": 1,
+      "message": "May want to consider extracting the repeated match operations.",
+      "range": {
+        "startLine": 1276,
+        "startChar": 12,
+        "endLine": 1276,
+        "endChar": 34
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba2d74cd_8a7a0029",
+        "filename": "src/com/android/providers/telephony/MmsSmsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-07T19:09:03Z",
+      "side": 1,
+      "message": "Would Uri.withAppendedPath work here?",
+      "range": {
+        "startLine": 1281,
+        "startChar": 19,
+        "endLine": 1281,
+        "endChar": 47
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae0ce580_692884b0",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-07T19:09:03Z",
+      "side": 1,
+      "message": "Will these be added to a contract class in a future commit for sharing with consumers of the provider?",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 49
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c6510a7_edc78b43",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-07T19:09:03Z",
+      "side": 1,
+      "message": "May want to consider storing prefix as Uri (in contract class for example) and using Uri.withAppendedPath or similar.",
+      "range": {
+        "startLine": 101,
+        "startChar": 32,
+        "endLine": 101,
+        "endChar": 68
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efd921ee_b09c65e0",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-07T19:09:03Z",
+      "side": 1,
+      "message": "Unused variable? Should this be returned?",
+      "range": {
+        "startLine": 67,
+        "startChar": 13,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "d21b18ab2941d848ba596f019234254f3427635d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
