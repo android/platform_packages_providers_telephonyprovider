@@ -255,6 +255,29 @@
     },
     {
       "key": {
+        "uuid": "44c6c559_637736af",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T22:05:49Z",
+      "side": 1,
+      "message": "May want to consider a thread type field (being group or one-on-one for now) here.",
+      "range": {
+        "startLine": 112,
+        "startChar": 35,
+        "endLine": 112,
+        "endChar": 48
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25e2e21d_d0ee6855",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 7
