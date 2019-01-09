@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64a95385_0b0f7d84",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Are these URIs correct, will these endpoints accept query parameters as well as SQL style selections?",
+      "range": {
+        "startLine": 69,
+        "startChar": 26,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2495c65e_f29c3121",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "I am probably just missing something, but why do the content provider methods need to be synchronized now?",
+      "range": {
+        "startLine": 112,
+        "startChar": 11,
+        "endLine": 112,
+        "endChar": 23
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c651ad43_812d190b",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Since this behavior is determined by the helper, it feels like it might make sense to put this somewhere shared by the helpers as well.",
+      "range": {
+        "startLine": 170,
+        "startChar": 29,
+        "endLine": 170,
+        "endChar": 47
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84a6b99_2293235a",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "`Uri.withAppendedPath(PARTICIPANT_URI_PREFIX, Long.toString(rowId))` might be slightly easier to read and write by avoiding two method calls in this line, but this is super nit-picky and opinion based, so feel free to ignore :-)",
+      "range": {
+        "startLine": 173,
+        "startChar": 28,
+        "endLine": 174,
+        "endChar": 54
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9b0cae_88f9292c",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Very opinion based, but it feels like this logic is repeated in almost switch. Would extracting it to a `@Nullable Uri buildUriFromHelperRowId(Uri prefix, long rowId)` or something be too DRY?\n\nAnother though is that the helpers for query and other operations have input and output in the ContentProvider\u0027s native format (for example, query operations take URI\u0027s and return cursors). It might also make sense to have the helpers return URIs), but personally I think the URI handling should all be handled in the content provider.",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "408d14f0_66db7bac",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "This feels brittle to me. This constant makes it feel like there is always a participant ID at index 1 at first read, which isn\u0027t true for all URIs now. In addition, later URIs might be added that do have a participant ID at a different index.\n\nOne thing to consider might be moving all URI parsing logic up to the content provider (where the URIs are handled). That might lead to better encapsulation of URI logic, and the helpers can focus on encapsulating database logic.",
+      "range": {
+        "startLine": 46,
+        "startChar": 29,
+        "endLine": 46,
+        "endChar": 61
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b07e0b0e_c2b7cc66",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "We talked offline, just putting notes here. This doesn\u0027t reflect on this commit in particular. This is how table creation is done elsewhere in this package, and this should be fine for getting things in before API freeze. We were discussing seeing if there is an alternative to having long concatenated SQL strings in these files. Possibly through use of a builder that creates the strings, or by being able to include .sql files with the table creation in resources or something. May be something to look into after API freeze and before release (though we are not sure there is anything better).",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56fd5cfd_bd372fea",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "May want to consider using selection with arguments instead of a selection string in the queries where this is used.",
+      "range": {
+        "startLine": 127,
+        "startChar": 19,
+        "endLine": 127,
+        "endChar": 44
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f9fe941_688540d9",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Might want to use constant here.",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 19
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb88c5b6_afed0534",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Ditto with the other helper.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeb7f511_7c95068d",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Silly, but its freaking me out that there are tabs here, though in my limited knowledge of Android style, I haven\u0027t heard of a convention against it in comments :-)",
+      "range": {
+        "startLine": 87,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 11
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e2e21d_d0ee6855",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "As a note, I believe there are also instances (such as the CREATOR field) where the providers strip the field instead (along with cases that fail, like inserting with a _data field). This failure state might be good to document in the contract class in some way once that work is in.",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 92
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95cf3f9_13d59480",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Do we need to check a failure state here as well, or are we confident enough that this will always succeed?",
+      "range": {
+        "startLine": 193,
+        "startChar": 25,
+        "endLine": 193,
+        "endChar": 51
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac98f546_c3fe3bc4",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "This line is to ensure that the contentValues passed in are in there initial state right? Maybe it is not necessary, but it took me a second to figure out why this statement is here, a comment might have helped?\n\nIn addition, it makes me nervous modifying the state of the content values at all, especially since we try to return it to the original state. I have general concerns about making the expectations brittle here. For example, someone adds a method that modifies the state and does not return it, or adds another column here, but forgets to remove it, then the expectation is broken and it could cause problems elsewhere. In addition, the contentValues are no longer thread safe.\n\nIt feels overly defensive to defensively copy this, since there would be a performance hit and currently the risk is low, but I thought I would mention it anyway.\n\nAlso, I am not sure that the expectation needs to be that the contentValues are returned to their original state. Perhaps it is alright (possibly useful) to leave the thread ID column in.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 55
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e67b0580_a8e924ce",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Same as other remove.",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 55
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ee284b_e4f2655c",
+        "filename": "tests/src/com/android/providers/telephony/RcsProviderDeleteTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Should the content values here also have the common thread ID in the content values.\n\nWe may want to consider adding that and tests for the group and 1-on-1 triggers that remove the common thread ID.",
+      "range": {
+        "startLine": 67,
+        "startChar": 57,
+        "endLine": 67,
+        "endChar": 73
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb8fd96c_78efeef2",
+        "filename": "tests/src/com/android/providers/telephony/RcsProviderDeleteTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Nit, indenting feels weird here.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 19
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74416107_afc1aee3",
+        "filename": "tests/src/com/android/providers/telephony/RcsProviderInsertTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-01-09T19:32:41Z",
+      "side": 1,
+      "message": "Should we also assert that the row inserted has the correct values? (holds for other tests in this suite as well)",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "d232bc0711073887920fc2fa75bfcc5382089ef5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
