@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5821b4a_894bed2b",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T19:02:06Z",
+      "side": 1,
+      "message": "This seems a little weird. 1:1 threads when created should have a participant added to them then itself, no? I don\u0027t think there should be a separate insert for participant to 1:1.",
+      "revId": "b0f138d336f9fb695906037ac136d7a78ac149b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e52589f4_f5411d32",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T19:02:06Z",
+      "side": 1,
+      "message": "Is this query really needed? Once we have a participant id, why do we have to go through thread id? Is it to check if that participant is a part of the thread? We already have APIs to check that.",
+      "revId": "b0f138d336f9fb695906037ac136d7a78ac149b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f032530_4036949c",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T19:02:06Z",
+      "side": 1,
+      "message": "Will this throw an exception if the participant already exists in the group? We should handle that gracefully.",
+      "revId": "b0f138d336f9fb695906037ac136d7a78ac149b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9368cc05_a21c85b6",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T19:02:06Z",
+      "side": 1,
+      "message": "Reuse the above function in implementation instead of duplicating the code?",
+      "revId": "b0f138d336f9fb695906037ac136d7a78ac149b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b3844d_2e2d684d",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T19:02:06Z",
+      "side": 1,
+      "message": "What does deleting a group mean? Is it just deleting the message history of that group? If yes, we do not need to remove the junction entries, unless user is already not a part of the group.",
+      "revId": "b0f138d336f9fb695906037ac136d7a78ac149b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
