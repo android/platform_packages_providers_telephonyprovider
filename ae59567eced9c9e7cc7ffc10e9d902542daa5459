@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0207b753_e9d897b7",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "They are coming in the next commit - this is to query all participants in a thread.",
+      "parentUuid": "63ad3abe_ae8b55c7",
+      "range": {
+        "startLine": 88,
+        "startChar": 51,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d8f5f4b_4bd6b037",
         "filename": "src/com/android/providers/telephony/RcsProvider.java",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d1b0474_767390da",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "8d8f5f4b_4bd6b037",
+      "range": {
+        "startLine": 98,
+        "startChar": 54,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ad88c723_d831f209",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Yes, as with Leland\u0027s comment, these will get fixed but I heavily use these in the upcoming commits so I\u0027d rather not change it, sorry :(",
+      "parentUuid": "4984ac1c_947099be",
+      "range": {
+        "startLine": 47,
+        "startChar": 29,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8592120_80247b10",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "052c8a81_5b8eb2c5",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Renamed the parameters, thanks!",
+      "parentUuid": "d8592120_80247b10",
+      "range": {
+        "startLine": 85,
+        "startChar": 11,
+        "endLine": 85,
+        "endChar": 41
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "140b856d_73951bd6",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "can\u0027t modify db.insert as that belongs to SQLiteDatabase. However you are right in the sense that it will fail the foreign constraint, it is just that a meaningful error message would be more useful.",
+      "parentUuid": "575cde99_e5fa1234",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e87ceb15_9388485e",
         "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
         "patchSetId": 9
@@ -131,6 +251,24 @@
       "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c9b6511_2b6ba0e9",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Renamed the parameters, thanks!",
+      "parentUuid": "e87ceb15_9388485e",
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "60b18464_d5e38aab",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "948a42bb_22603df2",
+      "range": {
+        "startLine": 124,
+        "startChar": 47,
+        "endLine": 124,
+        "endChar": 53
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e52469e_05457624",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 9
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "0acecec4_567dd45a",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "6e52469e_05457624",
+      "range": {
+        "startLine": 135,
+        "startChar": 47,
+        "endLine": 135,
+        "endChar": 53
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "460f12e9_68bc1519",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 9
@@ -194,6 +380,24 @@
       "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe6ff43_3556acac",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-01-10T17:20:02Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "460f12e9_68bc1519",
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
