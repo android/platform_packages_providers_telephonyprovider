@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63ad3abe_ae8b55c7",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Should this be participant/#",
+      "range": {
+        "startLine": 88,
+        "startChar": 51,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d8f5f4b_4bd6b037",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "This one too.",
+      "range": {
+        "startLine": 98,
+        "startChar": 54,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4984ac1c_947099be",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Won\u0027t this depend on the URI? Is this for a specific URI?",
+      "range": {
+        "startLine": 47,
+        "startChar": 29,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8592120_80247b10",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "This is not very clear. Either rename the function to ForUri (instead of WithId), or rename to the uri parameter to indicate it is expected to contain the Id.",
+      "range": {
+        "startLine": 85,
+        "startChar": 11,
+        "endLine": 85,
+        "endChar": 41
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "575cde99_e5fa1234",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Should this check be here or in db.insert()?",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e87ceb15_9388485e",
+        "filename": "src/com/android/providers/telephony/RcsProviderParticipantHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Similar renaming as above can be done here as well.",
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948a42bb_22603df2",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Should this be After?",
+      "range": {
+        "startLine": 124,
+        "startChar": 47,
+        "endLine": 124,
+        "endChar": 53
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e52469e_05457624",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 135,
+        "startChar": 47,
+        "endLine": 135,
+        "endChar": 53
+      },
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "460f12e9_68bc1519",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-10T01:17:28Z",
+      "side": 1,
+      "message": "Same comments for all \u0027UsingId\u0027 functions as in the other helper file.",
+      "revId": "ae59567eced9c9e7cc7ffc10e9d902542daa5459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
