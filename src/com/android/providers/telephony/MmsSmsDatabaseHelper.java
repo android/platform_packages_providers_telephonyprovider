@@ -264,7 +264,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     // TODO(sahinc): Turn this to true once the schema finalizes, so that people can update their
     // messaging databases. NOTE: move the switch/case update to the latest version of the database
     // before turning this flag to true.
-    private static final boolean IS_RCS_TABLE_SCHEMA_CODE_COMPLETE = false;
+    private static final boolean IS_RCS_TABLE_SCHEMA_CODE_COMPLETE = true;
 
     /**
      * The primary purpose of this DatabaseErrorHandler is to broadcast an intent on corruption and
