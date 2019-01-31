@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84ade7a5_005eb4b9",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "Other Uris have / at end. Should this one too?",
+      "range": {
+        "startLine": 53,
+        "startChar": 96,
+        "endLine": 53,
+        "endChar": 98
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64bfa463_24a45d9b",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "rcs_unified?",
+      "range": {
+        "startLine": 63,
+        "startChar": 51,
+        "endLine": 63,
+        "endChar": 62
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "031a1abc_f3f17554",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "rcs_unified?",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 55
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d708c78b_ee49bcec",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "Why is thread id provided here? It should always be generated for a new p2p thread, no?",
+      "range": {
+        "startLine": 165,
+        "startChar": 67,
+        "endLine": 165,
+        "endChar": 96
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fcc724_81a1d594",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "What do you mean? Both have different parameters.",
+      "range": {
+        "startLine": 311,
+        "startChar": 82,
+        "endLine": 312,
+        "endChar": 34
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21223fad_0c04e2d6",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "Is this just because it is abstract? Is it not used in our implementation? If so, just throw an exception in this method.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

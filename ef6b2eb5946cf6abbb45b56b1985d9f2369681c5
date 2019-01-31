@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b290c9f6_cc270c04",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "thread_type?",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 22
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463cc8f8_d6dfd66b",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "I don\u0027t think the comment is very clear.",
+      "range": {
+        "startLine": 88,
+        "startChar": 37,
+        "endLine": 89,
+        "endChar": 23
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2f7c663_733f6299",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "TBD offline.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f74b2c9_169c17d8",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "After?",
+      "range": {
+        "startLine": 126,
+        "startChar": 41,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ef3bd47_1eb1496d",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T20:42:29Z",
+      "side": 1,
+      "message": "Still a pending todo?",
+      "range": {
+        "startLine": 178,
+        "startChar": 11,
+        "endLine": 178,
+        "endChar": 15
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
