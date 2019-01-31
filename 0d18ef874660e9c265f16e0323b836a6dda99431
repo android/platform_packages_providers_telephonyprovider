@@ -131,6 +131,171 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "089bfc00_9b0ae970",
+        "filename": "src/com/android/providers/telephony/RcsProviderEventHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "insertGroupThreadEvent?",
+      "range": {
+        "startLine": 214,
+        "startChar": 17,
+        "endLine": 214,
+        "endChar": 46
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558bb1cc_37c3eea3",
+        "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "Add a message type column.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0536bfbc_d841a706",
+        "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "Should there also be a column to indicate if a file transfer is associated with a given message?",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce7d0c96_cf004c29",
+        "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "Can there be a unified view of unified views? The above can be a unified view of this one and the following.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44357a36_1e4cc667",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "It may be better to add THREAD_TYPE column to this table.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a7349ab_df4dfb3a",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "Use constants. Maybe use StringBuilder() or indent it in a way that it becomes more readable.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72aa867_a789bd9f",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "Maybe have lists of columns that are present in one table but not in the other so that if new columns are added, they are automatically taken care of in views.",
+      "range": {
+        "startLine": 111,
+        "startChar": 62,
+        "endLine": 111,
+        "endChar": 76
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe982fb_f45c35cb",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "Deleting a thread should also delete all of its messages.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b50499c_066a9a2b",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-01-31T22:56:11Z",
+      "side": 1,
+      "message": "This should explicitly mean that the user is not a part of the group anymore.",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
