@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c061dbf4_a9504b88",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1434023
+      },
+      "writtenOn": "2019-02-02T15:09:05Z",
+      "side": 1,
+      "message": "Can you please add comments for possible-values/usage , so that it is inline with other array values.",
+      "revId": "f6e19bf0d9811fb1a7c0d31d14164daf78fb60d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65717dc5_d07514b2",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1434023
+      },
+      "writtenOn": "2019-02-02T15:09:05Z",
+      "side": 1,
+      "message": "Its a good practice to add null check inside function before object is used. Don\u0027t rely on caller.",
+      "revId": "f6e19bf0d9811fb1a7c0d31d14164daf78fb60d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
