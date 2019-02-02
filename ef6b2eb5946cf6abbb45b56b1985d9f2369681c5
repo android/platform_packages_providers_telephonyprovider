@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f4deb0c_32f3adf2",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "b290c9f6_cc270c04",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 22
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "463cc8f8_d6dfd66b",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1483ac6c_75161354",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Reworded, thanks!",
+      "parentUuid": "463cc8f8_d6dfd66b",
+      "range": {
+        "startLine": 88,
+        "startChar": 37,
+        "endLine": 89,
+        "endChar": 23
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a2079ea5_ae1864bb",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Converted to use constants, thanks!",
+      "parentUuid": "d2f7c663_733f6299",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f74b2c9_169c17d8",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4b18bbc2_4a657da8",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "7f74b2c9_169c17d8",
+      "range": {
+        "startLine": 126,
+        "startChar": 41,
+        "endLine": 126,
+        "endChar": 47
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ef3bd47_1eb1496d",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e17c74_7b8b2518",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Yes, unfortunately",
+      "parentUuid": "3ef3bd47_1eb1496d",
+      "range": {
+        "startLine": 178,
+        "startChar": 11,
+        "endLine": 178,
+        "endChar": 15
+      },
+      "revId": "ef6b2eb5946cf6abbb45b56b1985d9f2369681c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

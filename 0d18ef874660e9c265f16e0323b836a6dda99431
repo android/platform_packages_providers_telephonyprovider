@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f600cb18_631fe7e4",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Fixed, thanks! I think parse method handles it but better to have them consistent.",
+      "parentUuid": "84ade7a5_005eb4b9",
+      "range": {
+        "startLine": 53,
+        "startChar": 96,
+        "endLine": 53,
+        "endChar": 98
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64bfa463_24a45d9b",
         "filename": "src/com/android/providers/telephony/RcsProvider.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe8527a_f12707c6",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "64bfa463_24a45d9b",
+      "range": {
+        "startLine": 63,
+        "startChar": 51,
+        "endLine": 63,
+        "endChar": 62
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ab0ce541_da26ec1a",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "031a1abc_f3f17554",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 55
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d708c78b_ee49bcec",
         "filename": "src/com/android/providers/telephony/RcsProvider.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffee594b_82e7f95a",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "The old design was we created an empty 1-to-1 thread, then added a participant. \n\nLeland fixed this on the private branch (pending submission of this CL) - this URI is not used anymore, instead we create the 1 to 1 thread with the participant.",
+      "parentUuid": "d708c78b_ee49bcec",
+      "range": {
+        "startLine": 165,
+        "startChar": 67,
+        "endLine": 165,
+        "endChar": 96
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a21059ea_90eae2ca",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "It is possible that I am using these in the wrong way, but in here, the bundle-less call bundles the parameters and calls the bundle one:\nhttps://cs.corp.google.com/android/frameworks/base/core/java/android/content/ContentResolver.java?q\u003dContentResolver.java\u0026dr\u0026l\u003d809 \n\nAnd in here, it calls the ContentProvider\u0027s bundle query:\nhttps://cs.corp.google.com/android/frameworks/base/core/java/android/content/ContentResolver.java?q\u003dContentResolver.java\u0026dr\u0026l\u003d862\n\nWhich means ContentResolver chooses bundle query over bundle-less one, but ContentProvider requires the implementation of the bundle-less query as it is abstract, but not the bundle query. This is a very weird bug that took me a few hours to figure out.",
+      "parentUuid": "46fcc724_81a1d594",
+      "range": {
+        "startLine": 311,
+        "startChar": 82,
+        "endLine": 312,
+        "endChar": 34
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21223fad_0c04e2d6",
         "filename": "src/com/android/providers/telephony/RcsProvider.java",
         "patchSetId": 3
@@ -131,6 +251,24 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "654c0c0b_d4fd410a",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "I actually worked around the bug by doing what ContentResolver does - puts stuff into a bundle. There may be OEMs that actually fixed this so I\u0027d rather not risk it.\n\nIt is totally possible that I am missing something.",
+      "parentUuid": "21223fad_0c04e2d6",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "2ca8df22_da5cdbb0",
+        "filename": "src/com/android/providers/telephony/RcsProviderEventHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Fixed, thanks!",
+      "parentUuid": "089bfc00_9b0ae970",
+      "range": {
+        "startLine": 214,
+        "startChar": 17,
+        "endLine": 214,
+        "endChar": 46
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "558bb1cc_37c3eea3",
         "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
         "patchSetId": 3
@@ -171,6 +333,24 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd03215_bbd684e3",
+        "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Filed b/123776340 to add and make use of message type column. Thanks!",
+      "parentUuid": "558bb1cc_37c3eea3",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "f64ad6c0_2ffbeecc",
+        "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "I filed b/122731905 to track this before, thanks!",
+      "parentUuid": "0536bfbc_d841a706",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce7d0c96_cf004c29",
         "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
         "patchSetId": 3
@@ -205,6 +403,24 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e48a17c_b0348fce",
+        "filename": "src/com/android/providers/telephony/RcsProviderMessageHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "It should be possible on a full feature database but I doubt SqLite has it. Filed b/123776615 to investigate.",
+      "parentUuid": "ce7d0c96_cf004c29",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -225,6 +441,24 @@
     },
     {
       "key": {
+        "uuid": "b290b204_4d6075c8",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Filed b/123776340 track this, thanks!",
+      "parentUuid": "44357a36_1e4cc667",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a7349ab_df4dfb3a",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 3
@@ -239,6 +473,24 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14fa6a16_4b1ddf2f",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Changed to constants, thanks!",
+      "parentUuid": "2a7349ab_df4dfb3a",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -265,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "72831b06_9ab745cd",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "I think it is much easier to read now - let me know if you think otherwise. I tried your suggested approach locally but keeping the columns, plus their types with syntax like commas and spaces didn\u0027t really help readability.",
+      "parentUuid": "a72aa867_a789bd9f",
+      "range": {
+        "startLine": 111,
+        "startChar": 62,
+        "endLine": 111,
+        "endChar": 76
+      },
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fe982fb_f45c35cb",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 3
@@ -282,6 +558,24 @@
     },
     {
       "key": {
+        "uuid": "b95ae141_655f546e",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "Filed b/123777317, thanks!",
+      "parentUuid": "8fe982fb_f45c35cb",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b50499c_066a9a2b",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 3
@@ -296,6 +590,24 @@
       "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f39f93_2c24b2fc",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-02T21:57:53Z",
+      "side": 1,
+      "message": "As per our discussion I think we should leave this to the implementation as there isn\u0027t really a way for the storage APIs to enforce a participant actually left a group (i.e. on the server side)",
+      "parentUuid": "2b50499c_066a9a2b",
+      "revId": "0d18ef874660e9c265f16e0323b836a6dda99431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
