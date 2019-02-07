@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbe6d797_4c223417",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-07T01:11:37Z",
+      "side": 0,
+      "message": "So we have no permission check for RcsProvider for now? What is the issue with just using these same SMS permissions?",
+      "revId": "b0189d883211a47fd7371ef42ae0761ada2ffb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
