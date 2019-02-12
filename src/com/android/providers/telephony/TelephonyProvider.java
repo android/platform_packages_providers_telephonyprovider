@@ -81,7 +81,10 @@ import android.content.UriMatcher;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.database.AbstractWindowedCursor;
 import android.database.Cursor;
+import android.database.CursorWindow;
+import android.database.DatabaseUtils;
 import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -481,6 +484,7 @@ public class TelephonyProvider extends ContentProvider
             mContext = context;
             // Memory optimization - close idle connections after 30s of inactivity
             setIdleConnectionTimeout(IDLE_CONNECTION_TIMEOUT_MS);
+            setWriteAheadLoggingEnabled(false);
         }
 
         @VisibleForTesting
@@ -2869,9 +2873,17 @@ public class TelephonyProvider extends ContentProvider
         } catch (SQLException e) {
             loge("got exception when querying: " + e);
         }
-        if (ret != null)
-            ret.setNotificationUri(getContext().getContentResolver(), url);
-        return ret;
+        MemoryCursor memCursor = null;
+        if (ret != null) {
+            try {
+               memCursor = new MemoryCursor(ret.getColumnNames());
+               memCursor.fillFromCursor(ret);
+               memCursor.setNotificationUri(getContext().getContentResolver(), url);
+            } finally {
+               ret.close();
+            }
+        }
+        return memCursor;
     }
 
     private void checkQueryPermission(int match, String[] projectionIn) {
@@ -3854,6 +3866,29 @@ public class TelephonyProvider extends ContentProvider
                         values.getAsInteger(BEARER_BITMASK));
                 values.put(NETWORK_TYPE_BITMASK, convertedBitmask);
             }
+        }
+    }
+
+    private static final class MemoryCursor extends AbstractWindowedCursor {
+        private final String[] mColumnNames;
+
+        public MemoryCursor(String[] columnNames) {
+            setWindow(new CursorWindow(null));
+            mColumnNames = columnNames;
+        }
+
+        public void fillFromCursor(Cursor cursor) {
+            DatabaseUtils.cursorFillWindow(cursor, 0, getWindow());
+        }
+
+        @Override
+        public int getCount() {
+            return getWindow().getNumRows();
+        }
+
+        @Override
+        public String[] getColumnNames() {
+            return mColumnNames;
         }
     }
 
