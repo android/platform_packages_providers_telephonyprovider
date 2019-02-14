@@ -1,0 +1,9 @@
+Presubmit-Ready+1: Chen Xu <fionaxu@google.com>
+Verified+1: Chen Xu <fionaxu@google.com>
+Autosubmit+1: Chen Xu <fionaxu@google.com>
+Code-Review+2: Pengquan Meng <mpq@google.com>
+Submitted-by: Chen Xu <fionaxu@google.com>
+Submitted-at: Thu, 14 Feb 2019 06:47:14 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/904165
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
