@@ -1947,6 +1947,7 @@ public class TelephonyProvider extends ContentProvider
             addIntAttribute(parser, "apn_set_id", map, APN_SET_ID);
             addIntAttribute(parser, "carrier_id", map, CARRIER_ID);
             addIntAttribute(parser, "skip_464xlat", map, SKIP_464XLAT);
+            addIntAttribute(parser, "edited", map, EDITED_STATUS);
 
             addBoolAttribute(parser, "carrier_enabled", map, CARRIER_ENABLED);
             addBoolAttribute(parser, "modem_cognitive", map, MODEM_PERSIST);
