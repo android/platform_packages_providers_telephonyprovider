@@ -16,6 +16,24 @@
       "revId": "b0189d883211a47fd7371ef42ae0761ada2ffb99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b798196f_a6fa7e3e",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-19T17:46:03Z",
+      "side": 0,
+      "message": "Sorry, I don\u0027t know how I missed this when submitting. Mainly, we do not want API users to be able to directly access the content provider. We will add checking that user is the phone process in b/124000636.",
+      "parentUuid": "cbe6d797_4c223417",
+      "revId": "b0189d883211a47fd7371ef42ae0761ada2ffb99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
