@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a73c4f7e_ffa9e917",
+        "filename": "src/com/android/providers/telephony/RcsProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-19T18:14:23Z",
+      "side": 1,
+      "message": "Will remove in an overall sweep in b/124762574.",
+      "range": {
+        "startLine": 507,
+        "startChar": 13,
+        "endLine": 510,
+        "endChar": 22
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
