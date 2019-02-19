@@ -125,6 +125,29 @@
       "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b3f175_bd90d945",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1318036
+      },
+      "writtenOn": "2019-02-19T23:30:10Z",
+      "side": 1,
+      "message": "nit: break the line pls",
+      "range": {
+        "startLine": 371,
+        "startChar": 100,
+        "endLine": 371,
+        "endChar": 103
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
