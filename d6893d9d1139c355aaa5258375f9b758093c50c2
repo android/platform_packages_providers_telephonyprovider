@@ -22,6 +22,92 @@
       "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db27f758_32100a84",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-19T20:30:13Z",
+      "side": 1,
+      "message": "Should probably document what values are expected in contentValues.",
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c38d9d_decba794",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-19T20:30:13Z",
+      "side": 1,
+      "message": "query and return the threadId instead?",
+      "range": {
+        "startLine": 340,
+        "startChar": 23,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed8841d_7edf5637",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-19T20:30:13Z",
+      "side": 1,
+      "message": "We leave sort of an orphaned thread in CommonRcsThreads. That should be deleted in this case.",
+      "range": {
+        "startLine": 348,
+        "startChar": 46,
+        "endLine": 348,
+        "endChar": 51
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39a9432_441a3bd8",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-19T20:30:13Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 352,
+        "startChar": 76,
+        "endLine": 352,
+        "endChar": 81
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
