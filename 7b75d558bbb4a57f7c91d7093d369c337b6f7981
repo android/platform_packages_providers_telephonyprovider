@@ -16,6 +16,24 @@
       "revId": "7b75d558bbb4a57f7c91d7093d369c337b6f7981",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57f2e517_e571f99e",
+        "filename": "tests/src/com/android/providers/telephony/RcsProviderHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-20T23:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0526290_ea16fd2d",
+      "revId": "7b75d558bbb4a57f7c91d7093d369c337b6f7981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
