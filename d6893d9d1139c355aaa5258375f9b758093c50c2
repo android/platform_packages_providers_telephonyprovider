@@ -124,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "52f9bd92_0d42ee47",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-20T18:30:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2918f40d_8cef1d8b",
+      "range": {
+        "startLine": 340,
+        "startChar": 23,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed8841d_7edf5637",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -171,6 +195,30 @@
     },
     {
       "key": {
+        "uuid": "c3e50316_2baccd04",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-20T18:30:04Z",
+      "side": 1,
+      "message": "Oh ok. I missed the setTransactionSuccessful() and thought only endTransaction() was needed.",
+      "parentUuid": "c1fc71a8_c86cad11",
+      "range": {
+        "startLine": 348,
+        "startChar": 46,
+        "endLine": 348,
+        "endChar": 51
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d39a9432_441a3bd8",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -215,6 +263,30 @@
       "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb9b6d0d_4e4d842a",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-02-20T18:30:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1beddc9_72e4d24c",
+      "range": {
+        "startLine": 352,
+        "startChar": 76,
+        "endLine": 352,
+        "endChar": 81
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
