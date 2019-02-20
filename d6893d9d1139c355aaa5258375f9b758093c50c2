@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "50b25f23_8ee0921f",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-20T15:57:15Z",
+      "side": 1,
+      "message": "Done, also adds documentation to contract class in https://android-review.googlesource.com/c/platform/frameworks/base/+/907721.",
+      "parentUuid": "db27f758_32100a84",
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16c38d9d_decba794",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -70,6 +88,30 @@
       "writtenOn": "2019-02-19T20:30:13Z",
       "side": 1,
       "message": "query and return the threadId instead?",
+      "range": {
+        "startLine": 340,
+        "startChar": 23,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2918f40d_8cef1d8b",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-20T15:57:15Z",
+      "side": 1,
+      "message": "This is something we have discussed. In this change I am just moving the logic from the ircs service to the provider to support insertion as an atomic operation. I create b/124789290 to discuss and track this change separately.",
+      "parentUuid": "16c38d9d_decba794",
       "range": {
         "startLine": 340,
         "startChar": 23,
@@ -105,6 +147,30 @@
     },
     {
       "key": {
+        "uuid": "c1fc71a8_c86cad11",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-20T15:57:15Z",
+      "side": 1,
+      "message": "This path is in the same transaction as the insertIntoCommonThreads, and we do not mark the transaction successful in this case, so I though that in this case the common RCS threads row will never commit.",
+      "parentUuid": "7ed8841d_7edf5637",
+      "range": {
+        "startLine": 348,
+        "startChar": 46,
+        "endLine": 348,
+        "endChar": 51
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d39a9432_441a3bd8",
         "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
         "patchSetId": 2
@@ -116,6 +182,30 @@
       "writtenOn": "2019-02-19T20:30:13Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 352,
+        "startChar": 76,
+        "endLine": 352,
+        "endChar": 81
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1beddc9_72e4d24c",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-20T15:57:15Z",
+      "side": 1,
+      "message": "This is also in the same transaction, so again, I don\u0027t think the orphaned thread should ever commit, unless I missed something.",
+      "parentUuid": "d39a9432_441a3bd8",
       "range": {
         "startLine": 352,
         "startChar": 76,
@@ -148,6 +238,30 @@
       "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec40b6e7_2daf8846",
+        "filename": "src/com/android/providers/telephony/RcsProviderThreadHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1396528
+      },
+      "writtenOn": "2019-02-20T15:57:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61b3f175_bd90d945",
+      "range": {
+        "startLine": 371,
+        "startChar": 100,
+        "endLine": 371,
+        "endChar": 103
+      },
+      "revId": "d6893d9d1139c355aaa5258375f9b758093c50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
