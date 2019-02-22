@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1287907_d8aabd6c",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 1033528
+      },
+      "writtenOn": "2019-02-22T01:11:07Z",
+      "side": 1,
+      "message": "Just a question.\nI guess this should be \"oldVersion \u003d 35 \u003c\u003c 16 | 6;\"\nWhy oldVersion should be 29 here ? (typo ?)",
+      "range": {
+        "startLine": 1248,
+        "startChar": 16,
+        "endLine": 1248,
+        "endChar": 42
+      },
+      "revId": "815b42f48deca85e5b3f9221a9cb2fb7ee852497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
