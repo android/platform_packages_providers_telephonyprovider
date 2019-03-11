@@ -286,8 +286,12 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+<<<<<<< HEAD   (bf33e7 Merge "Add new colums for skip464xlat")
     @VisibleForTesting
     MmsSmsDatabaseHelper(Context context, MmsSmsDatabaseErrorHandler dbErrorHandler) {
+=======
+    private MmsSmsDatabaseHelper(Context context, MmsSmsDatabaseErrorHandler dbErrorHandler) {
+>>>>>>> BRANCH (c603e3 Snap for 5180536 from 3e21fecfeb67f69d1385fde8740fd0856761b6)
         super(context, DATABASE_NAME, null, DATABASE_VERSION, dbErrorHandler);
         mContext = context;
         // Memory optimization - close idle connections after 30s of inactivity
