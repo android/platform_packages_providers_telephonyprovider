@@ -2044,6 +2044,17 @@ public class TelephonyProvider extends ContentProvider
                 // Update the network type bitmask to keep them sync.
                 networkTypeBitmask = ServiceState.convertBearerBitmaskToNetworkTypeBitmask(
                         bearerBitmask);
+                // Legacy bearer is deprecated, in order to be compatible with bearer_bitmask till
+                // both are removed (bearer_bitmask is marked as deprecated now), just appends
+                // bearer into bearer_bitmask only.
+                // Use the constant string BEARER instead of the "bearer" by hard code.
+                final String apnBearer = parser.getAttributeValue(null, BEARER);
+                if (apnBearer != null) {
+                    final int legacyBearerBitmask =
+                            ServiceState.getBitmaskForTech(Integer.parseInt(apnBearer));
+                    networkTypeBitmask |= ServiceState
+                            .convertBearerBitmaskToNetworkTypeBitmask(legacyBearerBitmask);
+                }
                 map.put(NETWORK_TYPE_BITMASK, networkTypeBitmask);
             }
             map.put(BEARER_BITMASK, bearerBitmask);
