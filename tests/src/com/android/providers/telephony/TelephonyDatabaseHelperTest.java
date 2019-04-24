@@ -257,7 +257,7 @@ public final class TelephonyDatabaseHelperTest {
                         + " DEFAULT " + SubscriptionManager.DISPLAY_NUMBER_DEFAULT + ","
                     + SubscriptionManager.DATA_ROAMING
                         + " INTEGER DEFAULT " + SubscriptionManager.DATA_ROAMING_DEFAULT + ","
-                    + SubscriptionManager.CARD_ID + " TEXT NOT NULL"
+                    + SubscriptionManager.CARD_STRING + " TEXT NOT NULL"
                     + ");");
         }
 

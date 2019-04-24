@@ -367,7 +367,7 @@ public class TelephonyProvider extends ContentProvider
                 + SubscriptionManager.SIM_PROVISIONING_STATUS
                 + " INTEGER DEFAULT " + SubscriptionManager.SIM_PROVISIONED + ","
                 + SubscriptionManager.IS_EMBEDDED + " INTEGER DEFAULT 0,"
-                + SubscriptionManager.CARD_ID + " TEXT NOT NULL,"
+                + SubscriptionManager.CARD_STRING + " TEXT NOT NULL,"
                 + SubscriptionManager.ACCESS_RULES + " BLOB,"
                 + SubscriptionManager.IS_REMOVABLE + " INTEGER DEFAULT 0,"
                 + SubscriptionManager.CB_EXTREME_THREAT_ALERT + " INTEGER DEFAULT 1,"
@@ -1078,11 +1078,11 @@ public class TelephonyProvider extends ContentProvider
                 oldVersion = 24 << 16 | 6;
             }
             if (oldVersion < (25 << 16 | 6)) {
-                // Add a new column SubscriptionManager.CARD_ID into the database and set the value
-                // to be the same as the existing column SubscriptionManager.ICC_ID. In order to do
-                // this, we need to first make a copy of the existing SIMINFO_TABLE, set the value
-                // of the new column SubscriptionManager.CARD_ID, and replace the SIMINFO_TABLE with
-                // the new table.
+                // Add a new column SubscriptionManager.CARD_STRING into the database and set the
+                // value to be the same as the existing column SubscriptionManager.ICC_ID. In order
+                // to do this, we need to first make a copy of the existing SIMINFO_TABLE, set the
+                // value of the new column SubscriptionManager.CARD_STRING, and replace the
+                // SIMINFO_TABLE with the new table.
                 Cursor c = null;
                 String[] proj = {SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID};
                 recreateSimInfoDB(c, db, proj);
@@ -1091,10 +1091,10 @@ public class TelephonyProvider extends ContentProvider
                     log("dbh.onUpgrade:- after upgrading " + SIMINFO_TABLE
                             + " total number of rows: " + c.getCount());
                     c.close();
-                    c = db.query(SIMINFO_TABLE, proj, SubscriptionManager.CARD_ID + " IS NOT NULL",
-                            null, null, null, null);
+                    c = db.query(SIMINFO_TABLE, proj, SubscriptionManager.CARD_STRING
+                            + " IS NOT NULL", null, null, null, null);
                     log("dbh.onUpgrade:- after upgrading total number of rows with "
-                            + SubscriptionManager.CARD_ID + ": " + c.getCount());
+                            + SubscriptionManager.CARD_STRING + ": " + c.getCount());
                     c.close();
                 }
                 oldVersion = 25 << 16 | 6;
@@ -1409,7 +1409,7 @@ public class TelephonyProvider extends ContentProvider
             if (columnIndex != -1) {
                 String fromCursor = c.getString(columnIndex);
                 if (!TextUtils.isEmpty(fromCursor)) {
-                    cv.put(SubscriptionManager.CARD_ID, fromCursor);
+                    cv.put(SubscriptionManager.CARD_STRING, fromCursor);
                 }
             }
         }

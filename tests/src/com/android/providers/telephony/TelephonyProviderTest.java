@@ -331,7 +331,7 @@ public class TelephonyProviderTest extends TestCase {
                     cv.put(SubscriptionManager.MCC, mcc);
                     cv.put(SubscriptionManager.MNC, mnc);
                     cv.put(SubscriptionManager.ICC_ID, String.valueOf(idx));
-                    cv.put(SubscriptionManager.CARD_ID, String.valueOf(idx));
+                    cv.put(SubscriptionManager.CARD_STRING, String.valueOf(idx));
                     return cv;
         }).toArray(ContentValues[]::new);
 
@@ -543,13 +543,13 @@ public class TelephonyProviderTest extends TestCase {
         final String insertDisplayName = "exampleDisplayName";
         final String insertCarrierName = "exampleCarrierName";
         final String insertIccId = "exampleIccId";
-        final String insertCardId = "exampleCardId";
+        final String insertCardString = "exampleCardString";
         final int insertProfileClass = SubscriptionManager.PROFILE_CLASS_DEFAULT;
         contentValues.put(SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID, insertSubId);
         contentValues.put(SubscriptionManager.DISPLAY_NAME, insertDisplayName);
         contentValues.put(SubscriptionManager.CARRIER_NAME, insertCarrierName);
         contentValues.put(SubscriptionManager.ICC_ID, insertIccId);
-        contentValues.put(SubscriptionManager.CARD_ID, insertCardId);
+        contentValues.put(SubscriptionManager.CARD_STRING, insertCardString);
         contentValues.put(SubscriptionManager.PROFILE_CLASS, insertProfileClass);
 
         Log.d(TAG, "testSimTable Inserting contentValues: " + contentValues);
@@ -560,7 +560,7 @@ public class TelephonyProviderTest extends TestCase {
         {
             SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID,
             SubscriptionManager.CARRIER_NAME,
-            SubscriptionManager.CARD_ID,
+            SubscriptionManager.CARD_STRING,
             SubscriptionManager.PROFILE_CLASS,
         };
         final String selection = SubscriptionManager.DISPLAY_NAME + "=?";
@@ -576,11 +576,11 @@ public class TelephonyProviderTest extends TestCase {
         cursor.moveToFirst();
         final int resultSubId = cursor.getInt(0);
         final String resultCarrierName = cursor.getString(1);
-        final String resultCardId = cursor.getString(2);
+        final String resultCardString = cursor.getString(2);
         final int resultProfileClass = cursor.getInt(3);
         assertEquals(insertSubId, resultSubId);
         assertEquals(insertCarrierName, resultCarrierName);
-        assertEquals(insertCardId, resultCardId);
+        assertEquals(insertCardString, resultCardString);
         assertEquals(insertProfileClass, resultProfileClass);
 
         // delete test content
@@ -1431,12 +1431,12 @@ public class TelephonyProviderTest extends TestCase {
         final String insertDisplayName = "exampleDisplayName";
         final String insertCarrierName = "exampleCarrierName";
         final String insertIccId = "exampleIccId";
-        final String insertCardId = "exampleCardId";
+        final String insertCardString = "exampleCardString";
         contentValues.put(SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID, insertSubId);
         contentValues.put(SubscriptionManager.DISPLAY_NAME, insertDisplayName);
         contentValues.put(SubscriptionManager.CARRIER_NAME, insertCarrierName);
         contentValues.put(SubscriptionManager.ICC_ID, insertIccId);
-        contentValues.put(SubscriptionManager.CARD_ID, insertCardId);
+        contentValues.put(SubscriptionManager.CARD_STRING, insertCardString);
 
         Log.d(TAG, "testSimTable Inserting wfc contentValues: " + contentValues);
         mContentResolver.insert(SubscriptionManager.CONTENT_URI, contentValues);
