@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab88af9_918c5517",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-04-24T23:27:41Z",
+      "side": 0,
+      "message": "This is different from CARRIERS_TABLE and is the reason why we have it as parameter.",
+      "range": {
+        "startLine": 1782,
+        "startChar": 36,
+        "endLine": 1782,
+        "endChar": 54
+      },
+      "revId": "c92dc3df15e646258ba1307b7141ec6ee56a02ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
