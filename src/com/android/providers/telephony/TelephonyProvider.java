@@ -1774,12 +1774,11 @@ public class TelephonyProvider extends ContentProvider
                             }
                         } catch (SQLException e) {
                             if (VDBG)
-                                log("dbh.copyPreservedApnsToNewTable insertWithOnConflict exception " +
-                                        e + " for cv " + cv);
+                                log("dbh.copyPreservedApnsToNewTable insertWithOnConflict "
+                                        + "exception " + e + " for cv " + cv);
                             // Insertion failed which could be due to a conflict. Check if that is
                             // the case and merge the entries
-                            Cursor oldRow = DatabaseHelper.selectConflictingRow(db,
-                                    CARRIERS_TABLE_TMP, cv);
+                            Cursor oldRow = DatabaseHelper.selectConflictingRowForCarriers(db, cv);
                             if (oldRow != null) {
                                 ContentValues mergedValues = new ContentValues();
                                 mergeFieldsAndUpdateDb(db, CARRIERS_TABLE_TMP, oldRow, cv,
@@ -2033,7 +2032,7 @@ public class TelephonyProvider extends ContentProvider
                 // Search for the exact same entry and update edited field.
                 // If it is USER_EDITED/CARRIER_EDITED change it to UNEDITED,
                 // and if USER/CARRIER_DELETED change it to USER/CARRIER_DELETED_BUT_PRESENT_IN_XML.
-                Cursor oldRow = selectConflictingRow(db, CARRIERS_TABLE, row);
+                Cursor oldRow = selectConflictingRowForCarriers(db, row);
                 if (oldRow != null) {
                     // Update the row
                     ContentValues mergedValues = new ContentValues();
@@ -2265,12 +2264,11 @@ public class TelephonyProvider extends ContentProvider
             return false;
         }
 
-        public static Cursor selectConflictingRow(SQLiteDatabase db, String table,
-                                                  ContentValues row) {
+        public static Cursor selectConflictingRowForCarriers(SQLiteDatabase db, ContentValues row) {
             // Conflict is possible only when numeric, mcc, mnc (fields without any default value)
             // are set in the new row
             if (!row.containsKey(NUMERIC) || !row.containsKey(MCC) || !row.containsKey(MNC)) {
-                loge("dbh.selectConflictingRow: called for non-conflicting row: " + row);
+                loge("dbh.selectConflictingRowForCarriers: called for non-conflicting row: " + row);
                 return null;
             }
 
@@ -2301,21 +2299,21 @@ public class TelephonyProvider extends ContentProvider
 
             if (c != null) {
                 if (c.getCount() == 1) {
-                    if (VDBG) log("dbh.selectConflictingRow: " + c.getCount() + " conflicting " +
-                            "row found");
+                    if (VDBG) log("dbh.selectConflictingRowForCarriers: " + c.getCount()
+                            + " conflicting row found");
                     if (c.moveToFirst()) {
                         return c;
                     } else {
-                        loge("dbh.selectConflictingRow: moveToFirst() failed");
+                        loge("dbh.selectConflictingRowForCarriers: moveToFirst() failed");
                     }
                 } else {
-                    loge("dbh.selectConflictingRow: Expected 1 but found " + c.getCount() +
-                            " matching rows found for cv " + row);
+                    loge("dbh.selectConflictingRowForCarriers: Expected 1 but found " + c.getCount()
+                            + " matching rows found for cv " + row);
                 }
                 c.close();
             } else {
-                loge("dbh.selectConflictingRow: Error - c is null; no matching row found for " +
-                        "cv " + row);
+                loge("dbh.selectConflictingRowForCarriers: Error - c is null; no matching row found "
+                        + "for cv " + row);
             }
 
             return null;
@@ -3097,7 +3095,7 @@ public class TelephonyProvider extends ContentProvider
             log("insert: exception " + e);
             // Insertion failed which could be due to a conflict. Check if that is the case
             // and merge the entries
-            Cursor oldRow = DatabaseHelper.selectConflictingRow(db, CARRIERS_TABLE, values);
+            Cursor oldRow = DatabaseHelper.selectConflictingRowForCarriers(db, values);
             if (oldRow != null) {
                 ContentValues mergedValues = new ContentValues();
                 DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
@@ -3510,7 +3508,7 @@ public class TelephonyProvider extends ContentProvider
                     // Update failed which could be due to a conflict. Check if that is
                     // the case and merge the entries
                     log("update: exception " + e);
-                    Cursor oldRow = DatabaseHelper.selectConflictingRow(db, CARRIERS_TABLE, values);
+                    Cursor oldRow = DatabaseHelper.selectConflictingRowForCarriers(db, values);
                     if (oldRow != null) {
                         ContentValues mergedValues = new ContentValues();
                         DatabaseHelper.mergeFieldsAndUpdateDb(db, CARRIERS_TABLE, oldRow, values,
