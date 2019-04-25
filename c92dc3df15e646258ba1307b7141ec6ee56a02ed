@@ -46,6 +46,30 @@
       "revId": "c92dc3df15e646258ba1307b7141ec6ee56a02ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1002512a_34b93c2e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-04-25T19:12:38Z",
+      "side": 0,
+      "message": "Sure, but it\u0027s just internal so IMO it\u0027s ok either way, as in whether we do that or not.",
+      "parentUuid": "f81b89a4_05842e21",
+      "range": {
+        "startLine": 1782,
+        "startChar": 36,
+        "endLine": 1782,
+        "endChar": 54
+      },
+      "revId": "c92dc3df15e646258ba1307b7141ec6ee56a02ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
