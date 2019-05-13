@@ -1,0 +1,6 @@
+Code-Review+2: Android Merger <noreply-android-build-merger@google.com>
+Submitted-by: Android Merger <noreply-android-build-merger@google.com>
+Submitted-at: Mon, 13 May 2019 21:15:24 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/961360
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/pie-gsi
