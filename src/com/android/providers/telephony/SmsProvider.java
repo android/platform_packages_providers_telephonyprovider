@@ -16,6 +16,8 @@
 
 package com.android.providers.telephony;
 
+import static com.android.internal.telephony.SmsResponse.NO_ERROR_CODE;
+
 import android.annotation.NonNull;
 import android.app.AppOpsManager;
 import android.content.ContentProvider;
@@ -85,7 +87,7 @@ public class SmsProvider extends ContentProvider {
         "transport_type",               // Always "sms".
         "type",                         // Always MESSAGE_TYPE_ALL.
         "locked",                       // Always 0 (false).
-        "error_code",                   // Always 0
+        "error_code",                   // Always -1 (SmsResponse.NO_ERROR_CODE)
         "_id"
     };
 
@@ -306,7 +308,7 @@ public class SmsProvider extends ContentProvider {
         row[8] = "sms";
         row[9] = TextBasedSmsColumns.MESSAGE_TYPE_ALL;
         row[10] = 0;      // locked
-        row[11] = 0;      // error_code
+        row[11] = NO_ERROR_CODE; // error_code
         row[12] = id;
         return row;
     }
