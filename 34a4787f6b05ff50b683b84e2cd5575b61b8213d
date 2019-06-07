@@ -1,0 +1,7 @@
+Code-Review+2: Jack Yu <jackyu@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Jack Yu <jackyu@google.com>
+Submitted-at: Fri, 07 Jun 2019 23:58:13 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/979340
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
