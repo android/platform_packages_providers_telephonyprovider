@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61d1c774_bd21511e",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-06-21T17:00:52Z",
+      "side": 1,
+      "message": "Do you mean MESSAGE_TYPE_ALL here?",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 47
+      },
+      "revId": "322ef81ff9129c8673c3a462a3a066781bb37d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
