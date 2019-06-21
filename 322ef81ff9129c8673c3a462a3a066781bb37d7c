@@ -22,6 +22,30 @@
       "revId": "322ef81ff9129c8673c3a462a3a066781bb37d7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd790aa7_0b954ce7",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1121603
+      },
+      "writtenOn": "2019-06-21T21:29:18Z",
+      "side": 1,
+      "message": "No. It is to get correct address according to the type. Originating address for MT SMS and Recipient address for MO SMS.Why MESSAGE_TYPE_ALL?",
+      "parentUuid": "61d1c774_bd21511e",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 47
+      },
+      "revId": "322ef81ff9129c8673c3a462a3a066781bb37d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
