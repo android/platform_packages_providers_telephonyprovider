@@ -46,6 +46,30 @@
       "revId": "322ef81ff9129c8673c3a462a3a066781bb37d7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8d0694_5c9848eb",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-06-21T21:34:24Z",
+      "side": 1,
+      "message": "My question is based on the code before this change, in which we were setting address to getDisplayOriginatingAddress and the type to MESSAGE_TYPE_ALL. Now, if the type is MESSAGE_TYPE_ALL, it seems we\u0027ll be setting the address to getRecipientAddress. If that\u0027s the intended behavior, please ignore this comment.",
+      "parentUuid": "bd790aa7_0b954ce7",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 47
+      },
+      "revId": "322ef81ff9129c8673c3a462a3a066781bb37d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
