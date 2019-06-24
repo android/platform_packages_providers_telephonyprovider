@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "527d398b_b7b58e14",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-06-24T20:31:56Z",
+      "side": 1,
+      "message": "Is it worth mentioning this was previously zero, so that someone looking at a bug report from an older version can have more context?",
+      "range": {
+        "startLine": 90,
+        "startChar": 43,
+        "endLine": 90,
+        "endChar": 80
+      },
+      "revId": "66de580c1d7524dff38f917feaa7bcf59eb35598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f23b433_38115d80",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-06-24T20:31:56Z",
+      "side": 1,
+      "message": "Consider removing the comment since it seems it\u0027s redundant now (the column purpose is now implied by the value)",
+      "range": {
+        "startLine": 311,
+        "startChar": 33,
+        "endLine": 311,
+        "endChar": 46
+      },
+      "revId": "66de580c1d7524dff38f917feaa7bcf59eb35598",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
