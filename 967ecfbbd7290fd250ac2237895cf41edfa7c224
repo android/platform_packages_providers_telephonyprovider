@@ -1,0 +1,12 @@
+Autosubmit+1: Leland Miller <lelandmiller@google.com>
+Autosubmit+1: Amit Mahajan <amitmahajan@google.com>
+Presubmit-Ready+1: Amit Mahajan <amitmahajan@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Andre Furtado <afurtado@google.com>
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Verified+1: Amit Mahajan <amitmahajan@google.com>
+Submitted-by: Amit Mahajan <amitmahajan@google.com>
+Submitted-at: Thu, 27 Jun 2019 16:29:59 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1000264
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
