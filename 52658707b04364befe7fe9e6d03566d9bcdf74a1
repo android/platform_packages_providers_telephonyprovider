@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "174bc0c1_31e6d290",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-07-10T22:07:19Z",
+      "side": 1,
+      "message": "Who will be the caller of this? Should we consider storing pdu instead of recreating the pdu from message contents? The current phone type may not be indicate the right format. For example for a given SIM the phone type may change between GSM and CDMA while roaming and while at home.",
+      "revId": "52658707b04364befe7fe9e6d03566d9bcdf74a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
