@@ -1,0 +1,10 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Makoto Onuki <omakoto@google.com>
+Code-Review+1: Andre Furtado <afurtado@google.com>
+Code-Review+1: Sahin Caliskan <sahinc@google.com>
+Code-Review+2: Jack Yu <jackyu@google.com>
+Submitted-by: Hui Yu <huiyu@google.com>
+Submitted-at: Mon, 05 Aug 2019 21:41:56 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/972484
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
