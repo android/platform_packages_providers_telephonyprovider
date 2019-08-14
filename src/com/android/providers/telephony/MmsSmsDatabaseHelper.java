@@ -993,7 +993,7 @@ public class MmsSmsDatabaseHelper extends SQLiteOpenHelper {
     @VisibleForTesting
     public static String CREATE_SMS_TABLE_STRING =
             "CREATE TABLE sms (" +
-            "_id INTEGER PRIMARY KEY," +
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "thread_id INTEGER," +
             "address TEXT," +
             "person INTEGER," +
