@@ -22,6 +22,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDiskIOException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -150,9 +151,15 @@ public class HbpcdLookupProvider extends ContentProvider {
         if (DBG) {
             Log.d(TAG, "onCreate");
         }
-        mDbHelper = new HbpcdLookupDatabaseHelper(getContext());
 
-        mDbHelper.getReadableDatabase();
+        try {
+            mDbHelper = new HbpcdLookupDatabaseHelper(getContext());
+            mDbHelper.getReadableDatabase();
+        } catch (SQLiteDiskIOException e) {
+            // no space left on the device
+            Log.e(TAG, "onCreate e=" + e);
+        }
+
         return true;
     }
 
