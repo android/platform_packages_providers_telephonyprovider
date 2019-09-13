@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1a7eda0_eb8dc5d0",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "nit: start comments with Upper case",
+      "range": {
+        "startLine": 406,
+        "startChar": 11,
+        "endLine": 406,
+        "endChar": 14
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe1ced1_7e6238ac",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "Consider extracting a method for this whole if block, and also creating specific methods for the submit/vs. not-submit",
+      "range": {
+        "startLine": 726,
+        "startChar": 6,
+        "endLine": 726,
+        "endChar": 35
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c06dff_5aca1038",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "Consider ternary operator for better readability, here and below",
+      "range": {
+        "startLine": 727,
+        "startChar": 12,
+        "endLine": 727,
+        "endChar": 30
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0384d6c_dce259ee",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "Consider inline-documenting literal params, e.g. /* paramName\u003d */ null\n\nhere and below",
+      "range": {
+        "startLine": 730,
+        "startChar": 40,
+        "endLine": 730,
+        "endChar": 44
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beefd455_dd73e9fb",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "What about subsequent messages? They won\u0027t be processed once we break.",
+      "range": {
+        "startLine": 889,
+        "startChar": 15,
+        "endLine": 890,
+        "endChar": 26
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e210ad_d713c06b",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "It seems we could notify even if nothing happened - is that really desired?\n\nSame for next method down below.",
+      "range": {
+        "startLine": 897,
+        "startChar": 11,
+        "endLine": 897,
+        "endChar": 70
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbdaa8c0_8b72e2be",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-09-13T04:04:07Z",
+      "side": 1,
+      "message": "Please reuse deleteMultipleMessagesFromIcc(String[] messageIndexString) instead of duplicating its code here.",
+      "range": {
+        "startLine": 919,
+        "startChar": 3,
+        "endLine": 919,
+        "endChar": 87
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
