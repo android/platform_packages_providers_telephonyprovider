@@ -1,0 +1,10 @@
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Code-Review+2: Jordan Liu <jminjie@google.com>
+Verified+1: Amit Mahajan <amitmahajan@google.com>
+Autosubmit+1: Amit Mahajan <amitmahajan@google.com>
+Presubmit-Verified-1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Amit Mahajan <amitmahajan@google.com>
+Submitted-at: Fri, 13 Sep 2019 20:30:15 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1108806
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
