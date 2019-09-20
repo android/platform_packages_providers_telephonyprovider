@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8feb7755_b5d383d5",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1a7eda0_eb8dc5d0",
+      "range": {
+        "startLine": 406,
+        "startChar": 11,
+        "endLine": 406,
+        "endChar": 14
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fe1ced1_7e6238ac",
         "filename": "src/com/android/providers/telephony/SmsProvider.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "170c1364af9b45c119d41746d8b462066d5da145",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e14e210_efc99f11",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fe1ced1_7e6238ac",
+      "range": {
+        "startLine": 726,
+        "startChar": 6,
+        "endLine": 726,
+        "endChar": 35
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e6fa4a34_df2210d4",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c06dff_5aca1038",
+      "range": {
+        "startLine": 727,
+        "startChar": 12,
+        "endLine": 727,
+        "endChar": 30
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0384d6c_dce259ee",
         "filename": "src/com/android/providers/telephony/SmsProvider.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "170c1364af9b45c119d41746d8b462066d5da145",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ba7f99_4128a272",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0384d6c_dce259ee",
+      "range": {
+        "startLine": 730,
+        "startChar": 40,
+        "endLine": 730,
+        "endChar": 44
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "46ad98ab_e22f7545",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beefd455_dd73e9fb",
+      "range": {
+        "startLine": 889,
+        "startChar": 15,
+        "endLine": 890,
+        "endChar": 26
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98e210ad_d713c06b",
         "filename": "src/com/android/providers/telephony/SmsProvider.java",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b81976fe_241bd0b3",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e210ad_d713c06b",
+      "range": {
+        "startLine": 897,
+        "startChar": 11,
+        "endLine": 897,
+        "endChar": 70
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbdaa8c0_8b72e2be",
         "filename": "src/com/android/providers/telephony/SmsProvider.java",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "170c1364af9b45c119d41746d8b462066d5da145",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c18ddd_c641db41",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-09-20T08:00:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbdaa8c0_8b72e2be",
+      "range": {
+        "startLine": 919,
+        "startChar": 3,
+        "endLine": 919,
+        "endChar": 87
+      },
+      "revId": "170c1364af9b45c119d41746d8b462066d5da145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
