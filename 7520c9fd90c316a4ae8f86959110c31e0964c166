@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6e27bdf_bbb12d7c",
+        "filename": "assets/sdk29_carrier_id/carrier_list.textpb",
+        "patchSetId": 2
+      },
+      "lineNbr": 10457,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-10-18T18:12:48Z",
+      "side": 1,
+      "message": "this is not the latest version 16777229?",
+      "range": {
+        "startLine": 10457,
+        "startChar": 9,
+        "endLine": 10457,
+        "endChar": 17
+      },
+      "revId": "7520c9fd90c316a4ae8f86959110c31e0964c166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
