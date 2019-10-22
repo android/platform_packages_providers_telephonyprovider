@@ -22,6 +22,30 @@
       "revId": "7520c9fd90c316a4ae8f86959110c31e0964c166",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3570e179_dff244bd",
+        "filename": "assets/sdk29_carrier_id/carrier_list.textpb",
+        "patchSetId": 2
+      },
+      "lineNbr": 10457,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2019-10-22T08:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6e27bdf_bbb12d7c",
+      "range": {
+        "startLine": 10457,
+        "startChar": 9,
+        "endLine": 10457,
+        "endChar": 17
+      },
+      "revId": "7520c9fd90c316a4ae8f86959110c31e0964c166",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
