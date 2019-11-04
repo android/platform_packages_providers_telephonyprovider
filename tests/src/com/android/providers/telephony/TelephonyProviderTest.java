@@ -93,6 +93,7 @@ public class TelephonyProviderTest extends TestCase {
     private static final String TEST_MCC = "123";
     private static final String TEST_MNC = "456";
     private static final String TEST_SPN = TelephonyProviderTestable.TEST_SPN;
+    private static final int TEST_CARRIERID = 1;
 
     // Used to test the path for URL_TELEPHONY_USING_SUBID with subid 1
     private static final Uri CONTENT_URI_WITH_SUBID = Uri.parse(
@@ -155,6 +156,7 @@ public class TelephonyProviderTest extends TestCase {
             doReturn(mIcRecords).when(mUiccController).getIccRecords(anyInt(),
                     ArgumentMatchers.eq(UiccController.APP_FAM_3GPP));
             doReturn(TEST_SPN).when(mIcRecords).getServiceProviderName();
+            doReturn(TEST_CARRIERID).when(mTelephonyManager).getSimCarrierId();
 
             // Add authority="telephony" to given telephonyProvider
             ProviderInfo providerInfo = new ProviderInfo();
@@ -1543,5 +1545,37 @@ public class TelephonyProviderTest extends TestCase {
         assertEquals(apnName, cursor.getString(0));
         assertEquals(carrierName, cursor.getString(1));
         assertEquals(numeric, cursor.getString(2));
+    }
+
+    @Test
+    @SmallTest
+    public void testSIMAPNLIST_APNMatchTheCarrierID() {
+        // Test on getCurrentAPNList() step 3
+        final String apnName = "apnName";
+        final String carrierName = "name";
+        final int carrierId = TEST_CARRIERID;
+        Log.d("TelephonyProvider", "Calvin test");
+
+        // Insert the APN and DB only have the carrierId APN
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Carriers.APN, apnName);
+        contentValues.put(Carriers.NAME, carrierName);
+        contentValues.put(Carriers.CARRIER_ID, carrierId);
+        mContentResolver.insert(Carriers.CONTENT_URI, contentValues);
+
+        // Query DB
+        final String[] testProjection =
+            {
+                Carriers.APN,
+                Carriers.NAME,
+                Carriers.CARRIER_ID,
+            };
+        Cursor cursor = mContentResolver.query(URL_SIM_APN_LIST,
+            testProjection, null, null, null);
+
+        cursor.moveToFirst();
+        assertEquals(apnName, cursor.getString(0));
+        assertEquals(carrierName, cursor.getString(1));
+        assertEquals(carrierId, cursor.getInt(2));
     }
 }

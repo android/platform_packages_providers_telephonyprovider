@@ -3078,30 +3078,33 @@ public class TelephonyProvider extends ContentProvider
      * To find the current sim APN. Query APN based on {MCC, MNC, MVNO} to support backward
      * compatibility but will move to carrier id in the future.
      *
-     * There has three steps:
+     * There has four steps:
      * 1. Query the APN based on { MCC, MNC, MVNO }.
      * 2. If can't find the current APN, then query the parent APN. Query based on { MCC, MNC }.
-     * 3. else return empty cursor
+     * 3. If can't find current APN and parent APN, then query based on { CARRIER_ID }.
+     * 4. else return empty cursor
      *
      */
     private Cursor getSubscriptionMatchingAPNList(SQLiteQueryBuilder qb, String[] projectionIn,
             String selection, String[] selectionArgs, String sort, int subId) {
         Cursor ret;
-        final TelephonyManager tm = ((TelephonyManager)
-                getContext().getSystemService(Context.TELEPHONY_SERVICE))
+        final TelephonyManager tm = ((TelephonyManager) getContext()
+                .getSystemService(Context.TELEPHONY_SERVICE))
                 .createForSubscriptionId(subId);
         SQLiteDatabase db = getReadableDatabase();
         String mccmnc = tm.getSimOperator();
+        int carrierId = tm.getSimCarrierId();
 
         qb.appendWhereStandalone(IS_NOT_USER_DELETED + " and " +
                 IS_NOT_USER_DELETED_BUT_PRESENT_IN_XML + " and " +
                 IS_NOT_CARRIER_DELETED + " and " +
                 IS_NOT_CARRIER_DELETED_BUT_PRESENT_IN_XML);
 
-        // For query db one time, append step 1 and step 2 condition in one selection and
-        // separate results after the query is completed. Because IMSI has special match rule,
-        // so just query the MCC / MNC and filter the MVNO by ourselves
-        qb.appendWhereStandalone(NUMERIC + " = '" + mccmnc + "' ");
+        // For query db one time, append step 1 and step 2 and step 3 condition in one selection and
+        // separate results after the query is completed. IMSI has special match rule, so just query
+        // the MCC / MNC and filter the MVNO by ourselves
+        qb.appendWhereStandalone(NUMERIC + " = '" + mccmnc + "' OR " +
+                CARRIER_ID + " = '" + carrierId + "'");
 
         ret = qb.query(db, null, selection, selectionArgs, null, null, sort);
         if (ret == null) {
@@ -3114,10 +3117,12 @@ public class TelephonyProvider extends ContentProvider
         String[] coulmnNames = projectionIn != null ? projectionIn : ret.getColumnNames();
         MatrixCursor currentCursor = new MatrixCursor(coulmnNames);
         MatrixCursor parentCursor = new MatrixCursor(coulmnNames);
+        MatrixCursor carrierIdCursor = new MatrixCursor(coulmnNames);
 
         int numericIndex = ret.getColumnIndex(NUMERIC);
         int mvnoIndex = ret.getColumnIndex(MVNO_TYPE);
         int mvnoDataIndex = ret.getColumnIndex(MVNO_MATCH_DATA);
+        int carrierIdIndex = ret.getColumnIndex(CARRIER_ID);
 
         IccRecords iccRecords = UiccController.getInstance().getIccRecords(
                 SubscriptionManager.getPhoneId(subId), UiccController.APP_FAM_3GPP);
@@ -3133,16 +3138,21 @@ public class TelephonyProvider extends ContentProvider
                 data.add(ret.getString(ret.getColumnIndex(column)));
             }
 
-            if (!TextUtils.isEmpty(ret.getString(numericIndex)) &&
-                    ApnSettingUtils.mvnoMatches(iccRecords,
+            if (!TextUtils.isEmpty(ret.getString(numericIndex))
+                    && ApnSettingUtils.mvnoMatches(iccRecords,
                             ApnSetting.getMvnoTypeIntFromString(ret.getString(mvnoIndex)),
                             ret.getString(mvnoDataIndex))) {
                 // 1. APN query result based on legacy SIM MCC/MCC and MVNO
                 currentCursor.addRow(data);
-            } else if (!TextUtils.isEmpty(ret.getString(numericIndex)) &&
-                    TextUtils.isEmpty(ret.getString(mvnoIndex))) {
+            } else if (!TextUtils.isEmpty(ret.getString(numericIndex))
+                    && TextUtils.isEmpty(ret.getString(mvnoIndex))) {
                 // 2. APN query result based on SIM MCC/MNC
                 parentCursor.addRow(data);
+            } else if (TextUtils.isEmpty(ret.getString(numericIndex))
+                    && TextUtils.isEmpty(ret.getString(mvnoIndex))
+                    && !TextUtils.isEmpty(ret.getString(carrierIdIndex))) {
+                // 3. APN query result based on carrier Id
+                carrierIdCursor.addRow(data);
             }
         }
         ret.close();
@@ -3153,6 +3163,9 @@ public class TelephonyProvider extends ContentProvider
         } else if (parentCursor.getCount() > 0) {
             if (DBG) log("match MNO APN: " + parentCursor.getCount());
             return parentCursor;
+        } else if (carrierIdCursor.getCount() > 0) {
+            if (DBG) log("match carrier ID APN: " + carrierIdCursor.getCount());
+            return carrierIdCursor;
         } else {
             if (DBG) log("APN no match");
             return new MatrixCursor(coulmnNames);
