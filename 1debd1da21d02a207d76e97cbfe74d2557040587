@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a034a89f_28ae472d",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-11-04T22:00:06Z",
+      "side": 1,
+      "message": "Please document inline parameters",
+      "range": {
+        "startLine": 713,
+        "startChar": 36,
+        "endLine": 713,
+        "endChar": 46
+      },
+      "revId": "1debd1da21d02a207d76e97cbfe74d2557040587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b17400_ef9b594f",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-11-04T22:00:06Z",
+      "side": 1,
+      "message": "There doesn\u0027t seem to be a need for this block. Same for other case below.",
+      "range": {
+        "startLine": 799,
+        "startChar": 13,
+        "endLine": 799,
+        "endChar": 17
+      },
+      "revId": "1debd1da21d02a207d76e97cbfe74d2557040587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d32708a1_8d458062",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-11-04T22:00:06Z",
+      "side": 1,
+      "message": "Please add space between @return and Return",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 20
+      },
+      "revId": "1debd1da21d02a207d76e97cbfe74d2557040587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "190933ff_11baae26",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-11-04T22:00:06Z",
+      "side": 1,
+      "message": "Why do you return zero when we failed to delete all the messages? Shouldn\u0027t you instead be counting the number of messages you were able to delete successfully?",
+      "range": {
+        "startLine": 900,
+        "startChar": 12,
+        "endLine": 900,
+        "endChar": 48
+      },
+      "revId": "1debd1da21d02a207d76e97cbfe74d2557040587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db9b50f6_8dac1fec",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1096929
+      },
+      "writtenOn": "2019-11-04T22:00:06Z",
+      "side": 1,
+      "message": "Can we pass this as an inner exception to the method below?",
+      "range": {
+        "startLine": 901,
+        "startChar": 39,
+        "endLine": 901,
+        "endChar": 48
+      },
+      "revId": "1debd1da21d02a207d76e97cbfe74d2557040587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
