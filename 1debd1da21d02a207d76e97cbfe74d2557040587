@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "4a15fa16_d2b28fa0",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-11-05T07:01:48Z",
+      "side": 1,
+      "message": "These are required to limit variable scope and to avoid compile error as we need to use same name variables in two cases.",
+      "parentUuid": "44b17400_ef9b594f",
+      "range": {
+        "startLine": 799,
+        "startChar": 13,
+        "endLine": 799,
+        "endChar": 17
+      },
+      "revId": "1debd1da21d02a207d76e97cbfe74d2557040587",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d32708a1_8d458062",
         "filename": "src/com/android/providers/telephony/SmsProvider.java",
         "patchSetId": 8
