@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5dc8ef2_2c7bcd5f",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3084,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2019-11-06T02:18:17Z",
+      "side": 1,
+      "message": "Should carrier ID takes precedence? \n\nDefaultCarrierConfigService of CarrierConfig takes carrier ID first and if not found, falls back to mcc/mnc/mvno_data.",
+      "range": {
+        "startLine": 3084,
+        "startChar": 74,
+        "endLine": 3084,
+        "endChar": 84
+      },
+      "revId": "743e071747d3ef0b192dc1cd99b22c1eac124f46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
