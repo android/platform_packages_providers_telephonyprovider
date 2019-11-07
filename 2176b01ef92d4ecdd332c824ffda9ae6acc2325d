@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d1e0e95_b2de7abf",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-11-07T07:28:39Z",
+      "side": 1,
+      "message": "We are working on converting telephony to a mainline module. TelephonyProvider is not a part of it, so it cannot call any non-system/public API in telephony like this one. I think this can be made into a system api. Also go over the rest of the changes in this file to make sure no telephony hidden api is being used.",
+      "range": {
+        "startLine": 709,
+        "startChar": 25,
+        "endLine": 709,
+        "endChar": 41
+      },
+      "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
