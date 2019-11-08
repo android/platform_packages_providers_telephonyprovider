@@ -22,6 +22,53 @@
       "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89a675b4_878dd60f",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-11-08T07:51:50Z",
+      "side": 1,
+      "message": "OK,Then these API\u0027s will be made public \n- getAllMessagesFromIcc\n- copyMessageToIcc\n- deleteMessageFromIcc",
+      "parentUuid": "6d1e0e95_b2de7abf",
+      "range": {
+        "startLine": 709,
+        "startChar": 25,
+        "endLine": 709,
+        "endChar": 41
+      },
+      "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc00c5c0_bded3aa0",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1126634
+      },
+      "writtenOn": "2019-11-08T07:51:50Z",
+      "side": 1,
+      "message": "This is hidden API. \nThe version of this API without subid is public, which uses getDefaultSmsSubscriptionId. But i think we need to use subid version of API here.\nCan we make this API public?\nIs there any specific reason to hide this API in SmsMessage?",
+      "range": {
+        "startLine": 721,
+        "startChar": 26,
+        "endLine": 721,
+        "endChar": 38
+      },
+      "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
