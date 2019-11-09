@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Brad Ebinger <breadley@google.com>
+Submitted-by: Hall Liu <hallliu@google.com>
+Submitted-at: Sat, 09 Nov 2019 01:04:44 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1163212
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
