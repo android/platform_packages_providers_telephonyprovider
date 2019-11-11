@@ -69,6 +69,53 @@
       "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c72d5d95_18162a99",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-11-11T21:46:17Z",
+      "side": 1,
+      "message": "You can mark it @hide and @SystemApi.\n\nBtw, do you think getSubmitPdu() ever needs to be called by a 3p app? Is there any reason for it to be public? We are not going to change what is already public, but curious whether this subId version should be public of system.",
+      "parentUuid": "dc00c5c0_bded3aa0",
+      "range": {
+        "startLine": 721,
+        "startChar": 26,
+        "endLine": 721,
+        "endChar": 38
+      },
+      "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aedc2bf8_def5c5de",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-11-11T21:46:17Z",
+      "side": 1,
+      "message": "How about this? I don\u0027t think apps need it, correct? Please make it @SystemApi as well.",
+      "range": {
+        "startLine": 731,
+        "startChar": 26,
+        "endLine": 731,
+        "endChar": 39
+      },
+      "revId": "2176b01ef92d4ecdd332c824ffda9ae6acc2325d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
