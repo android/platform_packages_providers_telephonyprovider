@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de92c1ef_bec1ab64",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10648,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-11-21T05:31:26Z",
+      "side": 1,
+      "message": "why it jump from 28 -\u003e 35?",
+      "range": {
+        "startLine": 10648,
+        "startChar": 9,
+        "endLine": 10648,
+        "endChar": 17
+      },
+      "revId": "6bcec4a52444ff067d6998ee59240b4c67130977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
