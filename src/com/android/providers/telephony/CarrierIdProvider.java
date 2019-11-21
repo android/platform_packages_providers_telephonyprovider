@@ -41,7 +41,12 @@ import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.telephony.SubscriptionController;
+<<<<<<< HEAD
 import com.android.internal.telephony.nano.CarrierIdProto;
+=======
+import com.android.internal.telephony.util.TelephonyUtils;
+import com.android.providers.telephony.nano.CarrierIdProto;
+>>>>>>> e9b0341... [Telephony Mainline] Move carrier id proto to TelephonyProvider
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
