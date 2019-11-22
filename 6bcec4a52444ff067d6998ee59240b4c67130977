@@ -22,6 +22,30 @@
       "revId": "6bcec4a52444ff067d6998ee59240b4c67130977",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a80aaad1_65f3788f",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10648,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2019-11-22T03:17:43Z",
+      "side": 1,
+      "message": "Since we had did some tests on release tool. Release tool auto-merged carrier list on server side but didn\u0027t auto-merged to AOSP, so the AOSP version value didn\u0027t increase and server side version had been increased.\n\nI think that is ok because the version will sync after this CL merged.",
+      "parentUuid": "de92c1ef_bec1ab64",
+      "range": {
+        "startLine": 10648,
+        "startChar": 9,
+        "endLine": 10648,
+        "endChar": 17
+      },
+      "revId": "6bcec4a52444ff067d6998ee59240b4c67130977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
