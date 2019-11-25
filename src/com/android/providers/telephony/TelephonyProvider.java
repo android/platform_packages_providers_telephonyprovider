@@ -40,6 +40,7 @@ import static android.provider.Telephony.Carriers.MMSPROXY;
 import static android.provider.Telephony.Carriers.MNC;
 import static android.provider.Telephony.Carriers.MODEM_PERSIST;
 import static android.provider.Telephony.Carriers.MTU;
+import static android.provider.Telephony.Carriers.IPV6_MTU;
 import static android.provider.Telephony.Carriers.MVNO_MATCH_DATA;
 import static android.provider.Telephony.Carriers.MVNO_TYPE;
 import static android.provider.Telephony.Carriers.NAME;
@@ -253,7 +254,7 @@ public class TelephonyProvider extends ContentProvider
     static {
         // Columns not included in UNIQUE constraint: name, current, edited, user, server, password,
         // authtype, type, protocol, roaming_protocol, sub_id, modem_cognitive, max_conns,
-        // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible, network_type_bitmask,
+        // wait_time, max_conns_time, mtu, ipv6_mtu bearer_bitmask, user_visible, network_type_bitmask,
         // skip_464xlat
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(NUMERIC, "");
         CARRIERS_UNIQUE_FIELDS_DEFAULTS.put(MCC, "");
@@ -325,6 +326,7 @@ public class TelephonyProvider extends ContentProvider
                 WAIT_TIME_RETRY + " INTEGER DEFAULT 0," +
                 TIME_LIMIT_FOR_MAX_CONNECTIONS + " INTEGER DEFAULT 0," +
                 MTU + " INTEGER DEFAULT 0," +
+                IPV6_MTU + " INTEGER DEFAULT 0," +
                 EDITED_STATUS + " INTEGER DEFAULT " + UNEDITED + "," +
                 USER_VISIBLE + " BOOLEAN DEFAULT 1," +
                 USER_EDITABLE + " BOOLEAN DEFAULT 1," +
@@ -335,7 +337,7 @@ public class TelephonyProvider extends ContentProvider
                 // here it means we will accept both (user edited + new apn_conf definition)
                 // Columns not included in UNIQUE constraint: name, current, edited,
                 // user, server, password, authtype, type, sub_id, modem_cognitive, max_conns,
-                // wait_time, max_conns_time, mtu, bearer_bitmask, user_visible,
+                // wait_time, max_conns_time, mtu, ipv6_mtu bearer_bitmask, user_visible,
                 // network_type_bitmask, skip_464xlat.
                 "UNIQUE (" + TextUtils.join(", ", CARRIERS_UNIQUE_FIELDS) + "));";
     }
@@ -1373,6 +1375,11 @@ public class TelephonyProvider extends ContentProvider
                 }
             }
 
+            if (oldVersion < (43 << 16 | 6)) {
+                db.execSQL("ALTER TABLE " + CARRIERS_TABLE +
+                        " ADD COLUMN ipv6_mtu INTEGER DEFAULT 0;");
+                oldVersion = 43 << 16 | 6;
+            }
 
             if (DBG) {
                 log("dbh.onUpgrade:- db=" + db + " oldV=" + oldVersion + " newV=" + newVersion);
@@ -1619,7 +1626,8 @@ public class TelephonyProvider extends ContentProvider
                     queryValOrNull(MAX_CONNECTIONS) +
                     queryValOrNull(WAIT_TIME_RETRY) +
                     queryValOrNull(TIME_LIMIT_FOR_MAX_CONNECTIONS) +
-                    queryValOrNull(MTU);
+                    queryValOrNull(MTU) +
+                    queryValOrNull(IPV6_MTU);
             String[] whereArgs = new String[29];
             int i = 0;
             whereArgs[i++] = values.getAsString(NUMERIC);
@@ -1690,6 +1698,8 @@ public class TelephonyProvider extends ContentProvider
                     values.getAsString(TIME_LIMIT_FOR_MAX_CONNECTIONS) : "0";
             whereArgs[i++] = values.containsKey(MTU) ?
                     values.getAsString(MTU) : "0";
+            whereArgs[i++] = values.containsKey(IPV6_MTU) ?
+                    values.getAsString(IPV6_MTU) : "0";
 
             if (VDBG) {
                 log("deleteRow: where: " + where);
@@ -1766,6 +1776,7 @@ public class TelephonyProvider extends ContentProvider
             getIntValueFromCursor(cv, c, WAIT_TIME_RETRY);
             getIntValueFromCursor(cv, c, TIME_LIMIT_FOR_MAX_CONNECTIONS);
             getIntValueFromCursor(cv, c, MTU);
+            getIntValueFromCursor(cv, c, IPV6_MTU);
             getIntValueFromCursor(cv, c, BEARER_BITMASK);
             getIntValueFromCursor(cv, c, EDITED_STATUS);
             getIntValueFromCursor(cv, c, USER_VISIBLE);
@@ -1804,6 +1815,7 @@ public class TelephonyProvider extends ContentProvider
             getIntValueFromCursor(cv, c, WAIT_TIME_RETRY);
             getIntValueFromCursor(cv, c, TIME_LIMIT_FOR_MAX_CONNECTIONS);
             getIntValueFromCursor(cv, c, MTU);
+            getIntValueFromCursor(cv, c, IPV6_MTU);
             getIntValueFromCursor(cv, c, NETWORK_TYPE_BITMASK);
             getIntValueFromCursor(cv, c, BEARER_BITMASK);
             getIntValueFromCursor(cv, c, EDITED_STATUS);
@@ -2016,6 +2028,7 @@ public class TelephonyProvider extends ContentProvider
             addIntAttribute(parser, "wait_time", map, WAIT_TIME_RETRY);
             addIntAttribute(parser, "max_conns_time", map, TIME_LIMIT_FOR_MAX_CONNECTIONS);
             addIntAttribute(parser, "mtu", map, MTU);
+            addIntAttribute(parser, "ipv6_mtu", map, IPV6_MTU);
             addIntAttribute(parser, "apn_set_id", map, APN_SET_ID);
             addIntAttribute(parser, "carrier_id", map, CARRIER_ID);
             addIntAttribute(parser, "skip_464xlat", map, SKIP_464XLAT);
