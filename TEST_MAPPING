@@ -2,6 +2,9 @@
   "presubmit": [
     {
       "name": "CtsTelephonyProviderTestCases"
+    },
+    {
+      "name": "hello_world_test"
     }
   ]
 }
