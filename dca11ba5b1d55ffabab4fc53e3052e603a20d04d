@@ -22,6 +22,30 @@
       "revId": "dca11ba5b1d55ffabab4fc53e3052e603a20d04d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab27a05e_b836db80",
+        "filename": "assets/sdk29_carrier_id/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10819,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2019-11-27T02:07:21Z",
+      "side": 0,
+      "message": "Seems like that have issue on automation tool since the server side data is incorrect.",
+      "parentUuid": "11ac3c5e_9db5523b",
+      "range": {
+        "startLine": 10621,
+        "startChar": 1,
+        "endLine": 10819,
+        "endChar": 27
+      },
+      "revId": "dca11ba5b1d55ffabab4fc53e3052e603a20d04d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
