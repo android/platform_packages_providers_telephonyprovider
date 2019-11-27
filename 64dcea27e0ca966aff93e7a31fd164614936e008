@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Submitted-by: Zoey Chen <zoeychen@google.com>
+Submitted-at: Wed, 27 Nov 2019 06:33:08 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1175085
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
