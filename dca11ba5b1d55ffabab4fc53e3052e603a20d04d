@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11ac3c5e_9db5523b",
+        "filename": "assets/sdk29_carrier_id/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10819,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-11-27T02:04:13Z",
+      "side": 0,
+      "message": "are those merge issue from your previous CL?\nI hope this is not something wrong from the automation tool",
+      "range": {
+        "startLine": 10621,
+        "startChar": 1,
+        "endLine": 10819,
+        "endChar": 27
+      },
+      "revId": "dca11ba5b1d55ffabab4fc53e3052e603a20d04d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
