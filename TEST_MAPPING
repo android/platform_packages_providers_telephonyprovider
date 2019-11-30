@@ -2,6 +2,14 @@
   "presubmit": [
     {
       "name": "CtsTelephonyProviderTestCases"
+    },
+    {
+      "name": "TelephonyProviderTests",
+      "options": [
+        {
+	  "instrumentation-arg": "notAnnotation:=androidx.test.filters.FlakyTest"
+        }
+      ]
     }
   ]
 }
