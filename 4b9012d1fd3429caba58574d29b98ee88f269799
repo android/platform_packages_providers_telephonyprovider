@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eae9d451_02384472",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3174,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-12-02T08:54:49Z",
+      "side": 1,
+      "message": "nit: @NonNull",
+      "range": {
+        "startLine": 3174,
+        "startChar": 54,
+        "endLine": 3174,
+        "endChar": 68
+      },
+      "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4b1d15a_dd4d98aa",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3174,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-12-02T08:54:49Z",
+      "side": 1,
+      "message": "nit: static",
+      "range": {
+        "startLine": 3174,
+        "startChar": 4,
+        "endLine": 3174,
+        "endChar": 11
+      },
+      "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "564d6f54_329a982a",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3176,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2019-12-02T08:54:49Z",
+      "side": 1,
+      "message": "have you checked if all values are string? \n\nList\u003cObject\u003e data.add(to.get(to.getColumnIndex(column))",
+      "range": {
+        "startLine": 3176,
+        "startChar": 10,
+        "endLine": 3176,
+        "endChar": 50
+      },
+      "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
