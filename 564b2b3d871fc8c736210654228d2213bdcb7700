@@ -16,6 +16,24 @@
       "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebe3622a_2b788acc",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330217
+      },
+      "writtenOn": "2019-12-04T00:34:02Z",
+      "side": 1,
+      "message": "use exclude-annotation will fail when running(see the result of PS#3)\nhttps://android-build.googleplex.com/builds/treetop/android-review/1178467?revision\u003d3\u0026revisionAttempt\u003d1\n\nI haven\u0027t dig into that, but it can pass while changing to instrumentation-arg and the test coverage is still the same as the tests ran for the ATP config.",
+      "parentUuid": "7ce180e2_b7971a3e",
+      "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
