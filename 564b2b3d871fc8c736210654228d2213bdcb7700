@@ -34,6 +34,24 @@
       "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b3ead9_79203774",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1088076
+      },
+      "writtenOn": "2019-12-04T00:54:01Z",
+      "side": 1,
+      "message": "The test config\u0027s runner needs to be updated to AndroidJUnitTest\nhttps://cs.corp.google.com/android/packages/providers/TelephonyProvider/tests/AndroidTest.xml?rcl\u003d711f5d52d82ba4c467ef0b65f2f0c0f435a72622\u0026l\u003d23\n\nThat should get it working.",
+      "parentUuid": "ebe3622a_2b788acc",
+      "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
