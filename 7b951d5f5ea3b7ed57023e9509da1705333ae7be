@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e90b2af8_71c1d61d",
+        "filename": "Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-12-04T17:58:57Z",
+      "side": 1,
+      "message": "This is not related to your change! You shouldn\u0027t add it when CP\u0027ing from internal to aosp.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "7b951d5f5ea3b7ed57023e9509da1705333ae7be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "076e3960_5845e33d",
+        "filename": "jarjar-rules.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-12-04T17:58:57Z",
+      "side": 1,
+      "message": "Same for this file.",
+      "revId": "7b951d5f5ea3b7ed57023e9509da1705333ae7be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680aa232_2def5f1a",
+        "filename": "src/com/android/providers/telephony/CarrierIdProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2019-12-04T17:58:57Z",
+      "side": 1,
+      "message": "Same for this.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "7b951d5f5ea3b7ed57023e9509da1705333ae7be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
