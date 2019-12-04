@@ -52,6 +52,24 @@
       "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd3b0d2_8169723f",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330217
+      },
+      "writtenOn": "2019-12-04T02:09:31Z",
+      "side": 1,
+      "message": "Thanks for the hints! \nI\u0027m testing this and seeing if everything is okay.",
+      "parentUuid": "28b3ead9_79203774",
+      "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
