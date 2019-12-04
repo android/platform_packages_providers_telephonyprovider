@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Build-Cop-Override+1: Rafal Slawik <rslawik@google.com>
+Submitted-by: Rafal Slawik <rslawik@google.com>
+Submitted-at: Wed, 04 Dec 2019 11:08:23 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1180140
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
