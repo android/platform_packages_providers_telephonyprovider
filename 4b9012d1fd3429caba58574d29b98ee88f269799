@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "2d52a7a3_906ff730",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3174,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2019-12-04T11:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae9d451_02384472",
+      "range": {
+        "startLine": 3174,
+        "startChar": 54,
+        "endLine": 3174,
+        "endChar": 68
+      },
+      "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3654b15d_c5077fca",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3174,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2019-12-04T11:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4b1d15a_dd4d98aa",
+      "range": {
+        "startLine": 3174,
+        "startChar": 4,
+        "endLine": 3174,
+        "endChar": 11
+      },
+      "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "564d6f54_329a982a",
         "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adfec237_491f358c",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3176,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2019-12-04T11:51:12Z",
+      "side": 1,
+      "message": "Done. to.get() is hidden API so use switch instead.",
+      "parentUuid": "564d6f54_329a982a",
+      "range": {
+        "startLine": 3176,
+        "startChar": 10,
+        "endLine": 3176,
+        "endChar": 50
+      },
+      "revId": "4b9012d1fd3429caba58574d29b98ee88f269799",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
