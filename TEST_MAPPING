@@ -11,5 +11,22 @@
         }
       ]
     }
+  ],
+  // Change back to presubmit test while b/145736224 is resolved.
+  "postsubmit": [
+    {
+      "name": "FrameworksTelephonyTests",
+      "options": [
+        {
+          "exclude-annotation": "androidx.test.filters.FlakyTest"
+        },
+        {
+          "exclude-annotation": "android.support.test.filters.FlakyTest"
+        },
+        {
+          "exclude-annotation": "org.junit.Ignore"
+        }
+      ]
+    }
   ]
 }
