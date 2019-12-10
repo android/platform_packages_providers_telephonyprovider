@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Chen Xu <fionaxu@google.com>
+Submitted-by: Calvin Pan <calvinpan@google.com>
+Submitted-at: Tue, 10 Dec 2019 06:00:14 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1158055
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
