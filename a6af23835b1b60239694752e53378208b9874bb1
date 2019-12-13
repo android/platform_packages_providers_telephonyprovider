@@ -1,0 +1,8 @@
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Autosubmit+1: Meng Wang <mewan@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Fri, 13 Dec 2019 22:14:24 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1188755
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
