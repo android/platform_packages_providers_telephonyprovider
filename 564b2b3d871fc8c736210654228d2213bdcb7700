@@ -70,6 +70,24 @@
       "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc8e655_0f91939e",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330217
+      },
+      "writtenOn": "2019-12-19T06:15:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd3b0d2_8169723f",
+      "revId": "564b2b3d871fc8c736210654228d2213bdcb7700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
