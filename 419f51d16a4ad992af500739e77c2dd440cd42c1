@@ -22,6 +22,30 @@
       "revId": "419f51d16a4ad992af500739e77c2dd440cd42c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ccf0ff7_9253bd59",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-01-06T12:35:11Z",
+      "side": 1,
+      "message": "FI updated the \"current\" column of FI APN to null. Maybe they use URL_CURRENT to query APN.\n\nWe must ensure that the number of columns in both cursors is the same, and if the data is null, getString() will also return null, so call to.getString() to add null in the data.\n\ngetString()\nhttps://cs.corp.google.com/master-daydream-dev/frameworks/base/core/java/android/database/MatrixCursor.java?rcl\u003d35e7d17d848e82e9a8fea5630fa5f65526c42961\u0026l\u003d267",
+      "parentUuid": "3437794c_46388f8e",
+      "range": {
+        "startLine": 3150,
+        "startChar": 25,
+        "endLine": 3150,
+        "endChar": 48
+      },
+      "revId": "419f51d16a4ad992af500739e77c2dd440cd42c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
