@@ -3137,8 +3137,6 @@ public class TelephonyProvider extends ContentProvider
             for (String column : to.getColumnNames()) {
                 int index = to.getColumnIndex(column);
                 switch (to.getType(index)) {
-                    case Cursor.FIELD_TYPE_NULL:
-                        break;
                     case Cursor.FIELD_TYPE_INTEGER:
                         data.add(to.getInt(index));
                         break;
@@ -3149,6 +3147,7 @@ public class TelephonyProvider extends ContentProvider
                         data.add(to.getBlob(index));
                         break;
                     case Cursor.FIELD_TYPE_STRING:
+                    case Cursor.FIELD_TYPE_NULL:
                         data.add(to.getString(index));
                         break;
                 }
