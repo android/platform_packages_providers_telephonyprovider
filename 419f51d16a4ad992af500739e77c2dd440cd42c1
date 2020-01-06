@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3437794c_46388f8e",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-01-06T08:57:10Z",
+      "side": 1,
+      "message": "which column is type_null? and why to.getString works in this case. better add some explanation in the commit msg",
+      "range": {
+        "startLine": 3150,
+        "startChar": 25,
+        "endLine": 3150,
+        "endChar": 48
+      },
+      "revId": "419f51d16a4ad992af500739e77c2dd440cd42c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
