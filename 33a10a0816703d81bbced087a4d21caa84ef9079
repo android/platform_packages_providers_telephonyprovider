@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21272e71_37bccbdc",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3094,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-01-08T19:26:47Z",
+      "side": 1,
+      "message": "how can you make sure mccmnc is matched here?",
+      "range": {
+        "startLine": 3091,
+        "startChar": 16,
+        "endLine": 3094,
+        "endChar": 57
+      },
+      "revId": "33a10a0816703d81bbced087a4d21caa84ef9079",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fb1959_75560276",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3099,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-01-08T19:26:47Z",
+      "side": 1,
+      "message": "how can you make sure mccmnc is matched here",
+      "range": {
+        "startLine": 3097,
+        "startChar": 22,
+        "endLine": 3099,
+        "endChar": 61
+      },
+      "revId": "33a10a0816703d81bbced087a4d21caa84ef9079",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
