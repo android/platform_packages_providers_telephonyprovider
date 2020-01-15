@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f4c8973_9b7f0bed",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 1
+      },
+      "lineNbr": 10648,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-01-15T07:27:55Z",
+      "side": 1,
+      "message": "this is decimal not hex, you should not directly change the LSB \nalso, we reserved left 2 (in hex) for relative SDK as carrier Id started from P.{P:0, Q:1, R:2} rather than {P:28, Q:29, R:30}",
+      "range": {
+        "startLine": 10648,
+        "startChar": 9,
+        "endLine": 10648,
+        "endChar": 17
+      },
+      "revId": "286868500826f6bc7646167315177f3a1b1ebb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
