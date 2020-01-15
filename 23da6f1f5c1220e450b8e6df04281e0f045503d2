@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a97615_7c56dc6a",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10654,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-01-15T09:39:13Z",
+      "side": 1,
+      "message": "Update the version from 1000014(hex) to 2000015(hex)",
+      "range": {
+        "startLine": 10654,
+        "startChar": 9,
+        "endLine": 10654,
+        "endChar": 17
+      },
+      "revId": "23da6f1f5c1220e450b8e6df04281e0f045503d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
