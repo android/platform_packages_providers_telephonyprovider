@@ -22,6 +22,30 @@
       "revId": "23da6f1f5c1220e450b8e6df04281e0f045503d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c379a812_9730de82",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10654,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-01-15T22:43:51Z",
+      "side": 1,
+      "message": "LGTM, do you need to update google3 carrier_list version? note sure if you need to update version generation logic in google3 as well",
+      "parentUuid": "92a97615_7c56dc6a",
+      "range": {
+        "startLine": 10654,
+        "startChar": 9,
+        "endLine": 10654,
+        "endChar": 17
+      },
+      "revId": "23da6f1f5c1220e450b8e6df04281e0f045503d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
