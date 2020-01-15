@@ -22,6 +22,30 @@
       "revId": "286868500826f6bc7646167315177f3a1b1ebb60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405fd594_7d2f3723",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 1
+      },
+      "lineNbr": 10648,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-01-15T10:43:55Z",
+      "side": 1,
+      "message": "Updated in aosp/1208266",
+      "parentUuid": "2f4c8973_9b7f0bed",
+      "range": {
+        "startLine": 10648,
+        "startChar": 9,
+        "endLine": 10648,
+        "endChar": 17
+      },
+      "revId": "286868500826f6bc7646167315177f3a1b1ebb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
