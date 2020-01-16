@@ -63,6 +63,8 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.telephony.SubscriptionController;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 
 public class ServiceStateProvider extends ContentProvider {
@@ -116,7 +118,7 @@ public class ServiceStateProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        if (uri.isPathPrefixMatch(CONTENT_URI)) {
+        if (isPathPrefixMatch(uri, CONTENT_URI)) {
             // Parse the subId
             int subId = 0;
             try {
@@ -171,7 +173,7 @@ public class ServiceStateProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
             String sortOrder) {
-        if (!uri.isPathPrefixMatch(CONTENT_URI)) {
+        if (!isPathPrefixMatch(uri, CONTENT_URI)) {
             throw new IllegalArgumentException("Invalid URI: " + uri);
         } else {
             // Parse the subId
@@ -349,5 +351,24 @@ public class ServiceStateProvider extends ContentProvider {
                 || voiceRoamingTypeChanged(oldSS, newSS) || dataRoamingTypeChanged(oldSS, newSS)) {
             context.getContentResolver().notifyChange(getUriForSubscriptionId(subId), null, false);
         }
+    }
+
+    private boolean isPathPrefixMatch(Uri uriA, Uri uriB) {
+        if (!Objects.equals(uriA.getScheme(), uriB.getScheme())) return false;
+        if (!Objects.equals(uriA.getAuthority(), uriB.getAuthority())) return false;
+
+        List<String> segA = uriA.getPathSegments();
+        List<String> segB = uriB.getPathSegments();
+
+        final int size = segB.size();
+        if (segA.size() < size) return false;
+
+        for (int i = 0; i < size; i++) {
+            if (!Objects.equals(segA.get(i), segB.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
