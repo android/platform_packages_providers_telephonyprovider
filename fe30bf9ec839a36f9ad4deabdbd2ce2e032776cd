@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "537f71c2_4be16cc4",
+        "filename": "src/com/android/providers/telephony/ServiceStateProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1087703
+      },
+      "writtenOn": "2020-01-16T21:54:09Z",
+      "side": 1,
+      "message": "can you copy the comment over as well, and add that this method was copied from Uri.java?",
+      "range": {
+        "startLine": 356,
+        "startChar": 20,
+        "endLine": 356,
+        "endChar": 37
+      },
+      "revId": "fe30bf9ec839a36f9ad4deabdbd2ce2e032776cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
