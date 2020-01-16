@@ -46,6 +46,30 @@
       "revId": "23da6f1f5c1220e450b8e6df04281e0f045503d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebd2064_353a1d88",
+        "filename": "assets/carrier_list.textpb",
+        "patchSetId": 3
+      },
+      "lineNbr": 10654,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-01-16T02:08:35Z",
+      "side": 1,
+      "message": "Please review the cl/289568834. Yes, i think we should add generation logic or presubmit test to check the version.",
+      "parentUuid": "c379a812_9730de82",
+      "range": {
+        "startLine": 10654,
+        "startChar": 9,
+        "endLine": 10654,
+        "endChar": 17
+      },
+      "revId": "23da6f1f5c1220e450b8e6df04281e0f045503d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
