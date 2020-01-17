@@ -1,0 +1,9 @@
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Code-Review+2: Shuo Qian <shuoq@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Shuo Qian <shuoq@google.com>
+Submitted-at: Fri, 17 Jan 2020 19:49:29 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1210907
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
