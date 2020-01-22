@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d23e9619_6c43b9fe",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1002620
+      },
+      "writtenOn": "2020-01-22T03:25:47Z",
+      "side": 1,
+      "message": "message type\u003d",
+      "range": {
+        "startLine": 610,
+        "startChar": 68,
+        "endLine": 610,
+        "endChar": 80
+      },
+      "revId": "6ee7ede7a64e7d2a1f361e1bfb189eeba3288c15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0152cc29_067cbfdb",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1002620
+      },
+      "writtenOn": "2020-01-22T03:25:47Z",
+      "side": 1,
+      "message": "I don\u0027t think the style requires \"\u003d\u003d true\" here.",
+      "range": {
+        "startLine": 619,
+        "startChar": 49,
+        "endLine": 619,
+        "endChar": 56
+      },
+      "revId": "6ee7ede7a64e7d2a1f361e1bfb189eeba3288c15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b7b3a8_86fd9316",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1002620
+      },
+      "writtenOn": "2020-01-22T03:25:47Z",
+      "side": 1,
+      "message": "Fail -\u003e Failed",
+      "range": {
+        "startLine": 798,
+        "startChar": 48,
+        "endLine": 798,
+        "endChar": 52
+      },
+      "revId": "6ee7ede7a64e7d2a1f361e1bfb189eeba3288c15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
