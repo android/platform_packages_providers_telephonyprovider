@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cafeb3b_6665196e",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2020-01-22T07:43:14Z",
+      "side": 1,
+      "message": "SmsManager",
+      "range": {
+        "startLine": 584,
+        "startChar": 28,
+        "endLine": 584,
+        "endChar": 47
+      },
+      "revId": "312f7b75d061c455d19f122c232e0156b8c855b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
