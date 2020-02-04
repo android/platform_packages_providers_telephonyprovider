@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ddd1043_3daa7ba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1131623
+      },
+      "writtenOn": "2020-02-04T20:10:03Z",
+      "side": 1,
+      "message": "Hello, would it be possible to put the source of this version in the commit message? I think it could be a commit history of go/carriers.ascii, right?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "5c5e6ff96cd4b852c27289af6c829412e763e219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
