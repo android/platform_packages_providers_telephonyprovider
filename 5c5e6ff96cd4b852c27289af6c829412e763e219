@@ -22,6 +22,30 @@
       "revId": "5c5e6ff96cd4b852c27289af6c829412e763e219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7201a08d_6414cc9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-02-05T03:28:18Z",
+      "side": 1,
+      "message": "No, carriers.ascii doesn\u0027t have any version. The version is only for carrier_list.textpb.\n\nI updated the last commit CL on commit message.",
+      "parentUuid": "5ddd1043_3daa7ba4",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "5c5e6ff96cd4b852c27289af6c829412e763e219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
