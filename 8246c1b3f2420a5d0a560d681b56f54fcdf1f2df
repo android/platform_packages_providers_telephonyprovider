@@ -1,0 +1,10 @@
+Code-Review+2: Shuo Qian <shuoq@google.com>
+Code-Review+1: Android carrier id releaser <carrier-id-releaser@system.gserviceaccount.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Submitted-by: Calvin Pan <calvinpan@google.com>
+Submitted-at: Wed, 11 Mar 2020 09:37:20 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1254857
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
