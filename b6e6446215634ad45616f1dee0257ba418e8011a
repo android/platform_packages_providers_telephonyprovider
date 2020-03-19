@@ -1,0 +1,7 @@
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Code-Review+2: Jack Yu <jackyu@google.com>
+Submitted-by: Jack Yu <jackyu@google.com>
+Submitted-at: Thu, 19 Mar 2020 04:26:27 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1261680
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
