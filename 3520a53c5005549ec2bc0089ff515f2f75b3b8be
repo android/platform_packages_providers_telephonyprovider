@@ -1,0 +1,11 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Code-Review+2: Shuo Qian <shuoq@google.com>
+Code-Review+1: Android carrier id releaser <carrier-id-releaser@system.gserviceaccount.com>
+Autosubmit+1: Android carrier id releaser <carrier-id-releaser@system.gserviceaccount.com>
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 16 Apr 2020 16:31:09 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1286933
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
