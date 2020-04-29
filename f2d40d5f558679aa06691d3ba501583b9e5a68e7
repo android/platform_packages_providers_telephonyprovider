@@ -1,0 +1,11 @@
+Open-Source-Licensing-1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Open-Source-Licensing+2: Bob Badour <bbadour@google.com>
+Open-Source-Licensing+2: Amit Mahajan <amitmahajan@google.com>
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Bob Badour <bbadour@google.com>
+Submitted-at: Wed, 29 Apr 2020 04:54:36 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1296906
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
