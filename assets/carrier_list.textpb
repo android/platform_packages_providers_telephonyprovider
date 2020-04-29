@@ -1304,6 +1304,9 @@ carrier_id {
   carrier_name: "Safaricom"
   carrier_attribute {
     mccmnc_tuple: "63902"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "63902"
     spn: "Safaricom"
   }
 }
@@ -4694,7 +4697,9 @@ carrier_id {
   canonical_id: 1670
   carrier_name: "MEO"
   carrier_attribute {
+    mccmnc_tuple: "26802"
     mccmnc_tuple: "26806"
+    mccmnc_tuple: "26880"
   }
 }
 carrier_id {
@@ -8259,7 +8264,7 @@ carrier_id {
   }
   carrier_attribute {
     mccmnc_tuple: "24007"
-    imsi_prefix_xpattern: "24007561"
+    imsi_prefix_xpattern: "240075610"
   }
 }
 carrier_id {
@@ -9976,13 +9981,6 @@ carrier_id {
   }
 }
 carrier_id {
-  canonical_id: 2376
-  carrier_name: "safaricom"
-  carrier_attribute {
-    mccmnc_tuple: "63902"
-  }
-}
-carrier_id {
   canonical_id: 2378
   carrier_name: "Vodafone"
   carrier_attribute {
@@ -10550,6 +10548,13 @@ carrier_id {
     gid1: "6F"
     gid1: "6E"
   }
+  carrier_attribute {
+    mccmnc_tuple: "24007"
+    imsi_prefix_xpattern: "240075614"
+    spn: "GigSky"
+    gid1: "6F"
+    gid1: "6E"
+  }
 }
 carrier_id {
   canonical_id: 2460
@@ -10809,4 +10814,4 @@ carrier_id {
   }
   parent_canonical_id: 1854
 }
-version: 33554462
+version: 33554464
