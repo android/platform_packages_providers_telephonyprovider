@@ -10814,4 +10814,38 @@ carrier_id {
   }
   parent_canonical_id: 1854
 }
+carrier_id {
+  canonical_id: 10021
+  carrier_name: "DENT"
+  carrier_attribute {
+    mccmnc_tuple: "26006"
+    gid1: "3597bfd533"
+     preferred_apn: "global.dentwireless"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "42501"
+    gid1: "3597bfd533"
+    preferred_apn: "global.dentwireless"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "26098"
+    gid1: "3597bfd533"
+    preferred_apn: "global.dentwireless"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "45403"
+    gid1: "3597bfd533"
+    preferred_apn: "global.dentwireless"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "51503"
+    gid1: "3597bfd533"
+    preferred_apn: "global.dentwireless"
+  }
+    carrier_attribute {
+    mccmnc_tuple: "23450"
+    gid1: "3597bfd533"
+    preferred_apn: "global.dentwireless"
+  }
+}
 version: 50331649
