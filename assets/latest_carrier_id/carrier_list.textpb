@@ -7365,6 +7365,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "310410"
     mccmnc_tuple: "310260"
+    mccmnc_tuple: "310280"
     gid1: "DDFF"
     gid1: "DEFF"
   }
@@ -7379,6 +7380,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "310410"
     mccmnc_tuple: "310260"
+    mccmnc_tuple: "310280"
     gid1: "2AC9"
   }
 }
@@ -7386,6 +7388,7 @@ carrier_id {
   canonical_id: 2024
   carrier_name: "Locus Telecom"
   carrier_attribute {
+    mccmnc_tuple: "310280"
     mccmnc_tuple: "310410"
     gid1: "49FF"
   }
@@ -7394,6 +7397,7 @@ carrier_id {
   canonical_id: 2025
   carrier_name: "Telrite/Pure Talk"
   carrier_attribute {
+    mccmnc_tuple: "310280"
     mccmnc_tuple: "310410"
     gid1: "62FF"
   }
@@ -7404,6 +7408,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "310410"
     mccmnc_tuple: "310260"
+    mccmnc_tuple: "310280"
     gid1: "4201"
   }
 }
@@ -7411,6 +7416,7 @@ carrier_id {
   canonical_id: 2027
   carrier_name: "Airvoice"
   carrier_attribute {
+    mccmnc_tuple: "310280"
     mccmnc_tuple: "310410"
     gid1: "44FF"
   }
@@ -7419,6 +7425,7 @@ carrier_id {
   canonical_id: 2028
   carrier_name: "Ztar"
   carrier_attribute {
+    mccmnc_tuple: "310280"
     mccmnc_tuple: "310410"
     gid1: "4102"
   }
@@ -7443,6 +7450,7 @@ carrier_id {
   canonical_id: 2031
   carrier_name: "Kore"
   carrier_attribute {
+    mccmnc_tuple: "310280"
     mccmnc_tuple: "310410"
     gid1: "69FF"
   }
@@ -10603,9 +10611,17 @@ carrier_id {
   }
 }
 carrier_id {
+  canonical_id: 2467
+  carrier_name: "Emergency Services Network"
+  carrier_attribute {
+    mccmnc_tuple: "23471"
+  }
+}
+carrier_id {
   canonical_id: 10000
   carrier_name: "Tracfone-ATT"
   carrier_attribute {
+    mccmnc_tuple: "310280"
     mccmnc_tuple: "310410"
     gid1: "DDFF"
     gid1: "DEFF"
@@ -10814,4 +10830,16 @@ carrier_id {
   }
   parent_canonical_id: 1854
 }
-version: 50331649
+carrier_id {
+  canonical_id: 10021
+  carrier_name: "AT&T 5G"
+  carrier_attribute {
+    mccmnc_tuple: "310280"
+    mccmnc_tuple: "310410"
+    mccmnc_tuple: "310950"
+    mccmnc_tuple: "311180"
+    gid1: "53FF"
+  }
+  parent_canonical_id: 1187
+}
+version: 50331650
