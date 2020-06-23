@@ -1,0 +1,50 @@
+From e205f6d5e4aeb592c0cc57fe21e53b1a8c1f2800 Mon Sep 17 00:00:00 2001
+From: calvinpan <calvinpan@google.com>
+Date: Tue, 23 Jun 2020 16:04:07 +0800
+Subject: [PATCH] Allow OEM to override carrier list without building system
+ image
+
+Add a test path to override pb file.
+
+Bug: 159682790
+Test: Push file to specific path.
+Change-Id: Icfdee63cfa04c1fa94a473c559d4fe5db714be05
+---
+ .../providers/telephony/CarrierIdProvider.java       | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/com/android/providers/telephony/CarrierIdProvider.java b/src/com/android/providers/telephony/CarrierIdProvider.java
+index a3c299fb..d3954f2a 100644
+--- a/src/com/android/providers/telephony/CarrierIdProvider.java
++++ b/src/com/android/providers/telephony/CarrierIdProvider.java
+@@ -83,6 +83,8 @@ public class CarrierIdProvider extends ContentProvider {
+     private static final int VERSION_BITMASK = 0x00FFFFFF;
+     private static final String OTA_UPDATED_PB_PATH = "misc/carrierid/" + ASSETS_PB_FILE;
+     private static final String PREF_FILE = CarrierIdProvider.class.getSimpleName();
++    private static final String OVERRIDE_PB_PATH =
++            "/data/user_de/0/com.android.providers.telephony/files/carrier_list.pb";
+ 
+     private static final UriMatcher s_urlMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+ 
+@@ -527,10 +529,16 @@ public class CarrierIdProvider extends ContentProvider {
+         CarrierIdProto.CarrierList assets = null;
+         CarrierIdProto.CarrierList ota = null;
+         InputStream is = null;
++        File testFile = new File(OVERRIDE_PB_PATH);
+ 
+         try {
+-            is = getContext().getAssets().open(ASSETS_PB_FILE);
+-            assets = CarrierIdProto.CarrierList.parseFrom(readInputStreamToByteArray(is));
++            if (TelephonyUtils.IS_DEBUGGABLE && testFile.exists()) {
++                is = new FileInputStream(testFile);
++                assets = CarrierIdProto.CarrierList.parseFrom(readInputStreamToByteArray(is));
++            } else {
++                is = getContext().getAssets().open(ASSETS_PB_FILE);
++                assets = CarrierIdProto.CarrierList.parseFrom(readInputStreamToByteArray(is));
++            }
+         } catch (IOException ex) {
+             Log.e(TAG, "read carrier list from assets pb failure: " + ex);
+         } finally {
+-- 
+2.27.0.111.gc72c7da667-goog
+
