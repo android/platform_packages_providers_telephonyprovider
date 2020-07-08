@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cebfdf5f_54e497a6",
+        "filename": "assets/sdk30_carrier_id/carrier_list.textpb",
+        "patchSetId": 4
+      },
+      "lineNbr": 10896,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-08T17:03:19Z",
+      "side": 1,
+      "message": "shall we not include precise carrier id update on older SDK (as discussed before)?",
+      "range": {
+        "startLine": 10885,
+        "startChar": 1,
+        "endLine": 10896,
+        "endChar": 1
+      },
+      "revId": "5b798a662e61e505b0e613d718fd26c831107328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
