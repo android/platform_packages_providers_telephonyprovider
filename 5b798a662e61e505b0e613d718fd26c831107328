@@ -22,6 +22,30 @@
       "revId": "5b798a662e61e505b0e613d718fd26c831107328",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0318fb06_e357ba93",
+        "filename": "assets/sdk30_carrier_id/carrier_list.textpb",
+        "patchSetId": 4
+      },
+      "lineNbr": 10896,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-08T17:23:55Z",
+      "side": 1,
+      "message": "nvm, 30 is not published yet this new precise carrier id is expected.",
+      "parentUuid": "cebfdf5f_54e497a6",
+      "range": {
+        "startLine": 10885,
+        "startChar": 1,
+        "endLine": 10896,
+        "endChar": 1
+      },
+      "revId": "5b798a662e61e505b0e613d718fd26c831107328",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
