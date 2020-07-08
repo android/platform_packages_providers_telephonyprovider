@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b346922f_7510979e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-08T05:44:37Z",
+      "side": 1,
+      "message": "nit: this is for test purpose only",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b0f35bb_418e1fb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-08T05:44:37Z",
+      "side": 1,
+      "message": "looks good to me, having some minor comments to avoid confusion.\nAlso, can we add some comments for how to test this at README file?\nhttps://source.corp.google.com/android/packages/providers/TelephonyProvider/assets/README\n\n",
+      "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4114ca24_79e44036",
+        "filename": "src/com/android/providers/telephony/CarrierIdProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-08T05:44:37Z",
+      "side": 1,
+      "message": "nit: add a comment mentioning this is for test purpose only",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 50
+      },
+      "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
