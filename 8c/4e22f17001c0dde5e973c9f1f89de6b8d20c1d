@@ -1,0 +1,10 @@
+Verified+1: Nazanin Bakhshi <nazaninb@google.com>
+Code-Review+2: Nazanin Bakhshi <nazaninb@google.com>
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Nazanin Bakhshi <nazaninb@google.com>
+Submitted-at: Fri, 10 Jul 2020 18:57:26 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1360800
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
