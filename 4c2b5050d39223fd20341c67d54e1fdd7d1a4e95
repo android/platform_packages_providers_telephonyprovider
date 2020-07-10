@@ -16,6 +16,24 @@
       "revId": "4c2b5050d39223fd20341c67d54e1fdd7d1a4e95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "758aee1e_d3245272",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-07-10T05:10:45Z",
+      "side": 1,
+      "message": "We have used the \"Merged-In\" in the rvc CL, so the rvc CL won\u0027t merge into internal master.",
+      "parentUuid": "b963257f_bbe470ff",
+      "revId": "4c2b5050d39223fd20341c67d54e1fdd7d1a4e95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
