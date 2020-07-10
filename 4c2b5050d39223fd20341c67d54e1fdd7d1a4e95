@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b963257f_bbe470ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-10T04:21:47Z",
+      "side": 1,
+      "message": "will this CL cause merge conflict with the rvc CL we merged this morning (for the latest_carrier_id)\nboth CL will merge to internal master. diff are different \nhttps://googleplex-android-review.git.corp.google.com/c/platform/packages/providers/TelephonyProvider/+/12108263/5/assets/latest_carrier_id/carrier_list.textpb",
+      "revId": "4c2b5050d39223fd20341c67d54e1fdd7d1a4e95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
