@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cc416a3d_00c88bd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-07-13T15:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b346922f_7510979e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b0f35bb_418e1fb4",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -36,6 +60,24 @@
       "writtenOn": "2020-07-08T05:44:37Z",
       "side": 1,
       "message": "looks good to me, having some minor comments to avoid confusion.\nAlso, can we add some comments for how to test this at README file?\nhttps://source.corp.google.com/android/packages/providers/TelephonyProvider/assets/README\n\n",
+      "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e491a182_04dd0492",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-07-13T15:04:57Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7b0f35bb_418e1fb4",
       "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -62,6 +104,30 @@
       "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d161bdb7_b822605d",
+        "filename": "src/com/android/providers/telephony/CarrierIdProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1349878
+      },
+      "writtenOn": "2020-07-13T15:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4114ca24_79e44036",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 50
+      },
+      "revId": "5306a83dda5339b0d288073407e736ec9705dbe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
