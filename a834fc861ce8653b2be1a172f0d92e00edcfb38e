@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "236d518e_8cadb35c",
+        "filename": "src/com/android/providers/telephony/CarrierIdProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-14T16:48:04Z",
+      "side": 1,
+      "message": "nit: remove.",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 96
+      },
+      "revId": "a834fc861ce8653b2be1a172f0d92e00edcfb38e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1459eef_a45d43ed",
+        "filename": "src/com/android/providers/telephony/CarrierIdProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2020-07-14T16:48:04Z",
+      "side": 1,
+      "message": "nit: how about rename this to carrier_list_test.pb？or carrier_list_override.pb？\nalso update name in README",
+      "range": {
+        "startLine": 90,
+        "startChar": 67,
+        "endLine": 90,
+        "endChar": 83
+      },
+      "revId": "a834fc861ce8653b2be1a172f0d92e00edcfb38e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
