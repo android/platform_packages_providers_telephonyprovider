@@ -1,0 +1,12 @@
+Code-Review+2: Amit Mahajan <amitmahajan@google.com>
+Code-Review+2: Tom Taylor <tomtaylor@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Autosubmit+1: Amit Mahajan <amitmahajan@google.com>
+Verified+1: Amit Mahajan <amitmahajan@google.com>
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 15 Jul 2020 23:34:56 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1316075
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
