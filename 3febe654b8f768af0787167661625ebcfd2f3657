@@ -16,6 +16,23 @@
       "revId": "3febe654b8f768af0787167661625ebcfd2f3657",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832ba6c2_36ce3866",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003618
+      },
+      "writtenOn": "2020-07-15T23:34:11Z",
+      "side": 1,
+      "message": "There should be a comment somewhere that says the ICC indices are 1-based, not zero-based.",
+      "revId": "3febe654b8f768af0787167661625ebcfd2f3657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
