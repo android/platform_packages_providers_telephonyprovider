@@ -926,7 +926,11 @@ carrier_id {
   }
   carrier_attribute {
     mccmnc_tuple: "20601"
-    gid1: "28"
+    gid1: "2800000000000000"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "20620"
+    gid1: "2800000000000000"
   }
 }
 carrier_id {
@@ -10898,4 +10902,4 @@ carrier_id {
   }
   parent_canonical_id: 1187
 }
-version: 50331650
+version: 33554468
