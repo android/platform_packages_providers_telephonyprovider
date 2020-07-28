@@ -39,6 +39,30 @@
       "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67dc4aba_09ccd747",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1121603
+      },
+      "writtenOn": "2020-07-28T07:50:19Z",
+      "side": 1,
+      "message": "Please refer to below.\nhttps://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/telephony/java/com/android/internal/telephony/SmsMessageBase.java#350",
+      "parentUuid": "b7d6f21b_e7e729d4",
+      "range": {
+        "startLine": 87,
+        "startChar": 58,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
