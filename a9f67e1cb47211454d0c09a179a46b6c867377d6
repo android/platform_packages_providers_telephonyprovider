@@ -16,6 +16,29 @@
       "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7d6f21b_e7e729d4",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2020-07-28T04:48:58Z",
+      "side": 1,
+      "message": "What dictates that it is 1-based? Is there a reason why it\u0027s not 0 based?",
+      "range": {
+        "startLine": 87,
+        "startChar": 58,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
