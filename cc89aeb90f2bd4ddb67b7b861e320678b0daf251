@@ -1,0 +1,571 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "0159946b_a2bfe947",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_mccmnc\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 43
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "3311fa37_b3639679",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_gid1\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 63,
+        "startChar": 12,
+        "endLine": 63,
+        "endChar": 41
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f180f78f_b4915e81",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_gid2\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "9f83b158_3b6227a3",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_plmn\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 41
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "1df88754_909f4b6f",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_imsi_prefix\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 48
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c16ae0ee_38c415fb",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_spn\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 40
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "9cb5c2de_4915389e",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_apn\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 40
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d4d69d2e_1a2f32de",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_iccid_prefix\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ee82f0a5_95ec1543",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_name\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "074fb52a_369803f7",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_access_rule\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "638f1dd5_318344ad",
+        "filename": "tests/src/com/android/providers/telephony/CarrierIdProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_cid\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 37
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2c42084e_9af2445b",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_type\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2e6fa6a5_6b480c12",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_mnc\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 58,
+        "startChar": 11,
+        "endLine": 58,
+        "endChar": 39
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "6513271b_74463a77",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_mnc2\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "0e7d35c5_a8701ad4",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_mcc\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 39
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5c669aa4_d291fb55",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_key1\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 61,
+        "startChar": 11,
+        "endLine": 61,
+        "endChar": 40
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "15428348_7a62c802",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_key2\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 40
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "240aa5f8_3f057eed",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_mvno_type\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 63,
+        "startChar": 11,
+        "endLine": 63,
+        "endChar": 45
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "594c5cdd_881cdea4",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_mvno_match_data\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 64,
+        "startChar": 11,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "fd4cd116_313b65c3",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_key_identifier_data\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 56
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000004095705",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1377716?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "dc1023d6_94309958",
+        "filename": "tests/src/com/android/providers/telephony/CarrierProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1550585
+      },
+      "writtenOn": "2020-07-29T18:23:03Z",
+      "side": 1,
+      "message": "Wrong casing for \"test_key_expiration\". static final variables should be ALL_UPPERCASE.",
+      "range": {
+        "startLine": 66,
+        "startChar": 11,
+        "endLine": 66,
+        "endChar": 49
+      },
+      "revId": "cc89aeb90f2bd4ddb67b7b861e320678b0daf251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
