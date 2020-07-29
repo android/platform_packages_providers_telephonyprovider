@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "9bad91a3_19b0acfd",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2020-07-29T22:34:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "67dc4aba_09ccd747",
+      "range": {
+        "startLine": 87,
+        "startChar": 58,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "343b9cf4_afee1a50",
         "filename": "src/com/android/providers/telephony/SmsProvider.java",
         "patchSetId": 1
@@ -110,6 +134,30 @@
       "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc24234_940c54ce",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2020-07-29T22:34:32Z",
+      "side": 1,
+      "message": "Ok, the comment on deleteMessageFromIcc() is a little misleading then but that can be fixed separately.",
+      "parentUuid": "e01ae327_3f806933",
+      "range": {
+        "startLine": 454,
+        "startChar": 46,
+        "endLine": 454,
+        "endChar": 61
+      },
+      "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
