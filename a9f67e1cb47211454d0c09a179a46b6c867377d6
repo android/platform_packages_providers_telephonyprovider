@@ -63,6 +63,29 @@
       "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343b9cf4_afee1a50",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2020-07-29T06:57:19Z",
+      "side": 1,
+      "message": "What does zero-based list here mean? The messages returned do have a getIndexOnIcc() method that returns the 1-based index, correct?\n\nBtw, what\u0027s the index that\u0027s passed in to SmsManager#deleteMessageFromIcc()? Is it the index in the list returned by getMessagesFromIcc(), or the index as returned by getIndexOnIcc()?",
+      "range": {
+        "startLine": 454,
+        "startChar": 46,
+        "endLine": 454,
+        "endChar": 61
+      },
+      "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
