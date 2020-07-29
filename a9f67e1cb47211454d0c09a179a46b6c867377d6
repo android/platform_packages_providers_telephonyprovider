@@ -86,6 +86,30 @@
       "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e01ae327_3f806933",
+        "filename": "src/com/android/providers/telephony/SmsProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1121603
+      },
+      "writtenOn": "2020-07-29T11:06:34Z",
+      "side": 1,
+      "message": "It just means that the list has a valid element from position 0.\n\nIf there is a valid message at first EFsms space(index 1) in the ICC, we can find this message at position 0 of a list returned by SmsManager#getMessagesFromIcc(). Then list.get(0).getIndexOnIcc() is 1.\nIf first valid message is at index 2 in the ICC(It means that index 1 is free), list.get(0).getIndexOnIcc() is 2. Not 1.\nPlease refer to below\nhttps://android.googlesource.com/platform/frameworks/base/+/master/telephony/java/android/telephony/SmsManager.java#1910\n\nAnd the index returned by getIndexOnIcc() also should be used for SmsManager#deleteMessageFromIcc().",
+      "parentUuid": "343b9cf4_afee1a50",
+      "range": {
+        "startLine": 454,
+        "startChar": 46,
+        "endLine": 454,
+        "endChar": 61
+      },
+      "revId": "a9f67e1cb47211454d0c09a179a46b6c867377d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
