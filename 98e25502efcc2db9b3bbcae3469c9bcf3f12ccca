@@ -16,6 +16,24 @@
       "revId": "98e25502efcc2db9b3bbcae3469c9bcf3f12ccca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d02755e1_6dbc259a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1056478
+      },
+      "writtenOn": "2020-07-31T17:50:24Z",
+      "side": 1,
+      "message": "Correction; issue resolved in internal.  In any case, the merged-in should resolve the merge issue.",
+      "parentUuid": "62a8cf6c_ab1acf24",
+      "revId": "98e25502efcc2db9b3bbcae3469c9bcf3f12ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
