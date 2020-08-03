@@ -1,0 +1,10 @@
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Autosubmit+1: Tyler Gunn <tgunn@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Code-Review+2: Jeff Sharkey <jsharkey@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Mon, 03 Aug 2020 20:10:38 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1377716
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
