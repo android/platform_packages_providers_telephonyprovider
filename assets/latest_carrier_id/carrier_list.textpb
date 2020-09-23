@@ -1254,7 +1254,7 @@ carrier_id {
 }
 carrier_id {
   canonical_id: 802
-  carrier_name: "Idea"
+  carrier_name: "Vi"
   carrier_attribute {
     mccmnc_tuple: "40404"
     mccmnc_tuple: "40407"
@@ -6847,7 +6847,7 @@ carrier_id {
 }
 carrier_id {
   canonical_id: 1963
-  carrier_name: "Vodafone"
+  carrier_name: "Vi"
   carrier_attribute {
     mccmnc_tuple: "40401"
     mccmnc_tuple: "40405"
@@ -9986,7 +9986,7 @@ carrier_id {
 }
 carrier_id {
   canonical_id: 2378
-  carrier_name: "Vodafone"
+  carrier_name: "Vi"
   carrier_attribute {
     mccmnc_tuple: "40401"
     mccmnc_tuple: "40405"
@@ -11157,4 +11157,4 @@ carrier_id {
   }
   parent_canonical_id: 2023
 }
-version: 50331651
+version: 50331652
