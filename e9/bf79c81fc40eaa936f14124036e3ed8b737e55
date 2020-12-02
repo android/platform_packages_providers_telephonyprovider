@@ -1,0 +1,11 @@
+Autosubmit+1: Calvin Pan <calvinpan@google.com>
+Autosubmit+1: Android carrier id releaser <carrier-id-releaser@system.gserviceaccount.com>
+Code-Review+2: Chen Xu <fionaxu@google.com>
+Code-Review+1: Android carrier id releaser <carrier-id-releaser@system.gserviceaccount.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 02 Dec 2020 01:13:44 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1515190
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
