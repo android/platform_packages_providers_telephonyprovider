@@ -10952,6 +10952,10 @@ carrier_id {
     gid1: "DDFF"
     gid1: "DEFF"
   }
+  carrier_attribute {
+    mccmnc_tuple: "310240"
+    gid1: "DEFF"
+  }
   parent_canonical_id: 2022
 }
 carrier_id {
