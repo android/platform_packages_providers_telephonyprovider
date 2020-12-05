@@ -1,0 +1,9 @@
+Autosubmit+1: Bill Yi <byi@google.com>
+Build-Cop-Override+1: Bill Yi <byi@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Sat, 05 Dec 2020 20:36:29 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1519089
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
