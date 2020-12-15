@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000006784126",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1530016?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "8d48ddc9_b6c4b5bf",
+          "description": "Change to \"src/com/android/providers/telephony/TelephonyProvider.java\"",
+          "replacements": [
+            {
+              "path": "src/com/android/providers/telephony/TelephonyProvider.java",
+              "range": {
+                "startLine": 2099,
+                "startChar": 59,
+                "endLine": 2099,
+                "endChar": 66
+              },
+              "replacement": "chosen"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "0cc827dc_1f135c19",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2020-12-15T12:35:51Z",
+      "side": 1,
+      "message": "Common typo found: \"choosen\" -- should it be \"chosen\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 2099,
+        "startChar": 59,
+        "endLine": 2099,
+        "endChar": 66
+      },
+      "revId": "988b65ae1eee94dbea8aaf4b268429debf08601a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
