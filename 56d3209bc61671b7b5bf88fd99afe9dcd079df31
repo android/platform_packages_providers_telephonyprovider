@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f54d5e_103e3078",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1098053
+      },
+      "writtenOn": "2020-12-17T18:32:36Z",
+      "side": 1,
+      "message": "I see one issue in merge testing:\n\npackages/providers/TelephonyProvider/src/com/android/providers/telephony/TelephonyProvider.java:474: error: cannot find symbol\n                + Telephony.SimInfo.COLUMN_CROSS_SIM_CALLING_ENABLED + \" INTEGER DEFAULT 0,\"\n                                   ^\n  symbol:   variable COLUMN_CROSS_SIM_CALLING_ENABLED\n  location: class SimInfo\n\nOnce this is green, i can +2",
+      "revId": "56d3209bc61671b7b5bf88fd99afe9dcd079df31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
