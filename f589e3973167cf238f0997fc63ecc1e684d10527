@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b72db735_e6bcd051",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1392281
+      },
+      "writtenOn": "2020-12-17T12:17:34Z",
+      "side": 1,
+      "message": "Is this going to be added back in or is the functionality replicated somewhere else now for Android S?",
+      "revId": "f589e3973167cf238f0997fc63ecc1e684d10527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
