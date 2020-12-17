@@ -1,0 +1,9 @@
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+2: Treehugger Robot <treehugger-gerrit@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Jack Yu <jackyu@google.com>
+Submitted-by: Hui Wang <huiwang@google.com>
+Submitted-at: Thu, 17 Dec 2020 15:14:37 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/providers/TelephonyProvider/+/1532208
+Project: platform/packages/providers/TelephonyProvider
+Branch: refs/heads/master
