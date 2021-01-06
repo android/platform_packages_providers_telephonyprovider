@@ -919,7 +919,6 @@ carrier_id {
   canonical_id: 717
   carrier_name: "Virgin"
   carrier_attribute {
-    mccmnc_tuple: "23430"
     mccmnc_tuple: "23433"
     mccmnc_tuple: "23438"
     gid1: "2800000000000000"
@@ -5815,7 +5814,8 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "20404"
     spn: "C Spire"
-    spn: "C Spire"
+    spn: "C Spire
+"
   }
 }
 carrier_id {
@@ -10934,6 +10934,22 @@ carrier_id {
   }
 }
 carrier_id {
+  canonical_id: 2507
+  carrier_name: "UPC"
+  carrier_attribute {
+    mccmnc_tuple: "22853"
+    gid1: "75636831FFFFFFFFFF"
+  }
+}
+carrier_id {
+  canonical_id: 2507
+  carrier_name: "Virgin Media Ireland"
+  carrier_attribute {
+    mccmnc_tuple: "27215"
+    gid1: "75696531FFFFFFFFFF"
+  }
+}
+carrier_id {
   canonical_id: 10000
   carrier_name: "Tracfone-ATT"
   carrier_attribute {
@@ -11037,7 +11053,8 @@ carrier_id {
   carrier_name: "C Spire-NL"
   carrier_attribute {
     mccmnc_tuple: "20404"
-    spn: "C Spire"
+    spn: "C Spire
+"
     spn: "C Spire"
   }
   parent_canonical_id: 1836
