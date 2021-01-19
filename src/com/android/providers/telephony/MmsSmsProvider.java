@@ -317,9 +317,6 @@ public class MmsSmsProvider extends ContentProvider {
         mUseStrictPhoneNumberComparation =
             getContext().getResources().getBoolean(
                     com.android.internal.R.bool.config_use_strict_phone_number_comparation);
-        mMinMatch =
-            getContext().getResources().getInteger(
-                    com.android.internal.R.integer.config_phonenumber_compare_min_match);
         TelephonyBackupAgent.DeferredSmsMmsRestoreService.startIfFilesExist(getContext());
         return true;
     }
@@ -551,6 +548,9 @@ public class MmsSmsProvider extends ContentProvider {
         String selection = "address=?";
         String[] selectionArgs;
         long retVal = -1L;
+        mMinMatch =
+            getContext().getResources().getInteger(
+                    com.android.internal.R.integer.config_phonenumber_compare_min_match);
 
         if (!isPhoneNumber) {
             selectionArgs = new String[] { refinedAddress };
@@ -1024,6 +1024,9 @@ public class MmsSmsProvider extends ContentProvider {
             String phoneNumber, String[] projection, String selection,
             String sortOrder, String smsTable, String pduTable) {
         String escapedPhoneNumber = DatabaseUtils.sqlEscapeString(phoneNumber);
+        mMinMatch =
+            getContext().getResources().getInteger(
+                    com.android.internal.R.integer.config_phonenumber_compare_min_match);
         String finalMmsSelection =
                 concatSelections(
                         selection,
