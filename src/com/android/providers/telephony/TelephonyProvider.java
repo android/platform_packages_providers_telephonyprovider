@@ -71,6 +71,7 @@ import static android.provider.Telephony.Carriers.WAIT_TIME_RETRY;
 import static android.provider.Telephony.Carriers._ID;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.app.compat.CompatChanges;
 import android.content.ComponentName;
 import android.content.ContentProvider;
@@ -148,7 +149,7 @@ public class TelephonyProvider extends ContentProvider
     private static final boolean DBG = true;
     private static final boolean VDBG = false; // STOPSHIP if true
 
-    private static final int DATABASE_VERSION = 47 << 16;
+    private static final int DATABASE_VERSION = 49 << 16;
     private static final int URL_UNKNOWN = 0;
     private static final int URL_TELEPHONY = 1;
     private static final int URL_CURRENT = 2;
@@ -473,7 +474,8 @@ public class TelephonyProvider extends ContentProvider
                 + Telephony.SimInfo.COLUMN_ALLOWED_NETWORK_TYPES + " BIGINT DEFAULT -1,"
                 + Telephony.SimInfo.COLUMN_IMS_RCS_UCE_ENABLED + " INTEGER DEFAULT 0,"
                 + Telephony.SimInfo.COLUMN_CROSS_SIM_CALLING_ENABLED + " INTEGER DEFAULT 0,"
-                + Telephony.SimInfo.COLUMN_RCS_CONFIG + " BLOB"
+                + Telephony.SimInfo.COLUMN_RCS_CONFIG + " BLOB,"
+                + Telephony.SimInfo.COLUMN_D2D_STATUS_SHARING + " INTEGER DEFAULT 0"
                 + ");";
     }
 
@@ -1515,6 +1517,20 @@ public class TelephonyProvider extends ContentProvider
                     }
                 }
                 oldVersion = 47 << 16 | 6;
+            }
+
+            if (oldVersion < (48 << 16 | 6)) {
+                try {
+                    // Try to update the siminfo table. It might not be there.
+                    db.execSQL("ALTER TABLE " + SIMINFO_TABLE + " ADD COLUMN "
+                            + Telephony.SimInfo.COLUMN_D2D_STATUS_SHARING
+                            + " INTEGER DEFAULT 0;");
+                } catch (SQLiteException e) {
+                    if (DBG) {
+                        log("onUpgrade failed to updated " + SIMINFO_TABLE
+                                + " to add d2d status sharing column. ");
+                    }
+                }
             }
 
             if (DBG) {
@@ -2956,7 +2972,6 @@ public class TelephonyProvider extends ContentProvider
         }
     }
 
-    @Override
     public synchronized Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sort) {
         if (VDBG) log("query: url=" + url + ", projectionIn=" + projectionIn + ", selection="
