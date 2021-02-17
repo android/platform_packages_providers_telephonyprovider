@@ -1303,6 +1303,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "44010"
     gid1: "00FFFF"
+    gid1: "01FFFF"
   }
   carrier_attribute {
     mccmnc_tuple: "44010"
