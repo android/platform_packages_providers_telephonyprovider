@@ -1303,6 +1303,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "44010"
     gid1: "00FFFF"
+    gid1: "01FFFF"
   }
   carrier_attribute {
     mccmnc_tuple: "44010"
@@ -7044,8 +7045,9 @@ carrier_id {
 }
 carrier_id {
   canonical_id: 1986
-  carrier_name: "Tele2"
+  carrier_name: "Tele2/Altel"
   carrier_attribute {
+    mccmnc_tuple: "40107"
     mccmnc_tuple: "40177"
   }
 }
@@ -8499,13 +8501,6 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "36302"
     mccmnc_tuple: "363020"
-  }
-}
-carrier_id {
-  canonical_id: 2164
-  carrier_name: "ALTEL"
-  carrier_attribute {
-    mccmnc_tuple: "40107"
   }
 }
 carrier_id {
@@ -10092,6 +10087,7 @@ carrier_id {
   carrier_name: "Telekom"
   carrier_attribute {
     mccmnc_tuple: "26201"
+    mccmnc_tuple: "26206"
   }
 }
 carrier_id {
@@ -11201,4 +11197,4 @@ carrier_id {
   }
   parent_canonical_id: 2023
 }
-version: 50331655
+version: 50331656
