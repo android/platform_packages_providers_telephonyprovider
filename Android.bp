@@ -26,6 +26,9 @@ android_app {
     certificate: "platform",
     libs: ["telephony-common"],
     static_libs: ["android-common", "telephonyprovider-protos"],
+    optimize: {
+       proguard_flags_files: ["proguard.flags"],
+    },
 }
 
 filegroup {
