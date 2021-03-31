@@ -3057,6 +3057,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "73001"
     mccmnc_tuple: "73010"
+    mccmnc_tuple: "73026"
   }
 }
 carrier_id {
@@ -6435,7 +6436,10 @@ carrier_id {
   canonical_id: 1915
   carrier_name: "AT&T MX"
   carrier_attribute {
+    mccmnc_tuple: "334040"
     mccmnc_tuple: "334050"
+    mccmnc_tuple: "334070"
+    mccmnc_tuple: "334080"
   }
 }
 carrier_id {
@@ -9396,10 +9400,9 @@ carrier_id {
 }
 carrier_id {
   canonical_id: 2282
-  carrier_name: "Noverca"
+  carrier_name: "kena"
   carrier_attribute {
-    mccmnc_tuple: "22201"
-    spn: "Noverca"
+    mccmnc_tuple: "22207"
   }
 }
 carrier_id {
@@ -9439,11 +9442,7 @@ carrier_id {
   carrier_name: "Halebop"
   carrier_attribute {
     mccmnc_tuple: "24001"
-    imsi_prefix_xpattern: "240017"
-  }
-  carrier_attribute {
-    mccmnc_tuple: "24005"
-    spn: "Halebop"
+    spn: "halebop"
   }
 }
 carrier_id {
@@ -11217,4 +11216,4 @@ carrier_id {
   }
   parent_canonical_id: 1802
 }
-version: 50331656
+version: 50331657
