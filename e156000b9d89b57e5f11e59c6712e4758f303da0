@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b20e27_beef96f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1872924
+      },
+      "writtenOn": "2021-04-09T09:45:38Z",
+      "side": 1,
+      "message": "Part 1 of the changes related to APN and carrier configuration of Goodspeed (declaration of carrier id)",
+      "revId": "e156000b9d89b57e5f11e59c6712e4758f303da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
