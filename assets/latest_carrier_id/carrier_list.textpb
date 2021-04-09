@@ -11217,4 +11217,18 @@ carrier_id {
   }
   parent_canonical_id: 1802
 }
+carrier_id {
+  canonical_id: 2512
+  carrier_name: "Goodspeed"
+  carrier_attribute {
+    mccmnc_tuple: "24042"
+    gid1: "C5"
+    gid2: "D3"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "23203"
+    gid1: "C5"
+    gid2: "D3"
+  }
+}
 version: 50331656
