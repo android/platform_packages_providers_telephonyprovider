@@ -39,6 +39,30 @@
       },
       "revId": "e156000b9d89b57e5f11e59c6712e4758f303da0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b9cac58_91b2ea9b",
+        "filename": "assets/latest_carrier_id/carrier_list.textpb",
+        "patchSetId": 1
+      },
+      "lineNbr": 11226,
+      "author": {
+        "id": 1872924
+      },
+      "writtenOn": "2021-04-13T13:21:17Z",
+      "side": 1,
+      "message": "It might be sufficient, but as we were provided with gid1 and gid2 in addition to mccmnc, I included both in the change set to make it more accurate.",
+      "parentUuid": "8ef28d8e_2c996c61",
+      "range": {
+        "startLine": 11226,
+        "startChar": 3,
+        "endLine": 11226,
+        "endChar": 14
+      },
+      "revId": "e156000b9d89b57e5f11e59c6712e4758f303da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
