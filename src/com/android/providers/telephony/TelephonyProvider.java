@@ -259,6 +259,31 @@ public class TelephonyProvider extends ContentProvider
     private boolean mManagedApnEnforced;
 
     /**
+     * Mobile country codes where there is a high likelyhood that the MNC has 3 digits
+     * and need one more prefix zero to set correct mobile network code value.
+     *
+     * Please note! There are more countries that has 3 digits in their MNC but in
+     * those cases there seem to be both 2 and 3 digits so we risk mess up if we add
+     * more prefix zeros.
+     *
+     * Please note2! The real solution is to add the MCCMNC combo to carrier id
+     * carrier_list, this is just a best guess.
+     */
+    private static final String[] COUNTRY_MCC_WITH_THREE_DIGIT_MNC = {
+            "310" // Guam, USA
+           ,"311" // USA
+           ,"312" // USA
+           ,"334" // Mexico
+           ,"338" // Jamaica
+           ,"344" // Antigua and Barbuda
+           ,"365" // Anguilla
+           ,"405" // India
+           ,"708" // Honduras
+           ,"722" // Argentina
+           ,"732" // Colombia
+            };
+
+    /**
      * Available radio technologies for GSM, UMTS and CDMA.
      * Duplicates the constants from hardware/radio/include/ril.h
      * This should only be used by agents working with the ril.  Others
@@ -4223,18 +4248,32 @@ public class TelephonyProvider extends ContentProvider
         }
         String twoDigitMnc = String.format(Locale.getDefault(), "%02d", mnc);
         String threeDigitMnc = "0" + twoDigitMnc;
+        boolean threeDigitNetworkCode =
+                Arrays.asList(COUNTRY_MCC_WITH_THREE_DIGIT_MNC).contains(mcc);
+        int twoDigitResult = countMccMncInCarrierList(context, mcc + twoDigitMnc);
+        int threeDigitResult = countMccMncInCarrierList(context, mcc + threeDigitMnc);
 
-        try (
-                Cursor twoDigitMncCursor = context.getContentResolver().query(
-                        Telephony.CarrierId.All.CONTENT_URI,
-                        /* projection */ null,
-                        /* selection */ Telephony.CarrierId.All.MCCMNC + "=?",
-                        /* selectionArgs */ new String[]{mcc + twoDigitMnc}, null)
-        ) {
-            if (twoDigitMncCursor.getCount() > 0) {
-                return twoDigitMnc;
-            }
+        if ((threeDigitResult > twoDigitResult) ||
+                (threeDigitNetworkCode && (twoDigitResult == threeDigitResult))) {
             return threeDigitMnc;
+        } else {
+            return twoDigitMnc;
+        }
+    }
+
+    /**
+     * Check carrier_list how many mcc mnc combo matches there are
+     */
+    private static int countMccMncInCarrierList(Context ctx, String mccMncCombo) {
+        try (
+            Cursor mccMncCursor = ctx.getContentResolver().query(
+                    Telephony.CarrierId.All.CONTENT_URI,
+                    /* projection */ null,
+                    /* selection */ Telephony.CarrierId.All.MCCMNC + "=?",
+                    /* selectionArgs */ new String[]{mccMncCombo}, null);
+        )
+        {
+            return mccMncCursor.getCount();
         }
     }
 
