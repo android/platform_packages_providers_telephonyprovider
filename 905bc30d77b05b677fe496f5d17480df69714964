@@ -16,6 +16,24 @@
       "message": "Uploaded revised patch with new carrier id from the issue tracker",
       "revId": "905bc30d77b05b677fe496f5d17480df69714964",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb5f70c0_eb38d5f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2021-04-16T11:16:32Z",
+      "side": 1,
+      "message": "thanks this patch is not needed, we will auto release a new carrier list with this ID defined.",
+      "parentUuid": "3e36a339_cf1c2ec2",
+      "revId": "905bc30d77b05b677fe496f5d17480df69714964",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
