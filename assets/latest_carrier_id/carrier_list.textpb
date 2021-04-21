@@ -777,6 +777,7 @@ carrier_id {
   carrier_name: "WOM"
   carrier_attribute {
     mccmnc_tuple: "732130"
+    mccmnc_tuple: "732360"
   }
 }
 carrier_id {
@@ -10979,6 +10980,18 @@ carrier_id {
   }
 }
 carrier_id {
+  canonical_id: 2512
+  carrier_name: "Goodspeed"
+  carrier_attribute {
+    mccmnc_tuple: "24042"
+    gid1: "C5"
+  }
+  carrier_attribute {
+    mccmnc_tuple: "23203"
+    gid1: "C5"
+  }
+}
+carrier_id {
   canonical_id: 10000
   carrier_name: "Tracfone-ATT"
   carrier_attribute {
@@ -11235,4 +11248,4 @@ carrier_id {
   }
   parent_canonical_id: 1802
 }
-version: 50331657
+version: 50331658
