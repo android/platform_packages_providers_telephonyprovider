@@ -16,6 +16,23 @@
       "message": "Please have a look, a lot of the Japanese sim cards are not in the carrier_list so this problem just got bigger",
       "revId": "56d28d52c4ccd0592600cc8d925a7c24b12dfb93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95696d07_9f6739b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221112
+      },
+      "writtenOn": "2021-04-22T09:07:26Z",
+      "side": 1,
+      "message": "@Amit, Chen: What do you say, is this an ok solution to improve this situation?\nBR\nMattias",
+      "revId": "56d28d52c4ccd0592600cc8d925a7c24b12dfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
