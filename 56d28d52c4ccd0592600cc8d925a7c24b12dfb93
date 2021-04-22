@@ -33,6 +33,24 @@
       "message": "@Amit, Chen: What do you say, is this an ok solution to improve this situation?\nBR\nMattias",
       "revId": "56d28d52c4ccd0592600cc8d925a7c24b12dfb93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a7f893_97d41ca2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054648
+      },
+      "writtenOn": "2021-04-22T19:17:27Z",
+      "side": 1,
+      "message": "I will let Chen comment on it from carrier id perspective. However she is OOO this week. Please wait until next week, or let me know if it\u0027s urgent for you.",
+      "parentUuid": "95696d07_9f6739b9",
+      "revId": "56d28d52c4ccd0592600cc8d925a7c24b12dfb93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
