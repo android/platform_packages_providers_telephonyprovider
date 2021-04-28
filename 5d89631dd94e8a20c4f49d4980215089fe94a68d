@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a7fbd1a_8a93fb90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221112
+      },
+      "writtenOn": "2021-04-28T10:56:34Z",
+      "side": 1,
+      "message": "please have a look, I have created a new Bug just to take care of the generic issue here",
+      "revId": "5d89631dd94e8a20c4f49d4980215089fe94a68d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
