@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e46ac28_303d38c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221112
+      },
+      "writtenOn": "2021-05-18T09:33:16Z",
+      "side": 1,
+      "message": "Sorry, I had the old bug in the updated commit message. Chen fixed this in patch set 5, 186542894 was created as a new Bug to separate the carrier id problem from the generic problem. Yes this CL is still needed, we see several carriers in Japan that get this bug.",
+      "parentUuid": "cb76ec6d_cbed627b",
+      "revId": "6c1bbae1c98e8d08af487c69b64c9fbf177723b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a99756ca_acf239cc",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-05-18T03:38:43Z",
       "side": 1,
       "message": "the previous assumption is returning 3 digit by default if neither are valid because 3 digits are more commonly used.\n\nafter the change, if neither are valid then we are more likely to return 2 digit instead. returning 3 digit is completely determined by COUNTRY_MCC_WITH_THREE_DIGIT_MNC which non-complete.\n\nI think we should 1) build COUNTRY_MCC_WITH_TWO_DIGIT_MNC instead or 2) have complete THREE_DIGIT_MNC list or 3) upload missing JP mccmnc with two digit mnc with carrier informations. we can try to get them merged to the carrier id list.",
+      "range": {
+        "startLine": 4910,
+        "startChar": 7,
+        "endLine": 4915,
+        "endChar": 9
+      },
+      "revId": "6c1bbae1c98e8d08af487c69b64c9fbf177723b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a951f2fb_81ad5ef1",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4915,
+      "author": {
+        "id": 1221112
+      },
+      "writtenOn": "2021-05-18T09:33:16Z",
+      "side": 1,
+      "message": "A 3 digit MNC country code is much less common than a two digit one so default should be a 2 digit one. If I check my internal APN list I get 24 country codes with a three digit network code out of 209 country codes in total.\n\nReason the list was not complete from the start was there were some 3 digit MNC country codes that had both 2 and 3 digit MNCs in the APN list that made me confused. Examples were Bermuda, Barbados, Cayman Islands etc,  but I now realize that those can be fixed in the RRO apn so I will update the list to a complete one.",
+      "parentUuid": "a99756ca_acf239cc",
       "range": {
         "startLine": 4910,
         "startChar": 7,
