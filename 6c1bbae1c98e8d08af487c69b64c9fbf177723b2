@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb76ec6d_cbed627b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002609
+      },
+      "writtenOn": "2021-05-18T01:35:51Z",
+      "side": 1,
+      "message": "The bug this is associated with has been marked fixed.  Is this CL still needed?  Is there a case not covered by the fixed bug that this addresses?  Perhaps it needs a new bug?",
+      "revId": "6c1bbae1c98e8d08af487c69b64c9fbf177723b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
