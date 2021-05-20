@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e19dba55_81ec5f3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2021-05-20T06:02:50Z",
+      "side": 1,
+      "message": "Do you need this merged to S branch otherwise this change will be available on T going forward.\nIf this is a critical issue and need to be fixed in S, please let us know",
+      "revId": "7c7d4c7d04e7b0d3a7cba1584542685da7889fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
