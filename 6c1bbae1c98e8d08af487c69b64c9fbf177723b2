@@ -105,6 +105,30 @@
       },
       "revId": "6c1bbae1c98e8d08af487c69b64c9fbf177723b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e47d4d5_7553a1dc",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4915,
+      "author": {
+        "id": 1121193
+      },
+      "writtenOn": "2021-05-20T06:01:22Z",
+      "side": 1,
+      "message": "ok, I also confirmed locally that there are more 2 digit MNCs than 3.",
+      "parentUuid": "a9710fe1_bd905707",
+      "range": {
+        "startLine": 4910,
+        "startChar": 7,
+        "endLine": 4915,
+        "endChar": 9
+      },
+      "revId": "6c1bbae1c98e8d08af487c69b64c9fbf177723b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
