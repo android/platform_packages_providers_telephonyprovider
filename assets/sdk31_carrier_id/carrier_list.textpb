@@ -5822,7 +5822,7 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "20404"
     spn: "C Spire"
-    spn: "C Spire\r"
+    spn: "C Spire"
   }
 }
 carrier_id {
@@ -11131,7 +11131,7 @@ carrier_id {
   carrier_name: "C Spire-NL"
   carrier_attribute {
     mccmnc_tuple: "20404"
-    spn: "C Spire\r"
+    spn: "C Spire"
     spn: "C Spire"
   }
   parent_canonical_id: 1836
@@ -11307,4 +11307,4 @@ carrier_id {
   }
   parent_canonical_id: 1894
 }
-version: 67108865
+version: 50331660
