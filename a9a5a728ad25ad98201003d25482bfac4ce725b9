@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393371b6_adabb147",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3205,
+      "author": {
+        "id": 1056478
+      },
+      "writtenOn": "2021-06-01T22:53:02Z",
+      "side": 1,
+      "message": "See original CL with question about calling close on fis.",
+      "range": {
+        "startLine": 3205,
+        "startChar": 8,
+        "endLine": 3205,
+        "endChar": 59
+      },
+      "revId": "a9a5a728ad25ad98201003d25482bfac4ce725b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
