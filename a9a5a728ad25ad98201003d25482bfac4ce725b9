@@ -22,6 +22,30 @@
       },
       "revId": "a9a5a728ad25ad98201003d25482bfac4ce725b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53100f9_b66eaa12",
+        "filename": "src/com/android/providers/telephony/TelephonyProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3205,
+      "author": {
+        "id": 1707895
+      },
+      "writtenOn": "2021-06-02T19:57:16Z",
+      "side": 1,
+      "message": "FileInputStream implements the AutoCloseable interface. Many other examples of this patter for Atomic file found in Android.",
+      "parentUuid": "393371b6_adabb147",
+      "range": {
+        "startLine": 3205,
+        "startChar": 8,
+        "endLine": 3205,
+        "endChar": 59
+      },
+      "revId": "a9a5a728ad25ad98201003d25482bfac4ce725b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
