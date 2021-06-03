@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b68469f7_6e467bcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2021-06-03T00:20:17Z",
+      "side": 1,
+      "message": "As-is cherry-pick from internal branch.",
+      "revId": "7b2c7c867786f626d28bf8ea7af527697e5e78f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
