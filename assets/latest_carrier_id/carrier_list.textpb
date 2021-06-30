@@ -938,6 +938,8 @@ carrier_id {
   canonical_id: 718
   carrier_name: "EE"
   carrier_attribute {
+    mccmnc_tuple: "23431"
+    mccmnc_tuple: "23432"
     mccmnc_tuple: "23430"
     mccmnc_tuple: "23433"
     mccmnc_tuple: "23486"
@@ -6279,11 +6281,6 @@ carrier_id {
   carrier_attribute {
     mccmnc_tuple: "302490"
   }
-  carrier_attribute {
-    mccmnc_tuple: "22201"
-    mccmnc_tuple: "22288"
-    gid1: "ffffff00"
-  }
 }
 carrier_id {
   canonical_id: 1896
@@ -11014,6 +11011,61 @@ carrier_id {
   }
 }
 carrier_id {
+  canonical_id: 2517
+  carrier_name: "Dish"
+  carrier_attribute {
+    mccmnc_tuple: "313340"
+  }
+}
+carrier_id {
+  canonical_id: 2518
+  carrier_name: "Boost Mobile - MNO"
+  carrier_attribute {
+    mccmnc_tuple: "313340"
+    gid1: "6332"
+  }
+}
+carrier_id {
+  canonical_id: 2519
+  carrier_name: "Boost Mobile - MVNO"
+  carrier_attribute {
+    mccmnc_tuple: "310240"
+    gid1: "6432"
+  }
+}
+carrier_id {
+  canonical_id: 2520
+  carrier_name: "Republic - MNO"
+  carrier_attribute {
+    mccmnc_tuple: "313340"
+    gid1: "6630"
+  }
+}
+carrier_id {
+  canonical_id: 2521
+  carrier_name: "Ting - MNO"
+  carrier_attribute {
+    mccmnc_tuple: "313340"
+    gid1: "7330"
+  }
+}
+carrier_id {
+  canonical_id: 2522
+  carrier_name: "Republic - MVNO"
+  carrier_attribute {
+    mccmnc_tuple: "310240"
+    gid1: "6436"
+  }
+}
+carrier_id {
+  canonical_id: 2523
+  carrier_name: "Ting - MVNO"
+  carrier_attribute {
+    mccmnc_tuple: "310240"
+    gid1: "6430"
+  }
+}
+carrier_id {
   canonical_id: 10000
   carrier_name: "Tracfone-ATT"
   carrier_attribute {
@@ -11297,4 +11349,4 @@ carrier_id {
   }
   parent_canonical_id: 1894
 }
-version: 67108865
+version: 67108866
